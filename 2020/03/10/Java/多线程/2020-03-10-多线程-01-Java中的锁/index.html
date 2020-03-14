@@ -1,0 +1,1186 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="Zh_cn">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Java,锁,并发,多线程," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="Java中的锁Java中的锁分类在Java中，锁大致可以分为这些：  公平锁&#x2F;非公平锁 可重入锁&#x2F;非可重入锁 排他锁（独享锁）&#x2F;共享锁 乐观锁&#x2F;悲观锁 分段锁 无锁&#x2F;偏向锁&#x2F;轻量级锁&#x2F;重量级锁 自旋锁&#x2F;适应性自旋锁  这里并不是指的锁的状态，有些针对的是锁的特性。 公平锁&#x2F;非公平锁公平锁公平锁是指多个线程按照申请锁的顺序来获取锁。采用的是先到先得的策略。在线程来获取锁的时候，直接进入队里排队，锁被">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Java中的锁">
+<meta property="og:url" content="http://huhansi.com/2020/03/10/Java/%E5%A4%9A%E7%BA%BF%E7%A8%8B/2020-03-10-%E5%A4%9A%E7%BA%BF%E7%A8%8B-01-Java%E4%B8%AD%E7%9A%84%E9%94%81/index.html">
+<meta property="og:site_name" content="Hansi Blog">
+<meta property="og:description" content="Java中的锁Java中的锁分类在Java中，锁大致可以分为这些：  公平锁&#x2F;非公平锁 可重入锁&#x2F;非可重入锁 排他锁（独享锁）&#x2F;共享锁 乐观锁&#x2F;悲观锁 分段锁 无锁&#x2F;偏向锁&#x2F;轻量级锁&#x2F;重量级锁 自旋锁&#x2F;适应性自旋锁  这里并不是指的锁的状态，有些针对的是锁的特性。 公平锁&#x2F;非公平锁公平锁公平锁是指多个线程按照申请锁的顺序来获取锁。采用的是先到先得的策略。在线程来获取锁的时候，直接进入队里排队，锁被">
+<meta property="og:locale" content="Zh_CN">
+<meta property="og:image" content="https://huhansi.github.io/img/2020-03-10-fair-unfair-lock.png">
+<meta property="og:image" content="https://huhansi.github.io/img/2020-03-10-reentrant-dashui.png">
+<meta property="og:image" content="https://huhansi.github.io/img/2020-03-10-non-reentrant-dashui.png">
+<meta property="og:image" content="https://huhansi.github.io/img/2020-03-10-leguan-beiguan.png">
+<meta property="og:image" content="https://huhansi.github.io/img/2020-03-10-suoshengji.png">
+<meta property="og:image" content="https://huhansi.github.io/img/2020-03-10-spinlock.png">
+<meta property="og:image" content="https://huhansi.github.io/img/2020-03-10-locks.png">
+<meta property="article:published_time" content="2020-03-09T16:00:00.000Z">
+<meta property="article:modified_time" content="2020-03-14T00:51:23.371Z">
+<meta property="article:author" content="Han si">
+<meta property="article:tag" content="Java">
+<meta property="article:tag" content="锁">
+<meta property="article:tag" content="并发">
+<meta property="article:tag" content="多线程">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://huhansi.github.io/img/2020-03-10-fair-unfair-lock.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://huhansi.com/2020/03/10/Java/多线程/2020-03-10-多线程-01-Java中的锁/"/>
+
+
+
+
+
+  <title>Java中的锁 | Hansi Blog</title>
+  
+
+
+
+
+
+
+
+
+<meta name="generator" content="Hexo 4.2.0"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="Zh_cn">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Hansi Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Know something of everything, know everything of something</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            About
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            Search
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="Searching..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://huhansi.com/2020/03/10/Java/%E5%A4%9A%E7%BA%BF%E7%A8%8B/2020-03-10-%E5%A4%9A%E7%BA%BF%E7%A8%8B-01-Java%E4%B8%AD%E7%9A%84%E9%94%81/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Han si">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hansi Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Java中的锁</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-03-10T00:00:00+08:00">
+                2020-03-10
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Java/" itemprop="url" rel="index">
+                    <span itemprop="name">Java</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="Java中的锁"><a href="#Java中的锁" class="headerlink" title="Java中的锁"></a>Java中的锁</h2><h2 id="Java中的锁分类"><a href="#Java中的锁分类" class="headerlink" title="Java中的锁分类"></a>Java中的锁分类</h2><p>在Java中，锁大致可以分为这些：</p>
+<ul>
+<li>公平锁/非公平锁</li>
+<li>可重入锁/非可重入锁</li>
+<li>排他锁（独享锁）/共享锁</li>
+<li>乐观锁/悲观锁</li>
+<li>分段锁</li>
+<li>无锁/偏向锁/轻量级锁/重量级锁</li>
+<li>自旋锁/适应性自旋锁</li>
+</ul>
+<p>这里并不是指的锁的状态，有些针对的是锁的特性。</p>
+<h3 id="公平锁-非公平锁"><a href="#公平锁-非公平锁" class="headerlink" title="公平锁/非公平锁"></a>公平锁/非公平锁</h3><h4 id="公平锁"><a href="#公平锁" class="headerlink" title="公平锁"></a>公平锁</h4><p>公平锁是指多个线程按照申请锁的顺序来获取锁。采用的是先到先得的策略。在线程来获取锁的时候，直接进入队里排队，锁被其他线程释放了之后，队列中的第一个线程才能获取到锁。</p>
+<p>公平锁具有以下优缺点：</p>
+<p><strong>优点</strong>：所有等待锁的线程都具有获取到锁的机会，不会处于一直阻塞的状态；</p>
+<p><strong>缺点：</strong>整体的吞吐率比非公平锁第。等待队列中除第一个线程以外的所有线程都会阻塞，而CPU唤醒阻塞线程的开销比非公平锁大。</p>
+<h4 id="非公平锁"><a href="#非公平锁" class="headerlink" title="非公平锁"></a>非公平锁</h4><p>非公平锁是线程在要加锁的时候，直接去尝试是否能获取到锁，无视队列里面是否存在比它早到的其他线程。如果此时锁刚好被释放，那么此线程就直接获取到锁，不需要阻塞。</p>
+<p>非公平锁具有以下优缺点：</p>
+<p><strong>优点：</strong>可以减少CPU唤醒阻塞线程的开销，整体的吞吐率比公平锁高。有一定的概率，线程在获取锁的时候，刚好锁被其他线程释放，那么当前线程就减少了阻塞和被唤醒的开销。</p>
+<p><strong>缺点：</strong>存在一定的概率导致队列中等待的线程一直等不到或者等很久才能拿到想要的锁。</p>
+<p><img src="https://huhansi.github.io/img/2020-03-10-fair-unfair-lock.png" alt="公平锁/非公平锁示例"></p>
+<h3 id="可重入锁-非可重入锁"><a href="#可重入锁-非可重入锁" class="headerlink" title="可重入锁/非可重入锁"></a>可重入锁/非可重入锁</h3><h4 id="可重入锁"><a href="#可重入锁" class="headerlink" title="可重入锁"></a>可重入锁</h4><p>可重入锁又名递归锁，是指同一个线程在外层方法获取到了锁之后，在进入内部的同步方法时，会自动获取锁。在Java中，synchronized和ReentrantLock都是可重入锁。</p>
+<p>比如下面这段代码</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">LockTest</span> </span>&#123;</span><br><span class="line">	<span class="keyword">private</span> String testString = <span class="string">"Do something"</span>;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">synchronized</span> <span class="keyword">void</span> <span class="title">doSomethingOutter</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		System.out.println(testString);</span><br><span class="line">		doSomethingInner();</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">synchronized</span> <span class="keyword">void</span> <span class="title">doSomethingInner</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		System.out.println(testString);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>上面两个类方法中，doSomethingOutter和doSomethingInner都是被synchronized关键字修饰的。线程在调用doSometingOutter时，获取到了锁，此时在它内部在调用方法doSomethingInner就不需要等doSomethingOutter释放锁，可以直接进入该方法执行。</p>
+<p>synchronized实现可重入参见文章<a href="">synchronized关键字解析</a></p>
+<p>ReentrantLock实现可重入请参见文章<a href="">ReentrantLock解析</a></p>
+<h4 id="非可重入锁"><a href="#非可重入锁" class="headerlink" title="非可重入锁"></a>非可重入锁</h4><p>如果是非可重入锁的话，在进入doSomethingOutter之后，进入方法doSomethingInner之前，doSomethingInner方法需要获取锁，而此时doSomethingOutter方法还无法释放锁，就会造成死锁。</p>
+<p>借用参考文献[1]中打水的例子。许多人在排队打水的时候，管理员允许一个人在获取锁之后可以给多个桶打水。当某个人打水时，先第一个桶和锁绑定打水，接着第二个，第三个，直到所有水桶都打完水之后，才将锁还给管理员。然后管理员把锁分配给下一个人。</p>
+<p><img src="https://huhansi.github.io/img/2020-03-10-reentrant-dashui.png" alt="可重入方式打水"></p>
+<p>如果管理员只允许一把锁只能给一个桶打水的话，在第一个人打完第一桶水之后，不会释放锁，这时候，打第二桶水又需要锁，却无法和锁绑定。导致当前线程出现死锁。剩下的所有线程都无法被唤醒。</p>
+<p><img src="https://huhansi.github.io/img/2020-03-10-non-reentrant-dashui.png" alt="非可重入方式打水"></p>
+<h3 id="排他锁（独享锁）-共享锁"><a href="#排他锁（独享锁）-共享锁" class="headerlink" title="排他锁（独享锁）/共享锁"></a>排他锁（独享锁）/共享锁</h3><p>排他锁指的是这个锁一次只能被一个线程所持有，其他线程如果需要的话，必须等当前线程释放该锁才可。如果线程T对数据A加上排他锁之后，其他线程不可再对数据A加任何类型的锁。获得排他锁的线程T即能读取数据又能修改数据。</p>
+<p>共享锁指的是这个锁可以被多个线程所持有。</p>
+<p>对ReentrantLock来说，它是独享锁。而另外一个ReadWriteLock。它的ReadLock是共享锁，可以被多个线程同时持有，而WriteLock是独享，排他的。如果线程T对数据A加上共享锁之火，其他线程只能对数据A加上共享锁，不能加排他锁。获得共享锁的线程只能读取数据，不能修改数据。</p>
+<p>独享锁和共享锁也是通过AQS实现的，通过实现不同的方法，来实现独享或者共享。详情可参见<a href="">ReentrantReadWriteLock解析</a></p>
+<h3 id="乐观锁-悲观锁"><a href="#乐观锁-悲观锁" class="headerlink" title="乐观锁/悲观锁"></a>乐观锁/悲观锁</h3><p>乐观锁和悲观锁不是什么锁的种类，而是看待并发同步的角度。</p>
+<p>对于同一个数据的并发操作，悲观锁认为其在使用数据的时候，一定会有其他的线程来修改数据，因此，它在获取数据的时候会先加上锁，确保其他线程无法修改数据。在Java中，synchronized和Lock的实现类都是悲观锁。</p>
+<p>而乐观锁则认为其在使用数据时，不会有其他的线程来修改数据，所以不会加锁，只是在更新数据的识货判断之前有没有别的线程已经修改了这个数据。如果这个数据没有被更新，当前线程将自己修改的数据写入。否则，根据不同的实现方式执行不同的操作（例如报错或者重试）。</p>
+<p>乐观锁在Java中时通过无锁编程来实现的，最常采用的是CAS（Compare And Set）算法，Java原子类中的递增操作就是通过CAS自旋实现的。</p>
+<p><img src="https://huhansi.github.io/img/2020-03-10-leguan-beiguan.png" alt="乐观锁/悲观锁图示"></p>
+<p>根据上面的图示，可以得出：</p>
+<ul>
+<li>悲观锁适合写操作比较多的场景，先加锁可以保证写操作时数据正确。</li>
+<li>乐观锁适合读操作多的场景，不加锁的特点能够使其读操作的性能大幅提升</li>
+</ul>
+<p>CAS算法可参考<a href="">CAS算法解析</a></p>
+<h3 id="分段锁"><a href="#分段锁" class="headerlink" title="分段锁"></a>分段锁</h3><p>分段锁是一种锁的设计，并不是一种具体的锁。是在JDK 1.7之中，ConcurrentHashMap采用的一种锁。ConcurrentHashMap就是通过它来实现并发的高效操作。</p>
+<p>具体可参考<a href="">ConcurrentHashMap 在 Java 1.7 和 Java 1.8 中的区别</a></p>
+<h3 id="无锁-偏向锁-轻量级锁-重量级锁"><a href="#无锁-偏向锁-轻量级锁-重量级锁" class="headerlink" title="无锁/偏向锁/轻量级锁/重量级锁"></a>无锁/偏向锁/轻量级锁/重量级锁</h3><h4 id="无锁"><a href="#无锁" class="headerlink" title="无锁"></a>无锁</h4><p>无锁，即没有对资源进行锁定，所有的线程都可以访问并修改同一个资源，但同时只能有一个线程修改成功。</p>
+<p>无锁的特点就是修改操作在循环内进行，线程会不断地尝试比较待修改的值是不是和预期的值一致，是的话就修改成功，并退出，否则，继续循环尝试。</p>
+<h4 id="偏向锁"><a href="#偏向锁" class="headerlink" title="偏向锁"></a>偏向锁</h4><p>偏向锁指的是同一段代码一直被同一个线程所访问，那么该线程后续再来访问的话，就会自动获取锁，减轻锁获取的代价。</p>
+<p>大多数情况下，锁总是由同一线程多次获得，不存在多线程竞争，所以出现了偏向锁。其目标就是在只有一个线程执行同步代码块时能够提高性能。</p>
+<p>偏向锁只有遇到其他线程尝试竞争偏向锁时，持有偏向锁的线程才会释放锁，线程不会主动释放偏向锁。偏向锁的撤销，需要等待全局安全点（在这个时间点上没有字节码正在执行），它会首先暂停拥有偏向锁的线程，判断锁对象是否处于被锁定状态。撤销偏向锁后恢复到无锁或轻量级锁（升级）的状态。</p>
+<p>偏向锁在JDK 1.6及以后的JVM里是默认启用的。可以通过JVM参数关闭偏向锁：<strong>-XX:-UseBiasedLocking=false</strong>，关闭之后程序默认会进入轻量级锁状态。</p>
+<h4 id="轻量级锁"><a href="#轻量级锁" class="headerlink" title="轻量级锁"></a>轻量级锁</h4><p>轻量级锁是指当锁是偏向锁的时候，被另外的线程所访问，偏向锁就会升级为轻量级锁，其他线程会通过自旋的形式尝试获取锁，不会阻塞，从而提高性能。</p>
+<h4 id="重量级锁"><a href="#重量级锁" class="headerlink" title="重量级锁"></a>重量级锁</h4><p>重量级锁是将除了拥有锁的线程以外的线程都阻塞。</p>
+<p>这四种状态时针对synchronized关键字的，在Java1.5中引入了锁升级的机制来实现高效地synchronized。</p>
+<p><img src="https://huhansi.github.io/img/2020-03-10-suoshengji.png" alt="锁升级顺序"></p>
+<h3 id="自旋锁-适应性自旋锁"><a href="#自旋锁-适应性自旋锁" class="headerlink" title="自旋锁/适应性自旋锁"></a>自旋锁/适应性自旋锁</h3><h4 id="自旋锁"><a href="#自旋锁" class="headerlink" title="自旋锁"></a>自旋锁</h4><p>自旋锁的产生基于两个前提：</p>
+<ul>
+<li>有些时候线程切换所消耗的CPU周期比用户代码执行时间还长</li>
+<li>大部分场景下，锁定资源的时间很短，在短时间内频繁地切换上下文，很可能得不偿失</li>
+</ul>
+<p>在这种前提下，就有了自旋锁。如果当前线程T去获取某个锁的时候，发现该锁已经被另外一个线程S所占有，此时它不阻塞自己，而是不放弃CPU的所有权，定期的去轮询线程S是否已经释放锁了，如果已经释放了，那么线程T就可以直接获取同步资源的锁了，直接略过线程休眠和唤起的开销。</p>
+<p>自旋锁也存在缺点。如果线程S长时间没有释放锁的时候，线程T就会长时间占用CPU时间，白白浪费计算资源。所以，应该给自旋锁自旋时间加上上限，如果超过了一定次数，则挂起线程T。可以使用参数（<strong>-XX:PreBlockSpin</strong>）配置，默认是10次。</p>
+<p><img src="https://huhansi.github.io/img/2020-03-10-spinlock.png" alt="自旋锁示例"></p>
+<h4 id="适应性自旋锁"><a href="#适应性自旋锁" class="headerlink" title="适应性自旋锁"></a>适应性自旋锁</h4><p>适应性自旋锁意味着锁自旋的时间不再收参数控制，而是根据线程上一次获取到锁所耗费的自旋时间及锁的拥有者状态决定。</p>
+<p>如果在同一个锁对象上，自旋等待刚刚成功获得过锁，并且持有锁的线程正在运行中，那么虚拟机就会认为这次自旋也是很有可能再次成功，进而它将允许自旋等待持续相对更长的时间。如果对于某个锁，自旋很少成功获得过，那在以后尝试获取这个锁时将可能省略掉自旋过程，直接阻塞线程，避免浪费处理器资源。</p>
+<h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><p>下图是根据参考资料[1]稍微修改而来的脑图。</p>
+<p><img src="https://huhansi.github.io/img/2020-03-10-locks.png" alt="Java中的锁"></p>
+<h2 id="参考文章"><a href="#参考文章" class="headerlink" title="参考文章"></a>参考文章</h2><p>[1].<a href="https://tech.meituan.com/2018/11/15/java-lock.html" target="_blank" rel="noopener">不可不说的Java“锁”</a></p>
+<p>[2].<a href="https://www.cnblogs.com/qifengshi/p/6831055.html" target="_blank" rel="noopener">Java中的锁分类</a></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Java/" rel="tag"># Java</a>
+          
+            <a href="/tags/%E9%94%81/" rel="tag"># 锁</a>
+          
+            <a href="/tags/%E5%B9%B6%E5%8F%91/" rel="tag"># 并发</a>
+          
+            <a href="/tags/%E5%A4%9A%E7%BA%BF%E7%A8%8B/" rel="tag"># 多线程</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2020/03/10/Java/%E5%A4%9A%E7%BA%BF%E7%A8%8B/2020-03-10-%E5%A4%9A%E7%BA%BF%E7%A8%8B-02-synchronized%E5%85%B3%E9%94%AE%E5%AD%97%E8%A7%A3%E6%9E%90/" rel="next" title="synchronized关键字解析">
+                <i class="fa fa-chevron-left"></i> synchronized关键字解析
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2020/03/12/Java/%E5%A4%9A%E7%BA%BF%E7%A8%8B/2020-03-12-%E5%A4%9A%E7%BA%BF%E7%A8%8B-05-Java-CAS-%E8%A7%A3%E6%9E%90/" rel="prev" title="CAS算法解析">
+                CAS算法解析 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Han si</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/%7C%7C%20archive">
+              
+                  <span class="site-state-item-count">135</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-name">categories</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">24</span>
+                  <span class="site-state-item-name">tags</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:kw120943839@gmail.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Java中的锁"><span class="nav-number">1.</span> <span class="nav-text">Java中的锁</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Java中的锁分类"><span class="nav-number">2.</span> <span class="nav-text">Java中的锁分类</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#公平锁-非公平锁"><span class="nav-number">2.1.</span> <span class="nav-text">公平锁&#x2F;非公平锁</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#公平锁"><span class="nav-number">2.1.1.</span> <span class="nav-text">公平锁</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#非公平锁"><span class="nav-number">2.1.2.</span> <span class="nav-text">非公平锁</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#可重入锁-非可重入锁"><span class="nav-number">2.2.</span> <span class="nav-text">可重入锁&#x2F;非可重入锁</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#可重入锁"><span class="nav-number">2.2.1.</span> <span class="nav-text">可重入锁</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#非可重入锁"><span class="nav-number">2.2.2.</span> <span class="nav-text">非可重入锁</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#排他锁（独享锁）-共享锁"><span class="nav-number">2.3.</span> <span class="nav-text">排他锁（独享锁）&#x2F;共享锁</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#乐观锁-悲观锁"><span class="nav-number">2.4.</span> <span class="nav-text">乐观锁&#x2F;悲观锁</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#分段锁"><span class="nav-number">2.5.</span> <span class="nav-text">分段锁</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#无锁-偏向锁-轻量级锁-重量级锁"><span class="nav-number">2.6.</span> <span class="nav-text">无锁&#x2F;偏向锁&#x2F;轻量级锁&#x2F;重量级锁</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#无锁"><span class="nav-number">2.6.1.</span> <span class="nav-text">无锁</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#偏向锁"><span class="nav-number">2.6.2.</span> <span class="nav-text">偏向锁</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#轻量级锁"><span class="nav-number">2.6.3.</span> <span class="nav-text">轻量级锁</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#重量级锁"><span class="nav-number">2.6.4.</span> <span class="nav-text">重量级锁</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#自旋锁-适应性自旋锁"><span class="nav-number">2.7.</span> <span class="nav-text">自旋锁&#x2F;适应性自旋锁</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#自旋锁"><span class="nav-number">2.7.1.</span> <span class="nav-text">自旋锁</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#适应性自旋锁"><span class="nav-number">2.7.2.</span> <span class="nav-text">适应性自旋锁</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#概述"><span class="nav-number">3.</span> <span class="nav-text">概述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考文章"><span class="nav-number">4.</span> <span class="nav-text">参考文章</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Han si</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
