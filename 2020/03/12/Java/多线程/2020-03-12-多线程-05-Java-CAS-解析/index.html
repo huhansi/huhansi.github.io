@@ -396,7 +396,7 @@
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">     * Atomically increments by one the current value.</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> the previous value</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">int</span> <span class="title">getAndIncrement</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> unsafe.getAndAddInt(<span class="keyword">this</span>, valueOffset, <span class="number">1</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">     * Atomically decrements by one the current value.</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> the previous value</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">int</span> <span class="title">getAndDecrement</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> unsafe.getAndAddInt(<span class="keyword">this</span>, valueOffset, -<span class="number">1</span>);</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
 
 <p>摘取了两个AtomicInter类中自增1和自减1的方法来做说明，它们都是调用了UnSave封装的CAS操作来实现的。</p>
-<p>UnSave类相关信息可参见文章<a href="">UnSave类解析</a></p>
+<p>UnSave类相关信息可参见文章<a href>UnSave类解析</a></p>
 <h2 id="CAS算法存在的问题"><a href="#CAS算法存在的问题" class="headerlink" title="CAS算法存在的问题"></a>CAS算法存在的问题</h2><p>CAS算法存在一个ABA问题。</p>
 <p>假设有如下操作：</p>
 <ol>
@@ -447,8 +447,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2020/03/10/Java/%E5%A4%9A%E7%BA%BF%E7%A8%8B/2020-03-10-%E5%A4%9A%E7%BA%BF%E7%A8%8B-01-Java%E4%B8%AD%E7%9A%84%E9%94%81/" rel="next" title="Java中的锁">
-                <i class="fa fa-chevron-left"></i> Java中的锁
+              <a href="/2020/03/12/Java/%E5%A4%9A%E7%BA%BF%E7%A8%8B/2020-03-10-%E5%A4%9A%E7%BA%BF%E7%A8%8B-03-ReentraantLock%E8%A7%A3%E6%9E%90/" rel="next" title="ReentraantLock解析">
+                <i class="fa fa-chevron-left"></i> ReentraantLock解析
               </a>
             
           </div>
@@ -994,7 +994,7 @@
 
                   // select top N slices in content
 
-                  var upperBound = parseInt('1');
+                  var upperBound = parseInt('-1');
                   if (upperBound >= 0) {
                     slicesOfContent = slicesOfContent.slice(0, upperBound);
                   }

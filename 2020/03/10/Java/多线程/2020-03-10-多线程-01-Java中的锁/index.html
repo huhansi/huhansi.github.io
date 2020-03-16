@@ -94,7 +94,7 @@
 <meta property="og:image" content="https://huhansi.github.io/img/2020-03-10-spinlock.png">
 <meta property="og:image" content="https://huhansi.github.io/img/2020-03-10-locks.png">
 <meta property="article:published_time" content="2020-03-09T16:00:00.000Z">
-<meta property="article:modified_time" content="2020-03-14T00:51:23.371Z">
+<meta property="article:modified_time" content="2020-03-16T07:29:36.998Z">
 <meta property="article:author" content="Han si">
 <meta property="article:tag" content="Java">
 <meta property="article:tag" content="锁">
@@ -422,8 +422,8 @@
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">LockTest</span> </span>&#123;</span><br><span class="line">	<span class="keyword">private</span> String testString = <span class="string">"Do something"</span>;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">synchronized</span> <span class="keyword">void</span> <span class="title">doSomethingOutter</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		System.out.println(testString);</span><br><span class="line">		doSomethingInner();</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">synchronized</span> <span class="keyword">void</span> <span class="title">doSomethingInner</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		System.out.println(testString);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>上面两个类方法中，doSomethingOutter和doSomethingInner都是被synchronized关键字修饰的。线程在调用doSometingOutter时，获取到了锁，此时在它内部在调用方法doSomethingInner就不需要等doSomethingOutter释放锁，可以直接进入该方法执行。</p>
-<p>synchronized实现可重入参见文章<a href="">synchronized关键字解析</a></p>
-<p>ReentrantLock实现可重入请参见文章<a href="">ReentrantLock解析</a></p>
+<p>synchronized实现可重入参见文章<a href>synchronized关键字解析</a></p>
+<p>ReentrantLock实现可重入请参见文章<a href>ReentrantLock解析</a></p>
 <h4 id="非可重入锁"><a href="#非可重入锁" class="headerlink" title="非可重入锁"></a>非可重入锁</h4><p>如果是非可重入锁的话，在进入doSomethingOutter之后，进入方法doSomethingInner之前，doSomethingInner方法需要获取锁，而此时doSomethingOutter方法还无法释放锁，就会造成死锁。</p>
 <p>借用参考文献[1]中打水的例子。许多人在排队打水的时候，管理员允许一个人在获取锁之后可以给多个桶打水。当某个人打水时，先第一个桶和锁绑定打水，接着第二个，第三个，直到所有水桶都打完水之后，才将锁还给管理员。然后管理员把锁分配给下一个人。</p>
 <p><img src="https://huhansi.github.io/img/2020-03-10-reentrant-dashui.png" alt="可重入方式打水"></p>
@@ -432,7 +432,7 @@
 <h3 id="排他锁（独享锁）-共享锁"><a href="#排他锁（独享锁）-共享锁" class="headerlink" title="排他锁（独享锁）/共享锁"></a>排他锁（独享锁）/共享锁</h3><p>排他锁指的是这个锁一次只能被一个线程所持有，其他线程如果需要的话，必须等当前线程释放该锁才可。如果线程T对数据A加上排他锁之后，其他线程不可再对数据A加任何类型的锁。获得排他锁的线程T即能读取数据又能修改数据。</p>
 <p>共享锁指的是这个锁可以被多个线程所持有。</p>
 <p>对ReentrantLock来说，它是独享锁。而另外一个ReadWriteLock。它的ReadLock是共享锁，可以被多个线程同时持有，而WriteLock是独享，排他的。如果线程T对数据A加上共享锁之火，其他线程只能对数据A加上共享锁，不能加排他锁。获得共享锁的线程只能读取数据，不能修改数据。</p>
-<p>独享锁和共享锁也是通过AQS实现的，通过实现不同的方法，来实现独享或者共享。详情可参见<a href="">ReentrantReadWriteLock解析</a></p>
+<p>独享锁和共享锁也是通过AQS实现的，通过实现不同的方法，来实现独享或者共享。详情可参见<a href>ReentrantReadWriteLock解析</a></p>
 <h3 id="乐观锁-悲观锁"><a href="#乐观锁-悲观锁" class="headerlink" title="乐观锁/悲观锁"></a>乐观锁/悲观锁</h3><p>乐观锁和悲观锁不是什么锁的种类，而是看待并发同步的角度。</p>
 <p>对于同一个数据的并发操作，悲观锁认为其在使用数据的时候，一定会有其他的线程来修改数据，因此，它在获取数据的时候会先加上锁，确保其他线程无法修改数据。在Java中，synchronized和Lock的实现类都是悲观锁。</p>
 <p>而乐观锁则认为其在使用数据时，不会有其他的线程来修改数据，所以不会加锁，只是在更新数据的识货判断之前有没有别的线程已经修改了这个数据。如果这个数据没有被更新，当前线程将自己修改的数据写入。否则，根据不同的实现方式执行不同的操作（例如报错或者重试）。</p>
@@ -443,9 +443,9 @@
 <li>悲观锁适合写操作比较多的场景，先加锁可以保证写操作时数据正确。</li>
 <li>乐观锁适合读操作多的场景，不加锁的特点能够使其读操作的性能大幅提升</li>
 </ul>
-<p>CAS算法可参考<a href="">CAS算法解析</a></p>
+<p>CAS算法可参考<a href>CAS算法解析</a></p>
 <h3 id="分段锁"><a href="#分段锁" class="headerlink" title="分段锁"></a>分段锁</h3><p>分段锁是一种锁的设计，并不是一种具体的锁。是在JDK 1.7之中，ConcurrentHashMap采用的一种锁。ConcurrentHashMap就是通过它来实现并发的高效操作。</p>
-<p>具体可参考<a href="">ConcurrentHashMap 在 Java 1.7 和 Java 1.8 中的区别</a></p>
+<p>具体可参考<a href>ConcurrentHashMap 在 Java 1.7 和 Java 1.8 中的区别</a></p>
 <h3 id="无锁-偏向锁-轻量级锁-重量级锁"><a href="#无锁-偏向锁-轻量级锁-重量级锁" class="headerlink" title="无锁/偏向锁/轻量级锁/重量级锁"></a>无锁/偏向锁/轻量级锁/重量级锁</h3><h4 id="无锁"><a href="#无锁" class="headerlink" title="无锁"></a>无锁</h4><p>无锁，即没有对资源进行锁定，所有的线程都可以访问并修改同一个资源，但同时只能有一个线程修改成功。</p>
 <p>无锁的特点就是修改操作在循环内进行，线程会不断地尝试比较待修改的值是不是和预期的值一致，是的话就修改成功，并退出，否则，继续循环尝试。</p>
 <h4 id="偏向锁"><a href="#偏向锁" class="headerlink" title="偏向锁"></a>偏向锁</h4><p>偏向锁指的是同一段代码一直被同一个线程所访问，那么该线程后续再来访问的话，就会自动获取锁，减轻锁获取的代价。</p>
@@ -506,8 +506,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2020/03/10/Java/%E5%A4%9A%E7%BA%BF%E7%A8%8B/2020-03-10-%E5%A4%9A%E7%BA%BF%E7%A8%8B-02-synchronized%E5%85%B3%E9%94%AE%E5%AD%97%E8%A7%A3%E6%9E%90/" rel="next" title="synchronized关键字解析">
-                <i class="fa fa-chevron-left"></i> synchronized关键字解析
+              <a href="/2020/03/10/Java/%E5%A4%9A%E7%BA%BF%E7%A8%8B/2020-03-12-%E5%A4%9A%E7%BA%BF%E7%A8%8B-06-ReentrantReadWriteLock%E8%A7%A3%E6%9E%90/" rel="next" title="Java中的锁">
+                <i class="fa fa-chevron-left"></i> Java中的锁
               </a>
             
           </div>
@@ -516,8 +516,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2020/03/12/Java/%E5%A4%9A%E7%BA%BF%E7%A8%8B/2020-03-12-%E5%A4%9A%E7%BA%BF%E7%A8%8B-05-Java-CAS-%E8%A7%A3%E6%9E%90/" rel="prev" title="CAS算法解析">
-                CAS算法解析 <i class="fa fa-chevron-right"></i>
+              <a href="/2020/03/12/Java/%E5%A4%9A%E7%BA%BF%E7%A8%8B/2020-03-10-%E5%A4%9A%E7%BA%BF%E7%A8%8B-03-ReentraantLock%E8%A7%A3%E6%9E%90/" rel="prev" title="ReentraantLock解析">
+                ReentraantLock解析 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -1053,7 +1053,7 @@
 
                   // select top N slices in content
 
-                  var upperBound = parseInt('1');
+                  var upperBound = parseInt('-1');
                   if (upperBound >= 0) {
                     slicesOfContent = slicesOfContent.slice(0, upperBound);
                   }
