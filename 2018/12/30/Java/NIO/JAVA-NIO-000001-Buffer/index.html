@@ -86,14 +86,14 @@
 <meta property="og:site_name" content="Hansi Blog">
 <meta property="og:description" content="缓冲区-Buffer一个Buffer对象是固定数量的数据的容器。其作用是一个存储器，或者分段运输区，在这里数据可被存储并在之后用于检索。 下图是Buffer的类层次图。在顶部是通用Buffer类。Buffe定义所有缓冲区类型共有的操作，无论是它们所包含的数据类型还是可能具有的特定的行为。  缓冲区基础概念上，缓冲区时报在一个对象内的基本数据元素数组。Buffer类相比一个简单数组的优点是它将关于数">
 <meta property="og:locale" content="Zh_CN">
-<meta property="og:image" content="https://huhansi.github.io/img/2020-03-01-buffer-classes.png">
+<meta property="og:image" content="https://huhansi.github.io/images/2020-03-01-buffer-classes.png">
 <meta property="article:published_time" content="2018-12-29T16:00:00.000Z">
-<meta property="article:modified_time" content="2020-03-16T07:49:32.880Z">
+<meta property="article:modified_time" content="2020-03-16T08:06:54.411Z">
 <meta property="article:author" content="Han si">
 <meta property="article:tag" content="java">
 <meta property="article:tag" content="NIO">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://huhansi.github.io/img/2020-03-01-buffer-classes.png">
+<meta name="twitter:image" content="https://huhansi.github.io/images/2020-03-01-buffer-classes.png">
 
 
 
@@ -391,7 +391,7 @@
       
         <h1 id="缓冲区-Buffer"><a href="#缓冲区-Buffer" class="headerlink" title="缓冲区-Buffer"></a>缓冲区-Buffer</h1><p>一个Buffer对象是固定数量的数据的容器。其作用是一个存储器，或者分段运输区，在这里数据可被存储并在之后用于检索。</p>
 <p>下图是Buffer的类层次图。在顶部是通用Buffer类。Buffe定义所有缓冲区类型共有的操作，无论是它们所包含的数据类型还是可能具有的特定的行为。</p>
-<p><img src="https://huhansi.github.io/img/2020-03-01-buffer-classes.png" alt="Buffer类及其子类"></p>
+<p><img src="https://huhansi.github.io/images/2020-03-01-buffer-classes.png" alt="Buffer类及其子类"></p>
 <h2 id="缓冲区基础"><a href="#缓冲区基础" class="headerlink" title="缓冲区基础"></a>缓冲区基础</h2><p>概念上，缓冲区时报在一个对象内的基本数据元素数组。Buffer类相比一个简单数组的优点是它将关于数据的数据内容和信息包含在一个单一的对象中。Buffer类以及它专有的子类定义了一个用于处理数据缓冲区的API。</p>
 <h3 id="缓冲区属性"><a href="#缓冲区属性" class="headerlink" title="缓冲区属性"></a>缓冲区属性</h3><p>所有的缓冲区都具有四个属性来提供关于其所包含的数据元素的信息，分别是：</p>
 <h4 id="容量（Capacity）"><a href="#容量（Capacity）" class="headerlink" title="容量（Capacity）"></a>容量（Capacity）</h4><p>缓冲区能够容纳的数据元素的最大个数。这个容量在缓冲区创建的时候就被指定，并且无法改变。</p>

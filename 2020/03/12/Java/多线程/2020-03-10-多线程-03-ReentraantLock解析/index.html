@@ -86,9 +86,9 @@
 <meta property="og:site_name" content="Hansi Blog">
 <meta property="og:description" content="ReentrantLock解析ReentrantLock是Java.util.concurrent包中提供的锁。是Lock接口的默认实现，排他锁（独享锁），相对于Synchronized而言，ReentrantLock提供了更细粒度的加锁方式以及更多的操作方式。 ReentrantLock特点 可重入； 可中断 分为公平锁和非公平锁，默认为非公平锁  它的使用方式为 123456Reentrant">
 <meta property="og:locale" content="Zh_CN">
-<meta property="og:image" content="https://huhansi.github.io/img/2020-03-12-ReentrantLock.png">
+<meta property="og:image" content="https://huhansi.github.io/images/2020-03-12-ReentrantLock.png">
 <meta property="article:published_time" content="2020-03-11T16:00:00.000Z">
-<meta property="article:modified_time" content="2020-03-14T00:51:58.922Z">
+<meta property="article:modified_time" content="2020-03-16T08:07:51.432Z">
 <meta property="article:author" content="Han si">
 <meta property="article:tag" content="Java">
 <meta property="article:tag" content="锁">
@@ -96,7 +96,7 @@
 <meta property="article:tag" content="多线程">
 <meta property="article:tag" content="ReentrantLock">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://huhansi.github.io/img/2020-03-12-ReentrantLock.png">
+<meta name="twitter:image" content="https://huhansi.github.io/images/2020-03-12-ReentrantLock.png">
 
 
 
@@ -406,7 +406,7 @@
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">     * Creates an instance of &#123;<span class="doctag">@code</span> ReentrantLock&#125;.</span></span><br><span class="line"><span class="comment">     * This is equivalent to using &#123;<span class="doctag">@code</span> ReentrantLock(false)&#125;.</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">ReentrantLock</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        sync = <span class="keyword">new</span> NonfairSync();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * Creates an instance of &#123;<span class="doctag">@code</span> ReentrantLock&#125; with the</span></span><br><span class="line"><span class="comment">     * given fairness policy.</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> fair &#123;<span class="doctag">@code</span> true&#125; if this lock should use a fair ordering policy</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">ReentrantLock</span><span class="params">(<span class="keyword">boolean</span> fair)</span> </span>&#123;</span><br><span class="line">        sync = fair ? <span class="keyword">new</span> FairSync() : <span class="keyword">new</span> NonfairSync();</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
 
 <h2 id="ReentrantLock类结构"><a href="#ReentrantLock类结构" class="headerlink" title="ReentrantLock类结构"></a>ReentrantLock类结构</h2><p>参见下图，简单梳理了以下，ReentrantLock的类结构图</p>
-<p><img src="https://huhansi.github.io/img/2020-03-12-ReentrantLock.png" alt="ReentrantLock类结构"></p>
+<p><img src="https://huhansi.github.io/images/2020-03-12-ReentrantLock.png" alt="ReentrantLock类结构"></p>
 <ul>
 <li>ReentrantLock实现了Lock，Serializable接口</li>
 <li>内部使用了内部类Sync来实现主要的加锁、解锁逻辑</li>
@@ -493,8 +493,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2020/03/10/Java/%E5%A4%9A%E7%BA%BF%E7%A8%8B/2020-03-10-%E5%A4%9A%E7%BA%BF%E7%A8%8B-01-Java%E4%B8%AD%E7%9A%84%E9%94%81/" rel="next" title="Java中的锁">
-                <i class="fa fa-chevron-left"></i> Java中的锁
+              <a href="/2020/03/12/Java/%E5%A4%9A%E7%BA%BF%E7%A8%8B/2020-03-12-%E5%A4%9A%E7%BA%BF%E7%A8%8B-05-Java-CAS-%E8%A7%A3%E6%9E%90/" rel="next" title="CAS算法解析">
+                <i class="fa fa-chevron-left"></i> CAS算法解析
               </a>
             
           </div>
@@ -502,10 +502,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2020/03/12/Java/%E5%A4%9A%E7%BA%BF%E7%A8%8B/2020-03-12-%E5%A4%9A%E7%BA%BF%E7%A8%8B-05-Java-CAS-%E8%A7%A3%E6%9E%90/" rel="prev" title="CAS算法解析">
-                CAS算法解析 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
