@@ -81,7 +81,7 @@
 
 <meta name="description" content="ReentrantReadWriteLock解析前文提到的synchronized关键和和ReentrantLock，它们都是独占式锁，排他锁。在同一时刻只能有一个线程获取多。这个就非常不适合那种读多写少的场景。 如果有多个线程需要读取共享数据，极少数甚至只有一个线程写共享数据的话，就非常不划算了。读操作对数据没有影响，完全可以并发进行。 于是Java提供了另外一个实现了Lock接口的Reentr">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Java中的锁">
+<meta property="og:title" content="ReentrantReadWriteLock解析">
 <meta property="og:url" content="http://huhansi.com/2020/03/10/Java/%E5%A4%9A%E7%BA%BF%E7%A8%8B/2020-03-12-%E5%A4%9A%E7%BA%BF%E7%A8%8B-06-ReentrantReadWriteLock%E8%A7%A3%E6%9E%90/index.html">
 <meta property="og:site_name" content="Hansi Blog">
 <meta property="og:description" content="ReentrantReadWriteLock解析前文提到的synchronized关键和和ReentrantLock，它们都是独占式锁，排他锁。在同一时刻只能有一个线程获取多。这个就非常不适合那种读多写少的场景。 如果有多个线程需要读取共享数据，极少数甚至只有一个线程写共享数据的话，就非常不划算了。读操作对数据没有影响，完全可以并发进行。 于是Java提供了另外一个实现了Lock接口的Reentr">
@@ -89,7 +89,7 @@
 <meta property="og:image" content="https://huhansi.github.io/images/2020-03-12-ReentrantReadWriteLock.png">
 <meta property="og:image" content="https://huhansi.github.io/images/2020-03-12-state-bit.png">
 <meta property="article:published_time" content="2020-03-09T16:00:00.000Z">
-<meta property="article:modified_time" content="2020-03-16T08:07:56.217Z">
+<meta property="article:modified_time" content="2020-03-16T08:25:30.623Z">
 <meta property="article:author" content="Han si">
 <meta property="article:tag" content="Java">
 <meta property="article:tag" content="锁">
@@ -133,7 +133,7 @@
 
 
 
-  <title>Java中的锁 | Hansi Blog</title>
+  <title>ReentrantReadWriteLock解析 | Hansi Blog</title>
   
 
 
@@ -321,7 +321,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Java中的锁</h1>
+          <h1 class="post-title" itemprop="name headline">ReentrantReadWriteLock解析</h1>
         
 
         <div class="post-meta">
@@ -580,7 +580,7 @@
               
                 <a href="/archives/%7C%7C%20archive">
               
-                  <span class="site-state-item-count">135</span>
+                  <span class="site-state-item-count">136</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -602,7 +602,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">24</span>
+                  <span class="site-state-item-count">25</span>
                   <span class="site-state-item-name">tags</span>
                 </a>
               </div>

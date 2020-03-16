@@ -81,14 +81,14 @@
 
 <meta name="description" content="ReentrantLock解析ReentrantLock是Java.util.concurrent包中提供的锁。是Lock接口的默认实现，排他锁（独享锁），相对于Synchronized而言，ReentrantLock提供了更细粒度的加锁方式以及更多的操作方式。 ReentrantLock特点 可重入； 可中断 分为公平锁和非公平锁，默认为非公平锁  它的使用方式为 123456Reentrant">
 <meta property="og:type" content="article">
-<meta property="og:title" content="ReentraantLock解析">
-<meta property="og:url" content="http://huhansi.com/2020/03/12/Java/%E5%A4%9A%E7%BA%BF%E7%A8%8B/2020-03-10-%E5%A4%9A%E7%BA%BF%E7%A8%8B-03-ReentraantLock%E8%A7%A3%E6%9E%90/index.html">
+<meta property="og:title" content="ReentrantLock解析">
+<meta property="og:url" content="http://huhansi.com/2020/03/12/Java/%E5%A4%9A%E7%BA%BF%E7%A8%8B/2020-03-10-%E5%A4%9A%E7%BA%BF%E7%A8%8B-03-ReentrantLock%E8%A7%A3%E6%9E%90/index.html">
 <meta property="og:site_name" content="Hansi Blog">
 <meta property="og:description" content="ReentrantLock解析ReentrantLock是Java.util.concurrent包中提供的锁。是Lock接口的默认实现，排他锁（独享锁），相对于Synchronized而言，ReentrantLock提供了更细粒度的加锁方式以及更多的操作方式。 ReentrantLock特点 可重入； 可中断 分为公平锁和非公平锁，默认为非公平锁  它的使用方式为 123456Reentrant">
 <meta property="og:locale" content="Zh_CN">
 <meta property="og:image" content="https://huhansi.github.io/images/2020-03-12-ReentrantLock.png">
 <meta property="article:published_time" content="2020-03-11T16:00:00.000Z">
-<meta property="article:modified_time" content="2020-03-16T08:07:51.432Z">
+<meta property="article:modified_time" content="2020-03-16T08:18:43.412Z">
 <meta property="article:author" content="Han si">
 <meta property="article:tag" content="Java">
 <meta property="article:tag" content="锁">
@@ -126,13 +126,13 @@
 
 
 
-  <link rel="canonical" href="http://huhansi.com/2020/03/12/Java/多线程/2020-03-10-多线程-03-ReentraantLock解析/"/>
+  <link rel="canonical" href="http://huhansi.com/2020/03/12/Java/多线程/2020-03-10-多线程-03-ReentrantLock解析/"/>
 
 
 
 
 
-  <title>ReentraantLock解析 | Hansi Blog</title>
+  <title>ReentrantLock解析 | Hansi Blog</title>
   
 
 
@@ -303,7 +303,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://huhansi.com/2020/03/12/Java/%E5%A4%9A%E7%BA%BF%E7%A8%8B/2020-03-10-%E5%A4%9A%E7%BA%BF%E7%A8%8B-03-ReentraantLock%E8%A7%A3%E6%9E%90/">
+    <link itemprop="mainEntityOfPage" href="http://huhansi.com/2020/03/12/Java/%E5%A4%9A%E7%BA%BF%E7%A8%8B/2020-03-10-%E5%A4%9A%E7%BA%BF%E7%A8%8B-03-ReentrantLock%E8%A7%A3%E6%9E%90/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Han si">
@@ -320,7 +320,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">ReentraantLock解析</h1>
+          <h1 class="post-title" itemprop="name headline">ReentrantLock解析</h1>
         
 
         <div class="post-meta">
@@ -578,7 +578,7 @@
               
                 <a href="/archives/%7C%7C%20archive">
               
-                  <span class="site-state-item-count">135</span>
+                  <span class="site-state-item-count">136</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -600,7 +600,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">24</span>
+                  <span class="site-state-item-count">25</span>
                   <span class="site-state-item-name">tags</span>
                 </a>
               </div>
