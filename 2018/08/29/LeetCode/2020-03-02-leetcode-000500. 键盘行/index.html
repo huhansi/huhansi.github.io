@@ -79,16 +79,16 @@
 
 
 
-<meta name="description" content="- 算法 题目给定一个单词列表，只返回可以使用在键盘同一行的字母打印出来的单词。键盘如下图所示。示例1： 12输入: [&quot;Hello&quot;, &quot;Alaska&quot;, &quot;Dad&quot;, &quot;Peace&quot;]输出: [&quot;Alaska&quot;, &quot;Dad&quot;] 注意：  你可以重复使用键盘上同一字符。 你可以">
+<meta name="description" content="- 算法 题目给定一个单词列表，只返回可以使用在键盘同一行的字母打印出来的单词。键盘如下图所示。  示例1： 12输入: [&quot;Hello&quot;, &quot;Alaska&quot;, &quot;Dad&quot;, &quot;Peace&quot;]输出: [&quot;Alaska&quot;, &quot;Dad&quot;] 注意：  你可以重复使用键盘上同一字符。 你">
 <meta property="og:type" content="article">
 <meta property="og:title" content="500. 键盘行">
 <meta property="og:url" content="http://huhansi.com/2018/08/29/LeetCode/2020-03-02-leetcode-000500.%20%E9%94%AE%E7%9B%98%E8%A1%8C/index.html">
 <meta property="og:site_name" content="Hansi Blog">
-<meta property="og:description" content="- 算法 题目给定一个单词列表，只返回可以使用在键盘同一行的字母打印出来的单词。键盘如下图所示。示例1： 12输入: [&quot;Hello&quot;, &quot;Alaska&quot;, &quot;Dad&quot;, &quot;Peace&quot;]输出: [&quot;Alaska&quot;, &quot;Dad&quot;] 注意：  你可以重复使用键盘上同一字符。 你可以">
+<meta property="og:description" content="- 算法 题目给定一个单词列表，只返回可以使用在键盘同一行的字母打印出来的单词。键盘如下图所示。  示例1： 12输入: [&quot;Hello&quot;, &quot;Alaska&quot;, &quot;Dad&quot;, &quot;Peace&quot;]输出: [&quot;Alaska&quot;, &quot;Dad&quot;] 注意：  你可以重复使用键盘上同一字符。 你">
 <meta property="og:locale" content="Zh_CN">
 <meta property="og:image" content="https://huhansi.github.io/img/2020-03-02-000500-keyboard.png">
 <meta property="article:published_time" content="2018-08-28T16:00:00.000Z">
-<meta property="article:modified_time" content="2020-03-02T05:39:49.908Z">
+<meta property="article:modified_time" content="2020-03-16T07:46:54.504Z">
 <meta property="article:author" content="Han si">
 <meta property="article:tag" content="leetcode">
 <meta name="twitter:card" content="summary">
@@ -389,7 +389,9 @@
 
       
         <pre><code>- 算法</code></pre><hr>
-<h2 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h2><p>给定一个单词列表，只返回可以使用在键盘同一行的字母打印出来的单词。键盘如下图所示。<br><img src="https://huhansi.github.io/img/2020-03-02-000500-keyboard.png" alt="键盘"><br><strong>示例1：</strong></p>
+<h2 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h2><p>给定一个单词列表，只返回可以使用在键盘同一行的字母打印出来的单词。键盘如下图所示。</p>
+<p><img src="https://huhansi.github.io/img/2020-03-02-000500-keyboard.png" alt="键盘示例"></p>
+<p><strong>示例1：</strong></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">输入: [&quot;Hello&quot;, &quot;Alaska&quot;, &quot;Dad&quot;, &quot;Peace&quot;]</span><br><span class="line">输出: [&quot;Alaska&quot;, &quot;Dad&quot;]</span><br></pre></td></tr></table></figure>
 <p><strong>注意：</strong></p>
 <ul>
@@ -427,8 +429,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/08/29/LeetCode/2020-03-02-leetcode-000520.%20%E6%A3%80%E6%B5%8B%E5%A4%A7%E5%86%99%E5%AD%97%E6%AF%8D/" rel="next" title="520. 检测大写字母">
-                <i class="fa fa-chevron-left"></i> 520. 检测大写字母
+              <a href="/2018/08/29/LeetCode/2020-03-02-leetcode-000476.%20%E6%95%B0%E5%AD%97%E7%9A%84%E8%A1%A5%E6%95%B0/" rel="next" title="476. 数字的补数">
+                <i class="fa fa-chevron-left"></i> 476. 数字的补数
               </a>
             
           </div>
@@ -437,8 +439,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2018/08/29/LeetCode/2020-03-02-leetcode-000476.%20%E6%95%B0%E5%AD%97%E7%9A%84%E8%A1%A5%E6%95%B0/" rel="prev" title="476. 数字的补数">
-                476. 数字的补数 <i class="fa fa-chevron-right"></i>
+              <a href="/2018/08/29/LeetCode/2020-03-02-leetcode-000412.%20Fizz%20Buzz/" rel="prev" title="412. Fizz Buzz">
+                412. Fizz Buzz <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -974,7 +976,7 @@
 
                   // select top N slices in content
 
-                  var upperBound = parseInt('1');
+                  var upperBound = parseInt('-1');
                   if (upperBound >= 0) {
                     slicesOfContent = slicesOfContent.slice(0, upperBound);
                   }

@@ -413,13 +413,13 @@
 <li>通过继承了Sync类的NonFairSync和FairSync实现了非公平锁和公平锁的逻辑</li>
 <li>Sync内部类继承了AQS</li>
 </ul>
-<p>AQS相关内容可参见<a href="">Java AQS 解析</a></p>
+<p>AQS相关内容可参见<a href>Java AQS 解析</a></p>
 <h2 id="ReentrantLock加-解锁流程分析"><a href="#ReentrantLock加-解锁流程分析" class="headerlink" title="ReentrantLock加/解锁流程分析"></a>ReentrantLock加/解锁流程分析</h2><h3 id="加锁"><a href="#加锁" class="headerlink" title="加锁"></a>加锁</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">lock</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        sync.lock();</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
 
 <p>可以看到，代码就是简简单单一句sync.lock().而这块的sync，根据创建的不同选择，可以是公平锁和非公平锁。那么接下来再看看公平锁和非公平锁是怎么处理这块逻辑的。</p>
 <h4 id="公平锁"><a href="#公平锁" class="headerlink" title="公平锁"></a>公平锁</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">static</span> <span class="keyword">final</span> <span class="class"><span class="keyword">class</span> <span class="title">FairSync</span> <span class="keyword">extends</span> <span class="title">Sync</span> </span>&#123;</span><br><span class="line">        <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">long</span> serialVersionUID = -<span class="number">3000897897090466540L</span>;</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">final</span> <span class="keyword">void</span> <span class="title">lock</span><span class="params">()</span> </span>&#123;</span><br><span class="line">            acquire(<span class="number">1</span>);</span><br><span class="line">        &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<p>它也是简简单单一句acquire(1).追踪进去，发现它是调用的AbstractQueuedSynchronizer类中的acquire方法。具体逻辑请参考文章<a href="">Java AQS 解析</a></p>
+<p>它也是简简单单一句acquire(1).追踪进去，发现它是调用的AbstractQueuedSynchronizer类中的acquire方法。具体逻辑请参考文章<a href>Java AQS 解析</a></p>
 <p>我们看一看公平锁自己实现的tryAcquire();</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;**</span><br><span class="line">         * Fair version of tryAcquire.  Don&#39;t grant access unless</span><br><span class="line">         * recursive call or no waiters or is first.</span><br><span class="line">         *&#x2F;</span><br><span class="line">        protected final boolean tryAcquire(int acquires) &#123;</span><br><span class="line">            final Thread current &#x3D; Thread.currentThread();</span><br><span class="line">            int c &#x3D; getState(); </span><br><span class="line">            if (c &#x3D;&#x3D; 0) &#123;</span><br><span class="line">                if (!hasQueuedPredecessors() &amp;&amp;</span><br><span class="line">                    compareAndSetState(0, acquires)) &#123;</span><br><span class="line">                    setExclusiveOwnerThread(current);</span><br><span class="line">                    return true;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            else if (current &#x3D;&#x3D; getExclusiveOwnerThread()) &#123;</span><br><span class="line">                int nextc &#x3D; c + acquires;</span><br><span class="line">                if (nextc &lt; 0)</span><br><span class="line">                    throw new Error(&quot;Maximum lock count exceeded&quot;);</span><br><span class="line">                setState(nextc);</span><br><span class="line">                return true;</span><br><span class="line">            &#125;</span><br><span class="line">            return false;</span><br><span class="line">        &#125;</span><br></pre></td></tr></table></figure>
 
@@ -444,7 +444,7 @@
 <h3 id="解锁"><a href="#解锁" class="headerlink" title="解锁"></a>解锁</h3><p>ReentrantLock的解锁方法，unlock也是简单的调用了一下Sync的release方法</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">     * Attempts to release this lock.</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * &lt;p&gt;If the current thread is the holder of this lock then the hold</span></span><br><span class="line"><span class="comment">     * count is decremented.  If the hold count is now zero then the lock</span></span><br><span class="line"><span class="comment">     * is released.  If the current thread is not the holder of this</span></span><br><span class="line"><span class="comment">     * lock then &#123;<span class="doctag">@link</span> IllegalMonitorStateException&#125; is thrown.</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@throws</span> IllegalMonitorStateException if the current thread does not</span></span><br><span class="line"><span class="comment">     *         hold this lock</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">unlock</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        sync.release(<span class="number">1</span>);</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
 
-<p>解锁在这块就没有公平和非公平之分了，统一调用的是AQS中的release方法。请参考文章<a href="">Java AQS 解析</a></p>
+<p>解锁在这块就没有公平和非公平之分了，统一调用的是AQS中的release方法。请参考文章<a href>Java AQS 解析</a></p>
 <p>而AQS的release方法中则调用了Sync中实现的tryRelease方法。</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">protected</span> <span class="keyword">final</span> <span class="keyword">boolean</span> <span class="title">tryRelease</span><span class="params">(<span class="keyword">int</span> releases)</span> </span>&#123;</span><br><span class="line">            <span class="keyword">int</span> c = getState() - releases;</span><br><span class="line">            <span class="keyword">if</span> (Thread.currentThread() != getExclusiveOwnerThread())</span><br><span class="line">                <span class="keyword">throw</span> <span class="keyword">new</span> IllegalMonitorStateException();</span><br><span class="line">            <span class="keyword">boolean</span> free = <span class="keyword">false</span>;</span><br><span class="line">            <span class="keyword">if</span> (c == <span class="number">0</span>) &#123;</span><br><span class="line">                free = <span class="keyword">true</span>;</span><br><span class="line">                setExclusiveOwnerThread(<span class="keyword">null</span>);</span><br><span class="line">            &#125;</span><br><span class="line">            setState(c);</span><br><span class="line">            <span class="keyword">return</span> free;</span><br><span class="line">        &#125;</span><br></pre></td></tr></table></figure>
 
@@ -493,8 +493,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2020/03/12/Java/%E5%A4%9A%E7%BA%BF%E7%A8%8B/2020-03-12-%E5%A4%9A%E7%BA%BF%E7%A8%8B-04.Java-AQS-%E8%A7%A3%E6%9E%90/" rel="next" title="Java AQS 解析">
-                <i class="fa fa-chevron-left"></i> Java AQS 解析
+              <a href="/2020/03/10/Java/%E5%A4%9A%E7%BA%BF%E7%A8%8B/2020-03-10-%E5%A4%9A%E7%BA%BF%E7%A8%8B-01-Java%E4%B8%AD%E7%9A%84%E9%94%81/" rel="next" title="Java中的锁">
+                <i class="fa fa-chevron-left"></i> Java中的锁
               </a>
             
           </div>
@@ -502,6 +502,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2020/03/12/Java/%E5%A4%9A%E7%BA%BF%E7%A8%8B/2020-03-12-%E5%A4%9A%E7%BA%BF%E7%A8%8B-05-Java-CAS-%E8%A7%A3%E6%9E%90/" rel="prev" title="CAS算法解析">
+                CAS算法解析 <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -1036,7 +1040,7 @@
 
                   // select top N slices in content
 
-                  var upperBound = parseInt('1');
+                  var upperBound = parseInt('-1');
                   if (upperBound >= 0) {
                     slicesOfContent = slicesOfContent.slice(0, upperBound);
                   }
