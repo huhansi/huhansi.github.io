@@ -86,15 +86,15 @@
 <meta property="og:site_name" content="Hansi Blog">
 <meta property="og:description" content="synchronized关键字解析synchronized关键字的作用synchronized是Java在语言层面提供的一个用于线程并发同步的关键字。它可以应用在三个方面。  修饰实例方法：作用于当前实例对象，对当前实例对象加锁，进入同步代码前需要获取当前实例的锁。 修饰静态方法：作用于当前类对象（XXX.class对象），进入同步代码前需要获取当前类对象的锁。 修饰代码块：作用域指定的对象，进入">
 <meta property="og:locale" content="Zh_CN">
-<meta property="og:image" content="https://huhansi.github.io/img/2020-03-10-200000.png">
-<meta property="og:image" content="https://huhansi.github.io/img/2020-03-11-monitorenter.png">
-<meta property="og:image" content="https://huhansi.github.io/img/2020-03-11-mark-word-detail.png">
-<meta property="og:image" content="https://huhansi.github.io/img/2020-03-11-monitor.png">
-<meta property="og:image" content="https://huhansi.github.io/img/2020-03-11-monitor-keyword.png">
-<meta property="og:image" content="https://huhansi.github.io/img/2020-03-11-monitor-flow.png">
-<meta property="og:image" content="https://huhansi.github.io/img/2020-03-11-monitor-guanlian.png">
+<meta property="og:image" content="https://huhansi.github.io/images/2020-03-10-200000.png">
+<meta property="og:image" content="https://huhansi.github.io/images/2020-03-11-monitorenter.png">
+<meta property="og:image" content="https://huhansi.github.io/images/2020-03-11-mark-word-detail.png">
+<meta property="og:image" content="https://huhansi.github.io/images/2020-03-11-monitor.png">
+<meta property="og:image" content="https://huhansi.github.io/images/2020-03-11-monitor-keyword.png">
+<meta property="og:image" content="https://huhansi.github.io/images/2020-03-11-monitor-flow.png">
+<meta property="og:image" content="https://huhansi.github.io/images/2020-03-11-monitor-guanlian.png">
 <meta property="article:published_time" content="2020-03-09T16:00:00.000Z">
-<meta property="article:modified_time" content="2020-03-14T00:51:14.244Z">
+<meta property="article:modified_time" content="2020-03-16T08:07:49.649Z">
 <meta property="article:author" content="Han si">
 <meta property="article:tag" content="Java">
 <meta property="article:tag" content="锁">
@@ -102,7 +102,7 @@
 <meta property="article:tag" content="多线程">
 <meta property="article:tag" content="synchronized">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://huhansi.github.io/img/2020-03-10-200000.png">
+<meta name="twitter:image" content="https://huhansi.github.io/images/2020-03-10-200000.png">
 
 
 
@@ -408,7 +408,7 @@
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SynchronizedTest</span> <span class="keyword">implements</span> <span class="title">Runnable</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">int</span> i = <span class="number">0</span>;</span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="keyword">private</span> <span class="keyword">synchronized</span> <span class="keyword">void</span> <span class="title">addOne</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="comment">// i++ 不具备原子性，需要锁来保护</span></span><br><span class="line">		i++;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>;i &lt; <span class="number">100000</span>;i++) &#123;</span><br><span class="line">			addOne();</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">		SynchronizedTest st = <span class="keyword">new</span> SynchronizedTest();</span><br><span class="line">		Thread t1 = <span class="keyword">new</span> Thread(st);</span><br><span class="line">		Thread t2 = <span class="keyword">new</span> Thread(st);</span><br><span class="line">		</span><br><span class="line">		t1.start();</span><br><span class="line">		t2.start();</span><br><span class="line">		<span class="keyword">try</span> &#123;</span><br><span class="line">			t1.join();</span><br><span class="line">			t2.join();</span><br><span class="line">		&#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">			<span class="comment">// TODO Auto-generated catch block</span></span><br><span class="line">			e.printStackTrace();</span><br><span class="line">		&#125;</span><br><span class="line">		</span><br><span class="line">		System.out.println(i);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>类SynchronizedTest的静态变量i是共享资源。对其的操作<strong>i++</strong>并不具有原子性，操作分三步：1. 取i原值；2. 加一；3. 存入新值。如果两个线程同时取了i值，同时加1，然后先后存入，就会导致i实际上只加了一次，存在线程安全问题。因此用synchronized关键字对addOne方法进行了修饰。确保同一时间只能有一个线程对i进行自增操作。</p>
-<p><img src="https://huhansi.github.io/img/2020-03-10-200000.png" alt="加上synchronized关键字得到正确的结果"></p>
+<p><img src="https://huhansi.github.io/images/2020-03-10-200000.png" alt="加上synchronized关键字得到正确的结果"></p>
 <p>注意：synchronized关键字修饰的是实例方法，这种场景下，锁住的是当前对象，也就是<strong>this</strong>。此时，其他线程无法在访问该对象的其他synchronized方法。</p>
 <p>因此，下面这种场景下，是无法得到正确的值的。因为，虽然都是用synchronized修饰了addOne方法，但是他们锁住的是两个不同的SynchronizedTest对象。造成i结果互相干扰，每次执行结果不定。</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SynchronizedTest</span> <span class="keyword">implements</span> <span class="title">Runnable</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">int</span> i = <span class="number">0</span>;</span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="keyword">private</span> <span class="keyword">synchronized</span> <span class="keyword">void</span> <span class="title">addOne</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		i++;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>;i &lt; <span class="number">100000</span>;i++) &#123;</span><br><span class="line">			addOne();</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        <span class="comment">// 两个不同的实例对象，锁不住</span></span><br><span class="line">		Thread t1 = <span class="keyword">new</span> Thread(<span class="keyword">new</span> SynchronizedTest());</span><br><span class="line">		Thread t2 = <span class="keyword">new</span> Thread(<span class="keyword">new</span> SynchronizedTest());</span><br><span class="line">		</span><br><span class="line">		t1.start();</span><br><span class="line">		t2.start();</span><br><span class="line">		<span class="keyword">try</span> &#123;</span><br><span class="line">			t1.join();</span><br><span class="line">			t2.join();</span><br><span class="line">		&#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">			<span class="comment">// TODO Auto-generated catch block</span></span><br><span class="line">			e.printStackTrace();</span><br><span class="line">		&#125;</span><br><span class="line">		</span><br><span class="line">		System.out.println(i);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -450,7 +450,7 @@
 <h3 id="monitorexit"><a href="#monitorexit" class="headerlink" title="monitorexit"></a>monitorexit</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">The thread that executes monitorexit must be the owner of the monitor associated with the instance referenced by objectref.</span><br><span class="line"></span><br><span class="line">The thread decrements the entry count of the monitor associated with objectref. If as a result the value of the entry count is zero, the thread exits the monitor and is no longer its owner. Other threads that are blocking to enter the monitor are allowed to attempt to do so.</span><br></pre></td></tr></table></figure>
 
 <p>大意是：只有管程的所有者才可以执行monitorexit指令。当线程减少管程的引用计数直至0时，此线程就退出了管程，也就不再是该管程的所有者了。此时，其他被阻塞的线程就可以尝试着去获取这个管程了。</p>
-<p><img src="https://huhansi.github.io/img/2020-03-11-monitorenter.png" alt="monitorenter流程"></p>
+<p><img src="https://huhansi.github.io/images/2020-03-11-monitorenter.png" alt="monitorenter流程"></p>
 <h2 id="Java对象头"><a href="#Java对象头" class="headerlink" title="Java对象头"></a>Java对象头</h2><p>在理解管程之前，需要了解一下Java的对象头相关知识。</p>
 <p>Java对象保存在内存中，主要以以下三部分组成：</p>
 <ul>
@@ -479,7 +479,7 @@
 </tr>
 </tbody></table>
 <p>在32位的HotSpot虚拟机中，如果对象处于未被锁定的状态下，那么Mark Word的32bit空间里的25位用于存储对象哈希码，4bit用于存储对象分代年龄，2bit用于存储锁标志位，1bit固定为0，表示非偏向锁。其他状态如下图所示：</p>
-<p><img src="https://huhansi.github.io/img/2020-03-11-mark-word-detail.png" alt="Mark Word示例"></p>
+<p><img src="https://huhansi.github.io/images/2020-03-11-mark-word-detail.png" alt="Mark Word示例"></p>
 <p>依据这张图，就可以更好地说明synchronized的锁升级流程了。众所周知，Java中锁升级是从无锁-&gt;偏向锁-&gt;轻量级锁-&gt;重量级锁，并且只能升级，不能降级。</p>
 <p>下面就来结合mark word 来梳理下这个流程。</p>
 <ol>
@@ -500,19 +500,19 @@
 <li>与那些通过修改数据结构实现互斥访问的并发程序设计相比，管程实现很大程度上简化了程序设计。</li>
 <li>管程提供了一种机制，线程可以临时放弃互斥访问，等待某些条件得到满足后，重新获得执行权恢复它的互斥访问。</li>
 </ul>
-<p><img src="https://huhansi.github.io/img/2020-03-11-monitor.png" alt="monitor"></p>
+<p><img src="https://huhansi.github.io/images/2020-03-11-monitor.png" alt="monitor"></p>
 <h3 id="ObjectMonitor"><a href="#ObjectMonitor" class="headerlink" title="ObjectMonitor"></a>ObjectMonitor</h3><p>ObjectMonitor主要数据结构如下</p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">ObjectMonitor() &#123;</span><br><span class="line">    _header       = <span class="literal">NULL</span>;</span><br><span class="line">    _count        = <span class="number">0</span>; <span class="comment">//记录个数</span></span><br><span class="line">    _waiters      = <span class="number">0</span>,</span><br><span class="line">    _recursions   = <span class="number">0</span>;</span><br><span class="line">    _object       = <span class="literal">NULL</span>;</span><br><span class="line">    _owner        = <span class="literal">NULL</span>;</span><br><span class="line">    _WaitSet      = <span class="literal">NULL</span>; <span class="comment">//处于wait状态的线程，会被加入到_WaitSet</span></span><br><span class="line">    _WaitSetLock  = <span class="number">0</span> ;</span><br><span class="line">    _Responsible  = <span class="literal">NULL</span> ;</span><br><span class="line">    _succ         = <span class="literal">NULL</span> ;</span><br><span class="line">    _cxq          = <span class="literal">NULL</span> ;</span><br><span class="line">    FreeNext      = <span class="literal">NULL</span> ;</span><br><span class="line">    _EntryList    = <span class="literal">NULL</span> ; <span class="comment">//处于等待锁block状态的线程，会被加入到该列表</span></span><br><span class="line">    _SpinFreq     = <span class="number">0</span> ;</span><br><span class="line">    _SpinClock    = <span class="number">0</span> ;</span><br><span class="line">    OwnerIsThread = <span class="number">0</span> ;</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
 
 <p>ObjectMonitor主要字段释义如下：</p>
-<p><img src="https://huhansi.github.io/img/2020-03-11-monitor-keyword.png" alt="monitor"></p>
+<p><img src="https://huhansi.github.io/images/2020-03-11-monitor-keyword.png" alt="monitor"></p>
 <p>ObjectMonitor中有两个队列，_WaitSet和_EntryList，用来保存ObjectWaiter对象列表（每个等待锁的线程都会被封装成ObjectWaiter对象），_owner指向持有ObjectMonitor对象的线程。</p>
 <p>当多个线程同时访问一段同步代码时，首先会进入_EntryList，当线程获取到对象的monitor后，进入owner区域，并把monitor中的owner变量设置为当前线程，同时monitor中的计数器count自增1.</p>
 <p>如果线程调用wait方法，将释放当前持有的monitor，owner变量恢复为null，计数器count自减1，同时该线程进入Waitset中等待被唤醒。</p>
 <p>如果其他线程调用 notify() / notifyAll() ，会唤醒_WaitSet中的某个线程，该线程再次尝试获取monitor锁，成功即进入_Owner区域。</p>
 <p>若当前线程也执行完毕，也会释放monitor并复位变量的值，以便其他线程进入获取monitor。如下图所示：</p>
-<p><img src="https://huhansi.github.io/img/2020-03-11-monitor-flow.png" alt="monitor"></p>
-<h2 id="对象与monitor关联"><a href="#对象与monitor关联" class="headerlink" title="对象与monitor关联"></a>对象与monitor关联</h2><p><img src="https://huhansi.github.io/img/2020-03-11-monitor-guanlian.png" alt="monitor"></p>
+<p><img src="https://huhansi.github.io/images/2020-03-11-monitor-flow.png" alt="monitor"></p>
+<h2 id="对象与monitor关联"><a href="#对象与monitor关联" class="headerlink" title="对象与monitor关联"></a>对象与monitor关联</h2><p><img src="https://huhansi.github.io/images/2020-03-11-monitor-guanlian.png" alt="monitor"></p>
 <h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><p><a href="https://blog.csdn.net/javazejian/article/details/72828483?depth_1-utm_source=distribute.pc_relevant.none-task&utm_source=distribute.pc_relevant.none-task" target="_blank" rel="noopener">深入理解Java并发之synchronized实现原理</a></p>
 <p><a href="https://juejin.im/post/5d5374076fb9a06ac76da894" target="_blank" rel="noopener">Synchronized解析——如果你愿意一层一层剥开我的心</a></p>
 
@@ -553,8 +553,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2020/03/03/LeetCode/2020-03-03-leetcode-001281.%20Subtract%20the%20Product%20and%20Sum%20of%20Digits%20of%20an%20Integer/" rel="next" title="1281. Subtract the Product and Sum of Digits of an Integer">
-                <i class="fa fa-chevron-left"></i> 1281. Subtract the Product and Sum of Digits of an Integer
+              <a href="/2020/03/10/Java/%E5%A4%9A%E7%BA%BF%E7%A8%8B/2020-03-12-%E5%A4%9A%E7%BA%BF%E7%A8%8B-06-ReentrantReadWriteLock%E8%A7%A3%E6%9E%90/" rel="next" title="Java中的锁">
+                <i class="fa fa-chevron-left"></i> Java中的锁
               </a>
             
           </div>
@@ -563,7 +563,7 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2020/03/10/Java/%E5%A4%9A%E7%BA%BF%E7%A8%8B/2020-03-12-%E5%A4%9A%E7%BA%BF%E7%A8%8B-06-ReentrantReadWriteLock%E8%A7%A3%E6%9E%90/" rel="prev" title="Java中的锁">
+              <a href="/2020/03/10/Java/%E5%A4%9A%E7%BA%BF%E7%A8%8B/2020-03-10-%E5%A4%9A%E7%BA%BF%E7%A8%8B-01-Java%E4%B8%AD%E7%9A%84%E9%94%81/" rel="prev" title="Java中的锁">
                 Java中的锁 <i class="fa fa-chevron-right"></i>
               </a>
             
