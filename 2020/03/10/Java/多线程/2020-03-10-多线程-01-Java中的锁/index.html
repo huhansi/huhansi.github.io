@@ -94,7 +94,7 @@
 <meta property="og:image" content="https://huhansi.github.io/images/2020-03-10-spinlock.png">
 <meta property="og:image" content="https://huhansi.github.io/images/2020-03-10-locks.png.png">
 <meta property="article:published_time" content="2020-03-09T16:00:00.000Z">
-<meta property="article:modified_time" content="2020-03-16T08:28:36.805Z">
+<meta property="article:modified_time" content="2020-03-16T08:32:27.900Z">
 <meta property="article:author" content="Han si">
 <meta property="article:tag" content="Java">
 <meta property="article:tag" content="锁">
@@ -432,7 +432,7 @@
 <h3 id="排他锁（独享锁）-共享锁"><a href="#排他锁（独享锁）-共享锁" class="headerlink" title="排他锁（独享锁）/共享锁"></a>排他锁（独享锁）/共享锁</h3><p>排他锁指的是这个锁一次只能被一个线程所持有，其他线程如果需要的话，必须等当前线程释放该锁才可。如果线程T对数据A加上排他锁之后，其他线程不可再对数据A加任何类型的锁。获得排他锁的线程T即能读取数据又能修改数据。</p>
 <p>共享锁指的是这个锁可以被多个线程所持有。</p>
 <p>对ReentrantLock来说，它是独享锁。而另外一个ReadWriteLock。它的ReadLock是共享锁，可以被多个线程同时持有，而WriteLock是独享，排他的。如果线程T对数据A加上共享锁之火，其他线程只能对数据A加上共享锁，不能加排他锁。获得共享锁的线程只能读取数据，不能修改数据。</p>
-<p>独享锁和共享锁也是通过AQS实现的，通过实现不同的方法，来实现独享或者共享。详情可参见<a href="http://huhansi.com/2020/03/12/Java/多线程/2020-03-12-多线程-06-ReentrantReadWriteLock解析/">ReentrantReadWriteLock解析</a></p>
+<p>独享锁和共享锁也是通过AQS实现的，通过实现不同的方法，来实现独享或者共享。详情可参见<a href="http://huhansi.com/2020/03/12/Java/多线程/2020-03-10-多线程-06-ReentrantReadWriteLock解析/">ReentrantReadWriteLock解析</a></p>
 <h3 id="乐观锁-悲观锁"><a href="#乐观锁-悲观锁" class="headerlink" title="乐观锁/悲观锁"></a>乐观锁/悲观锁</h3><p>乐观锁和悲观锁不是什么锁的种类，而是看待并发同步的角度。</p>
 <p>对于同一个数据的并发操作，悲观锁认为其在使用数据的时候，一定会有其他的线程来修改数据，因此，它在获取数据的时候会先加上锁，确保其他线程无法修改数据。在Java中，synchronized和Lock的实现类都是悲观锁。</p>
 <p>而乐观锁则认为其在使用数据时，不会有其他的线程来修改数据，所以不会加锁，只是在更新数据的识货判断之前有没有别的线程已经修改了这个数据。如果这个数据没有被更新，当前线程将自己修改的数据写入。否则，根据不同的实现方式执行不同的操作（例如报错或者重试）。</p>
@@ -506,8 +506,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2020/03/10/Java/%E5%A4%9A%E7%BA%BF%E7%A8%8B/2020-03-10-%E5%A4%9A%E7%BA%BF%E7%A8%8B-02-synchronized%E5%85%B3%E9%94%AE%E5%AD%97%E8%A7%A3%E6%9E%90/" rel="next" title="synchronized关键字解析">
-                <i class="fa fa-chevron-left"></i> synchronized关键字解析
+              <a href="/2020/03/10/Java/%E5%A4%9A%E7%BA%BF%E7%A8%8B/2020-03-12-%E5%A4%9A%E7%BA%BF%E7%A8%8B-06-ReentrantReadWriteLock%E8%A7%A3%E6%9E%90/" rel="next" title="ReentrantReadWriteLock解析">
+                <i class="fa fa-chevron-left"></i> ReentrantReadWriteLock解析
               </a>
             
           </div>
@@ -595,7 +595,7 @@
               
                 <a href="/archives/%7C%7C%20archive">
               
-                  <span class="site-state-item-count">136</span>
+                  <span class="site-state-item-count">142</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -617,7 +617,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">25</span>
+                  <span class="site-state-item-count">28</span>
                   <span class="site-state-item-name">tags</span>
                 </a>
               </div>
