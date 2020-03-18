@@ -94,7 +94,7 @@
 <meta property="og:image" content="https://huhansi.github.io/images/2020-03-11-monitor-flow.png">
 <meta property="og:image" content="https://huhansi.github.io/images/2020-03-11-monitor-guanlian.png">
 <meta property="article:published_time" content="2020-03-09T16:00:00.000Z">
-<meta property="article:modified_time" content="2020-03-16T08:07:49.649Z">
+<meta property="article:modified_time" content="2020-03-16T08:33:31.742Z">
 <meta property="article:author" content="Han si">
 <meta property="article:tag" content="Java">
 <meta property="article:tag" content="锁">
@@ -485,7 +485,7 @@
 <ol>
 <li>当Mark Word 没有被当做是锁时，就是一个普通的对象，Mark Word记录对象的HashCode，锁标志位是01，是否为偏向锁那一位是0；</li>
 <li>当对象被当做同步锁并有一个线程A抢到了锁时，锁的标志位还是01，但是否偏向锁那一位改成1，前23bit记录抢到锁的线程id，表示进入偏向锁状态；</li>
-<li>当线程A再次视图来获取锁时，JVM发现同步锁对象的标志位是01，是否偏向锁是1，并且记录的线程id就是自己的id，那么线程A就继续执行同步的代码；</li>
+<li>当线程A再次试图来获取锁时，JVM发现同步锁对象的标志位是01，是否偏向锁是1，并且记录的线程id就是自己的id，那么线程A就继续执行同步的代码；</li>
 <li>当线程B试图获取这个锁时，JVM发现同步锁处于偏向状态，但是Mark Word中记录的线程id不是B的id，那么线程B就会先尝试着用CAS操作获取锁。这里获取锁的操作是有可能成功的，因为线程A一般不会自动释放偏向锁。如果获取锁成功，就把Mark Word中的线程id改为线程B的id，代表线程B获得了这个偏向锁，可以执行同步代码。如果去获取锁失败，则执行步骤5；</li>
 <li>偏向锁状态获取锁失败，代表当前锁存在一定的竞争，偏向锁将升级为轻量级锁。JVM会在线程B的线程栈中开辟一块独立的空间，里面保存指向对象所Mark Word的指针，同时在对象锁Mark Word中保存指向这片空间的指针。上述两个都是CAS操作，如果保存成功，代表线程B抢到了同步锁，就把Mark Word中的锁标志位改成00，可以执行同步锁代码。如果保存失败，表示抢锁失败，竞争太激烈，继续执行步骤6；</li>
 <li>轻量级锁抢锁失败，JVM会使用自旋锁，自旋锁不是一个锁状态，只是代表不停地重试，尝试抢锁。从Java 1.7开始，自旋锁默认是启用的，自选次数由JVM决定（适应性自旋锁）。如果抢锁成功则执行同步锁代码，如果失败则继续执行步骤7；</li>
@@ -553,8 +553,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2020/03/10/Java/%E5%A4%9A%E7%BA%BF%E7%A8%8B/2020-03-12-%E5%A4%9A%E7%BA%BF%E7%A8%8B-06-ReentrantReadWriteLock%E8%A7%A3%E6%9E%90/" rel="next" title="ReentrantReadWriteLock解析">
-                <i class="fa fa-chevron-left"></i> ReentrantReadWriteLock解析
+              <a href="/2020/03/03/LeetCode/leetcode-001281.%20Subtract%20the%20Product%20and%20Sum%20of%20Digits%20of%20an%20Integer/" rel="next" title="1281. Subtract the Product and Sum of Digits of an Integer">
+                <i class="fa fa-chevron-left"></i> 1281. Subtract the Product and Sum of Digits of an Integer
               </a>
             
           </div>
@@ -563,8 +563,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2020/03/10/Java/%E5%A4%9A%E7%BA%BF%E7%A8%8B/2020-03-10-%E5%A4%9A%E7%BA%BF%E7%A8%8B-01-Java%E4%B8%AD%E7%9A%84%E9%94%81/" rel="prev" title="Java中的锁">
-                Java中的锁 <i class="fa fa-chevron-right"></i>
+              <a href="/2020/03/10/Java/%E5%A4%9A%E7%BA%BF%E7%A8%8B/2020-03-12-%E5%A4%9A%E7%BA%BF%E7%A8%8B-06-ReentrantReadWriteLock%E8%A7%A3%E6%9E%90/" rel="prev" title="ReentrantReadWriteLock解析">
+                ReentrantReadWriteLock解析 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -642,7 +642,7 @@
               
                 <a href="/archives/%7C%7C%20archive">
               
-                  <span class="site-state-item-count">136</span>
+                  <span class="site-state-item-count">142</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -664,7 +664,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">25</span>
+                  <span class="site-state-item-count">28</span>
                   <span class="site-state-item-name">tags</span>
                 </a>
               </div>
