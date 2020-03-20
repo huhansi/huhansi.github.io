@@ -1,0 +1,1707 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="Zh_cn">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="python3 语法," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="编码默认情况下，Python 3 源码文件以UTF-8编码，所有的字符串都是unicode字符串。当然，也可以为源码文件指定不同的编码： 1# -*- coding: cp-1252 -*- 上述定义允许在源文件中使用 Windows-1252 字符集中的字符编码，对应适合语言为保加利亚语、白罗斯语、马其顿语、俄语、塞尔维亚语。 标识符标识符是对对象引用起的一个名字。在python中，需要遵循以下">
+<meta property="og:type" content="article">
+<meta property="og:title" content="基本语法">
+<meta property="og:url" content="http://huhansi.com/2018/01/13/python%E5%85%A5%E9%97%A8/python-8-%E5%9F%BA%E6%9C%AC%E8%AF%AD%E6%B3%95/index.html">
+<meta property="og:site_name" content="Hansi Blog">
+<meta property="og:description" content="编码默认情况下，Python 3 源码文件以UTF-8编码，所有的字符串都是unicode字符串。当然，也可以为源码文件指定不同的编码： 1# -*- coding: cp-1252 -*- 上述定义允许在源文件中使用 Windows-1252 字符集中的字符编码，对应适合语言为保加利亚语、白罗斯语、马其顿语、俄语、塞尔维亚语。 标识符标识符是对对象引用起的一个名字。在python中，需要遵循以下">
+<meta property="og:locale" content="Zh_CN">
+<meta property="og:image" content="https://huhansi.github.io/images/keyword.PNG">
+<meta property="og:image" content="https://huhansi.github.io/images/%E7%BC%A9%E8%BF%9B2.PNG">
+<meta property="og:image" content="https://huhansi.github.io/images/%E5%A4%9A%E8%A1%8C.PNG">
+<meta property="og:image" content="https://huhansi.github.io/images/%E4%BD%8D%E8%BF%90%E7%AE%97%E7%AC%A6.PNG">
+<meta property="og:image" content="https://huhansi.github.io/images/%E8%BF%90%E7%AE%97%E7%AC%A6%E4%BC%98%E5%85%88%E7%BA%A7.PNG">
+<meta property="og:image" content="https://huhansi.github.io/images/if-condition.jpg">
+<meta property="og:image" content="https://huhansi.github.io/images/if%E7%A4%BA%E4%BE%8B.PNG">
+<meta property="og:image" content="https://huhansi.github.io/images/sum.PNG">
+<meta property="og:image" content="https://huhansi.github.io/images/%E8%BF%AD%E4%BB%A3%E5%99%A8.PNG">
+<meta property="og:image" content="https://huhansi.github.io/images/for%E8%BF%AD%E4%BB%A3.PNG">
+<meta property="og:image" content="https://huhansi.github.io/images/next.PNG">
+<meta property="article:published_time" content="2018-01-12T16:00:00.000Z">
+<meta property="article:modified_time" content="2020-03-20T06:29:17.415Z">
+<meta property="article:author" content="Han si">
+<meta property="article:tag" content="python3 语法">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://huhansi.github.io/images/keyword.PNG">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://huhansi.com/2018/01/13/python入门/python-8-基本语法/"/>
+
+
+
+
+
+  <title>基本语法 | Hansi Blog</title>
+  
+
+
+
+
+
+
+
+
+<meta name="generator" content="Hexo 4.2.0"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="Zh_cn">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Hansi Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Know something of everything, know everything of something</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            About
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            Search
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="Searching..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://huhansi.com/2018/01/13/python%E5%85%A5%E9%97%A8/python-8-%E5%9F%BA%E6%9C%AC%E8%AF%AD%E6%B3%95/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Han si">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hansi Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">基本语法</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-01-13T00:00:00+08:00">
+                2018-01-13
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/python%E5%AD%A6%E4%B9%A0/" itemprop="url" rel="index">
+                    <span itemprop="name">python学习</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="编码"><a href="#编码" class="headerlink" title="编码"></a>编码</h2><p>默认情况下，Python 3 源码文件以UTF-8编码，所有的字符串都是unicode字符串。当然，也可以为源码文件指定不同的编码：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"># -*- coding: cp-1252 -*-</span><br></pre></td></tr></table></figure>
+<p>上述定义允许在源文件中使用 Windows-1252 字符集中的字符编码，对应适合语言为保加利亚语、白罗斯语、马其顿语、俄语、塞尔维亚语。</p>
+<h2 id="标识符"><a href="#标识符" class="headerlink" title="标识符"></a>标识符</h2><p>标识符是对对象引用起的一个名字。在python中，需要遵循以下规则：</p>
+<ol>
+<li>长度任意长</li>
+<li>不能和python 3的关键字，即保留字，同名</li>
+<li>标识符ASCII字母、下划线以及大多数非英文语言的字母，只要是Unicode编码的字母都可以充当引导字符，后续字符可以是任意引导符，或任意非空格字符，包括Unicode编码中认为是数字的任意字符</li>
+<li>不要使用Python预定义的标识符名，因此要避免使用NotImplemented与Eliiipsis等名字，这些在未来有可能被Python的新版本使用到</li>
+<li>不要使用Python内置函数名或内置数据类型或异常名作为标识符名</li>
+<li>关于下划线的约定，名字的开头和结尾都使用下划线的情况应该避免，因为Python中大量采用这种名字定义了各种特殊方法和变量；在有些情况，以一个或两个下划线引导的名称，但是没有使用两个下划线结尾的应该特殊对待</li>
+</ol>
+<h2 id="保留字"><a href="#保留字" class="headerlink" title="保留字"></a>保留字</h2><p>保留字即关键字，不能被用作任何的标识符名称。python的标准库提供了一个keyword模块，可以输出当前版本的所有关键字。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">import keyword</span><br><span class="line">keyword.kwlist</span><br></pre></td></tr></table></figure>
+<p><img src="https://huhansi.github.io/images/keyword.PNG" alt="keyword"></p>
+<h2 id="注释"><a href="#注释" class="headerlink" title="注释"></a>注释</h2><p>python 中有3种注释方式：</p>
+<ol>
+<li>单行注释以<code>#</code>开头</li>
+<li>多行注释用三个单引号<code>&#39;&#39;&#39;</code>，将被注释语句包围起来</li>
+<li>多行注释用三个双引号<code>&quot;&quot;&quot;</code>，将被注释语句包围起来<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 单行注释</span></span><br><span class="line"><span class="string">"""</span></span><br><span class="line"><span class="string">这是多行注释</span></span><br><span class="line"><span class="string">这是多行注释</span></span><br><span class="line"><span class="string">"""</span></span><br><span class="line"><span class="string">'''</span></span><br><span class="line"><span class="string">这也是多行注释</span></span><br><span class="line"><span class="string">这也是多行注释</span></span><br><span class="line"><span class="string">'''</span></span><br></pre></td></tr></table></figure>
+
+</li>
+</ol>
+<h2 id="行与缩进"><a href="#行与缩进" class="headerlink" title="行与缩进"></a>行与缩进</h2><p>python和其他语言最大的区别就是它使用缩进来表示代码块，不需要使用大括号<code>{}</code>。<br>缩进的空格数是可变的，但是同一个代码块的语句必须包含相同的缩进格数。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">s = set([<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>])</span><br><span class="line"><span class="keyword">for</span> v <span class="keyword">in</span> s:</span><br><span class="line">print(v)</span><br><span class="line"></span><br><span class="line">s = set([<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>])</span><br><span class="line"><span class="keyword">for</span> v <span class="keyword">in</span> s:    </span><br><span class="line">    print(v)   <span class="comment"># 缩进四个空格</span></span><br></pre></td></tr></table></figure>
+<p>![未缩进](<a href="https://huhansi.github.io/images/" target="_blank" rel="noopener">https://huhansi.github.io/images/</a> 缩进1.PNG)</p>
+<p><img src="https://huhansi.github.io/images/%E7%BC%A9%E8%BF%9B2.PNG" alt="缩进"></p>
+<h2 id="多行语句"><a href="#多行语句" class="headerlink" title="多行语句"></a>多行语句</h2><p>Python 通常是一行写完一条语句，但如果语句很长，我们可以使用反斜杠()来实现多行语句</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">s = set([<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span> \</span><br><span class="line">	,<span class="number">4</span>, <span class="number">5</span>])</span><br><span class="line">s</span><br></pre></td></tr></table></figure>
+<p><img src="https://huhansi.github.io/images/%E5%A4%9A%E8%A1%8C.PNG" alt="多行语句"></p>
+<h2 id="运算符"><a href="#运算符" class="headerlink" title="运算符"></a>运算符</h2><p>python 3 支持一下类型的运算符。</p>
+<h3 id="算数运算符"><a href="#算数运算符" class="headerlink" title="算数运算符"></a>算数运算符</h3><table>
+<thead>
+<tr>
+<th>运算符</th>
+<th>描述</th>
+<th>实例</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>+</td>
+<td>加 两个对象相加</td>
+<td>a = 1; b = 2; a + b = 3</td>
+</tr>
+<tr>
+<td>-</td>
+<td>减 两个对象相减</td>
+<td>a = 1; b = 2; a - b = -1</td>
+</tr>
+<tr>
+<td>*</td>
+<td>乘 两个对象相乘</td>
+<td>a = 1; b = 2; a * b = 2</td>
+</tr>
+<tr>
+<td>/</td>
+<td>除 两个对象相除</td>
+<td>a = 1; b = 2; a / b = 0.5</td>
+</tr>
+<tr>
+<td>%</td>
+<td>取模 返回除法的余数</td>
+<td>a = 1; b = 2; a % b = 1</td>
+</tr>
+<tr>
+<td>**</td>
+<td>幂 返回x的y次幂</td>
+<td>a = 1; b = 2; a ** b = 1</td>
+</tr>
+<tr>
+<td>//</td>
+<td>取整除 返回商的整数部分（向下取整）</td>
+<td>a = 1; b = 2; a // b = 0</td>
+</tr>
+<tr>
+<td>### 关系运算符</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>运算符</td>
+<td>描述</td>
+<td>实例</td>
+</tr>
+<tr>
+<td>—-</td>
+<td>——–</td>
+<td>—————-</td>
+</tr>
+<tr>
+<td>==</td>
+<td>等于 比较两个对象是否相等</td>
+<td>a = 1; b = 2; a == b false</td>
+</tr>
+<tr>
+<td>！=</td>
+<td>不等于 比较两个对象是否不相等</td>
+<td>a = 1; b = 2; a ！= b true</td>
+</tr>
+<tr>
+<td>&lt;&gt;</td>
+<td>不等于 比较两个对象是否不相等</td>
+<td>a = 1; b = 2; a &lt;&gt; b true</td>
+</tr>
+<tr>
+<td>&gt;</td>
+<td>大于 返回x是否大于y</td>
+<td>a = 1; b = 2; a &gt; b false</td>
+</tr>
+<tr>
+<td>&lt;</td>
+<td>小于 返回x是否小于y。</td>
+<td>a = 1; b = 2; a &lt; b true</td>
+</tr>
+<tr>
+<td>&gt;=</td>
+<td>大于等于 返回x是否大于等于y</td>
+<td>a = 1; b = 2; a &gt;= b false</td>
+</tr>
+<tr>
+<td>&lt;=</td>
+<td>小于等于 返回x是否小于等于y</td>
+<td>a = 1; b = 2; a &lt;= b true</td>
+</tr>
+<tr>
+<td>### 赋值运算符</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>运算符</td>
+<td>描述</td>
+<td>实例</td>
+</tr>
+<tr>
+<td>—-</td>
+<td>——–</td>
+<td>—————-</td>
+</tr>
+<tr>
+<td>=</td>
+<td>赋值运算符</td>
+<td>a = 1; b = 2; c = a + b</td>
+</tr>
+<tr>
+<td>+=</td>
+<td>加法赋值运算符</td>
+<td>c += a 等效于 c = c + a</td>
+</tr>
+<tr>
+<td>-=</td>
+<td>减法赋值运算符</td>
+<td>c -= a 等效于 c = c - a</td>
+</tr>
+<tr>
+<td>*=</td>
+<td>乘法赋值运算符</td>
+<td>c *= a 等效于 c = c * a</td>
+</tr>
+<tr>
+<td>/=</td>
+<td>除法赋值运算符</td>
+<td>c /= a 等效于 c = c / a</td>
+</tr>
+<tr>
+<td>%=</td>
+<td>取模赋值运算符</td>
+<td>c %= a 等效于 c = c % a</td>
+</tr>
+<tr>
+<td>**=</td>
+<td>幂赋值运算符</td>
+<td>c *<em>= a 等效于 c = c *</em> a</td>
+</tr>
+<tr>
+<td>//=</td>
+<td>取整除赋值运算符</td>
+<td>c //= a 等效于 c = c // a</td>
+</tr>
+<tr>
+<td>### 逻辑运算符</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>运算符</td>
+<td>描述</td>
+<td>实例</td>
+</tr>
+<tr>
+<td>—-</td>
+<td>——–</td>
+<td>—————-</td>
+</tr>
+<tr>
+<td>and</td>
+<td>a and b</td>
+<td>布尔 <code>与</code>-如果a为False，a and b 返回False，否则它返回b的计算值</td>
+</tr>
+<tr>
+<td>or</td>
+<td>a or b</td>
+<td>布尔 <code>或</code>-如果a为True，a and b 返回True，否则它返回b的计算值</td>
+</tr>
+<tr>
+<td>not</td>
+<td>not a</td>
+<td>布尔 <code>非</code>-如果a为True，返回False，如果a为False，它返回True</td>
+</tr>
+<tr>
+<td>### 位运算符</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>假设a为60，b为13</td>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+<p><img src="https://huhansi.github.io/images/%E4%BD%8D%E8%BF%90%E7%AE%97%E7%AC%A6.PNG" alt="位运算符"></p>
+<h3 id="成员运算符"><a href="#成员运算符" class="headerlink" title="成员运算符"></a>成员运算符</h3><table>
+<thead>
+<tr>
+<th>运算符</th>
+<th>描述</th>
+<th>实例</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>in</td>
+<td>如果在指定的序列中找到值返回 True，否则返回 False。</td>
+<td>x 在 y 序列中 , 如果 x 在 y 序列中返回 True。</td>
+</tr>
+<tr>
+<td>not in</td>
+<td>如果在指定的序列中没有找到值返回 True，否则返回 False。</td>
+<td>x 不在 y 序列中 , 如果 x 不在 y 序列中返回 True。</td>
+</tr>
+<tr>
+<td>### 身份运算符</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>运算符</td>
+<td>描述</td>
+<td>实例</td>
+</tr>
+<tr>
+<td>—-</td>
+<td>——–</td>
+<td>—————-</td>
+</tr>
+<tr>
+<td>is</td>
+<td>is 是判断两个标识符是不是引用自一个对象</td>
+<td>x is y, 类似 id(x) == id(y) , 如果引用的是同一个对象则返回 True，否则返回 False</td>
+</tr>
+<tr>
+<td>is not</td>
+<td>is not 是判断两个标识符是不是引用自不同对象</td>
+<td>x is not y ， 类似 id(a) != id(b)。如果引用的不是同一个对象则返回结果 True，否则返回 False。</td>
+</tr>
+<tr>
+<td>### 运算符优先级</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>以下表格给出了从最高到最低优先级的所有运算符</td>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+<p><img src="https://huhansi.github.io/images/%E8%BF%90%E7%AE%97%E7%AC%A6%E4%BC%98%E5%85%88%E7%BA%A7.PNG" alt="运算符优先级"></p>
+<h2 id="条件控制"><a href="#条件控制" class="headerlink" title="条件控制"></a>条件控制</h2><p>Python条件语句是通过一条或多条语句的执行结果（True或者False）来决定执行的代码块。<br>可以通过下图来简单了解条件语句的执行过程</p>
+<p><img src="https://huhansi.github.io/images/if-condition.jpg" alt="条件语句执行过程"></p>
+<h3 id="if语句"><a href="#if语句" class="headerlink" title="if语句"></a>if语句</h3><p>python中if语句的一般形式如下所示：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> condition_1:</span><br><span class="line">	statement_block_1</span><br><span class="line"><span class="keyword">elif</span> condition_2:</span><br><span class="line">	statement_block_2</span><br><span class="line"><span class="keyword">else</span>:</span><br><span class="line">	statement_block_3</span><br></pre></td></tr></table></figure>
+<p>· 如果“condition_1”为True，将执行statement_block_1块语句<br>· 如果“condition_2”为False，将判断“condition_2”<br>· 如果“condition_2”为True，将执行statement_block_2块语句<br>· 如果“condition_2”为False，将执行statement_block_3块语句</p>
+<p>Python中使用了<code>elif</code> 代替了 <code>else if</code>，所以 <code>if</code>语句的关键字为：<code>if-wlif-else</code>。<br>注意：<br>    · 每个条件后面要使用冒号 :，表示接下来是满足条件后要执行的语句块。<br>    · 使用缩进来划分语句块，相同缩进数的语句在一起组成一个语句块。<br>    · 在Python中没有switch – case语句。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># a = 15</span></span><br><span class="line"><span class="comment"># a = 6</span></span><br><span class="line">a = <span class="number">3</span></span><br><span class="line"><span class="keyword">if</span> a &gt; <span class="number">10</span>:</span><br><span class="line">	print(<span class="string">"a is bigger than 10"</span>)</span><br><span class="line"><span class="keyword">elif</span> a &gt; <span class="number">5</span>:</span><br><span class="line">	print(<span class="string">"a is bigger than 5 less than 10"</span>)</span><br><span class="line"><span class="keyword">else</span>:</span><br><span class="line">	print(<span class="string">"a is less than 5"</span>)</span><br></pre></td></tr></table></figure>
+<p><img src="https://huhansi.github.io/images/if%E7%A4%BA%E4%BE%8B.PNG" alt="if示例"></p>
+<h4 id="if-嵌套"><a href="#if-嵌套" class="headerlink" title="if 嵌套"></a>if 嵌套</h4><p>在嵌套 <code>if</code> 语句中，可以把 <code>if...elif...else</code> 结构放在另外一个 <code>if...elif...else</code> 结构中。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> 表达式<span class="number">1</span>:</span><br><span class="line">    语句</span><br><span class="line">    <span class="keyword">if</span> 表达式<span class="number">2</span>:</span><br><span class="line">        语句</span><br><span class="line">    <span class="keyword">elif</span> 表达式<span class="number">3</span>:</span><br><span class="line">        语句</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        语句</span><br><span class="line"><span class="keyword">elif</span> 表达式<span class="number">4</span>:</span><br><span class="line">    语句</span><br><span class="line"><span class="keyword">else</span>:</span><br><span class="line">    语句</span><br></pre></td></tr></table></figure>
+<p>示例：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># !/usr/bin/python3</span></span><br><span class="line"> </span><br><span class="line">num = int(input(<span class="string">"输入一个数字："</span>))</span><br><span class="line"><span class="keyword">if</span> num % <span class="number">2</span> == <span class="number">0</span>:</span><br><span class="line">    <span class="keyword">if</span> num %<span class="number">3</span> == <span class="number">0</span>:</span><br><span class="line">        print(<span class="string">"你输入的数字可以整除 2 和 3"</span>)</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        print(<span class="string">"你输入的数字可以整除 2，但不能整除 3"</span>)</span><br><span class="line"><span class="keyword">else</span>:</span><br><span class="line">    <span class="keyword">if</span> num % <span class="number">3</span> == <span class="number">0</span>:</span><br><span class="line">        print(<span class="string">"你输入的数字可以整除 3，但不能整除 2"</span>)</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        print(<span class="string">"你输入的数字不能整除 2 和 3"</span>)</span><br></pre></td></tr></table></figure>
+<h3 id="while循环"><a href="#while循环" class="headerlink" title="while循环"></a>while循环</h3><p>Python中的循环语句有for和while。<br>python循环语句的控制结构图如下所示：</p>
+<p>![while循环](<a href="https://huhansi.github.io/images/" target="_blank" rel="noopener">https://huhansi.github.io/images/</a> while_loop_1.png)</p>
+<p>while语句的一般形式如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">while</span> 判断条件:</span><br><span class="line">	语句</span><br></pre></td></tr></table></figure>
+<p>同样需要注意冒号和缩进。另外，在python中没有<code>do...while</code>循环。<br>以下示例使用了while来计算1到100的总和：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#!/usr/bin/env python3</span></span><br><span class="line"> </span><br><span class="line">n = <span class="number">100</span></span><br><span class="line"> </span><br><span class="line">sum = <span class="number">0</span></span><br><span class="line">counter = <span class="number">1</span></span><br><span class="line"><span class="keyword">while</span> counter &lt;= n:</span><br><span class="line">    sum = sum + counter</span><br><span class="line">    counter += <span class="number">1</span></span><br><span class="line"> </span><br><span class="line">print(<span class="string">"1 到 %d 之和为: %d"</span> % (n,sum))</span><br></pre></td></tr></table></figure>
+<p><img src="https://huhansi.github.io/images/sum.PNG" alt="while循环"></p>
+<h4 id="无限循环"><a href="#无限循环" class="headerlink" title="无限循环"></a>无限循环</h4><p>我们可以通过设置条件表达式永远不为 false 来实现无限循环，实例如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#!/usr/bin/python3</span></span><br><span class="line"> </span><br><span class="line">var = <span class="number">1</span></span><br><span class="line"><span class="keyword">while</span> var == <span class="number">1</span> :  <span class="comment"># 表达式永远为 true</span></span><br><span class="line">   num = int(input(<span class="string">"输入一个数字  :"</span>))</span><br><span class="line">   <span class="keyword">print</span> (<span class="string">"你输入的数字是: "</span>, num)</span><br><span class="line"> </span><br><span class="line"><span class="keyword">print</span> (<span class="string">"Good bye!"</span>)</span><br></pre></td></tr></table></figure>
+<p>执行以上脚本，输出结果如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">输入一个数字  :5</span><br><span class="line">你输入的数字是:  5</span><br><span class="line">输入一个数字</span><br></pre></td></tr></table></figure>
+<p>你可以使用 <code>CTRL+C</code> 来退出当前的无限循环。</p>
+<p>无限循环在服务器上客户端的实时请求非常有用。</p>
+<h4 id="while-循环使用else语句"><a href="#while-循环使用else语句" class="headerlink" title="while 循环使用else语句"></a>while 循环使用else语句</h4><p>在 <code>while … else</code> 在条件语句为 <code>false</code> 时执行 <code>else</code> 的语句块：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#!/usr/bin/python3</span></span><br><span class="line"> </span><br><span class="line">count = <span class="number">0</span></span><br><span class="line"><span class="keyword">while</span> count &lt; <span class="number">5</span>:</span><br><span class="line">   <span class="keyword">print</span> (count, <span class="string">" 小于 5"</span>)</span><br><span class="line">   count = count + <span class="number">1</span></span><br><span class="line"><span class="keyword">else</span>:</span><br><span class="line">   <span class="keyword">print</span> (count, <span class="string">" 大于或等于 5"</span>)</span><br></pre></td></tr></table></figure>
+<p>执行以上脚本，输出结果如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">0  小于 5</span><br><span class="line">1  小于 5</span><br><span class="line">2  小于 5</span><br><span class="line">3  小于 5</span><br><span class="line">4  小于 5</span><br><span class="line">5  大于或等于 5</span><br></pre></td></tr></table></figure>
+<h3 id="for循环"><a href="#for循环" class="headerlink" title="for循环"></a>for循环</h3><p>Python for循环可以遍历任何序列的项目，如一个列表或者一个字符串。</p>
+<p>for循环的一般格式如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> &lt;variable&gt; <span class="keyword">in</span> &lt;sequence&gt;:</span><br><span class="line">    &lt;statements&gt;</span><br><span class="line"><span class="keyword">else</span>:</span><br><span class="line">    &lt;statements&gt;</span><br></pre></td></tr></table></figure>
+<p>Python loop循环实例：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">languages = [<span class="string">"C"</span>, <span class="string">"C++"</span>, <span class="string">"Perl"</span>, <span class="string">"Python"</span>] </span><br><span class="line"><span class="keyword">for</span> x <span class="keyword">in</span> languages:</span><br><span class="line">    <span class="keyword">print</span> (x)</span><br><span class="line">C</span><br><span class="line">C++</span><br><span class="line">Perl</span><br><span class="line">Python</span><br></pre></td></tr></table></figure>
+<h3 id="break和continue语句及循环中的else子句"><a href="#break和continue语句及循环中的else子句" class="headerlink" title="break和continue语句及循环中的else子句"></a>break和continue语句及循环中的else子句</h3><p>break 语句可以跳出 for 和 while 的循环体。如果你从 for 或 while 循环中终止，任何对应的循环 else 块将不执行。 实例如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#!/usr/bin/python3</span></span><br><span class="line"> </span><br><span class="line"><span class="keyword">for</span> letter <span class="keyword">in</span> <span class="string">'Runoob'</span>:     <span class="comment"># 第一个实例</span></span><br><span class="line">   <span class="keyword">if</span> letter == <span class="string">'b'</span>:</span><br><span class="line">      <span class="keyword">break</span></span><br><span class="line">   <span class="keyword">print</span> (<span class="string">'当前字母为 :'</span>, letter)</span><br><span class="line">  </span><br><span class="line">var = <span class="number">10</span>                    <span class="comment"># 第二个实例</span></span><br><span class="line"><span class="keyword">while</span> var &gt; <span class="number">0</span>:              </span><br><span class="line">   <span class="keyword">print</span> (<span class="string">'当期变量值为 :'</span>, var)</span><br><span class="line">   var = var <span class="number">-1</span></span><br><span class="line">   <span class="keyword">if</span> var == <span class="number">5</span>:</span><br><span class="line">      <span class="keyword">break</span></span><br><span class="line"> </span><br><span class="line"><span class="keyword">print</span> (<span class="string">"Good bye!"</span>)</span><br></pre></td></tr></table></figure>
+<p>执行以上脚本输出结果为：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">当前字母为 : R</span><br><span class="line">当前字母为 : u</span><br><span class="line">当前字母为 : n</span><br><span class="line">当前字母为 : o</span><br><span class="line">当前字母为 : o</span><br><span class="line">当期变量值为 : 10</span><br><span class="line">当期变量值为 : 9</span><br><span class="line">当期变量值为 : 8</span><br><span class="line">当期变量值为 : 7</span><br><span class="line">当期变量值为 : 6</span><br><span class="line">Good bye!</span><br></pre></td></tr></table></figure>
+<p>continue语句被用来告诉Python跳过当前循环块中的剩余语句，然后继续进行下一轮循环。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#!/usr/bin/python3</span></span><br><span class="line"> </span><br><span class="line"><span class="keyword">for</span> letter <span class="keyword">in</span> <span class="string">'Runoob'</span>:     <span class="comment"># 第一个实例</span></span><br><span class="line">   <span class="keyword">if</span> letter == <span class="string">'o'</span>:        <span class="comment"># 字母为 o 时跳过输出</span></span><br><span class="line">      <span class="keyword">continue</span></span><br><span class="line">   <span class="keyword">print</span> (<span class="string">'当前字母 :'</span>, letter)</span><br><span class="line"> </span><br><span class="line">var = <span class="number">10</span>                    <span class="comment"># 第二个实例</span></span><br><span class="line"><span class="keyword">while</span> var &gt; <span class="number">0</span>:              </span><br><span class="line">   var = var <span class="number">-1</span></span><br><span class="line">   <span class="keyword">if</span> var == <span class="number">5</span>:             <span class="comment"># 变量为 5 时跳过输出</span></span><br><span class="line">      <span class="keyword">continue</span></span><br><span class="line">   <span class="keyword">print</span> (<span class="string">'当前变量值 :'</span>, var)</span><br><span class="line"><span class="keyword">print</span> (<span class="string">"Good bye!"</span>)</span><br></pre></td></tr></table></figure>
+<p>执行以上脚本输出结果为：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">当前字母 : R</span><br><span class="line">当前字母 : u</span><br><span class="line">当前字母 : n</span><br><span class="line">当前字母 : b</span><br><span class="line">当前变量值 : 9</span><br><span class="line">当前变量值 : 8</span><br><span class="line">当前变量值 : 7</span><br><span class="line">当前变量值 : 6</span><br><span class="line">当前变量值 : 4</span><br><span class="line">当前变量值 : 3</span><br><span class="line">当前变量值 : 2</span><br><span class="line">当前变量值 : 1</span><br><span class="line">当前变量值 : 0</span><br><span class="line">Good bye!</span><br></pre></td></tr></table></figure>
+<p>循环语句可以有 else 子句，它在穷尽列表(以for循环)或条件变为 false (以while循环)导致循环终止时被执行,但循环被break终止时不执行。</p>
+<p>如下实例用于查询质数的循环例子:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#!/usr/bin/python3</span></span><br><span class="line"> </span><br><span class="line"><span class="keyword">for</span> n <span class="keyword">in</span> range(<span class="number">2</span>, <span class="number">10</span>):</span><br><span class="line">    <span class="keyword">for</span> x <span class="keyword">in</span> range(<span class="number">2</span>, n):</span><br><span class="line">        <span class="keyword">if</span> n % x == <span class="number">0</span>:</span><br><span class="line">            print(n, <span class="string">'等于'</span>, x, <span class="string">'*'</span>, n//x)</span><br><span class="line">            <span class="keyword">break</span></span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="comment"># 循环中没有找到元素</span></span><br><span class="line">        print(n, <span class="string">' 是质数'</span>)</span><br></pre></td></tr></table></figure>
+<p>执行以上脚本输出结果为：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">2  是质数</span><br><span class="line">3  是质数</span><br><span class="line">4 等于 2 * 2</span><br><span class="line">5  是质数</span><br><span class="line">6 等于 2 * 3</span><br><span class="line">7  是质数</span><br><span class="line">8 等于 2 * 4</span><br><span class="line">9 等于 3 * 3</span><br></pre></td></tr></table></figure>
+<h3 id="pass"><a href="#pass" class="headerlink" title="pass"></a>pass</h3><p>Python pass是空语句，是为了保持程序结构的完整性。</p>
+<p>pass 不做任何事情，一般用做占位语句，如下实例</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">while</span> <span class="literal">True</span>:</span><br><span class="line">    <span class="keyword">pass</span>  <span class="comment"># 等待键盘中断 (Ctrl+C)</span></span><br></pre></td></tr></table></figure>
+<p>最小的类:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyEmptyClass</span>:</span></span><br><span class="line">    <span class="keyword">pass</span></span><br></pre></td></tr></table></figure>
+<p>以下实例在字母为 o 时 执行 pass 语句块:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#!/usr/bin/python3</span></span><br><span class="line"> </span><br><span class="line"><span class="keyword">for</span> letter <span class="keyword">in</span> <span class="string">'Runoob'</span>: </span><br><span class="line">   <span class="keyword">if</span> letter == <span class="string">'o'</span>:</span><br><span class="line">      <span class="keyword">pass</span></span><br><span class="line">      <span class="keyword">print</span> (<span class="string">'执行 pass 块'</span>)</span><br><span class="line">   <span class="keyword">print</span> (<span class="string">'当前字母 :'</span>, letter)</span><br><span class="line"> </span><br><span class="line"><span class="keyword">print</span> (<span class="string">"Good bye!"</span>)</span><br></pre></td></tr></table></figure>
+<p>执行以上脚本输出结果为：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">当前字母 : R</span><br><span class="line">当前字母 : u</span><br><span class="line">当前字母 : n</span><br><span class="line">执行 pass 块</span><br><span class="line">当前字母 : o</span><br><span class="line">执行 pass 块</span><br><span class="line">当前字母 : o</span><br><span class="line">当前字母 : b</span><br><span class="line">Good bye!</span><br></pre></td></tr></table></figure>
+
+<h2 id="迭代器与生成器"><a href="#迭代器与生成器" class="headerlink" title="迭代器与生成器"></a>迭代器与生成器</h2><h3 id="迭代器"><a href="#迭代器" class="headerlink" title="迭代器"></a>迭代器</h3><p>迭代是Python最强大的功能之一，是访问集合元素的一种方式。</p>
+<p>迭代器是一个可以记住遍历的位置的对象。</p>
+<p>迭代器对象从集合的第一个元素开始访问，直到所有的元素被访问完结束。迭代器只能往前不会后退。</p>
+<p>迭代器有两个基本的方法：iter() 和 next()。</p>
+<p>字符串，列表或元组对象都可用于创建迭代器：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">list=[<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>]</span><br><span class="line">it = iter(list)    <span class="comment"># 创建迭代器对象</span></span><br><span class="line"><span class="keyword">print</span> (next(it))</span><br><span class="line"><span class="keyword">print</span> (next(it))</span><br></pre></td></tr></table></figure>
+<p><img src="https://huhansi.github.io/images/%E8%BF%AD%E4%BB%A3%E5%99%A8.PNG" alt="迭代器"><br>迭代器对象可以使用常规for语句进行遍历：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#!/usr/bin/python3</span></span><br><span class="line"> </span><br><span class="line">list=[<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>]</span><br><span class="line">it = iter(list)    <span class="comment"># 创建迭代器对象</span></span><br><span class="line"><span class="keyword">for</span> x <span class="keyword">in</span> it:</span><br><span class="line">    <span class="keyword">print</span> (x, end=<span class="string">" "</span>)</span><br></pre></td></tr></table></figure>
+<p><img src="https://huhansi.github.io/images/for%E8%BF%AD%E4%BB%A3.PNG" alt="for迭代"><br>也可以使用 next() 函数：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#!/usr/bin/python3</span></span><br><span class="line"> </span><br><span class="line"><span class="keyword">import</span> sys         <span class="comment"># 引入 sys 模块</span></span><br><span class="line"> </span><br><span class="line">list = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>]</span><br><span class="line">it = iter(list)    <span class="comment"># 创建迭代器对象</span></span><br><span class="line"> </span><br><span class="line"><span class="keyword">while</span> <span class="literal">True</span>:</span><br><span class="line">    <span class="keyword">try</span>:</span><br><span class="line">        <span class="keyword">print</span> (next(it))</span><br><span class="line">    <span class="keyword">except</span> StopIteration:</span><br><span class="line">        sys.exit()</span><br></pre></td></tr></table></figure>
+<p><img src="https://huhansi.github.io/images/next.PNG" alt="使用next函数"></p>
+<h3 id="创建一个迭代器"><a href="#创建一个迭代器" class="headerlink" title="创建一个迭代器"></a>创建一个迭代器</h3><p>把一个类作为一个迭代器使用需要在类中实现两个方法 <strong>iter</strong>() 与 <strong>next</strong>() 。</p>
+<p>如果你已经了解的面向对象编程，都支持类都有一个构造函数，Python 的构造函数为 <strong>init</strong>(), 它会在对象初始化的时候执行。</p>
+<p><strong>iter</strong>() 方法返回一个特殊的迭代器对象， 这个迭代器对象实现了 <strong>next</strong>() 方法并通过 StopIteration 异常标识迭代的完成。</p>
+<p><strong>next</strong>() 方法（Python 2 里是 next()）会返回下一个迭代器对象。</p>
+<p>创建一个返回数字的迭代器，初始值为 1，逐步递增 1：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyNumbers</span>:</span></span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">__iter__</span><span class="params">(self)</span>:</span></span><br><span class="line">    self.a = <span class="number">1</span></span><br><span class="line">    <span class="keyword">return</span> self</span><br><span class="line"> </span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">__next__</span><span class="params">(self)</span>:</span></span><br><span class="line">    x = self.a</span><br><span class="line">    self.a += <span class="number">1</span></span><br><span class="line">    <span class="keyword">return</span> x</span><br><span class="line"> </span><br><span class="line">myclass = MyNumbers()</span><br><span class="line">myiter = iter(myclass)</span><br><span class="line"> </span><br><span class="line">print(next(myiter))</span><br><span class="line">print(next(myiter))</span><br><span class="line">print(next(myiter))</span><br><span class="line">print(next(myiter))</span><br><span class="line">print(next(myiter))</span><br></pre></td></tr></table></figure>
+<p>执行输出结果为：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td></tr></table></figure>
+<h3 id="StopIteration"><a href="#StopIteration" class="headerlink" title="StopIteration"></a>StopIteration</h3><p>StopIteration 异常用于标识迭代的完成，防止出现无限循环的情况，在 <strong>next</strong>() 方法中我们可以设置在完成指定循环次数后触发 StopIteration 异常来结束迭代。</p>
+<p>在 20 次迭代后停止执行：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyNumbers</span>:</span></span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">__iter__</span><span class="params">(self)</span>:</span></span><br><span class="line">    self.a = <span class="number">1</span></span><br><span class="line">    <span class="keyword">return</span> self</span><br><span class="line"> </span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">__next__</span><span class="params">(self)</span>:</span></span><br><span class="line">    <span class="keyword">if</span> self.a &lt;= <span class="number">20</span>:</span><br><span class="line">      x = self.a</span><br><span class="line">      self.a += <span class="number">1</span></span><br><span class="line">      <span class="keyword">return</span> x</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">      <span class="keyword">raise</span> StopIteration</span><br><span class="line"> </span><br><span class="line">myclass = MyNumbers()</span><br><span class="line">myiter = iter(myclass)</span><br><span class="line"> </span><br><span class="line"><span class="keyword">for</span> x <span class="keyword">in</span> myiter:</span><br><span class="line">  print(x)</span><br></pre></td></tr></table></figure>
+<p>执行输出结果为：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td></tr></table></figure>
+<h3 id="生成器"><a href="#生成器" class="headerlink" title="生成器"></a>生成器</h3><p>在 Python 中，使用了 yield 的函数被称为生成器（generator）。</p>
+<p>跟普通函数不同的是，生成器是一个返回迭代器的函数，只能用于迭代操作，更简单点理解生成器就是一个迭代器。</p>
+<p>在调用生成器运行的过程中，每次遇到 yield 时函数会暂停并保存当前所有的运行信息，返回 yield 的值, 并在下一次执行 next() 方法时从当前位置继续运行。</p>
+<p>调用一个生成器函数，返回的是一个迭代器对象。</p>
+<p>以下实例使用 yield 实现斐波那契数列：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#!/usr/bin/python3</span></span><br><span class="line"> </span><br><span class="line"><span class="keyword">import</span> sys</span><br><span class="line"> </span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">fibonacci</span><span class="params">(n)</span>:</span> <span class="comment"># 生成器函数 - 斐波那契</span></span><br><span class="line">    a, b, counter = <span class="number">0</span>, <span class="number">1</span>, <span class="number">0</span></span><br><span class="line">    <span class="keyword">while</span> <span class="literal">True</span>:</span><br><span class="line">        <span class="keyword">if</span> (counter &gt; n): </span><br><span class="line">            <span class="keyword">return</span></span><br><span class="line">        <span class="keyword">yield</span> a</span><br><span class="line">        a, b = b, a + b</span><br><span class="line">        counter += <span class="number">1</span></span><br><span class="line">f = fibonacci(<span class="number">10</span>) <span class="comment"># f 是一个迭代器，由生成器返回生成</span></span><br><span class="line"> </span><br><span class="line"><span class="keyword">while</span> <span class="literal">True</span>:</span><br><span class="line">    <span class="keyword">try</span>:</span><br><span class="line">        <span class="keyword">print</span> (next(f), end=<span class="string">" "</span>)</span><br><span class="line">    <span class="keyword">except</span> StopIteration:</span><br><span class="line">        sys.exit()</span><br></pre></td></tr></table></figure>
+<p>执行以上程序，输出结果如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">0 1 1 2 3 5 8 13 21 34 55</span><br></pre></td></tr></table></figure>
+<h2 id="函数"><a href="#函数" class="headerlink" title="函数"></a>函数</h2><p>函数是组织好的，可重复使用的，用来实现单一，或相关联功能的代码段。</p>
+<p>函数能提高应用的模块性，和代码的重复利用率。你已经知道Python提供了许多内建函数，比如print()。但你也可以自己创建函数，这被叫做用户自定义函数。</p>
+<h3 id="定义一个函数"><a href="#定义一个函数" class="headerlink" title="定义一个函数"></a>定义一个函数</h3><p>你可以定义一个由自己想要功能的函数，以下是简单的规则：<br>· 函数代码块以 def 关键词开头，后接函数标识符名称和圆括号 ()。<br>· 任何传入参数和自变量必须放在圆括号中间，圆括号之间可以用于定义参数。<br>· 函数的第一行语句可以选择性地使用文档字符串—用于存放函数说明。<br>· 函数内容以冒号起始，并且缩进。<br>· return [表达式] 结束函数，选择性地返回一个值给调用方。不带表达式的return相当于返回 None。</p>
+<h3 id="语法"><a href="#语法" class="headerlink" title="语法"></a>语法</h3><p>Python 定义函数使用 def 关键字，一般格式如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> 函数名（参数列表）:</span></span><br><span class="line">    函数体</span><br></pre></td></tr></table></figure>
+<p>默认情况下，参数值和参数名称是按函数声明中定义的顺序匹配起来的。</p>
+<h3 id="函数调用"><a href="#函数调用" class="headerlink" title="函数调用"></a>函数调用</h3><p>定义一个函数：给了函数一个名称，指定了函数里包含的参数，和代码块结构。</p>
+<p>这个函数的基本结构完成以后，你可以通过另一个函数调用执行，也可以直接从 Python 命令提示符执行。</p>
+<p>如下实例调用了 printme() 函数：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#!/usr/bin/python3</span></span><br><span class="line"> </span><br><span class="line"><span class="comment"># 定义函数</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">printme</span><span class="params">( str )</span>:</span></span><br><span class="line">   <span class="string">"打印任何传入的字符串"</span></span><br><span class="line">   <span class="keyword">print</span> (str)</span><br><span class="line">   <span class="keyword">return</span></span><br><span class="line"> </span><br><span class="line"><span class="comment"># 调用函数</span></span><br><span class="line">printme(<span class="string">"我要调用用户自定义函数!"</span>)</span><br><span class="line">printme(<span class="string">"再次调用同一函数"</span>)</span><br></pre></td></tr></table></figure>
+<p>以上实例输出结果：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">我要调用用户自定义函数!</span><br><span class="line">再次调用同一函数</span><br></pre></td></tr></table></figure>
+<h3 id="参数传递"><a href="#参数传递" class="headerlink" title="参数传递"></a>参数传递</h3><p>在 python 中，类型属于对象，变量是没有类型的：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">a=[<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>]</span><br><span class="line"></span><br><span class="line">a=<span class="string">"Runoob"</span></span><br></pre></td></tr></table></figure>
+<p>以上代码中，[1,2,3] 是 List 类型，”Runoob” 是 String 类型，而变量 a 是没有类型，她仅仅是一个对象的引用（一个指针），可以是指向 List 类型对象，也可以是指向 String 类型对象。</p>
+<h3 id="mutable-与不可更改-immutable-对象"><a href="#mutable-与不可更改-immutable-对象" class="headerlink" title="(mutable)与不可更改(immutable)对象"></a>(mutable)与不可更改(immutable)对象</h3><p>在 python 中，strings, tuples, 和 numbers 是不可更改的对象，而 list,dict 等则是可以修改的对象。</p>
+<pre><code>·`不可变类型`：变量赋值 a=5 后再赋值 a=10，这里实际是新生成一个 int 值对象 10，再让 a 指向它，而 5 被丢弃，不是改变a的值，相当于新生成了a。
+
+·`可变类型`：变量赋值 la=[1,2,3,4] 后再赋值 la[2]=5 则是将 list la 的第三个元素值更改，本身la没有动，只是其内部的一部分值被修改了。</code></pre><p>python 函数的参数传递：</p>
+<pre><code>·`不可变类型`：类似 c++ 的值传递，如 整数、字符串、元组。如fun（a），传递的只是a的值，没有影响a对象本身。比如在 fun（a）内部修改 a 的值，只是修改另一个复制的对象，不会影响 a 本身。
+
+·`可变类型`：类似 c++ 的引用传递，如 列表，字典。如 fun（la），则是将 la 真正的传过去，修改后fun外部的la也会受影响</code></pre><p>python 中一切都是对象，严格意义我们不能说值传递还是引用传递，我们应该说传不可变对象和传可变对象。</p>
+<h4 id="python-传不可变对象实例"><a href="#python-传不可变对象实例" class="headerlink" title="python 传不可变对象实例"></a>python 传不可变对象实例</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#!/usr/bin/python3</span></span><br><span class="line"> </span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">ChangeInt</span><span class="params">( a )</span>:</span></span><br><span class="line">    a = <span class="number">10</span></span><br><span class="line"> </span><br><span class="line">b = <span class="number">2</span></span><br><span class="line">ChangeInt(b)</span><br><span class="line">print( b ) <span class="comment"># 结果是 2</span></span><br></pre></td></tr></table></figure>
+<p>实例中有 int 对象 2，指向它的变量是 b，在传递给 ChangeInt 函数时，按传值的方式复制了变量 b，a 和 b 都指向了同一个 Int 对象，在 a=10 时，则新生成一个 int 值对象 10，并让 a 指向它。</p>
+<h4 id="传可变对象实例"><a href="#传可变对象实例" class="headerlink" title="传可变对象实例"></a>传可变对象实例</h4><p>可变对象在函数里修改了参数，那么在调用这个函数的函数里，原始的参数也被改变了。例如：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#!/usr/bin/python3</span></span><br><span class="line"> </span><br><span class="line"><span class="comment"># 可写函数说明</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">changeme</span><span class="params">( mylist )</span>:</span></span><br><span class="line">   <span class="string">"修改传入的列表"</span></span><br><span class="line">   mylist.append([<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>])</span><br><span class="line">   <span class="keyword">print</span> (<span class="string">"函数内取值: "</span>, mylist)</span><br><span class="line">   <span class="keyword">return</span></span><br><span class="line"> </span><br><span class="line"><span class="comment"># 调用changeme函数</span></span><br><span class="line">mylist = [<span class="number">10</span>,<span class="number">20</span>,<span class="number">30</span>]</span><br><span class="line">changeme( mylist )</span><br><span class="line"><span class="keyword">print</span> (<span class="string">"函数外取值: "</span>, mylist)</span><br></pre></td></tr></table></figure>
+<p>传入函数的和在末尾添加新内容的对象用的是同一个引用。故输出结果如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">函数内取值:  [10, 20, 30, [1, 2, 3, 4]]</span><br><span class="line">函数外取值:  [10, 20, 30, [1, 2, 3, 4]]</span><br></pre></td></tr></table></figure>
+<h3 id="参数"><a href="#参数" class="headerlink" title="参数"></a>参数</h3><p>以下是调用函数时可使用的正式参数类型：</p>
+<pre><code>·必需参数
+·关键字参数
+·默认参数
+·不定长参数</code></pre><h4 id="必需参数"><a href="#必需参数" class="headerlink" title="必需参数"></a>必需参数</h4><p>必需参数须以正确的顺序传入函数。调用时的数量必须和声明时的一样。</p>
+<p>调用printme()函数，你必须传入一个参数，不然会出现语法错误：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#!/usr/bin/python3</span></span><br><span class="line"> </span><br><span class="line"><span class="comment">#可写函数说明</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">printme</span><span class="params">( str )</span>:</span></span><br><span class="line">   <span class="string">"打印任何传入的字符串"</span></span><br><span class="line">   <span class="keyword">print</span> (str)</span><br><span class="line">   <span class="keyword">return</span></span><br><span class="line"> </span><br><span class="line"><span class="comment">#调用printme函数</span></span><br><span class="line">printme()</span><br></pre></td></tr></table></figure>
+<p>以上实例输出结果：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Traceback (most recent call last):</span><br><span class="line">  File <span class="string">"test.py"</span>, line <span class="number">10</span>, <span class="keyword">in</span> &lt;module&gt;</span><br><span class="line">    printme()</span><br><span class="line">TypeError: printme() missing <span class="number">1</span> required positional argument: <span class="string">'str'</span></span><br></pre></td></tr></table></figure>
+<h4 id="关键字参数"><a href="#关键字参数" class="headerlink" title="关键字参数"></a>关键字参数</h4><p>关键字参数和函数调用关系紧密，函数调用使用关键字参数来确定传入的参数值。</p>
+<p>使用关键字参数允许函数调用时参数的顺序与声明时不一致，因为 Python 解释器能够用参数名匹配参数值。</p>
+<p>以下实例在函数 printme() 调用时使用参数名：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#!/usr/bin/python3</span></span><br><span class="line"> </span><br><span class="line"><span class="comment">#可写函数说明</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">printme</span><span class="params">( str )</span>:</span></span><br><span class="line">   <span class="string">"打印任何传入的字符串"</span></span><br><span class="line">   <span class="keyword">print</span> (str)</span><br><span class="line">   <span class="keyword">return</span></span><br><span class="line"> </span><br><span class="line"><span class="comment">#调用printme函数</span></span><br><span class="line">printme( str = <span class="string">"菜鸟教程"</span>)</span><br></pre></td></tr></table></figure>
+<p>以上实例输出结果：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">菜鸟教程</span><br></pre></td></tr></table></figure>
+<p>以下实例中演示了函数参数的使用不需要使用指定顺序：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#!/usr/bin/python3</span></span><br><span class="line"> </span><br><span class="line"><span class="comment">#可写函数说明</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">printinfo</span><span class="params">( name, age )</span>:</span></span><br><span class="line">   <span class="string">"打印任何传入的字符串"</span></span><br><span class="line">   <span class="keyword">print</span> (<span class="string">"名字: "</span>, name)</span><br><span class="line">   <span class="keyword">print</span> (<span class="string">"年龄: "</span>, age)</span><br><span class="line">   <span class="keyword">return</span></span><br><span class="line"> </span><br><span class="line"><span class="comment">#调用printinfo函数</span></span><br><span class="line">printinfo( age=<span class="number">50</span>, name=<span class="string">"runoob"</span> )</span><br></pre></td></tr></table></figure>
+<p>以上实例输出结果：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">名字:  runoob</span><br><span class="line">年龄:  50</span><br></pre></td></tr></table></figure>
+<h4 id="默认参数"><a href="#默认参数" class="headerlink" title="默认参数"></a>默认参数</h4><p>调用函数时，如果没有传递参数，则会使用默认参数。以下实例中如果没有传入 age 参数，则使用默认值：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#!/usr/bin/python3</span></span><br><span class="line"> </span><br><span class="line"><span class="comment">#可写函数说明</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">printinfo</span><span class="params">( name, age = <span class="number">35</span> )</span>:</span></span><br><span class="line">   <span class="string">"打印任何传入的字符串"</span></span><br><span class="line">   <span class="keyword">print</span> (<span class="string">"名字: "</span>, name)</span><br><span class="line">   <span class="keyword">print</span> (<span class="string">"年龄: "</span>, age)</span><br><span class="line">   <span class="keyword">return</span></span><br><span class="line"> </span><br><span class="line"><span class="comment">#调用printinfo函数</span></span><br><span class="line">printinfo( age=<span class="number">50</span>, name=<span class="string">"runoob"</span> )</span><br><span class="line"><span class="keyword">print</span> (<span class="string">"------------------------"</span>)</span><br><span class="line">printinfo( name=<span class="string">"runoob"</span> )</span><br></pre></td></tr></table></figure>
+<p>以上实例输出结果：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">名字:  runoob</span><br><span class="line">年龄:  50</span><br><span class="line">------------------------</span><br><span class="line">名字:  runoob</span><br><span class="line">年龄:  35</span><br></pre></td></tr></table></figure>
+<h4 id="不定长参数"><a href="#不定长参数" class="headerlink" title="不定长参数"></a>不定长参数</h4><p>你可能需要一个函数能处理比当初声明时更多的参数。这些参数叫做不定长参数，和上述 2 种参数不同，声明时不会命名。基本语法如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">functionname</span><span class="params">([formal_args,] *var_args_tuple )</span>:</span></span><br><span class="line">   <span class="string">"函数_文档字符串"</span></span><br><span class="line">   function_suite</span><br><span class="line">   <span class="keyword">return</span> [expression]</span><br></pre></td></tr></table></figure>
+<p>加了星号 * 的参数会以元组(tuple)的形式导入，存放所有未命名的变量参数。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#!/usr/bin/python3</span></span><br><span class="line">  </span><br><span class="line"><span class="comment"># 可写函数说明</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">printinfo</span><span class="params">( arg1, *vartuple )</span>:</span></span><br><span class="line">   <span class="string">"打印任何传入的参数"</span></span><br><span class="line">   <span class="keyword">print</span> (<span class="string">"输出: "</span>)</span><br><span class="line">   <span class="keyword">print</span> (arg1)</span><br><span class="line">   <span class="keyword">print</span> (vartuple)</span><br><span class="line"> </span><br><span class="line"><span class="comment"># 调用printinfo 函数</span></span><br><span class="line">printinfo( <span class="number">70</span>, <span class="number">60</span>, <span class="number">50</span> )</span><br></pre></td></tr></table></figure>
+<p>以上实例输出结果：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">输出: </span><br><span class="line">70</span><br><span class="line">(60, 50)</span><br></pre></td></tr></table></figure>
+<p>如果在函数调用时没有指定参数，它就是一个空元组。我们也可以不向函数传递未命名的变量。如下实例：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#!/usr/bin/python3</span></span><br><span class="line"> </span><br><span class="line"><span class="comment"># 可写函数说明</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">printinfo</span><span class="params">( arg1, *vartuple )</span>:</span></span><br><span class="line">   <span class="string">"打印任何传入的参数"</span></span><br><span class="line">   <span class="keyword">print</span> (<span class="string">"输出: "</span>)</span><br><span class="line">   <span class="keyword">print</span> (arg1)</span><br><span class="line">   <span class="keyword">for</span> var <span class="keyword">in</span> vartuple:</span><br><span class="line">      <span class="keyword">print</span> (var)</span><br><span class="line">   <span class="keyword">return</span></span><br><span class="line"> </span><br><span class="line"><span class="comment"># 调用printinfo 函数</span></span><br><span class="line">printinfo( <span class="number">10</span> )</span><br><span class="line">printinfo( <span class="number">70</span>, <span class="number">60</span>, <span class="number">50</span> )</span><br></pre></td></tr></table></figure>
+<p>以上实例输出结果：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">输出:</span><br><span class="line">10</span><br><span class="line">输出:</span><br><span class="line">70</span><br><span class="line">60</span><br><span class="line">50</span><br></pre></td></tr></table></figure>
+<p>还有一种就是参数带两个星号 <code>**</code> 基本语法如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">functionname</span><span class="params">([formal_args,] **var_args_dict )</span>:</span></span><br><span class="line">   <span class="string">"函数_文档字符串"</span></span><br><span class="line">   function_suite</span><br><span class="line">   <span class="keyword">return</span> [expression]</span><br></pre></td></tr></table></figure>
+<p>加了两个星号 <code>**</code> 的参数会以字典的形式导入。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#!/usr/bin/python3</span></span><br><span class="line">  </span><br><span class="line"><span class="comment"># 可写函数说明</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">printinfo</span><span class="params">( arg1, **vardict )</span>:</span></span><br><span class="line">   <span class="string">"打印任何传入的参数"</span></span><br><span class="line">   <span class="keyword">print</span> (<span class="string">"输出: "</span>)</span><br><span class="line">   <span class="keyword">print</span> (arg1)</span><br><span class="line">   <span class="keyword">print</span> (vardict)</span><br><span class="line"> </span><br><span class="line"><span class="comment"># 调用printinfo 函数</span></span><br><span class="line">printinfo(<span class="number">1</span>, a=<span class="number">2</span>,b=<span class="number">3</span>)</span><br></pre></td></tr></table></figure>
+<p>以上实例输出结果：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">输出: </span><br><span class="line">1</span><br><span class="line">&#123;&#39;a&#39;: 2, &#39;b&#39;: 3&#125;</span><br></pre></td></tr></table></figure>
+<p>声明函数时，参数中星号 <code>*</code> 可以单独出现，例如:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">f</span><span class="params">(a,b,*,c)</span>:</span></span><br><span class="line">    <span class="keyword">return</span> a+b+c</span><br></pre></td></tr></table></figure>
+<p>如果单独出现星号 * 后的参数必须用关键字传入。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="function"><span class="keyword">def</span> <span class="title">f</span><span class="params">(a,b,*,c)</span>:</span></span><br><span class="line"><span class="meta">... </span>    <span class="keyword">return</span> a+b+c</span><br><span class="line"><span class="meta">... </span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>f(<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>)   <span class="comment"># 报错</span></span><br><span class="line">Traceback (most recent call last):</span><br><span class="line">  File <span class="string">"&lt;stdin&gt;"</span>, line <span class="number">1</span>, <span class="keyword">in</span> &lt;module&gt;</span><br><span class="line">TypeError: f() takes <span class="number">2</span> positional arguments but <span class="number">3</span> were given</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>f(<span class="number">1</span>,<span class="number">2</span>,c=<span class="number">3</span>) <span class="comment"># 正常</span></span><br><span class="line"><span class="number">6</span></span><br><span class="line">&gt;&gt;&gt;</span><br></pre></td></tr></table></figure>
+<h3 id="匿名函数"><a href="#匿名函数" class="headerlink" title="匿名函数"></a>匿名函数</h3><p>python 使用 lambda 来创建匿名函数。</p>
+<p>所谓匿名，意即不再使用 def 语句这样标准的形式定义一个函数。<br>· lambda 只是一个表达式，函数体比 def 简单很多。<br>· lambda的主体是一个表达式，而不是一个代码块。仅仅能在lambda表达式中封装有限的逻辑进去。<br>· lambda 函数拥有自己的命名空间，且不能访问自己参数列表之外或全局命名空间里的参数。<br>· 虽然lambda函数看起来只能写一行，却不等同于C或C++的内联函数，后者的目的是调用小函数时不占用栈内存从而增加运行效率。</p>
+<h4 id="语法-1"><a href="#语法-1" class="headerlink" title="语法"></a>语法</h4><p>lambda 函数的语法只包含一个语句，如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">lambda</span> [arg1 [,arg2,.....argn]]:expression</span><br></pre></td></tr></table></figure>
+<p>如下实例：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#!/usr/bin/python3</span></span><br><span class="line"> </span><br><span class="line"><span class="comment"># 可写函数说明</span></span><br><span class="line">sum = <span class="keyword">lambda</span> arg1, arg2: arg1 + arg2</span><br><span class="line"> </span><br><span class="line"><span class="comment"># 调用sum函数</span></span><br><span class="line"><span class="keyword">print</span> (<span class="string">"相加后的值为 : "</span>, sum( <span class="number">10</span>, <span class="number">20</span> ))</span><br><span class="line"><span class="keyword">print</span> (<span class="string">"相加后的值为 : "</span>, sum( <span class="number">20</span>, <span class="number">20</span> ))</span><br></pre></td></tr></table></figure>
+<p>以上实例输出结果：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">相加后的值为 :  30</span><br><span class="line">相加后的值为 :  40</span><br></pre></td></tr></table></figure>
+<h3 id="return语句"><a href="#return语句" class="headerlink" title="return语句"></a>return语句</h3><p>return [表达式] 语句用于退出函数，选择性地向调用方返回一个表达式。不带参数值的return语句返回None。之前的例子都没有示范如何返回数值，以下实例演示了 return 语句的用法：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#!/usr/bin/python3</span></span><br><span class="line"> </span><br><span class="line"><span class="comment"># 可写函数说明</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">sum</span><span class="params">( arg1, arg2 )</span>:</span></span><br><span class="line">   <span class="comment"># 返回2个参数的和."</span></span><br><span class="line">   total = arg1 + arg2</span><br><span class="line">   <span class="keyword">print</span> (<span class="string">"函数内 : "</span>, total)</span><br><span class="line">   <span class="keyword">return</span> total</span><br><span class="line"> </span><br><span class="line"><span class="comment"># 调用sum函数</span></span><br><span class="line">total = sum( <span class="number">10</span>, <span class="number">20</span> )</span><br><span class="line"><span class="keyword">print</span> (<span class="string">"函数外 : "</span>, total)</span><br></pre></td></tr></table></figure>
+<p>以上实例输出结果：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">函数内 :  30</span><br><span class="line">函数外 :  30</span><br></pre></td></tr></table></figure>
+<h3 id="变量作用域"><a href="#变量作用域" class="headerlink" title="变量作用域"></a>变量作用域</h3><p>Python 中，程序的变量并不是在哪个位置都可以访问的，访问权限决定于这个变量是在哪里赋值的。</p>
+<p>变量的作用域决定了在哪一部分程序可以访问哪个特定的变量名称。Python的作用域一共有4种，分别是：<br>· L （Local） 局部作用域<br>· E （Enclosing） 闭包函数外的函数中<br>· G （Global） 全局作用域<br>· B （Built-in） 内建作用域<br>以 L –&gt; E –&gt; G –&gt;B 的规则查找，即：在局部找不到，便会去局部外的局部找（例如闭包），再找不到就会去全局找，再者去内建中找。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">x = int(<span class="number">2.9</span>)  <span class="comment"># 内建作用域</span></span><br><span class="line"> </span><br><span class="line">g_count = <span class="number">0</span>  <span class="comment"># 全局作用域</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">outer</span><span class="params">()</span>:</span></span><br><span class="line">    o_count = <span class="number">1</span>  <span class="comment"># 闭包函数外的函数中</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">inner</span><span class="params">()</span>:</span></span><br><span class="line">        i_count = <span class="number">2</span>  <span class="comment"># 局部作用域</span></span><br></pre></td></tr></table></figure>
+<p>Python 中只有模块（module），类（class）以及函数（def、lambda）才会引入新的作用域，其它的代码块（如 if/elif/else/、try/except、for/while等）是不会引入新的作用域的，也就是说这些语句内定义的变量，外部也可以访问，如下代码：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">if</span> <span class="literal">True</span>:</span><br><span class="line"><span class="meta">... </span> msg = <span class="string">'I am from Runoob'</span></span><br><span class="line"><span class="meta">... </span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>msg</span><br><span class="line"><span class="string">'I am from Runoob'</span></span><br><span class="line">&gt;&gt;&gt;</span><br></pre></td></tr></table></figure>
+<p>实例中 msg 变量定义在 if 语句块中，但外部还是可以访问的。</p>
+<p>如果将 msg 定义在函数中，则它就是局部变量，外部不能访问：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="function"><span class="keyword">def</span> <span class="title">test</span><span class="params">()</span>:</span></span><br><span class="line"><span class="meta">... </span>    msg_inner = <span class="string">'I am from Runoob'</span></span><br><span class="line"><span class="meta">... </span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>msg_inner</span><br><span class="line">Traceback (most recent call last):</span><br><span class="line">  File <span class="string">"&lt;stdin&gt;"</span>, line <span class="number">1</span>, <span class="keyword">in</span> &lt;module&gt;</span><br><span class="line">NameError: name <span class="string">'msg_inner'</span> <span class="keyword">is</span> <span class="keyword">not</span> defined</span><br><span class="line">&gt;&gt;&gt;</span><br></pre></td></tr></table></figure>
+<p>从报错的信息上看，说明了 msg_inner 未定义，无法使用，因为它是局部变量，只有在函数内可以使用。</p>
+<h4 id="全局变量和局部变量"><a href="#全局变量和局部变量" class="headerlink" title="全局变量和局部变量"></a>全局变量和局部变量</h4><p>定义在函数内部的变量拥有一个局部作用域，定义在函数外的拥有全局作用域。</p>
+<p>局部变量只能在其被声明的函数内部访问，而全局变量可以在整个程序范围内访问。调用函数时，所有在函数内声明的变量名称都将被加入到作用域中。如下实例：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#!/usr/bin/python3</span></span><br><span class="line"> </span><br><span class="line">total = <span class="number">0</span> <span class="comment"># 这是一个全局变量</span></span><br><span class="line"><span class="comment"># 可写函数说明</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">sum</span><span class="params">( arg1, arg2 )</span>:</span></span><br><span class="line">    <span class="comment">#返回2个参数的和."</span></span><br><span class="line">    total = arg1 + arg2 <span class="comment"># total在这里是局部变量.</span></span><br><span class="line">    <span class="keyword">print</span> (<span class="string">"函数内是局部变量 : "</span>, total)</span><br><span class="line">    <span class="keyword">return</span> total</span><br><span class="line"> </span><br><span class="line"><span class="comment">#调用sum函数</span></span><br><span class="line">sum( <span class="number">10</span>, <span class="number">20</span> )</span><br><span class="line"><span class="keyword">print</span> (<span class="string">"函数外是全局变量 : "</span>, total)</span><br></pre></td></tr></table></figure>
+<p>以上实例输出结果：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">函数内是局部变量 :  30</span><br><span class="line">函数外是全局变量 :  0</span><br></pre></td></tr></table></figure>
+<h4 id="global-和-nonlocal关键字"><a href="#global-和-nonlocal关键字" class="headerlink" title="global 和 nonlocal关键字"></a>global 和 nonlocal关键字</h4><p>当内部作用域想修改外部作用域的变量时，就要用到global和nonlocal关键字了。</p>
+<p>以下实例修改全局变量 num：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#!/usr/bin/python3</span></span><br><span class="line"> </span><br><span class="line">num = <span class="number">1</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">fun1</span><span class="params">()</span>:</span></span><br><span class="line">    <span class="keyword">global</span> num  <span class="comment"># 需要使用 global 关键字声明</span></span><br><span class="line">    print(num) </span><br><span class="line">    num = <span class="number">123</span></span><br><span class="line">    print(num)</span><br><span class="line">fun1()</span><br><span class="line">print(num)</span><br></pre></td></tr></table></figure>
+<p>以上实例输出结果：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">1</span><br><span class="line">123</span><br><span class="line">123</span><br></pre></td></tr></table></figure>
+<p>如果要修改嵌套作用域（enclosing 作用域，外层非全局作用域）中的变量则需要 nonlocal 关键字了，如下实例：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#!/usr/bin/python3</span></span><br><span class="line"> </span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">outer</span><span class="params">()</span>:</span></span><br><span class="line">    num = <span class="number">10</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">inner</span><span class="params">()</span>:</span></span><br><span class="line">        <span class="keyword">nonlocal</span> num   <span class="comment"># nonlocal关键字声明</span></span><br><span class="line">        num = <span class="number">100</span></span><br><span class="line">        print(num)</span><br><span class="line">    inner()</span><br><span class="line">    print(num)</span><br><span class="line">outer()</span><br></pre></td></tr></table></figure>
+<p>以上实例输出结果：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">100</span><br><span class="line">100</span><br></pre></td></tr></table></figure>
+<p>另外有一种特殊情况，假设下面这段代码被运行：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#!/usr/bin/python3</span></span><br><span class="line"> </span><br><span class="line">a = <span class="number">10</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">test</span><span class="params">()</span>:</span></span><br><span class="line">    a = a + <span class="number">1</span></span><br><span class="line">    print(a)</span><br><span class="line">test()</span><br></pre></td></tr></table></figure>
+<p>以上程序执行，报错信息如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">Traceback (most recent call last):</span><br><span class="line">  File <span class="string">"test.py"</span>, line <span class="number">7</span>, <span class="keyword">in</span> &lt;module&gt;</span><br><span class="line">    test()</span><br><span class="line">  File <span class="string">"test.py"</span>, line <span class="number">5</span>, <span class="keyword">in</span> test</span><br><span class="line">    a = a + <span class="number">1</span></span><br><span class="line">UnboundLocalError: local variable <span class="string">'a'</span> referenced before assignment</span><br></pre></td></tr></table></figure>
+<p>错误信息为局部作用域引用错误，因为 test 函数中的 a 使用的是局部，未定义，无法修改。</p>
+<p>修改 a 为全局变量，通过函数参数传递，可以正常执行输出结果为：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#!/usr/bin/python3</span></span><br><span class="line"> </span><br><span class="line">a = <span class="number">10</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">test</span><span class="params">(a)</span>:</span></span><br><span class="line">    a = a + <span class="number">1</span></span><br><span class="line">    print(a)</span><br><span class="line">test(a)</span><br></pre></td></tr></table></figure>
+<p>执行输出结果为：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">11</span><br></pre></td></tr></table></figure>
+<h2 id="模块"><a href="#模块" class="headerlink" title="模块"></a>模块</h2><p>在前面的几个章节中我们脚本上是用 python 解释器来编程，如果你从 Python 解释器退出再进入，那么你定义的所有的方法和变量就都消失了。</p>
+<p>为此 Python 提供了一个办法，把这些定义存放在文件中，为一些脚本或者交互式的解释器实例使用，这个文件被称为模块。</p>
+<p>模块是一个包含所有你定义的函数和变量的文件，其后缀名是.py。模块可以被别的程序引入，以使用该模块中的函数等功能。这也是使用 python 标准库的方法。</p>
+<p>下面是一个使用 python 标准库中模块的例子。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#!/usr/bin/python3</span></span><br><span class="line"><span class="comment"># 文件名: using_sys.py</span></span><br><span class="line"> </span><br><span class="line"><span class="keyword">import</span> sys</span><br><span class="line"> </span><br><span class="line">print(<span class="string">'命令行参数如下:'</span>)</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> sys.argv:</span><br><span class="line">   print(i)</span><br><span class="line"> </span><br><span class="line">print(<span class="string">'\n\nPython 路径为：'</span>, sys.path, <span class="string">'\n'</span>)</span><br></pre></td></tr></table></figure>
+<p>执行结果如下所示：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">python using_sys.py 参数<span class="number">1</span> 参数<span class="number">2</span></span><br><span class="line">命令行参数如下:</span><br><span class="line">using_sys.py</span><br><span class="line">参数<span class="number">1</span></span><br><span class="line">参数<span class="number">2</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">Python 路径为： [<span class="string">'/root'</span>, <span class="string">'/usr/lib/python3.4'</span>, <span class="string">'/usr/lib/python3.4/plat-x86_64-linux-gnu'</span>, <span class="string">'/usr/lib/python3.4/lib-dynload'</span>, <span class="string">'/usr/local/lib/python3.4/dist-packages'</span>, <span class="string">'/usr/lib/python3/dist-packages'</span>]</span><br></pre></td></tr></table></figure>
+<p>· import sys 引入 python 标准库中的 sys.py 模块；这是引入某一模块的方法。<br>· sys.argv 是一个包含命令行参数的列表。<br>· sys.path 包含了一个 Python 解释器自动查找所需模块的路径的列表。</p>
+<h3 id="import语句"><a href="#import语句" class="headerlink" title="import语句"></a>import语句</h3><p>想使用 Python 源文件，只需在另一个源文件里执行 import 语句，语法如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> module1[, module2[,... moduleN]</span><br></pre></td></tr></table></figure>
+<p>当解释器遇到 import 语句，如果模块在当前的搜索路径就会被导入。</p>
+<p>搜索路径是一个解释器会先进行搜索的所有目录的列表。如想要导入模块 support，需要把命令放在脚本的顶端：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#!/usr/bin/python3</span></span><br><span class="line"><span class="comment"># Filename: support.py</span></span><br><span class="line"> </span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">print_func</span><span class="params">( par )</span>:</span></span><br><span class="line">    <span class="keyword">print</span> (<span class="string">"Hello : "</span>, par)</span><br><span class="line">    <span class="keyword">return</span></span><br></pre></td></tr></table></figure>
+<p>test.py 引入 support 模块：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#!/usr/bin/python3</span></span><br><span class="line"><span class="comment"># Filename: test.py</span></span><br><span class="line"> </span><br><span class="line"><span class="comment"># 导入模块</span></span><br><span class="line"><span class="keyword">import</span> support</span><br><span class="line"> </span><br><span class="line"><span class="comment"># 现在可以调用模块里包含的函数了</span></span><br><span class="line">support.print_func(<span class="string">"Runoob"</span>)</span><br></pre></td></tr></table></figure>
+<p>以上实例输出结果：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ python3 test.py </span><br><span class="line">Hello :  Runoob</span><br></pre></td></tr></table></figure>
+<p>一个模块只会被导入一次，不管你执行了多少次import。这样可以防止导入模块被一遍又一遍地执行。</p>
+<p>当我们使用import语句的时候，Python解释器是怎样找到对应的文件的呢？</p>
+<p>这就涉及到Python的搜索路径，搜索路径是由一系列目录名组成的，Python解释器就依次从这些目录中去寻找所引入的模块。</p>
+<p>这看起来很像环境变量，事实上，也可以通过定义环境变量的方式来确定搜索路径。</p>
+<p>搜索路径是在Python编译或安装的时候确定的，安装新的库应该也会修改。搜索路径被存储在sys模块中的path变量，做一个简单的实验，在交互式解释器中，输入以下代码：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">import</span> sys</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>sys.path</span><br><span class="line">[<span class="string">''</span>, <span class="string">'/usr/lib/python3.4'</span>, <span class="string">'/usr/lib/python3.4/plat-x86_64-linux-gnu'</span>, <span class="string">'/usr/lib/python3.4/lib-dynload'</span>, <span class="string">'/usr/local/lib/python3.4/dist-packages'</span>, <span class="string">'/usr/lib/python3/dist-packages'</span>]</span><br><span class="line">&gt;&gt;&gt;</span><br></pre></td></tr></table></figure>
+<p>sys.path 输出是一个列表，其中第一项是空串’’，代表当前目录（若是从一个脚本中打印出来的话，可以更清楚地看出是哪个目录），亦即我们执行python解释器的目录（对于脚本的话就是运行的脚本所在的目录）。</p>
+<p>因此若像我一样在当前目录下存在与要引入模块同名的文件，就会把要引入的模块屏蔽掉。</p>
+<p>了解了搜索路径的概念，就可以在脚本中修改sys.path来引入一些不在搜索路径中的模块。</p>
+<p>现在，在解释器的当前目录或者 sys.path 中的一个目录里面来创建一个fibo.py的文件，代码如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 斐波那契(fibonacci)数列模块</span></span><br><span class="line"> </span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">fib</span><span class="params">(n)</span>:</span>    <span class="comment"># 定义到 n 的斐波那契数列</span></span><br><span class="line">    a, b = <span class="number">0</span>, <span class="number">1</span></span><br><span class="line">    <span class="keyword">while</span> b &lt; n:</span><br><span class="line">        print(b, end=<span class="string">' '</span>)</span><br><span class="line">        a, b = b, a+b</span><br><span class="line">    print()</span><br><span class="line"> </span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">fib2</span><span class="params">(n)</span>:</span> <span class="comment"># 返回到 n 的斐波那契数列</span></span><br><span class="line">    result = []</span><br><span class="line">    a, b = <span class="number">0</span>, <span class="number">1</span></span><br><span class="line">    <span class="keyword">while</span> b &lt; n:</span><br><span class="line">        result.append(b)</span><br><span class="line">        a, b = b, a+b</span><br><span class="line">    <span class="keyword">return</span> result</span><br></pre></td></tr></table></figure>
+<p>然后进入Python解释器，使用下面的命令导入这个模块：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">import</span> fibo</span><br></pre></td></tr></table></figure>
+<p>这样做并没有把直接定义在fibo中的函数名称写入到当前符号表里，只是把模块fibo的名字写到了那里。</p>
+<p>可以使用模块名称来访问函数：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt;fibo.fib(<span class="number">1000</span>)</span><br><span class="line"><span class="number">1</span> <span class="number">1</span> <span class="number">2</span> <span class="number">3</span> <span class="number">5</span> <span class="number">8</span> <span class="number">13</span> <span class="number">21</span> <span class="number">34</span> <span class="number">55</span> <span class="number">89</span> <span class="number">144</span> <span class="number">233</span> <span class="number">377</span> <span class="number">610</span> <span class="number">987</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>fibo.fib2(<span class="number">100</span>)</span><br><span class="line">[<span class="number">1</span>, <span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">5</span>, <span class="number">8</span>, <span class="number">13</span>, <span class="number">21</span>, <span class="number">34</span>, <span class="number">55</span>, <span class="number">89</span>]</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>fibo.__name__</span><br><span class="line"><span class="string">'fibo'</span></span><br></pre></td></tr></table></figure>
+<p>如果你打算经常使用一个函数，你可以把它赋给一个本地的名称：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>fib = fibo.fib</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>fib(<span class="number">500</span>)</span><br><span class="line"><span class="number">1</span> <span class="number">1</span> <span class="number">2</span> <span class="number">3</span> <span class="number">5</span> <span class="number">8</span> <span class="number">13</span> <span class="number">21</span> <span class="number">34</span> <span class="number">55</span> <span class="number">89</span> <span class="number">144</span> <span class="number">233</span> <span class="number">377</span></span><br></pre></td></tr></table></figure>
+<h3 id="from…import语句"><a href="#from…import语句" class="headerlink" title="from…import语句"></a>from…import语句</h3><p>Python 的 from 语句让你从模块中导入一个指定的部分到当前命名空间中，语法如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> modname <span class="keyword">import</span> name1[, name2[, ... nameN]]</span><br></pre></td></tr></table></figure>
+<p>例如，要导入模块 fibo 的 fib 函数，使用如下语句：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">from</span> fibo <span class="keyword">import</span> fib, fib2</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>fib(<span class="number">500</span>)</span><br><span class="line"><span class="number">1</span> <span class="number">1</span> <span class="number">2</span> <span class="number">3</span> <span class="number">5</span> <span class="number">8</span> <span class="number">13</span> <span class="number">21</span> <span class="number">34</span> <span class="number">55</span> <span class="number">89</span> <span class="number">144</span> <span class="number">233</span> <span class="number">377</span></span><br></pre></td></tr></table></figure>
+<p>这个声明不会把整个fibo模块导入到当前的命名空间中，它只会将fibo里的fib函数引入进来。</p>
+<h3 id="from-…-import-语句"><a href="#from-…-import-语句" class="headerlink" title="from … import * 语句"></a>from … import * 语句</h3><p>把一个模块的所有内容全都导入到当前的命名空间也是可行的，只需使用如下声明：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> modname <span class="keyword">import</span> *</span><br></pre></td></tr></table></figure>
+<p>这提供了一个简单的方法来导入一个模块中的所有项目。然而这种声明不该被过多地使用。</p>
+<h3 id="深入模块"><a href="#深入模块" class="headerlink" title="深入模块"></a>深入模块</h3><p>模块除了方法定义，还可以包括可执行的代码。这些代码一般用来初始化这个模块。这些代码只有在第一次被导入时才会被执行。</p>
+<p>每个模块有各自独立的符号表，在模块内部为所有的函数当作全局符号表来使用。</p>
+<p>所以，模块的作者可以放心大胆的在模块内部使用这些全局变量，而不用担心把其他用户的全局变量搞花。</p>
+<p>从另一个方面，当你确实知道你在做什么的话，你也可以通过 modname.itemname 这样的表示法来访问模块内的函数。</p>
+<p>模块是可以导入其他模块的。在一个模块（或者脚本，或者其他地方）的最前面使用 import 来导入一个模块，当然这只是一个惯例，而不是强制的。被导入的模块的名称将被放入当前操作的模块的符号表中。</p>
+<p>还有一种导入的方法，可以使用 import 直接把模块内（函数，变量的）名称导入到当前操作模块。比如:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">from</span> fibo <span class="keyword">import</span> fib, fib2</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>fib(<span class="number">500</span>)</span><br><span class="line"><span class="number">1</span> <span class="number">1</span> <span class="number">2</span> <span class="number">3</span> <span class="number">5</span> <span class="number">8</span> <span class="number">13</span> <span class="number">21</span> <span class="number">34</span> <span class="number">55</span> <span class="number">89</span> <span class="number">144</span> <span class="number">233</span> <span class="number">377</span></span><br></pre></td></tr></table></figure>
+<p>这种导入的方法不会把被导入的模块的名称放在当前的字符表中（所以在这个例子里面，fibo 这个名称是没有定义的）。</p>
+<p>这还有一种方法，可以一次性的把模块中的所有（函数，变量）名称都导入到当前模块的字符表:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">from</span> fibo <span class="keyword">import</span> *</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>fib(<span class="number">500</span>)</span><br><span class="line"><span class="number">1</span> <span class="number">1</span> <span class="number">2</span> <span class="number">3</span> <span class="number">5</span> <span class="number">8</span> <span class="number">13</span> <span class="number">21</span> <span class="number">34</span> <span class="number">55</span> <span class="number">89</span> <span class="number">144</span> <span class="number">233</span> <span class="number">377</span></span><br></pre></td></tr></table></figure>
+<p>这将把所有的名字都导入进来，但是那些由单一下划线（_）开头的名字不在此例。大多数情况， Python程序员不使用这种方法，因为引入的其它来源的命名，很可能覆盖了已有的定义。</p>
+<h3 id="name属性"><a href="#name属性" class="headerlink" title="name属性"></a><strong>name</strong>属性</h3><p>一个模块被另一个程序第一次引入时，其主程序将运行。如果我们想在模块被引入时，模块中的某一程序块不执行，我们可以用<strong>name</strong>属性来使该程序块仅在该模块自身运行时执行。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#!/usr/bin/python3</span></span><br><span class="line"><span class="comment"># Filename: using_name.py</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</span><br><span class="line">   print(<span class="string">'程序自身在运行'</span>)</span><br><span class="line"><span class="keyword">else</span>:</span><br><span class="line">   print(<span class="string">'我来自另一模块'</span>)</span><br></pre></td></tr></table></figure>
+<p>运行输出如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ python using_name.py</span><br><span class="line">程序自身在运行</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ python</span><br><span class="line">&gt;&gt;&gt; import using_name</span><br><span class="line">我来自另一模块</span><br><span class="line">&gt;&gt;&gt;</span><br></pre></td></tr></table></figure>
+<p>说明： 每个模块都有一个<strong>name</strong>属性，当其值是’<strong>main</strong>‘时，表明该模块自身在运行，否则是被引入。</p>
+<p>说明：<strong>name</strong> 与 <strong>main</strong> 底下是双下划线， _ _ 是这样去掉中间的那个空格。</p>
+<h3 id="dir-函数"><a href="#dir-函数" class="headerlink" title="dir() 函数"></a>dir() 函数</h3><p>内置的函数 dir() 可以找到模块内定义的所有名称。以一个字符串列表的形式返回:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">import</span> fibo, sys</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>dir(fibo)</span><br><span class="line">[<span class="string">'__name__'</span>, <span class="string">'fib'</span>, <span class="string">'fib2'</span>]</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>dir(sys)  </span><br><span class="line">[<span class="string">'__displayhook__'</span>, <span class="string">'__doc__'</span>, <span class="string">'__excepthook__'</span>, <span class="string">'__loader__'</span>, <span class="string">'__name__'</span>,</span><br><span class="line"> <span class="string">'__package__'</span>, <span class="string">'__stderr__'</span>, <span class="string">'__stdin__'</span>, <span class="string">'__stdout__'</span>,</span><br><span class="line"> <span class="string">'_clear_type_cache'</span>, <span class="string">'_current_frames'</span>, <span class="string">'_debugmallocstats'</span>, <span class="string">'_getframe'</span>,</span><br><span class="line"> <span class="string">'_home'</span>, <span class="string">'_mercurial'</span>, <span class="string">'_xoptions'</span>, <span class="string">'abiflags'</span>, <span class="string">'api_version'</span>, <span class="string">'argv'</span>,</span><br><span class="line"> <span class="string">'base_exec_prefix'</span>, <span class="string">'base_prefix'</span>, <span class="string">'builtin_module_names'</span>, <span class="string">'byteorder'</span>,</span><br><span class="line"> <span class="string">'call_tracing'</span>, <span class="string">'callstats'</span>, <span class="string">'copyright'</span>, <span class="string">'displayhook'</span>,</span><br><span class="line"> <span class="string">'dont_write_bytecode'</span>, <span class="string">'exc_info'</span>, <span class="string">'excepthook'</span>, <span class="string">'exec_prefix'</span>,</span><br><span class="line"> <span class="string">'executable'</span>, <span class="string">'exit'</span>, <span class="string">'flags'</span>, <span class="string">'float_info'</span>, <span class="string">'float_repr_style'</span>,</span><br><span class="line"> <span class="string">'getcheckinterval'</span>, <span class="string">'getdefaultencoding'</span>, <span class="string">'getdlopenflags'</span>,</span><br><span class="line"> <span class="string">'getfilesystemencoding'</span>, <span class="string">'getobjects'</span>, <span class="string">'getprofile'</span>, <span class="string">'getrecursionlimit'</span>,</span><br><span class="line"> <span class="string">'getrefcount'</span>, <span class="string">'getsizeof'</span>, <span class="string">'getswitchinterval'</span>, <span class="string">'gettotalrefcount'</span>,</span><br><span class="line"> <span class="string">'gettrace'</span>, <span class="string">'hash_info'</span>, <span class="string">'hexversion'</span>, <span class="string">'implementation'</span>, <span class="string">'int_info'</span>,</span><br><span class="line"> <span class="string">'intern'</span>, <span class="string">'maxsize'</span>, <span class="string">'maxunicode'</span>, <span class="string">'meta_path'</span>, <span class="string">'modules'</span>, <span class="string">'path'</span>,</span><br><span class="line"> <span class="string">'path_hooks'</span>, <span class="string">'path_importer_cache'</span>, <span class="string">'platform'</span>, <span class="string">'prefix'</span>, <span class="string">'ps1'</span>,</span><br><span class="line"> <span class="string">'setcheckinterval'</span>, <span class="string">'setdlopenflags'</span>, <span class="string">'setprofile'</span>, <span class="string">'setrecursionlimit'</span>,</span><br><span class="line"> <span class="string">'setswitchinterval'</span>, <span class="string">'settrace'</span>, <span class="string">'stderr'</span>, <span class="string">'stdin'</span>, <span class="string">'stdout'</span>,</span><br><span class="line"> <span class="string">'thread_info'</span>, <span class="string">'version'</span>, <span class="string">'version_info'</span>, <span class="string">'warnoptions'</span>]</span><br></pre></td></tr></table></figure>
+<p>如果没有给定参数，那么 dir() 函数会罗列出当前定义的所有名称:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>a = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>]</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">import</span> fibo</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>fib = fibo.fib</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>dir() <span class="comment"># 得到一个当前模块中定义的属性列表</span></span><br><span class="line">[<span class="string">'__builtins__'</span>, <span class="string">'__name__'</span>, <span class="string">'a'</span>, <span class="string">'fib'</span>, <span class="string">'fibo'</span>, <span class="string">'sys'</span>]</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>a = <span class="number">5</span> <span class="comment"># 建立一个新的变量 'a'</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>dir()</span><br><span class="line">[<span class="string">'__builtins__'</span>, <span class="string">'__doc__'</span>, <span class="string">'__name__'</span>, <span class="string">'a'</span>, <span class="string">'sys'</span>]</span><br><span class="line">&gt;&gt;&gt;</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">del</span> a <span class="comment"># 删除变量名a</span></span><br><span class="line">&gt;&gt;&gt;</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>dir()</span><br><span class="line">[<span class="string">'__builtins__'</span>, <span class="string">'__doc__'</span>, <span class="string">'__name__'</span>, <span class="string">'sys'</span>]</span><br><span class="line">&gt;&gt;&gt;</span><br></pre></td></tr></table></figure>
+<h3 id="标准模块"><a href="#标准模块" class="headerlink" title="标准模块"></a>标准模块</h3><p>Python 本身带着一些标准的模块库，在 Python 库参考文档中将会介绍到（就是后面的”库参考文档”）。</p>
+<p>有些模块直接被构建在解析器里，这些虽然不是一些语言内置的功能，但是他却能很高效的使用，甚至是系统级调用也没问题。</p>
+<p>这些组件会根据不同的操作系统进行不同形式的配置，比如 winreg 这个模块就只会提供给 Windows 系统。</p>
+<p>应该注意到这有一个特别的模块 sys ，它内置在每一个 Python 解析器中。变量 sys.ps1 和 sys.ps2 定义了主提示符和副提示符所对应的字符串:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">import</span> sys</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>sys.ps1</span><br><span class="line"><span class="string">'&gt;&gt;&gt; '</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>sys.ps2</span><br><span class="line"><span class="string">'... '</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>sys.ps1 = <span class="string">'C&gt; '</span></span><br><span class="line">C&gt; print(<span class="string">'Yuck!'</span>)</span><br><span class="line">Yuck!</span><br><span class="line">C&gt;</span><br></pre></td></tr></table></figure>
+<h3 id="包"><a href="#包" class="headerlink" title="包"></a>包</h3><p>包是一种管理 Python 模块命名空间的形式，采用”点模块名称”。</p>
+<p>比如一个模块的名称是 A.B， 那么他表示一个包 A中的子模块 B 。</p>
+<p>就好像使用模块的时候，你不用担心不同模块之间的全局变量相互影响一样，采用点模块名称这种形式也不用担心不同库之间的模块重名的情况。</p>
+<p>这样不同的作者都可以提供 NumPy 模块，或者是 Python 图形库。</p>
+<p>不妨假设你想设计一套统一处理声音文件和数据的模块（或者称之为一个”包”）。</p>
+<p>现存很多种不同的音频文件格式（基本上都是通过后缀名区分的，例如： .wav，:file:.aiff，:file:.au，），所以你需要有一组不断增加的模块，用来在不同的格式之间转换。</p>
+<p>并且针对这些音频数据，还有很多不同的操作（比如混音，添加回声，增加均衡器功能，创建人造立体声效果），所以你还需要一组怎么也写不完的模块来处理这些操作。</p>
+<p>这里给出了一种可能的包结构（在分层的文件系统中）:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">sound&#x2F;                          顶层包</span><br><span class="line">      __init__.py               初始化 sound 包</span><br><span class="line">      formats&#x2F;                  文件格式转换子包</span><br><span class="line">              __init__.py</span><br><span class="line">              wavread.py</span><br><span class="line">              wavwrite.py</span><br><span class="line">              aiffread.py</span><br><span class="line">              aiffwrite.py</span><br><span class="line">              auread.py</span><br><span class="line">              auwrite.py</span><br><span class="line">              ...</span><br><span class="line">      effects&#x2F;                  声音效果子包</span><br><span class="line">              __init__.py</span><br><span class="line">              echo.py</span><br><span class="line">              surround.py</span><br><span class="line">              reverse.py</span><br><span class="line">              ...</span><br><span class="line">      filters&#x2F;                  filters 子包</span><br><span class="line">              __init__.py</span><br><span class="line">              equalizer.py</span><br><span class="line">              vocoder.py</span><br><span class="line">              karaoke.py</span><br><span class="line">              ...</span><br></pre></td></tr></table></figure>
+<p>在导入一个包的时候，Python 会根据 sys.path 中的目录来寻找这个包中包含的子目录。</p>
+<p>目录只有包含一个叫做 <strong>init</strong>.py 的文件才会被认作是一个包，主要是为了避免一些滥俗的名字（比如叫做 string）不小心的影响搜索路径中的有效模块。</p>
+<p>最简单的情况，放一个空的 :file:<strong>init</strong>.py就可以了。当然这个文件中也可以包含一些初始化代码或者为（将在后面介绍的） <strong>all</strong>变量赋值。</p>
+<p>用户可以每次只导入一个包里面的特定模块，比如:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> sound.effects.echo</span><br></pre></td></tr></table></figure>
+<p>这将会导入子模块:sound.effects.echo。 他必须使用全名去访问:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sound.effects.echo.echofilter(input, output, delay=<span class="number">0.7</span>, atten=<span class="number">4</span>)</span><br></pre></td></tr></table></figure>
+<p>还有一种导入子模块的方法是:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> sound.effects <span class="keyword">import</span> echo</span><br></pre></td></tr></table></figure>
+<p>这同样会导入子模块: echo，并且他不需要那些冗长的前缀，所以他可以这样使用:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">echo.echofilter(input, output, delay=<span class="number">0.7</span>, atten=<span class="number">4</span>)</span><br></pre></td></tr></table></figure>
+<p>还有一种变化就是直接导入一个函数或者变量:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> sound.effects.echo <span class="keyword">import</span> echofilter</span><br></pre></td></tr></table></figure>
+<p>同样的，这种方法会导入子模块: echo，并且可以直接使用他的 echofilter() 函数:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">echofilter(input, output, delay=<span class="number">0.7</span>, atten=<span class="number">4</span>)</span><br></pre></td></tr></table></figure>
+<p>注意当使用from package import item这种形式的时候，对应的item既可以是包里面的子模块（子包），或者包里面定义的其他名称，比如函数，类或者变量。</p>
+<p>import语法会首先把item当作一个包定义的名称，如果没找到，再试图按照一个模块去导入。如果还没找到，恭喜，一个:exc:ImportError 异常被抛出了。</p>
+<p>反之，如果使用形如import item.subitem.subsubitem这种导入形式，除了最后一项，都必须是包，而最后一项则可以是模块或者是包，但是不可以是类，函数或者变量的名字。</p>
+<h3 id="从一个包中导入"><a href="#从一个包中导入" class="headerlink" title="从一个包中导入*"></a>从一个包中导入*</h3><p>设想一下，如果我们使用 from sound.effects import *会发生什么？</p>
+<p>Python 会进入文件系统，找到这个包里面所有的子模块，一个一个的把它们都导入进来。</p>
+<p>但是很不幸，这个方法在 Windows平台上工作的就不是非常好，因为Windows是一个大小写不区分的系统。</p>
+<p>在这类平台上，没有人敢担保一个叫做 ECHO.py 的文件导入为模块 echo 还是 Echo 甚至 ECHO。</p>
+<p>（例如，Windows 95就很讨厌的把每一个文件的首字母大写显示）而且 DOS 的 8+3 命名规则对长模块名称的处理会把问题搞得更纠结。</p>
+<p>为了解决这个问题，只能烦劳包作者提供一个精确的包的索引了。</p>
+<p>导入语句遵循如下规则：如果包定义文件 <strong>init</strong>.py 存在一个叫做 <strong>all</strong> 的列表变量，那么在使用 from package import * 的时候就把这个列表中的所有名字作为包内容导入。</p>
+<p>作为包的作者，可别忘了在更新包之后保证 <strong>all</strong> 也更新了啊。你说我就不这么做，我就不使用导入*这种用法，好吧，没问题，谁让你是老板呢。这里有一个例子，在:file:sounds/effects/<strong>init</strong>.py中包含如下代码:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">__all__ = [<span class="string">"echo"</span>, <span class="string">"surround"</span>, <span class="string">"reverse"</span>]</span><br></pre></td></tr></table></figure>
+<p>这表示当你使用from sound.effects import *这种用法时，你只会导入包里面这三个子模块。</p>
+<p>如果 <strong>all</strong> 真的没有定义，那么使用from sound.effects import *这种语法的时候，就不会导入包 sound.effects 里的任何子模块。他只是把包sound.effects和它里面定义的所有内容导入进来（可能运行<strong>init</strong>.py里定义的初始化代码）。</p>
+<p>这会把 <strong>init</strong>.py 里面定义的所有名字导入进来。并且他不会破坏掉我们在这句话之前导入的所有明确指定的模块。看下这部分代码:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> sound.effects.echo</span><br><span class="line"><span class="keyword">import</span> sound.effects.surround</span><br><span class="line"><span class="keyword">from</span> sound.effects <span class="keyword">import</span> *</span><br></pre></td></tr></table></figure>
+<p>这个例子中，在执行from…import前，包sound.effects中的echo和surround模块都被导入到当前的命名空间中了。（当然如果定义了<strong>all</strong>就更没问题了）</p>
+<p>通常我们并不主张使用*这种方法来导入模块，因为这种方法经常会导致代码的可读性降低。不过这样倒的确是可以省去不少敲键的功夫，而且一些模块都设计成了只能通过特定的方法导入。</p>
+<p>记住，使用from Package import specific_submodule这种方法永远不会有错。事实上，这也是推荐的方法。除非是你要导入的子模块有可能和其他包的子模块重名。</p>
+<p>如果在结构中包是一个子包（比如这个例子中对于包sound来说），而你又想导入兄弟包（同级别的包）你就得使用导入绝对的路径来导入。比如，如果模块sound.filters.vocoder 要使用包sound.effects中的模块echo，你就要写成 from sound.effects import echo。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> . <span class="keyword">import</span> echo</span><br><span class="line"><span class="keyword">from</span> .. <span class="keyword">import</span> formats</span><br><span class="line"><span class="keyword">from</span> ..filters <span class="keyword">import</span> equalizer</span><br></pre></td></tr></table></figure>
+<p>无论是隐式的还是显式的相对导入都是从当前模块开始的。主模块的名字永远是”<strong>main</strong>“，一个Python应用程序的主模块，应当总是使用绝对路径引用。</p>
+<p>包还提供一个额外的属性<strong>path</strong>。这是一个目录列表，里面每一个包含的目录都有为这个包服务的<strong>init</strong>.py，你得在其他<strong>init</strong>.py被执行前定义哦。可以修改这个变量，用来影响包含在包里面的模块和子包。</p>
+<p>这个功能并不常用，一般用来扩展包里面的模块。</p>
+<h2 id="引用"><a href="#引用" class="headerlink" title="引用"></a>引用</h2><p>本章主要参考以下文章教程<br><a href="http://www.runoob.com/python3/python3-conditional-statements.html" target="_blank" rel="noopener">http://www.runoob.com/python3/python3-conditional-statements.html</a><br><a href="http://www.runoob.com/python3/python3-conditional-statements.html" target="_blank" rel="noopener">http://www.runoob.com/python3/python3-conditional-statements.html</a><br><a href="http://www.runoob.com/python3/python3-iterator-generator.html" target="_blank" rel="noopener">http://www.runoob.com/python3/python3-iterator-generator.html</a><br><a href="http://www.runoob.com/python3/python3-function.html" target="_blank" rel="noopener">http://www.runoob.com/python3/python3-function.html</a></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/python3-%E8%AF%AD%E6%B3%95/" rel="tag"># python3 语法</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/01/10/python%E5%85%A5%E9%97%A8/python-3-%E5%9F%BA%E6%9C%AC%E7%B1%BB%E5%9E%8B/" rel="next" title="python基本类型">
+                <i class="fa fa-chevron-left"></i> python基本类型
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/01/14/python%E5%85%A5%E9%97%A8/python-4-list%E5%86%85%E5%BB%BA%E5%87%BD%E6%95%B0/" rel="prev" title="list内建函数">
+                list内建函数 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Han si</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/%7C%7C%20archive">
+              
+                  <span class="site-state-item-count">184</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">8</span>
+                  <span class="site-state-item-name">categories</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">71</span>
+                  <span class="site-state-item-name">tags</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:kw120943839@gmail.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#编码"><span class="nav-number">1.</span> <span class="nav-text">编码</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#标识符"><span class="nav-number">2.</span> <span class="nav-text">标识符</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#保留字"><span class="nav-number">3.</span> <span class="nav-text">保留字</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#注释"><span class="nav-number">4.</span> <span class="nav-text">注释</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#行与缩进"><span class="nav-number">5.</span> <span class="nav-text">行与缩进</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#多行语句"><span class="nav-number">6.</span> <span class="nav-text">多行语句</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#运算符"><span class="nav-number">7.</span> <span class="nav-text">运算符</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#算数运算符"><span class="nav-number">7.1.</span> <span class="nav-text">算数运算符</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#成员运算符"><span class="nav-number">7.2.</span> <span class="nav-text">成员运算符</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#条件控制"><span class="nav-number">8.</span> <span class="nav-text">条件控制</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#if语句"><span class="nav-number">8.1.</span> <span class="nav-text">if语句</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#if-嵌套"><span class="nav-number">8.1.1.</span> <span class="nav-text">if 嵌套</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#while循环"><span class="nav-number">8.2.</span> <span class="nav-text">while循环</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#无限循环"><span class="nav-number">8.2.1.</span> <span class="nav-text">无限循环</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#while-循环使用else语句"><span class="nav-number">8.2.2.</span> <span class="nav-text">while 循环使用else语句</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#for循环"><span class="nav-number">8.3.</span> <span class="nav-text">for循环</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#break和continue语句及循环中的else子句"><span class="nav-number">8.4.</span> <span class="nav-text">break和continue语句及循环中的else子句</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#pass"><span class="nav-number">8.5.</span> <span class="nav-text">pass</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#迭代器与生成器"><span class="nav-number">9.</span> <span class="nav-text">迭代器与生成器</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#迭代器"><span class="nav-number">9.1.</span> <span class="nav-text">迭代器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#创建一个迭代器"><span class="nav-number">9.2.</span> <span class="nav-text">创建一个迭代器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#StopIteration"><span class="nav-number">9.3.</span> <span class="nav-text">StopIteration</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#生成器"><span class="nav-number">9.4.</span> <span class="nav-text">生成器</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#函数"><span class="nav-number">10.</span> <span class="nav-text">函数</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#定义一个函数"><span class="nav-number">10.1.</span> <span class="nav-text">定义一个函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#语法"><span class="nav-number">10.2.</span> <span class="nav-text">语法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#函数调用"><span class="nav-number">10.3.</span> <span class="nav-text">函数调用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#参数传递"><span class="nav-number">10.4.</span> <span class="nav-text">参数传递</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#mutable-与不可更改-immutable-对象"><span class="nav-number">10.5.</span> <span class="nav-text">(mutable)与不可更改(immutable)对象</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#python-传不可变对象实例"><span class="nav-number">10.5.1.</span> <span class="nav-text">python 传不可变对象实例</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#传可变对象实例"><span class="nav-number">10.5.2.</span> <span class="nav-text">传可变对象实例</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#参数"><span class="nav-number">10.6.</span> <span class="nav-text">参数</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#必需参数"><span class="nav-number">10.6.1.</span> <span class="nav-text">必需参数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#关键字参数"><span class="nav-number">10.6.2.</span> <span class="nav-text">关键字参数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#默认参数"><span class="nav-number">10.6.3.</span> <span class="nav-text">默认参数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#不定长参数"><span class="nav-number">10.6.4.</span> <span class="nav-text">不定长参数</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#匿名函数"><span class="nav-number">10.7.</span> <span class="nav-text">匿名函数</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#语法-1"><span class="nav-number">10.7.1.</span> <span class="nav-text">语法</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#return语句"><span class="nav-number">10.8.</span> <span class="nav-text">return语句</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#变量作用域"><span class="nav-number">10.9.</span> <span class="nav-text">变量作用域</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#全局变量和局部变量"><span class="nav-number">10.9.1.</span> <span class="nav-text">全局变量和局部变量</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#global-和-nonlocal关键字"><span class="nav-number">10.9.2.</span> <span class="nav-text">global 和 nonlocal关键字</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#模块"><span class="nav-number">11.</span> <span class="nav-text">模块</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#import语句"><span class="nav-number">11.1.</span> <span class="nav-text">import语句</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#from…import语句"><span class="nav-number">11.2.</span> <span class="nav-text">from…import语句</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#from-…-import-语句"><span class="nav-number">11.3.</span> <span class="nav-text">from … import * 语句</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#深入模块"><span class="nav-number">11.4.</span> <span class="nav-text">深入模块</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#name属性"><span class="nav-number">11.5.</span> <span class="nav-text">name属性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#dir-函数"><span class="nav-number">11.6.</span> <span class="nav-text">dir() 函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#标准模块"><span class="nav-number">11.7.</span> <span class="nav-text">标准模块</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#包"><span class="nav-number">11.8.</span> <span class="nav-text">包</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#从一个包中导入"><span class="nav-number">11.9.</span> <span class="nav-text">从一个包中导入*</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#引用"><span class="nav-number">12.</span> <span class="nav-text">引用</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Han si</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('-1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
