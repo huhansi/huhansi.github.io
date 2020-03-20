@@ -1,0 +1,1209 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="Zh_cn">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="安全,Web,注入,HTTP请求," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="注入HTTP后端请求影城程序可能会将用户输入嵌入任何类型的后端HTTP请求，包括哪些以常规名&#x2F;值对传输参数的请求。由于应用程序通常会有效代理用户提交的UTL和参数，因而这种行为往往易于受到攻击。针对这种功能的攻击可以分为以下类别：  服务端HTTP重新向：攻击者可以通过这种方式制定任意资源或URL，然后再由后端应用父亲为请求这些资源或URL。 HTTP参数注入（HPI）：攻击者可以通过这种方法在应">
+<meta property="og:type" content="article">
+<meta property="og:title" content="注入后端HTTP请求">
+<meta property="og:url" content="http://huhansi.com/2019/03/26/%E5%AE%89%E5%85%A8/Web%E5%AE%89%E5%85%A8/5-4-%E6%B3%A8%E5%85%A5%E5%90%8E%E7%AB%AFHTTP%E8%AF%B7%E6%B1%82/index.html">
+<meta property="og:site_name" content="Hansi Blog">
+<meta property="og:description" content="注入HTTP后端请求影城程序可能会将用户输入嵌入任何类型的后端HTTP请求，包括哪些以常规名&#x2F;值对传输参数的请求。由于应用程序通常会有效代理用户提交的UTL和参数，因而这种行为往往易于受到攻击。针对这种功能的攻击可以分为以下类别：  服务端HTTP重新向：攻击者可以通过这种方式制定任意资源或URL，然后再由后端应用父亲为请求这些资源或URL。 HTTP参数注入（HPI）：攻击者可以通过这种方法在应">
+<meta property="og:locale" content="Zh_CN">
+<meta property="article:published_time" content="2019-03-25T16:00:00.000Z">
+<meta property="article:modified_time" content="2019-05-27T14:51:58.282Z">
+<meta property="article:author" content="Han si">
+<meta property="article:tag" content="安全">
+<meta property="article:tag" content="Web">
+<meta property="article:tag" content="注入">
+<meta property="article:tag" content="HTTP请求">
+<meta name="twitter:card" content="summary">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://huhansi.com/2019/03/26/安全/Web安全/5-4-注入后端HTTP请求/"/>
+
+
+
+
+
+  <title>注入后端HTTP请求 | Hansi Blog</title>
+  
+
+
+
+
+
+
+
+
+<meta name="generator" content="Hexo 4.2.0"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="Zh_cn">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Hansi Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Know something of everything, know everything of something</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            About
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            Search
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="Searching..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://huhansi.com/2019/03/26/%E5%AE%89%E5%85%A8/Web%E5%AE%89%E5%85%A8/5-4-%E6%B3%A8%E5%85%A5%E5%90%8E%E7%AB%AFHTTP%E8%AF%B7%E6%B1%82/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Han si">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hansi Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">注入后端HTTP请求</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-03-26T00:00:00+08:00">
+                2019-03-26
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Web%E5%AE%89%E5%85%A8/" itemprop="url" rel="index">
+                    <span itemprop="name">Web安全</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="注入HTTP后端请求"><a href="#注入HTTP后端请求" class="headerlink" title="注入HTTP后端请求"></a>注入HTTP后端请求</h1><p>影城程序可能会将用户输入嵌入任何类型的后端HTTP请求，包括哪些以常规名/值对传输参数的请求。由于应用程序通常会有效代理用户提交的UTL和参数，因而这种行为往往易于受到攻击。针对这种功能的攻击可以分为以下类别：</p>
+<ul>
+<li>服务端HTTP重新向：攻击者可以通过这种方式制定任意资源或URL，然后再由后端应用父亲为请求这些资源或URL。</li>
+<li>HTTP参数注入（HPI）：攻击者可以通过这种方法在应用程序服务器提出的后端HTTP请求中注入任意参数。如果攻击者注入后端请求中已存在的参数，就可以利用HTTP参数污染（HPP）攻击覆盖服务器指定的原始参数值。</li>
+</ul>
+<h2 id="服务器HTTP重定向"><a href="#服务器HTTP重定向" class="headerlink" title="服务器HTTP重定向"></a>服务器HTTP重定向</h2><p>如果应用程序接受用户可控制的输入，并将其合并到使用后端HTTP请求检索的URL中，这种行为就会导致服务器端重定向漏洞。用户提交的输入中可能包含被检索的完整URL，或者应用程序可能会对该URL进行某种处理，如添加标准的后缀。</p>
+<p>后端HTTP请求可能指定公公因特网上的某个域，或者指定用户无法直接访问的内部服务器。所请求的内容可能对应用程序的功能非常关键，如支付网关的接口；或者较为次要，如从第三方提取的内容。这种技巧常用于将几个单独的内部和外部应用程序组件结合到一个前端应用程序中，再由该应用程序代表这些组件实施访问控制和会话管理。如果攻击者能够控制后端HTTP请求中的IP地址或主机名，他就可以使应用程序服务器连接到任意资源，有时甚至能够检索后端响应的内容。</p>
+<p>以下面的前端请求为例，其中的loc参数用于指定客户端希望查看的CSS文件的版本：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">POST /account/home HTTP/1.1</span><br><span class="line">Content-Type: application/x-www-form-urlencoded</span><br><span class="line">Host: wahh-blogs.net</span><br><span class="line">Content-Length: 65</span><br><span class="line"></span><br><span class="line">view=default&amp;loc=online.wahh-blogs.net/css/wahh.css</span><br></pre></td></tr></table></figure>
+
+<p>如果没有在loc参数中未URL指定确认机制，攻击者就可以指定任何主机名来替代online.wahh-blogs.net。应用陈故乡将检索指定的资源，导致攻击者将应用程序用作潜在的敏感后端服务的代理服务器。在下面的示例中，攻击者使应用程序连接到后端的SSH服务：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">POST /account/home HTTP/1.1</span><br><span class="line">Content-Type: application/x-www-form-urlencoded</span><br><span class="line">Host: wahh-blogs.net</span><br><span class="line">Content-Length: 65</span><br><span class="line"></span><br><span class="line">view=default&amp;loc=192.168.0.1:22</span><br></pre></td></tr></table></figure>
+
+<p>应用程序的响应包含所请求的SSH服务 的旗标：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">HTTP/1.1 200 OK</span><br><span class="line">Connection: close</span><br><span class="line"></span><br><span class="line">SSH-2.0-OpenSSH_4.2Protocol mismatch.</span><br></pre></td></tr></table></figure>
+
+<p>攻击者可以利用服务器端HTTP重定向漏洞，将易受攻击的应用程序作为开放的HTTP代理服务器，以事实各种其他攻击。</p>
+<ul>
+<li>攻击者可以将该代理服务器用于攻击互联网上的第三方系统。恶意流量针对的是运行易受攻击的应用程序的服务器上的目标。</li>
+<li>攻击者可以将该代理服务器用于连接到阻止内部网络中的任意主机，从而访问无法通过因特网直接访问的目标</li>
+<li>攻击者可以将该代理服务器用于反向连接在应用程序服务器本身上运行的其他服务，从而突破防火墙限制，并利用新人关系来避开身份验证。</li>
+<li>最后，攻击者可以通过使应用程序在响应中包含受控的内容，利用代理功能实现跨站点脚本等攻击。</li>
+</ul>
+<p>测试步骤：</p>
+<ol>
+<li>确定任何可能包含主机名、IP地址或完整URL的请求参数</li>
+<li>对于每个参数，修改参数值以指定其他与所请求的资源类似的资源，并观察该资源是否会出现在服务器的响应中。</li>
+<li>尝试指定一个针对你控制的额因特网服务器URL，并对该服务器进行监视，检查来自所测试的应用程序的传入连接。</li>
+<li>如果没有收到任何传入连接，则监视应用程序响应所花费的时间。如果存在延迟，则说明应用程序的祸端请求可能由于出站连接上的网络限制导致超时。</li>
+<li>如果成功利用相关功能连接到任意URL，则可以尝试实施以下攻击。<ol>
+<li>确定是否可以制定端口号，例如，可以指定<a href="http://mdattacker.net:22" target="_blank" rel="noopener">http://mdattacker.net:22</a></li>
+<li>如果可以指定端口号，尝试使用Burp Intruder等工具对内部网络进行端口扫描，以逐个连接到一系列IP地址和端口</li>
+<li>尝试连接到应用程序服务器的回环地址上的其他服务，</li>
+<li>尝试将受控的Web页面加载到应用程序的响应中，以实施跨站点脚本攻击。</li>
+</ol>
+</li>
+</ol>
+<h2 id="HTTP参数注入"><a href="#HTTP参数注入" class="headerlink" title="HTTP参数注入"></a>HTTP参数注入</h2><p>如果用户提交的参数被用作后端HTTP请求中的参数，这时就会导致HTTP参数注入。以下面的之前易于收SOAP注入的银行转账功能为例：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">POST /bank/48/Default.aspx HTTP/1.1</span><br><span class="line">Host: mdsec.net</span><br><span class="line">Content-Length: 65</span><br><span class="line"></span><br><span class="line">FromAccount=18281008&amp;Amount=1430&amp;ToAccount=08447656&amp;Submit=Submit</span><br></pre></td></tr></table></figure>
+
+<p>这个前端请求由用户的浏览器提出，将导致应用程序向银行基础架构中的另一台Web服务器提出其他HTTP请求。在以下后端请求中，应用程序从前端请求中复制了一些参数值：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">POST /doTransfer.asp HTTP/1.0</span><br><span class="line">Host: mdsec-mgr.int.mdsec.net</span><br><span class="line">Content-Length: 44</span><br><span class="line"></span><br><span class="line">FromAccount=18281008&amp;Amount=1430&amp;ToAcc=08447656</span><br></pre></td></tr></table></figure>
+
+<p>这个请求要求后端服务器检查时候有清算资金可以转账，如果有，则进行转账。但是，前端服务器可以通过提供以下参数，指定存在清算资金，从而避开上述检查：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ClearedFunds=true</span><br></pre></td></tr></table></figure>
+
+<p>如果攻击者发现这种行为，他就可以尝试实施HPI攻击，在后端请求中注入ClearedFunds参数。要注入该参数，他将所需参数附加到现有参数值的后面，并将分隔名称和值的&amp;和=字符进行URL编码，如下所示：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">POST /bank/48/Default.aspx HTTP/1.1</span><br><span class="line">Host: mdsec.net</span><br><span class="line">Content-Length: 65</span><br><span class="line"></span><br><span class="line">FromAccount=18281008&amp;Amount=1430&amp;ToAccount=08447656%26clearedFunds%3dtrue&amp;Submit=Submit</span><br></pre></td></tr></table></figure>
+
+<p>当应用服务器处理这个请求时，它会以正常方式对参数值进行URL解码。因此，前端应用程序受到的ToAccount参数值位</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">08447656&amp;ClearedFunds=true</span><br></pre></td></tr></table></figure>
+
+<p>如果前端应用程序没有确认这个值并将它按原样传递给后端请求，应用程序将提出以下后端请求，使攻击者能工成功避开清算资金检查。</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">POST /doTransfer.asp HTTP/1.0</span><br><span class="line">Host: mdsec-mgr.int.mdsec.net</span><br><span class="line">Content-Length: 44</span><br><span class="line"></span><br><span class="line">FromAccount=18281008&amp;Amount=1430&amp;ToAcc=08447656&amp;ClearedFunds=true</span><br></pre></td></tr></table></figure>
+
+<h3 id="HTTP参数污染"><a href="#HTTP参数污染" class="headerlink" title="HTTP参数污染"></a>HTTP参数污染</h3><p>HPP是一种可用于各种环境下的攻击机巧，这种技巧常用在HPI攻击中。</p>
+<p>如果请求中包含多个同名请求，这时Web服务器该如何处理？对于这一问题，HTTP规范并未提供任何指导。实际上，各种Web服务器的处理方式各不相同，以下是一些常见的处理方式。</p>
+<ul>
+<li>使用参数的第一个实例</li>
+<li>使用参数的最后一个实例</li>
+<li>串联参数值，可能在参数之间添加分隔符</li>
+<li>构建一个包含所有请求值的数组</li>
+</ul>
+<p>在前面的HPI示例中，攻击者可以在后端请求中添加一个新的参数。实际上，攻击者可以对其实施注入攻击的请求很可能已经包含一个与攻击者所针对的参数同名的参数。在这种情况下，攻击者可以使用HPI条件注入另一个同名参数。随后，应用程序将表现出何种行为，将取决于后端HTTP服务器如何处理重复的参数。这样，攻击者获取可以用他注入的参数值“覆盖”原始参数值。</p>
+<p>例如，如果原始的后端请求为：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">POST /doTransfer.asp HTTP/1.0</span><br><span class="line">Host: mdsec-mgr.int.mdsec.net</span><br><span class="line">Content-Length: 62</span><br><span class="line"></span><br><span class="line">fromacc=18281008&amp;amount=1430&amp;clearedFunds=false&amp;toacc=08447656</span><br></pre></td></tr></table></figure>
+
+<p>并且后端服务器使用任何重复的参数的第一个实例，则攻击者可以对前端请求中的FromAccount参数实施攻击，如下所示：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">POST /doTransfer.asp HTTP/1.0</span><br><span class="line">Host: mdsec-mgr.int.mdsec.net</span><br><span class="line">Content-Length: 62</span><br><span class="line"></span><br><span class="line">FromAccount=18281008%26clearedFunds%3dtrue&amp;Amount=1430&amp;ToAccount=08447656</span><br></pre></td></tr></table></figure>
+
+<p>相反，在这个示例中，如果后端服务器使用任何重复的参数的最后一个实例，则攻击者可以对前端请求中的ToAccount参数实施攻击。</p>
+<p>HPP能否攻击成功，在很大程度上取决于目标应用服务器如何处理多个同名参数，以及后端请求中的插入点是否准确。如果两种技术需要处理相同的HTTP请求，HPP攻击就会造成严重的后果。Web应用程序防火墙或反向代理可能会处理某个请求，并将其传递给Web应用程序，由Web应用程序抛弃变量，甚至是基于之前不想管的请求部分构件字符串。</p>
+<h3 id="攻击URL转换"><a href="#攻击URL转换" class="headerlink" title="攻击URL转换"></a>攻击URL转换</h3><p>许多服务器会在所请求的URL抵达时重写这些URL，再将它们映射到应用程序中的相关后端功能。除传统的URL重写外，服务器在处理REST风格的参数、定制导航包装器以及其他URL转换方法时都会进行URL重写。这种方式可能易受HPI和HPP攻击。</p>
+<p>为了简化和便于导航，一些应用程序在URL的文件路径，而非查询字符串中插入参数值。通常，应用程序会通过一些简单的规则转换URL，然后将其转发给真正地目标。Apache中的以下mod_rewrite规则用于处理可公共访问的用户资料：</p>
+<p><strong>RewriteCond %{THE_REQUEST} ^[A-Z]{3,9}\ /pub/user/[\&amp;]*\ HTTP/</strong></p>
+<p><strong>RewriteRUle ^pub/user/([^/\\.]+)$ /inc/user_mgr.php?mode=view&amp;name=$1</strong></p>
+<p>次规则接受非常简洁的请求，例如：</p>
+<p><strong>/pub/user/marcus</strong></p>
+<p>并将这些请求转换为后端请求，以便于用户管理页面user_mgr.php包含的view功能进行处理。例如，如果攻击者请求：</p>
+<p><strong>/pub/user/marcus%26mode=edit</strong></p>
+<p>将URL编码的值嵌入经过重写的URL中，将得到：</p>
+<p><strong>/inc/user_mgr.php?mode=view&amp;name=marcus&amp;mode=edit</strong></p>
+<p>讲HPP攻击的时候说到，这种攻击能否成功取决于服务器如何处理重复的参数。在PHP平台中，mode参数被视为具有值edit，因而攻击取得成功。</p>
+<p>测试步骤：</p>
+<ol>
+<li><p>轮流针对每个请求参数进行测试，尝试使用各种语法添加一个心注入的参数：</p>
+<ul>
+<li>%26foo%3dbar——URL编码的&amp;foo=bar</li>
+<li>%3bfoo%3dnar——URL编码的;foo=bar</li>
+<li>%2526foo%253dbar——双重URL编码的&amp;foo=bar</li>
+</ul>
+</li>
+<li><p>确定任何修改后不会改变应用程序的行为的参数示例（仅适用于在修改后会在应用程序的响应造成某种差异的参数）。</p>
+</li>
+<li><p>在上一步确定的每个实例都可以实施参数注入。尝试在请求的不同位置注入一个一致的参数，看这样做是否可以覆盖或修改现有的某个参数。例如：</p>
+<p><strong>FromAccount=18281008%26Amount%3d4444&amp;Amount=1430&amp;ToAccount=08447656</strong></p>
+</li>
+<li><p>如果这样做会将现有值替换为心智，确定是否可以通过注入一个由后端服务器读取的值来避开任何前端确认机制。</p>
+</li>
+<li><p>用其他参数名称替换注入的已知参数。</p>
+</li>
+<li><p>测试应用程序是否允许在请求中多次提交同一个参数，在其他参数前后，以及请求的不同位置提交多余的值。</p>
+</li>
+</ol>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/%E5%AE%89%E5%85%A8/" rel="tag"># 安全</a>
+          
+            <a href="/tags/Web/" rel="tag"># Web</a>
+          
+            <a href="/tags/%E6%B3%A8%E5%85%A5/" rel="tag"># 注入</a>
+          
+            <a href="/tags/HTTP%E8%AF%B7%E6%B1%82/" rel="tag"># HTTP请求</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/03/25/%E5%AE%89%E5%85%A8/Web%E5%AE%89%E5%85%A8/4-4%E6%B3%A8%E5%85%A5XPath/" rel="next" title="注入XPath">
+                <i class="fa fa-chevron-left"></i> 注入XPath
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/03/26/%E5%AE%89%E5%85%A8/Web%E5%AE%89%E5%85%A8/5-1-%E6%B3%A8%E5%85%A5OS%E5%91%BD%E4%BB%A4/" rel="prev" title="注入操作系统命令">
+                注入操作系统命令 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Han si</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/%7C%7C%20archive">
+              
+                  <span class="site-state-item-count">184</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">8</span>
+                  <span class="site-state-item-name">categories</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">71</span>
+                  <span class="site-state-item-name">tags</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:kw120943839@gmail.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#注入HTTP后端请求"><span class="nav-number">1.</span> <span class="nav-text">注入HTTP后端请求</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#服务器HTTP重定向"><span class="nav-number">1.1.</span> <span class="nav-text">服务器HTTP重定向</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#HTTP参数注入"><span class="nav-number">1.2.</span> <span class="nav-text">HTTP参数注入</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#HTTP参数污染"><span class="nav-number">1.2.1.</span> <span class="nav-text">HTTP参数污染</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#攻击URL转换"><span class="nav-number">1.2.2.</span> <span class="nav-text">攻击URL转换</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Han si</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('-1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

@@ -1,0 +1,1227 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="Zh_cn">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="python," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="Python提供的基本数据类型主要有：空类型、布尔类型、整型、浮点型、字符串、列表、元组、集合、字典。 整型（Int）整型，一般就是表示整数。在Python中，没有特别区分长整型和整型。一般超过32位之后，就自动当做长整型来处理。长整型在python中几乎没有范围限制。    浮点数（Float）也就是C语言中的double，java中的float和double。在运算中，整数和浮点数的运算结果也">
+<meta property="og:type" content="article">
+<meta property="og:title" content="python基本类型">
+<meta property="og:url" content="http://huhansi.com/2018/01/10/python%E5%85%A5%E9%97%A8/python-3-%E5%9F%BA%E6%9C%AC%E7%B1%BB%E5%9E%8B/index.html">
+<meta property="og:site_name" content="Hansi Blog">
+<meta property="og:description" content="Python提供的基本数据类型主要有：空类型、布尔类型、整型、浮点型、字符串、列表、元组、集合、字典。 整型（Int）整型，一般就是表示整数。在Python中，没有特别区分长整型和整型。一般超过32位之后，就自动当做长整型来处理。长整型在python中几乎没有范围限制。    浮点数（Float）也就是C语言中的double，java中的float和double。在运算中，整数和浮点数的运算结果也">
+<meta property="og:locale" content="Zh_CN">
+<meta property="og:image" content="https://huhansi.github.io/images/2%E7%9A%8410000%E6%AC%A1%E6%96%B9.PNG">
+<meta property="og:image" content="https://huhansi.github.io/images/3%E9%99%A4%E4%BB%A52.PNG">
+<meta property="og:image" content="https://huhansi.github.io/images/%E5%8F%96%E6%95%B4.PNG">
+<meta property="og:image" content="https://huhansi.github.io/images/%E5%AD%97%E7%AC%A6%E4%B8%B2.PNG">
+<meta property="og:image" content="https://huhansi.github.io/images/+%E5%8F%B7%E6%8B%BC%E6%8E%A5.PNG">
+<meta property="og:image" content="https://huhansi.github.io/images/%E4%B9%98%E6%B3%95%E8%BF%90%E7%AE%97.PNG">
+<meta property="og:image" content="https://huhansi.github.io/images/%E7%A9%BA%E6%A0%BC%E5%88%86%E5%89%B2.PNG">
+<meta property="og:image" content="https://huhansi.github.io/images/%E6%B1%82%E9%95%BF%E5%BA%A6.PNG">
+<meta property="og:image" content="https://huhansi.github.io/images/%E4%B8%8B%E6%A0%87%E5%8F%96%E5%80%BC%E5%92%8C%E8%B6%8A%E7%95%8C.PNG">
+<meta property="og:image" content="https://huhansi.github.io/images/%E8%BF%AD%E4%BB%A3%E5%88%97%E8%A1%A8.PNG">
+<meta property="og:image" content="https://huhansi.github.io/images/%E7%B4%A2%E5%BC%95%E5%8F%96%E5%80%BC.PNG">
+<meta property="og:image" content="https://huhansi.github.io/images/%E6%9B%B4%E6%96%B0%E5%88%97%E8%A1%A8.PNG">
+<meta property="og:image" content="https://huhansi.github.io/images/%E5%88%A0%E9%99%A4%E5%88%97%E8%A1%A8%E5%85%83%E7%B4%A0.PNG">
+<meta property="og:image" content="https://huhansi.github.io/images/%E5%88%97%E8%A1%A8%E5%88%86%E7%89%87.PNG">
+<meta property="og:image" content="https://huhansi.github.io/images/%E5%88%86%E7%89%87%E5%8F%82%E6%95%B0.PNG">
+<meta property="og:image" content="https://huhansi.github.io/images/%E5%85%B6%E4%BB%96%E6%93%8D%E4%BD%9C.PNG">
+<meta property="og:image" content="https://huhansi.github.io/images/%E7%94%9F%E6%88%90%E5%AD%97%E5%85%B8.PNG">
+<meta property="og:image" content="https://huhansi.github.io/images/%E7%94%9F%E6%88%90%E5%AD%97%E5%85%B82.PNG">
+<meta property="og:image" content="https://huhansi.github.io/images/%E4%B8%8D%E5%8F%AF%E5%8F%98%E9%94%AE.PNG">
+<meta property="og:image" content="https://huhansi.github.io/images/%E5%88%97%E8%A1%A8%E6%B7%BB%E5%8A%A0%E5%85%83%E7%B4%A0.PNG">
+<meta property="og:image" content="https://huhansi.github.io/images/%E8%AE%BF%E9%97%AE%E5%92%8C%E9%81%8D%E5%8E%86%E5%85%83%E7%B4%A0.PNG">
+<meta property="og:image" content="https://huhansi.github.io/images/%E8%8E%B7%E5%8F%96%E4%B8%8D%E5%AD%98%E5%9C%A8%E5%85%83%E7%B4%A0.PNG">
+<meta property="og:image" content="https://huhansi.github.io/images/%E5%88%A0%E9%99%A4%E5%85%83%E7%B4%A0">
+<meta property="og:image" content="https://huhansi.github.io/images/%E6%9B%B4%E6%96%B0%E5%85%83%E7%B4%A0.PNG">
+<meta property="og:image" content="https://huhansi.github.io/images/%E5%88%9B%E5%BB%BA%E5%85%83%E7%BB%84.PNG">
+<meta property="og:image" content="https://huhansi.github.io/images/%E5%8D%95%E4%B8%AA%E5%85%83%E7%BB%84.PNG">
+<meta property="og:image" content="https://huhansi.github.io/images/%E5%88%86%E7%89%87%E7%A4%BA%E6%84%8F%E5%9B%BE.PNG">
+<meta property="og:image" content="https://huhansi.github.io/images/%E5%85%83%E7%BB%84%E5%88%86%E7%89%87.PNG">
+<meta property="og:image" content="https://huhansi.github.io/images/%E4%BF%AE%E6%94%B9%E5%85%83%E7%BB%84.PNG">
+<meta property="og:image" content="https://huhansi.github.io/images/%E5%88%A0%E9%99%A4%E5%85%83%E7%BB%84.PNG">
+<meta property="og:image" content="https://huhansi.github.io/images/%E5%88%97%E8%A1%A8%E5%85%83%E7%BB%84%E4%BA%92%E7%9B%B8%E8%BD%AC%E6%8D%A2.PNG">
+<meta property="og:image" content="https://huhansi.github.io/images/%E5%88%9B%E5%BB%BA%E9%9B%86%E5%90%88.PNG">
+<meta property="og:image" content="https://huhansi.github.io/images/%E9%81%8D%E5%8E%86%E9%9B%86%E5%90%88.PNG">
+<meta property="og:image" content="https://huhansi.github.io/images/%E5%88%A0%E9%99%A4%E9%9B%86%E5%90%88.PNG">
+<meta property="og:image" content="https://huhansi.github.io/images/None.PNG">
+<meta property="article:published_time" content="2018-01-09T16:00:00.000Z">
+<meta property="article:modified_time" content="2020-03-20T06:26:11.275Z">
+<meta property="article:author" content="Han si">
+<meta property="article:tag" content="python">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://huhansi.github.io/images/2%E7%9A%8410000%E6%AC%A1%E6%96%B9.PNG">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://huhansi.com/2018/01/10/python入门/python-3-基本类型/"/>
+
+
+
+
+
+  <title>python基本类型 | Hansi Blog</title>
+  
+
+
+
+
+
+
+
+
+<meta name="generator" content="Hexo 4.2.0"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="Zh_cn">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Hansi Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Know something of everything, know everything of something</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            About
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            Search
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="Searching..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://huhansi.com/2018/01/10/python%E5%85%A5%E9%97%A8/python-3-%E5%9F%BA%E6%9C%AC%E7%B1%BB%E5%9E%8B/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Han si">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hansi Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">python基本类型</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-01-10T00:00:00+08:00">
+                2018-01-10
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/python%E5%AD%A6%E4%B9%A0/" itemprop="url" rel="index">
+                    <span itemprop="name">python学习</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>Python提供的基本数据类型主要有：空类型、布尔类型、整型、浮点型、字符串、列表、元组、集合、字典。</p>
+<h2 id="整型（Int）"><a href="#整型（Int）" class="headerlink" title="整型（Int）"></a>整型（Int）</h2><p>整型，一般就是表示整数。在Python中，没有特别区分长整型和整型。一般超过32位之后，就自动当做长整型来处理。长整型在python中几乎没有范围限制。  </p>
+<p><img src="https://huhansi.github.io/images/2%E7%9A%8410000%E6%AC%A1%E6%96%B9.PNG" alt="2的10000次方"></p>
+<h2 id="浮点数（Float）"><a href="#浮点数（Float）" class="headerlink" title="浮点数（Float）"></a>浮点数（Float）</h2><p>也就是C语言中的double，java中的float和double。在运算中，整数和浮点数的运算结果也是浮点数。  </p>
+<p><img src="https://huhansi.github.io/images/3%E9%99%A4%E4%BB%A52.PNG" alt="整数和浮点数运算"></p>
+<p>注： <code>//</code> 表示对结果取整，直接舍弃小数点后面的数值。  </p>
+<p><img src="https://huhansi.github.io/images/%E5%8F%96%E6%95%B4.PNG" alt="除法取整"></p>
+<h2 id="字符串"><a href="#字符串" class="headerlink" title="字符串"></a>字符串</h2><p>在python中，被单引号<code>&#39;</code>或者双引号<code>&quot;</code>或者三引号<code>&quot;&quot;&quot;</code>包围起来的字符序列即为字符串。和其他语言一样，使用<code>\</code>进行转义。</p>
+<p><img src="https://huhansi.github.io/images/%E5%AD%97%E7%AC%A6%E4%B8%B2.PNG" alt="字符串"></p>
+<p>在python中可以使用<code>r</code>或者<code>u</code>来修饰字符串。<br>使用<code>r/R</code>修饰表示后面跟着的就是普通字符串。即，如果字符串中包含<code>\n</code>那么它也就是一个反斜杠字符和一个字母n，而不是表示换行符。</p>
+<p>![r修饰效果](<a href="https://huhansi.github.io/images/" target="_blank" rel="noopener">https://huhansi.github.io/images/</a> r字符.PNG)<br>使用<code>u/U</code>修饰字符串表示unicode字符串。Unicode是书写国际文本的标准方法。如果你想要用非英语写文本,那么你需要有一个支持Unicode的编辑器。<br>类似地,Python允许你处理Unicode文本——你只需要在字符串前加上前缀u或U。</p>
+<h3 id="字符串运算"><a href="#字符串运算" class="headerlink" title="字符串运算"></a>字符串运算</h3><p>使用<code>+</code>号拼接字符串</p>
+<p><img src="https://huhansi.github.io/images/+%E5%8F%B7%E6%8B%BC%E6%8E%A5.PNG" alt="+号拼接"></p>
+<p>乘法运算</p>
+<p><img src="https://huhansi.github.io/images/%E4%B9%98%E6%B3%95%E8%BF%90%E7%AE%97.PNG" alt="乘法运算"><br>自动拼接</p>
+<p><img src="https://huhansi.github.io/images/%E7%A9%BA%E6%A0%BC%E5%88%86%E5%89%B2.PNG" alt="自动拼接空格分割的字符串"><br>使用<code>len()</code>方法求字符串长度</p>
+<p><img src="https://huhansi.github.io/images/%E6%B1%82%E9%95%BF%E5%BA%A6.PNG" alt="求对应字符串的长度"></p>
+<p>取字符串对应下标的字符<br>同其他语言一样，字符串的索引是从0开始，到str.length - 1为止，超过就越界。</p>
+<p><img src="https://huhansi.github.io/images/%E4%B8%8B%E6%A0%87%E5%8F%96%E5%80%BC%E5%92%8C%E8%B6%8A%E7%95%8C.PNG" alt="下标取值"><br>其他字符串用法可参见<a href="python-string-functions">python字符串内建函数</a></p>
+<h2 id="列表"><a href="#列表" class="headerlink" title="列表"></a>列表</h2><p>列表是python的基本数据结构之一，也是最常用的数据结构。和CPP、Java等语言不同，python的列表数据项不需要具有相同的类型。列表中的每个元素都分配一个数字-它的位置，或者索引，第一个索引是0，第二个索引是1，依次类推。</p>
+<h3 id="创建列表"><a href="#创建列表" class="headerlink" title="创建列表"></a>创建列表</h3><p><code>foods = []    #创建空列表</code><br><code>foods = [1, 2, 3, 4, 5]    # 创建整型列表</code><br><code>foods = [&#39;a&#39;, &#39;b&#39;, &#39;c&#39;, &#39;d&#39;, &#39;e&#39;]  # 创建字符型列表</code><br><code>foods = [1, 2, 3, &#39;d&#39;, 1.2]    # 创建混合列表</code></p>
+<p>还可以使用列表生成式来生成列表</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">foods &#x3D; [x * x for x in range(5)]</span><br><span class="line">foods &#x3D; [x ** x for x in range(10) if x % 2 &#x3D;&#x3D; 0]</span><br></pre></td></tr></table></figure>
+<p>![列表生成式示例](<a href="https://huhansi.github.io/images/" target="_blank" rel="noopener">https://huhansi.github.io/images/</a> 列表生成式生成列表.PNG)</p>
+<h3 id="访问列表"><a href="#访问列表" class="headerlink" title="访问列表"></a>访问列表</h3><p>使用for…in…迭代列表</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">foods &#x3D; [1, 2, 3, 4, 5]</span><br><span class="line">for food in foods:</span><br><span class="line">    print(food)</span><br></pre></td></tr></table></figure>
+<p><img src="https://huhansi.github.io/images/%E8%BF%AD%E4%BB%A3%E5%88%97%E8%A1%A8.PNG" alt="使用for...in...迭代列表"><br>使用索引取列表指定位置元素</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">foods &#x3D; [1, 2, 3, 4, 5]</span><br><span class="line">print(foods[0])</span><br><span class="line">print(foods[5])</span><br></pre></td></tr></table></figure>
+<p><img src="https://huhansi.github.io/images/%E7%B4%A2%E5%BC%95%E5%8F%96%E5%80%BC.PNG" alt="索引从0开始，到list.length - 1 结束"></p>
+<h3 id="更新列表"><a href="#更新列表" class="headerlink" title="更新列表"></a>更新列表</h3><p>可以对列表的数据项进行修改或者更新，也可以对列表进行增删。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">foods &#x3D; []    # 生成一个空列表</span><br><span class="line">foods.append(1)    # 向列表追加 1</span><br><span class="line">foods.append(2)    # 向列表追加 2</span><br><span class="line">foods[1] &#x3D; 3    # 将列表第二个元素值修改为 3</span><br><span class="line">fruits &#x3D; []    # 生成另一个空列表</span><br><span class="line">fruits.extend(food)    # 用foods列表来扩展fruits列表</span><br><span class="line">fruits.append(&#39;apple&#39;)    # 在fruits列表末追加 apple 项</span><br></pre></td></tr></table></figure>
+<p><img src="https://huhansi.github.io/images/%E6%9B%B4%E6%96%B0%E5%88%97%E8%A1%A8.PNG" alt="列表的增加，修改操作"></p>
+<h3 id="删除列表"><a href="#删除列表" class="headerlink" title="删除列表"></a>删除列表</h3><p>使用<code>del</code>关键字删除列表元素</p>
+<p><img src="https://huhansi.github.io/images/%E5%88%A0%E9%99%A4%E5%88%97%E8%A1%A8%E5%85%83%E7%B4%A0.PNG" alt="使用del删除列表元素"></p>
+<h3 id="列表分片"><a href="#列表分片" class="headerlink" title="列表分片"></a>列表分片</h3><p>python中使用索引来取列表中特定位置的值。分片操作就是用来取一定范围内的值，它通过在方括号内用冒号隔开两个索引来实现，第一个索引是开始点，包括在结果之中，第二个索引的元素是结束点，不包括在结果之中。即，它取的是一个前闭后开的区间。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">string &#x3D; &#39;www.python.org&#39;    # 字符串也是一个列表</span><br><span class="line">string[4:10]    #取列表索引为4，到索引为10的，前闭后开区间中的字符串</span><br><span class="line">string[4:-4]    # 取列表索引为4，到从后往前第4个区间中的字符串</span><br><span class="line">string[:-1]    # 取索引为0，到最后一个字符为止，区间中的字符串</span><br><span class="line">string[::-1]    # -1 表示步长，即从末尾到首部，依次输出字符</span><br><span class="line">string[-1]    # 取最后一个字符</span><br><span class="line">string[-3]    # 取最后第3个字符</span><br></pre></td></tr></table></figure>
+<p><img src="https://huhansi.github.io/images/%E5%88%97%E8%A1%A8%E5%88%86%E7%89%87.PNG" alt="列表分片"><br>分片可以接受3个参数l[x:y:z]，其中x表示起始索引，如果留空，默认为列表的头部，同理，y留空，默认为列表的尾部，z表示步长，默认为1。</p>
+<p><img src="https://huhansi.github.io/images/%E5%88%86%E7%89%87%E5%8F%82%E6%95%B0.PNG" alt="分片参数"></p>
+<h3 id="其他操作"><a href="#其他操作" class="headerlink" title="其他操作"></a>其他操作</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">foods &#x3D; [x for x in range(5)]    # 生成一个列表，[1, 2, 3, 4, 5]</span><br><span class="line">print(len(foods))    # 计算列表长度</span><br><span class="line">[1, 2, 3] + [4, 5]    # 拼接两个列表</span><br><span class="line">[1] * 5    # 复制列表元素</span><br><span class="line">3 in [1] * 5    # false 3 是否在列表 [1] * 5 中</span><br></pre></td></tr></table></figure>
+<p><img src="https://huhansi.github.io/images/%E5%85%B6%E4%BB%96%E6%93%8D%E4%BD%9C.PNG" alt="其他操作"></p>
+<h2 id="字典"><a href="#字典" class="headerlink" title="字典"></a>字典</h2><p>字典是另一种可变容器模型，且可存储任意类型对象。</p>
+<p>字典的每个键值 key=&gt;value 对用冒号 : 分割，每个键值对之间用逗号 , 分割，整个字典包括在花括号 {} 中 ,格式如下所示：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">d &#x3D; &#123;key1 : value1, key2 : value2 &#125;</span><br></pre></td></tr></table></figure>
+<p>键一般是唯一的，如果重复最后的一个键值对会替换前面的，值不需要唯一。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">d &#x3D; &#123;&#125;    # 生成空字典</span><br><span class="line">d</span><br><span class="line">d &#x3D; &#123;&#39;a&#39;: 1, &#39;b&#39;: 2, &#39;b&#39;: &#39;3&#39;&#125;</span><br><span class="line">d[&#39;b&#39;]    # 从字典取键为b的值</span><br><span class="line">d</span><br></pre></td></tr></table></figure>
+<p><img src="https://huhansi.github.io/images/%E7%94%9F%E6%88%90%E5%AD%97%E5%85%B8.PNG" alt="生成字典"><br>值可以取任何数据类型，但键必须是不可变的，如字符串，数字或元组。</p>
+<p>一个简单的字典实例：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">dict &#x3D; &#123;&#39;Alice&#39;: &#39;2341&#39;, &#39;Beth&#39;: &#39;9102&#39;, &#39;Cecil&#39;: &#39;3258&#39;&#125;</span><br></pre></td></tr></table></figure>
+<p><img src="https://huhansi.github.io/images/%E7%94%9F%E6%88%90%E5%AD%97%E5%85%B82.PNG" alt="生成字典"><br>也可如此创建字典：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">dict1 &#x3D; &#123; &#39;abc&#39;: 456 &#125;</span><br><span class="line">dict2 &#x3D; &#123; &#39;abc&#39;: 123, 98.6: 37 &#125;</span><br></pre></td></tr></table></figure>
+<p><img src="https://huhansi.github.io/images/%E4%B8%8D%E5%8F%AF%E5%8F%98%E9%94%AE.PNG" alt="不可变键"></p>
+<h3 id="添加元素"><a href="#添加元素" class="headerlink" title="添加元素"></a>添加元素</h3><p>字典可以使用任意不变的对象作为键值，字符串、整型、元组等。列表是不可作为键值的，因为它是可变对象。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">d &#x3D; &#123;&#125;</span><br><span class="line">d[&#39;name&#39;] &#x3D; &#39;huhansan&#39;</span><br><span class="line">d[&#39;huhansan&#39;] &#x3D; &quot;name&quot; </span><br><span class="line">d[(1, 2, 3)] &#x3D; &#39;tuple&#39;    # 使用元组做键值</span><br></pre></td></tr></table></figure>
+<p><img src="https://huhansi.github.io/images/%E5%88%97%E8%A1%A8%E6%B7%BB%E5%8A%A0%E5%85%83%E7%B4%A0.PNG" alt="列表添加元素"></p>
+<h3 id="访问和遍历元素"><a href="#访问和遍历元素" class="headerlink" title="访问和遍历元素"></a>访问和遍历元素</h3><p>可以直接使用键值key取字典中对应的值，也可以只用dict.keys()和dict.item()来遍历获取字典中所有键值对。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">d &#x3D; &#123;&#125;</span><br><span class="line">d[&#39;name&#39;] &#x3D; &#39;huhansan&#39;</span><br><span class="line">d[&#39;huhansan&#39;] &#x3D; &quot;name&quot; </span><br><span class="line">d[(1, 2, 3)] &#x3D; &#39;tuple&#39;</span><br><span class="line">print(d[&#39;name&#39;])</span><br><span class="line">for key in d.keys():    # 调用keys 遍历字典</span><br><span class="line">    print(d[key])</span><br><span class="line"></span><br><span class="line">for key, value in d.items():    # 调用items 获取键值对</span><br><span class="line">	print(key, value)</span><br></pre></td></tr></table></figure>
+<p><img src="https://huhansi.github.io/images/%E8%AE%BF%E9%97%AE%E5%92%8C%E9%81%8D%E5%8E%86%E5%85%83%E7%B4%A0.PNG" alt="访问和遍历元素"><br>如果访问一个不在字典中的键值对，则会抛出一个异常。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">d &#x3D; &#123;&#125;</span><br><span class="line">d[&#39;name&#39;] &#x3D; &#39;huhansan&#39;</span><br><span class="line">d[&#39;huhansan&#39;] &#x3D; &quot;name&quot; </span><br><span class="line">d[(1, 2, 3)] &#x3D; &#39;tuple&#39;</span><br><span class="line">d[222]    # 获取不存在的元素，此处会抛出一个异常</span><br></pre></td></tr></table></figure>
+<p><img src="https://huhansi.github.io/images/%E8%8E%B7%E5%8F%96%E4%B8%8D%E5%AD%98%E5%9C%A8%E5%85%83%E7%B4%A0.PNG" alt="获取不存在元素"></p>
+<h3 id="删除元素"><a href="#删除元素" class="headerlink" title="删除元素"></a>删除元素</h3><p>使用python内置关键字<code>del</code>删除字典内元素；也可以调用字典内置函数clear() 清空字典元素。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">d &#x3D; &#123;&#125;</span><br><span class="line">d[&#39;name&#39;] &#x3D; &#39;huhansan&#39;</span><br><span class="line">d[&#39;huhansan&#39;] &#x3D; &quot;name&quot; </span><br><span class="line">d[(1, 2, 3)] &#x3D; &#39;tuple&#39;</span><br><span class="line">del d[&#39;name&#39;]    # 删除键为name的值</span><br><span class="line">del d    # 删除字典 d</span><br><span class="line">d    #    删除字典后，再访问，此处会抛出一个异常</span><br></pre></td></tr></table></figure>
+<p><img src="https://huhansi.github.io/images/%E5%88%A0%E9%99%A4%E5%85%83%E7%B4%A0" alt="删除元素.PNG"></p>
+<h3 id="修改元素"><a href="#修改元素" class="headerlink" title="修改元素"></a>修改元素</h3><p>向字典中重复添加相同元素的键值对，后添加的键值对值会覆盖前添加的键值对的值。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">d &#x3D; &#123;&#125;</span><br><span class="line">d[&quot;name&quot;] &#x3D; &quot;huhansi&quot;</span><br><span class="line">d[&quot;name&quot;] &#x3D; &quot;huhansan&quot;</span><br><span class="line">print(d[&quot;name&quot;])</span><br></pre></td></tr></table></figure>
+<p><img src="https://huhansi.github.io/images/%E6%9B%B4%E6%96%B0%E5%85%83%E7%B4%A0.PNG" alt="更新元素"></p>
+<h3 id="其他操作-1"><a href="#其他操作-1" class="headerlink" title="其他操作"></a>其他操作</h3><h2 id="元组"><a href="#元组" class="headerlink" title="元组"></a>元组</h2><p>在Python中，元组（Tuple）和列表类似，两者之间的区别在于：元组不能更改，列表可以。也就是说，一旦被分配，就不能从元组中添加、更改或者删除元素。</p>
+<h3 id="元素的优势"><a href="#元素的优势" class="headerlink" title="元素的优势"></a>元素的优势</h3><p>· 通常将元组用于不同的数据类型，将列表用于相同（或相似）的数据类型<br>· 由于元组不可变，所以遍历元组比列表要快（较小的性能提升）<br>· 元组可以用做字典的key，而列表不行。因为字典的key必须是不可变的，元组本身就是不可变的<br>· 如果数据不需要修改，可将其作为元组来实现，可以确保“写保护”<br>· 元组可以被用在字符串格式化中</p>
+<h3 id="创建元组"><a href="#创建元组" class="headerlink" title="创建元组"></a>创建元组</h3><p>在Python中，元组的内置tuple类型定义。<br>要创建元组，需要将所有项（元素）放在括号（<code>()</code>）内，以逗号（<code>,</code>）分隔。括号是可选的，但是建议写上。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">t &#x3D; 1, 2, 3, 4, 5    # 创建元组，不使用括号</span><br><span class="line">t &#x3D; ()    # 空元组</span><br><span class="line">t &#x3D; (&#39;p&#39;, &#39;y&#39;, &#39;t&#39;, &#39;h&#39;, &#39;o&#39;, &#39;n&#39;)    # 字符型元组</span><br><span class="line">t &#x3D; (1, 1.2, &quot;1.3&quot;)    # 混合型元组</span><br><span class="line">t &#x3D; (1, 2, (3, 4, 5))    # 嵌套型元组</span><br></pre></td></tr></table></figure>
+<p><img src="https://huhansi.github.io/images/%E5%88%9B%E5%BB%BA%E5%85%83%E7%BB%84.PNG" alt="创建元组"><br>另外，如果要声明一个元组的元组，在括号中单申明一个元素是不够的，要在该元组后面添加一个逗号。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">t &#x3D; (&quot;python&quot;)    # 此语法无法声明一个单元素元组，只会申明一个字符串</span><br><span class="line">type(t)</span><br><span class="line">t &#x3D; (&quot;python&quot;,)    # 此语法才可声明一个单元素元组</span><br><span class="line">type(t)</span><br></pre></td></tr></table></figure>
+<p><img src="https://huhansi.github.io/images/%E5%8D%95%E4%B8%AA%E5%85%83%E7%BB%84.PNG" alt="单个元组"></p>
+<h3 id="元组分片"><a href="#元组分片" class="headerlink" title="元组分片"></a>元组分片</h3><p>元组和列表都属于序列，因此，他们的基本操作是一样的。可以使用索引操作符<code>[]</code>来访问元组中的每一个元素，使用切片操作符<code>：</code>来访问元组中的一系列元素。</p>
+<p><img src="https://huhansi.github.io/images/%E5%88%86%E7%89%87%E7%A4%BA%E6%84%8F%E5%9B%BE.PNG" alt="分片示意图"></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">t &#x3D; (1, 2, 3, 4, 5, 6, 7, 8)</span><br><span class="line">t[1]    # 取元组第一个元素</span><br><span class="line">t[-2]    # 取元组第七个元素</span><br><span class="line">t &#x3D; (1, 2, 3, (4, 5, 6))    # 元组嵌套</span><br><span class="line">t[3][2]    # 取元素第四个元素元组中的第三个元素</span><br><span class="line">t &#x3D; (1, 2, 3, [7, 8, 9])    # 元组嵌套列表</span><br><span class="line">t[3][2]    # 取元素第四个元组列表中的第三个元素</span><br><span class="line">t[1:3]    # 取元组第二个到第三个元素</span><br><span class="line">t[1:]    # 取元组第二个到元组末尾的序列</span><br><span class="line">t[:4]    # 取元组头开始到元素第四个元素的序列</span><br></pre></td></tr></table></figure>
+<p><img src="https://huhansi.github.io/images/%E5%85%83%E7%BB%84%E5%88%86%E7%89%87.PNG" alt="元组分片"></p>
+<h3 id="更改元组"><a href="#更改元组" class="headerlink" title="更改元组"></a>更改元组</h3><p>元组是不可变的，也就是说，元组中的元组在被赋值后不能改变。<br>但是，如果元素本身是一个可变数据类型的列表，那么其嵌套项可以被改变。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">t &#x3D; (1, 2, 3, [4, 5, 6])</span><br><span class="line">t[0] &#x3D; 7</span><br><span class="line">t[3][0] &#x3D; 8</span><br></pre></td></tr></table></figure>
+<p><img src="https://huhansi.github.io/images/%E4%BF%AE%E6%94%B9%E5%85%83%E7%BB%84.PNG" alt="修改元组"></p>
+<h3 id="删除元组"><a href="#删除元组" class="headerlink" title="删除元组"></a>删除元组</h3><p>元组元素不能修改，那么元组中的元素也是不能删除的，但是可以删除整个元组。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">t &#x3D; (1, 2, 3, 4, 5, 6, 7, 9)</span><br><span class="line">del t[1]</span><br><span class="line">del t</span><br><span class="line">t</span><br></pre></td></tr></table></figure>
+<p><img src="https://huhansi.github.io/images/%E5%88%A0%E9%99%A4%E5%85%83%E7%BB%84.PNG" alt="删除元祖"></p>
+<h3 id="元组和列表互换"><a href="#元组和列表互换" class="headerlink" title="元组和列表互换"></a>元组和列表互换</h3><p>元和和列表可以互相转换，分别使用list()和tuple()方法实现。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">t &#x3D; (1, 2, 3, 4, 5, 6)</span><br><span class="line">listt &#x3D; list(t)    # 将元组转换为列表</span><br><span class="line">t &#x3D; tuple(listt)    # 将列表转换为元组</span><br></pre></td></tr></table></figure>
+<p><img src="https://huhansi.github.io/images/%E5%88%97%E8%A1%A8%E5%85%83%E7%BB%84%E4%BA%92%E7%9B%B8%E8%BD%AC%E6%8D%A2.PNG" alt="列表元组互相转换"></p>
+<h2 id="集合"><a href="#集合" class="headerlink" title="集合"></a>集合</h2><p>集合（Set）也是标准的Python数据类型，它也可以用于存储值。它和列表或者元组之间的区别是，集合中的每一个元素不能出现多次，并且元素之间是无序存储的。<br>由于集合中的元素不能出现多次，这使得集合在很大程度上能够高效地从列表或者元组中删除重复值，并执行取并集、交集等常见的数学操作。</p>
+<h3 id="创建集合"><a href="#创建集合" class="headerlink" title="创建集合"></a>创建集合</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">s &#x3D; set()    # 声明空集合</span><br><span class="line">s &#x3D; set(&quot;python&quot;)    # 以字符列表，字符串形式声明集合</span><br><span class="line">s &#x3D; set([1, 2, 3, 4])    # 以列表形式声明集合</span><br><span class="line">s &#x3D; &#123;1, 2, 3, 4&#125;    # 以花括号形式声明集合</span><br><span class="line">s &#x3D; &#123;1, 1, 2, 3&#125;    # 如果集合中有重复元素，那么重复元素只会出现一次，即，此时，s &#x3D; &#123;1, 2, 3&#125;</span><br></pre></td></tr></table></figure>
+<p><img src="https://huhansi.github.io/images/%E5%88%9B%E5%BB%BA%E9%9B%86%E5%90%88.PNG" alt="创建集合"></p>
+<h3 id="查询和遍历集合"><a href="#查询和遍历集合" class="headerlink" title="查询和遍历集合"></a>查询和遍历集合</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">s &#x3D; set([1, 2, 3, 4])</span><br><span class="line">print(4 in s)</span><br><span class="line">for value in s:</span><br><span class="line">    print(value)</span><br></pre></td></tr></table></figure>
+<p><img src="https://huhansi.github.io/images/%E9%81%8D%E5%8E%86%E9%9B%86%E5%90%88.PNG" alt="遍历集合"></p>
+<h3 id="删除集合"><a href="#删除集合" class="headerlink" title="删除集合"></a>删除集合</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">s &#x3D; set([1, 2, 3, 4, 5, 6])</span><br><span class="line">s.remove(1)    # 移除元素1</span><br><span class="line">s.add(7)</span><br><span class="line">del s</span><br><span class="line">s</span><br></pre></td></tr></table></figure>
+<p><img src="https://huhansi.github.io/images/%E5%88%A0%E9%99%A4%E9%9B%86%E5%90%88.PNG" alt="删除集合"></p>
+<h2 id="空类型（None）"><a href="#空类型（None）" class="headerlink" title="空类型（None）"></a>空类型（None）</h2><p>表示该值是一个空值，且对其没有特别的操作。空值是Python里的一个特殊的值，用None表示。空值不能理解为0，因为0是有意义的，而None是一个特殊的空值。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">None &#x3D;&#x3D; 0</span><br><span class="line">None &#x3D;&#x3D; &#39;&#39;</span><br><span class="line">type(None)</span><br><span class="line">None &#x3D;&#x3D; None</span><br><span class="line">None is None</span><br></pre></td></tr></table></figure>
+<p><img src="https://huhansi.github.io/images/None.PNG" alt="None"></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/python/" rel="tag"># python</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/01/10/python%E5%85%A5%E9%97%A8/python-2-%E8%BF%90%E8%A1%8C/" rel="next" title="运行python">
+                <i class="fa fa-chevron-left"></i> 运行python
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/01/13/python%E5%85%A5%E9%97%A8/python-8-%E5%9F%BA%E6%9C%AC%E8%AF%AD%E6%B3%95/" rel="prev" title="基本语法">
+                基本语法 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Han si</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/%7C%7C%20archive">
+              
+                  <span class="site-state-item-count">184</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">8</span>
+                  <span class="site-state-item-name">categories</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">71</span>
+                  <span class="site-state-item-name">tags</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:kw120943839@gmail.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#整型（Int）"><span class="nav-number">1.</span> <span class="nav-text">整型（Int）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#浮点数（Float）"><span class="nav-number">2.</span> <span class="nav-text">浮点数（Float）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#字符串"><span class="nav-number">3.</span> <span class="nav-text">字符串</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#字符串运算"><span class="nav-number">3.1.</span> <span class="nav-text">字符串运算</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#列表"><span class="nav-number">4.</span> <span class="nav-text">列表</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#创建列表"><span class="nav-number">4.1.</span> <span class="nav-text">创建列表</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#访问列表"><span class="nav-number">4.2.</span> <span class="nav-text">访问列表</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#更新列表"><span class="nav-number">4.3.</span> <span class="nav-text">更新列表</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#删除列表"><span class="nav-number">4.4.</span> <span class="nav-text">删除列表</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#列表分片"><span class="nav-number">4.5.</span> <span class="nav-text">列表分片</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#其他操作"><span class="nav-number">4.6.</span> <span class="nav-text">其他操作</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#字典"><span class="nav-number">5.</span> <span class="nav-text">字典</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#添加元素"><span class="nav-number">5.1.</span> <span class="nav-text">添加元素</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#访问和遍历元素"><span class="nav-number">5.2.</span> <span class="nav-text">访问和遍历元素</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#删除元素"><span class="nav-number">5.3.</span> <span class="nav-text">删除元素</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#修改元素"><span class="nav-number">5.4.</span> <span class="nav-text">修改元素</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#其他操作-1"><span class="nav-number">5.5.</span> <span class="nav-text">其他操作</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#元组"><span class="nav-number">6.</span> <span class="nav-text">元组</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#元素的优势"><span class="nav-number">6.1.</span> <span class="nav-text">元素的优势</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#创建元组"><span class="nav-number">6.2.</span> <span class="nav-text">创建元组</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#元组分片"><span class="nav-number">6.3.</span> <span class="nav-text">元组分片</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#更改元组"><span class="nav-number">6.4.</span> <span class="nav-text">更改元组</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#删除元组"><span class="nav-number">6.5.</span> <span class="nav-text">删除元组</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#元组和列表互换"><span class="nav-number">6.6.</span> <span class="nav-text">元组和列表互换</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#集合"><span class="nav-number">7.</span> <span class="nav-text">集合</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#创建集合"><span class="nav-number">7.1.</span> <span class="nav-text">创建集合</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#查询和遍历集合"><span class="nav-number">7.2.</span> <span class="nav-text">查询和遍历集合</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#删除集合"><span class="nav-number">7.3.</span> <span class="nav-text">删除集合</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#空类型（None）"><span class="nav-number">8.</span> <span class="nav-text">空类型（None）</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Han si</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('-1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
