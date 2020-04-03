@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="leetcode,算法," />
+  <meta name="keywords" content="leetcode,算法,String," />
 
 
 
@@ -79,18 +79,19 @@
 
 
 
-<meta name="description" content="题目给定一个字符串来代表一个学生的出勤纪录，这个纪录仅包含以下三个字符：  ‘A‘ : Absent，缺勤 ‘L‘ : Late，迟到 ‘P‘ : Present，到场  如果一个学生的出勤纪录中不超过一个’A’(缺勤)并且不超过两个连续的’L’(迟到),那么这个学生会被奖赏。 你需要根据这个学生的出勤纪录判断他是否会被奖赏。示例1： 12输入: &quot;PPALLP&quot;输出: Tru">
+<meta name="description" content="题目给定一个字符串来代表一个学生的出勤纪录，这个纪录仅包含以下三个字符：  ‘A‘ : Absent，缺勤 ‘L‘ : Late，迟到 ‘P‘ : Present，到场  如果一个学生的出勤纪录中不超过一个’A’(缺勤)并且不超过两个连续的’L’(迟到),那么这个学生会被奖赏。 你需要根据这个学生的出勤纪录判断他是否会被奖赏。 示例1：12输入: &quot;PPALLP&quot;输出: Tru">
 <meta property="og:type" content="article">
 <meta property="og:title" content="551. 学生出勤纪录 I">
 <meta property="og:url" content="http://huhansi.com/2018/09/05/LeetCode/leetcode-000551.%20%E5%AD%A6%E7%94%9F%E5%87%BA%E5%8B%A4%E7%BA%AA%E5%BD%95%20I/index.html">
 <meta property="og:site_name" content="Hansi Blog">
-<meta property="og:description" content="题目给定一个字符串来代表一个学生的出勤纪录，这个纪录仅包含以下三个字符：  ‘A‘ : Absent，缺勤 ‘L‘ : Late，迟到 ‘P‘ : Present，到场  如果一个学生的出勤纪录中不超过一个’A’(缺勤)并且不超过两个连续的’L’(迟到),那么这个学生会被奖赏。 你需要根据这个学生的出勤纪录判断他是否会被奖赏。示例1： 12输入: &quot;PPALLP&quot;输出: Tru">
+<meta property="og:description" content="题目给定一个字符串来代表一个学生的出勤纪录，这个纪录仅包含以下三个字符：  ‘A‘ : Absent，缺勤 ‘L‘ : Late，迟到 ‘P‘ : Present，到场  如果一个学生的出勤纪录中不超过一个’A’(缺勤)并且不超过两个连续的’L’(迟到),那么这个学生会被奖赏。 你需要根据这个学生的出勤纪录判断他是否会被奖赏。 示例1：12输入: &quot;PPALLP&quot;输出: Tru">
 <meta property="og:locale" content="Zh_CN">
 <meta property="article:published_time" content="2018-09-04T16:00:00.000Z">
-<meta property="article:modified_time" content="2020-03-02T05:28:49.726Z">
+<meta property="article:modified_time" content="2020-03-28T05:40:09.679Z">
 <meta property="article:author" content="Han si">
 <meta property="article:tag" content="leetcode">
 <meta property="article:tag" content="算法">
+<meta property="article:tag" content="String">
 <meta name="twitter:card" content="summary">
 
 
@@ -394,12 +395,11 @@
 <li>‘<code>P</code>‘ : Present，到场</li>
 </ol>
 <p>如果一个学生的出勤纪录中不超过一个’A’(缺勤)并且不超过两个连续的’L’(迟到),那么这个学生会被奖赏。</p>
-<p>你需要根据这个学生的出勤纪录判断他是否会被奖赏。<br><strong>示例1：</strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">输入: &quot;PPALLP&quot;</span><br><span class="line">输出: True</span><br></pre></td></tr></table></figure>
-<p><strong>示例2：</strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">输入: &quot;PPALLL&quot;</span><br><span class="line">输出: False</span><br></pre></td></tr></table></figure>
-<h2 id="解答"><a href="#解答" class="headerlink" title="解答"></a>解答</h2><h3 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h3><p>判断是否同时有一个A并且和连续的三个A就行</p>
-<h3 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">checkRecord</span><span class="params">(String s)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">long</span> aNum = s.chars().filter(c -&gt; c == <span class="string">'A'</span>).count();</span><br><span class="line">		<span class="keyword">if</span> ((aNum &lt;= <span class="number">1</span>) &amp;&amp; (!s.contains(<span class="string">"LLL"</span>))) &#123;</span><br><span class="line">			<span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>你需要根据这个学生的出勤纪录判断他是否会被奖赏。</p>
+<h2 id="示例1："><a href="#示例1：" class="headerlink" title="示例1："></a>示例1：</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">输入: &quot;PPALLP&quot;</span><br><span class="line">输出: True</span><br></pre></td></tr></table></figure>
+<h2 id="示例2："><a href="#示例2：" class="headerlink" title="示例2："></a>示例2：</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">输入: &quot;PPALLL&quot;</span><br><span class="line">输出: False</span><br></pre></td></tr></table></figure>
+<h2 id="解法"><a href="#解法" class="headerlink" title="解法"></a>解法</h2><h3 id="解法一："><a href="#解法一：" class="headerlink" title="解法一："></a>解法一：</h3><p>判断是否同时有一个A并且和连续的三个A就行</p>
+<h4 id="Java"><a href="#Java" class="headerlink" title="Java"></a>Java</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">checkRecord</span><span class="params">(String s)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">long</span> aNum = s.chars().filter(c -&gt; c == <span class="string">'A'</span>).count();</span><br><span class="line">		<span class="keyword">if</span> ((aNum &lt;= <span class="number">1</span>) &amp;&amp; (!s.contains(<span class="string">"LLL"</span>))) &#123;</span><br><span class="line">			<span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
       
     </div>
     
@@ -420,6 +420,8 @@
           
             <a href="/tags/%E7%AE%97%E6%B3%95/" rel="tag"># 算法</a>
           
+            <a href="/tags/String/" rel="tag"># String</a>
+          
         </div>
       
 
@@ -431,8 +433,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/09/05/LeetCode/leetcode-000672.%20%E7%81%AF%E6%B3%A1%E5%BC%80%E5%85%B3%20%E2%85%A1/" rel="next" title="672. 灯泡开关 Ⅱ">
-                <i class="fa fa-chevron-left"></i> 672. 灯泡开关 Ⅱ
+              <a href="/2018/09/05/LeetCode/leetcode-000521.%20%E6%9C%80%E9%95%BF%E7%89%B9%E6%AE%8A%E5%BA%8F%E5%88%97%20%E2%85%A0/" rel="next" title="521. 最长特殊序列 Ⅰ">
+                <i class="fa fa-chevron-left"></i> 521. 最长特殊序列 Ⅰ
               </a>
             
           </div>
@@ -441,8 +443,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2018/09/05/LeetCode/leetcode-000535.%20TinyURL%20%E7%9A%84%E5%8A%A0%E5%AF%86%E4%B8%8E%E8%A7%A3%E5%AF%86/" rel="prev" title="535. TinyURL 的加密与解密">
-                535. TinyURL 的加密与解密 <i class="fa fa-chevron-right"></i>
+              <a href="/2018/09/05/LeetCode/leetcode-000319.%20%E7%81%AF%E6%B3%A1%E5%BC%80%E5%85%B3/" rel="prev" title="319. 灯泡开关">
+                319. 灯泡开关 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -520,7 +522,7 @@
               
                 <a href="/archives/%7C%7C%20archive">
               
-                  <span class="site-state-item-count">215</span>
+                  <span class="site-state-item-count">268</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -531,7 +533,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">8</span>
+                  <span class="site-state-item-count">10</span>
                   <span class="site-state-item-name">categories</span>
                 </a>
               </div>
@@ -542,7 +544,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">78</span>
+                  <span class="site-state-item-count">103</span>
                   <span class="site-state-item-name">tags</span>
                 </a>
               </div>
@@ -585,7 +587,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#题目"><span class="nav-number">1.</span> <span class="nav-text">题目</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#解答"><span class="nav-number">2.</span> <span class="nav-text">解答</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#思路"><span class="nav-number">2.1.</span> <span class="nav-text">思路</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#代码"><span class="nav-number">2.2.</span> <span class="nav-text">代码</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#题目"><span class="nav-number">1.</span> <span class="nav-text">题目</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#示例1："><span class="nav-number">2.</span> <span class="nav-text">示例1：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#示例2："><span class="nav-number">3.</span> <span class="nav-text">示例2：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#解法"><span class="nav-number">4.</span> <span class="nav-text">解法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#解法一："><span class="nav-number">4.1.</span> <span class="nav-text">解法一：</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Java"><span class="nav-number">4.1.1.</span> <span class="nav-text">Java</span></a></li></ol></li></ol></li></ol></div>
             
 
           </div>

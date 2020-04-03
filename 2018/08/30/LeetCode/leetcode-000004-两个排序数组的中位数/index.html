@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="leetcode,算法," />
+  <meta name="keywords" content="leetcode,算法,Arrays," />
 
 
 
@@ -79,18 +79,19 @@
 
 
 
-<meta name="description" content="题目给定两个大小为 m 和 n 的有序数组 nums1 和 nums2 。 请找出这两个有序数组的中位数。要求算法的时间复杂度为 O(log (m+n)) 。 你可以假设 nums1 和 nums2 不同时为空。示例1： 1234nums1 &#x3D; [1, 3]nums2 &#x3D; [2]中位数是 2.0  示例1： 1234nums1 &#x3D; [1, 2]nums2 &#x3D;">
+<meta name="description" content="题目给定两个大小为 m 和 n 的有序数组 nums1 和 nums2 。 请找出这两个有序数组的中位数。要求算法的时间复杂度为 O(log (m+n)) 。 你可以假设 nums1 和 nums2 不同时为空。 示例1：1234nums1 &#x3D; [1, 3]nums2 &#x3D; [2]中位数是 2.0  示例1：1234nums1 &#x3D; [1, 2]nums2 &#x3D;">
 <meta property="og:type" content="article">
 <meta property="og:title" content="4. 两个排序数组的中位数">
 <meta property="og:url" content="http://huhansi.com/2018/08/30/LeetCode/leetcode-000004-%E4%B8%A4%E4%B8%AA%E6%8E%92%E5%BA%8F%E6%95%B0%E7%BB%84%E7%9A%84%E4%B8%AD%E4%BD%8D%E6%95%B0/index.html">
 <meta property="og:site_name" content="Hansi Blog">
-<meta property="og:description" content="题目给定两个大小为 m 和 n 的有序数组 nums1 和 nums2 。 请找出这两个有序数组的中位数。要求算法的时间复杂度为 O(log (m+n)) 。 你可以假设 nums1 和 nums2 不同时为空。示例1： 1234nums1 &#x3D; [1, 3]nums2 &#x3D; [2]中位数是 2.0  示例1： 1234nums1 &#x3D; [1, 2]nums2 &#x3D;">
+<meta property="og:description" content="题目给定两个大小为 m 和 n 的有序数组 nums1 和 nums2 。 请找出这两个有序数组的中位数。要求算法的时间复杂度为 O(log (m+n)) 。 你可以假设 nums1 和 nums2 不同时为空。 示例1：1234nums1 &#x3D; [1, 3]nums2 &#x3D; [2]中位数是 2.0  示例1：1234nums1 &#x3D; [1, 2]nums2 &#x3D;">
 <meta property="og:locale" content="Zh_CN">
 <meta property="article:published_time" content="2018-08-29T16:00:00.000Z">
-<meta property="article:modified_time" content="2020-03-09T02:57:09.448Z">
+<meta property="article:modified_time" content="2020-03-28T04:36:31.476Z">
 <meta property="article:author" content="Han si">
 <meta property="article:tag" content="leetcode">
 <meta property="article:tag" content="算法">
+<meta property="article:tag" content="Arrays">
 <meta name="twitter:card" content="summary">
 
 
@@ -389,11 +390,10 @@
       
         <h2 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h2><p>给定两个大小为 m 和 n 的有序数组 nums1 和 nums2 。</p>
 <p>请找出这两个有序数组的中位数。要求算法的时间复杂度为 O(log (m+n)) 。</p>
-<p>你可以假设 nums1 和 nums2 不同时为空。<br><strong>示例1：</strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">nums1 &#x3D; [1, 3]</span><br><span class="line">nums2 &#x3D; [2]</span><br><span class="line"></span><br><span class="line">中位数是 2.0</span><br></pre></td></tr></table></figure>
+<p>你可以假设 nums1 和 nums2 不同时为空。</p>
+<h2 id="示例1："><a href="#示例1：" class="headerlink" title="示例1："></a>示例1：</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">nums1 &#x3D; [1, 3]</span><br><span class="line">nums2 &#x3D; [2]</span><br><span class="line"></span><br><span class="line">中位数是 2.0</span><br></pre></td></tr></table></figure>
 
-<p><strong>示例1：</strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">nums1 &#x3D; [1, 2]</span><br><span class="line">nums2 &#x3D; [3, 4]</span><br><span class="line"></span><br><span class="line">中位数是 (2 + 3)&#x2F;2 &#x3D; 2.5</span><br></pre></td></tr></table></figure>
+<h2 id="示例1：-1"><a href="#示例1：-1" class="headerlink" title="示例1："></a>示例1：</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">nums1 &#x3D; [1, 2]</span><br><span class="line">nums2 &#x3D; [3, 4]</span><br><span class="line"></span><br><span class="line">中位数是 (2 + 3)&#x2F;2 &#x3D; 2.5</span><br></pre></td></tr></table></figure>
 <h2 id="解法"><a href="#解法" class="headerlink" title="解法"></a>解法</h2><h3 id="解法一："><a href="#解法一：" class="headerlink" title="解法一："></a>解法一：</h3><p>将两个数组排序成一个数组，然后求它们的中位数。因为数组是有序的，所以可以遍历一趟得到结果。算法复杂度为<strong>O(max(m,n))</strong>,与题目要求的不符。</p>
 <h4 id="CPP"><a href="#CPP" class="headerlink" title="CPP"></a>CPP</h4><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">double</span> <span class="title">findMedianSortedArrays</span><span class="params">(<span class="keyword">int</span>[] nums1, <span class="keyword">int</span>[] nums2)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">int</span> length1 = nums1.length;</span><br><span class="line">		<span class="keyword">int</span> length2 = nums2.length;</span><br><span class="line">        <span class="keyword">int</span>[] result = <span class="keyword">new</span> <span class="keyword">int</span>[length1 + length2];</span><br><span class="line">        <span class="keyword">int</span> index = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span> index1 = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span> index2 = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">while</span> (index1 &lt; length1 &amp;&amp; index2 &lt; length2) &#123;</span><br><span class="line">        	<span class="keyword">if</span> (nums1[index1] &lt; nums2[index2]) &#123;</span><br><span class="line">        		result[index] = nums1[index1];</span><br><span class="line">        		index1++;</span><br><span class="line">        	&#125; <span class="keyword">else</span> <span class="keyword">if</span> (nums1[index1] &gt; nums2[index2]) &#123;</span><br><span class="line">        		result[index] = nums2[index2];</span><br><span class="line">        		index2++;</span><br><span class="line">        	&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        		result[index++] = nums1[index1];</span><br><span class="line">        		result[index] = nums1[index1];</span><br><span class="line">        		index1++;</span><br><span class="line">        		index2++;</span><br><span class="line">        	&#125;</span><br><span class="line">        	index++;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">while</span> (index1 &lt; length1) &#123;</span><br><span class="line">        	result[index++] = nums1[index1++];</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">while</span> (index2 &lt; length2) &#123;</span><br><span class="line">        	result[index++] = nums2[index2++];</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">if</span> (result.length % <span class="number">2</span> == <span class="number">0</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">return</span> (result[result.length / <span class="number">2</span>] + result[result.length / <span class="number">2</span> - <span class="number">1</span>]) / <span class="number">2.0</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span>&#123;</span><br><span class="line">        	<span class="keyword">return</span> result[result.length / <span class="number">2</span>];</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line">    </span><br><span class="line">    </span><br><span class="line">    </span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">double</span> <span class="title">findKth</span><span class="params">(<span class="keyword">int</span> a[], <span class="keyword">int</span> m, <span class="keyword">int</span> b[], <span class="keyword">int</span> n, <span class="keyword">int</span> k)</span> </span>&#123;</span><br><span class="line">	    <span class="keyword">if</span> (m &gt; n)</span><br><span class="line">	    	<span class="keyword">return</span> findKth(b, n, a, m, k);</span><br><span class="line">	    <span class="keyword">if</span> (m == <span class="number">0</span>)</span><br><span class="line">	    	<span class="keyword">return</span> b[k - <span class="number">1</span>];</span><br><span class="line">	    <span class="keyword">if</span> (k == <span class="number">1</span>)</span><br><span class="line">	    	<span class="keyword">return</span> min(a[<span class="number">0</span>], b[<span class="number">0</span>]);</span><br><span class="line">	    <span class="comment">//divide k into two parts</span></span><br><span class="line">	    <span class="keyword">int</span> pa = min(k / <span class="number">2</span>, m), pb = k - pa;</span><br><span class="line">	    <span class="keyword">if</span> (a[pa - <span class="number">1</span>] &lt; b[pb - <span class="number">1</span>])</span><br><span class="line">	    	<span class="keyword">return</span> findKth(a + pa, m - pa, b, n, k - pa);</span><br><span class="line">	    <span class="keyword">else</span> <span class="keyword">if</span> (a[pa - <span class="number">1</span>] &gt; b[pb - <span class="number">1</span>])</span><br><span class="line">	    	<span class="keyword">return</span> findKth(a, m, b + pb, n - pb, k - pb);</span><br><span class="line">    	<span class="keyword">else</span></span><br><span class="line">		    <span class="keyword">return</span> a[pa - <span class="number">1</span>];</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">double</span> <span class="title">findMedianSortedArrays</span><span class="params">(<span class="keyword">int</span> A[], <span class="keyword">int</span> m, <span class="keyword">int</span> B[], <span class="keyword">int</span> n)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> total = m + n;</span><br><span class="line">		<span class="keyword">if</span> (total &amp; <span class="number">0x1</span>)</span><br><span class="line">			<span class="keyword">return</span> findKth(A, m, B, n, total / <span class="number">2</span> + <span class="number">1</span>);</span><br><span class="line">		<span class="keyword">else</span></span><br><span class="line">			<span class="keyword">return</span> (findKth(A, m, B, n, total / <span class="number">2</span>)</span><br><span class="line">					+ findKth(A, m, B, n, total / <span class="number">2</span> + <span class="number">1</span>)) / <span class="number">2</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
@@ -416,6 +416,8 @@
             <a href="/tags/leetcode/" rel="tag"># leetcode</a>
           
             <a href="/tags/%E7%AE%97%E6%B3%95/" rel="tag"># 算法</a>
+          
+            <a href="/tags/Arrays/" rel="tag"># Arrays</a>
           
         </div>
       
@@ -517,7 +519,7 @@
               
                 <a href="/archives/%7C%7C%20archive">
               
-                  <span class="site-state-item-count">215</span>
+                  <span class="site-state-item-count">268</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -528,7 +530,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">8</span>
+                  <span class="site-state-item-count">10</span>
                   <span class="site-state-item-name">categories</span>
                 </a>
               </div>
@@ -539,7 +541,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">78</span>
+                  <span class="site-state-item-count">103</span>
                   <span class="site-state-item-name">tags</span>
                 </a>
               </div>
@@ -582,7 +584,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#题目"><span class="nav-number">1.</span> <span class="nav-text">题目</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#解法"><span class="nav-number">2.</span> <span class="nav-text">解法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#解法一："><span class="nav-number">2.1.</span> <span class="nav-text">解法一：</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#CPP"><span class="nav-number">2.1.1.</span> <span class="nav-text">CPP</span></a></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#题目"><span class="nav-number">1.</span> <span class="nav-text">题目</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#示例1："><span class="nav-number">2.</span> <span class="nav-text">示例1：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#示例1：-1"><span class="nav-number">3.</span> <span class="nav-text">示例1：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#解法"><span class="nav-number">4.</span> <span class="nav-text">解法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#解法一："><span class="nav-number">4.1.</span> <span class="nav-text">解法一：</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#CPP"><span class="nav-number">4.1.1.</span> <span class="nav-text">CPP</span></a></li></ol></li></ol></li></ol></div>
             
 
           </div>

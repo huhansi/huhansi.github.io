@@ -87,7 +87,7 @@
 <meta property="og:description" content="题目Reverse a singly linked list. Example 1:12Input: 1-&gt;2-&gt;3-&gt;4-&gt;5-&gt;NULLOutput: 5-&gt;4-&gt;3-&gt;2-&gt;1-&gt;NULL  Follow upA linked list can be reversed either iteratively or recursivel">
 <meta property="og:locale" content="Zh_CN">
 <meta property="article:published_time" content="2020-03-24T16:00:00.000Z">
-<meta property="article:modified_time" content="2020-03-26T15:19:39.377Z">
+<meta property="article:modified_time" content="2020-03-28T05:18:43.144Z">
 <meta property="article:author" content="Han si">
 <meta property="article:tag" content="leetcode">
 <meta property="article:tag" content="算法">
@@ -398,7 +398,7 @@
 <p>再次从头遍历链表，它们的值用栈中的元素覆盖即可。</p>
 <h4 id="JAVA-1"><a href="#JAVA-1" class="headerlink" title="JAVA"></a>JAVA</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> ListNode <span class="title">reverseList</span><span class="params">(ListNode head)</span> </span>&#123;</span><br><span class="line">        Stack&lt;Integer&gt; values = <span class="keyword">new</span> Stack&lt;&gt;();</span><br><span class="line">        ListNode p = head;</span><br><span class="line">        <span class="keyword">while</span> (<span class="keyword">null</span> != p) &#123;</span><br><span class="line">        	values.add(p.val);</span><br><span class="line">        	p = p.next;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        p = head;</span><br><span class="line">        <span class="keyword">while</span> (<span class="keyword">null</span> != p) &#123;</span><br><span class="line">        	p.val = values.pop();</span><br><span class="line">        	p = p.next;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> head;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
 
-<h3 id="解法三：原地替换"><a href="#解法三：原地替换" class="headerlink" title="解法三：原地替换"></a>解法三：原地替换</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> ListNode <span class="title">reverseList</span><span class="params">(ListNode head)</span> </span>&#123;</span><br><span class="line">        ListNode last = <span class="keyword">null</span>;</span><br><span class="line">        ListNode current = head;</span><br><span class="line">        <span class="keyword">if</span>(head == <span class="keyword">null</span>) <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">        ListNode next = current.next;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">while</span>(current != <span class="keyword">null</span>)&#123;</span><br><span class="line">            current.next = last;</span><br><span class="line">            last = current;</span><br><span class="line">            current = next;</span><br><span class="line">            <span class="keyword">if</span>(current != <span class="keyword">null</span>)</span><br><span class="line">                next = current.next;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">return</span> last;</span><br><span class="line">        </span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<h3 id="解法三：原地替换"><a href="#解法三：原地替换" class="headerlink" title="解法三：原地替换"></a>解法三：原地替换</h3><h4 id="Java"><a href="#Java" class="headerlink" title="Java"></a>Java</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> ListNode <span class="title">reverseList</span><span class="params">(ListNode head)</span> </span>&#123;</span><br><span class="line">        ListNode last = <span class="keyword">null</span>;</span><br><span class="line">        ListNode current = head;</span><br><span class="line">        <span class="keyword">if</span>(head == <span class="keyword">null</span>) <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">        ListNode next = current.next;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">while</span>(current != <span class="keyword">null</span>)&#123;</span><br><span class="line">            current.next = last;</span><br><span class="line">            last = current;</span><br><span class="line">            current = next;</span><br><span class="line">            <span class="keyword">if</span>(current != <span class="keyword">null</span>)</span><br><span class="line">                next = current.next;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">return</span> last;</span><br><span class="line">        </span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
 
 
       
@@ -434,8 +434,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2020/03/25/LeetCode/leetcode-000215-Kth%20Largest%20Element%20in%20an%20Array/" rel="next" title="215. Kth Largest Element in an Array">
-                <i class="fa fa-chevron-left"></i> 215. Kth Largest Element in an Array
+              <a href="/2020/03/25/LeetCode/leetcode-000203-Remove%20Linked%20List%20Elements/" rel="next" title="203. Remove Linked List Elements">
+                <i class="fa fa-chevron-left"></i> 203. Remove Linked List Elements
               </a>
             
           </div>
@@ -444,8 +444,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2020/03/25/LeetCode/leetcode-000203-Remove%20Linked%20List%20Elements/" rel="prev" title="203. Remove Linked List Elements">
-                203. Remove Linked List Elements <i class="fa fa-chevron-right"></i>
+              <a href="/2020/03/26/LeetCode/leetcode-000999-%E8%BD%A6%E7%9A%84%E5%8F%AF%E7%94%A8%E6%8D%95%E8%8E%B7%E9%87%8F/" rel="prev" title="999. 车的可用捕获量">
+                999. 车的可用捕获量 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -523,7 +523,7 @@
               
                 <a href="/archives/%7C%7C%20archive">
               
-                  <span class="site-state-item-count">215</span>
+                  <span class="site-state-item-count">268</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -534,7 +534,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">8</span>
+                  <span class="site-state-item-count">10</span>
                   <span class="site-state-item-name">categories</span>
                 </a>
               </div>
@@ -545,7 +545,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">78</span>
+                  <span class="site-state-item-count">103</span>
                   <span class="site-state-item-name">tags</span>
                 </a>
               </div>
@@ -588,7 +588,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#题目"><span class="nav-number">1.</span> <span class="nav-text">题目</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Example-1"><span class="nav-number">2.</span> <span class="nav-text">Example 1:</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Follow-up"><span class="nav-number">3.</span> <span class="nav-text">Follow up</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#解法"><span class="nav-number">4.</span> <span class="nav-text">解法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#解法一：递归"><span class="nav-number">4.1.</span> <span class="nav-text">解法一：递归</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#JAVA"><span class="nav-number">4.1.1.</span> <span class="nav-text">JAVA</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#解法二：迭代"><span class="nav-number">4.2.</span> <span class="nav-text">解法二：迭代</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#JAVA-1"><span class="nav-number">4.2.1.</span> <span class="nav-text">JAVA</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#解法三：原地替换"><span class="nav-number">4.3.</span> <span class="nav-text">解法三：原地替换</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#题目"><span class="nav-number">1.</span> <span class="nav-text">题目</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Example-1"><span class="nav-number">2.</span> <span class="nav-text">Example 1:</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Follow-up"><span class="nav-number">3.</span> <span class="nav-text">Follow up</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#解法"><span class="nav-number">4.</span> <span class="nav-text">解法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#解法一：递归"><span class="nav-number">4.1.</span> <span class="nav-text">解法一：递归</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#JAVA"><span class="nav-number">4.1.1.</span> <span class="nav-text">JAVA</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#解法二：迭代"><span class="nav-number">4.2.</span> <span class="nav-text">解法二：迭代</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#JAVA-1"><span class="nav-number">4.2.1.</span> <span class="nav-text">JAVA</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#解法三：原地替换"><span class="nav-number">4.3.</span> <span class="nav-text">解法三：原地替换</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Java"><span class="nav-number">4.3.1.</span> <span class="nav-text">Java</span></a></li></ol></li></ol></li></ol></div>
             
 
           </div>

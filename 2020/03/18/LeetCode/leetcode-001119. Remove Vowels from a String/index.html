@@ -87,7 +87,7 @@
 <meta property="og:description" content="题目Given a string S, remove the vowels &#39;a&#39;, &#39;e&#39;, &#39;i&#39;, &#39;o&#39;, and &#39;u&#39; from it, and return the new string. Example 1:12Input: &quot;leetcodeisacommunityforcoders&amp;quo">
 <meta property="og:locale" content="Zh_CN">
 <meta property="article:published_time" content="2020-03-17T16:00:00.000Z">
-<meta property="article:modified_time" content="2020-03-18T02:32:35.998Z">
+<meta property="article:modified_time" content="2020-03-28T06:16:37.583Z">
 <meta property="article:author" content="Han si">
 <meta property="article:tag" content="leetcode">
 <meta property="article:tag" content="算法">
@@ -404,7 +404,7 @@
 
 <h4 id="CPP"><a href="#CPP" class="headerlink" title="CPP"></a>CPP</h4><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="built_in">string</span> <span class="title">remVowel</span><span class="params">(<span class="built_in">string</span> str)</span> </span>&#123;</span><br><span class="line">        <span class="built_in">vector</span>&lt;<span class="keyword">char</span>&gt; vowels = &#123;<span class="string">'a'</span>, <span class="string">'e'</span>, <span class="string">'i'</span>, <span class="string">'o'</span>, <span class="string">'u'</span>&#125;;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">unsigned</span> <span class="keyword">int</span> i = <span class="number">0</span>; i &lt; str.length(); i++) &#123;</span><br><span class="line">            <span class="keyword">if</span> (<span class="built_in">find</span>(vowels.<span class="built_in">begin</span>(), vowels.<span class="built_in">end</span>(), str[i]) != vowels.<span class="built_in">end</span>()) &#123;</span><br><span class="line">                str = str.replace(i, <span class="number">1</span>, <span class="string">""</span>);</span><br><span class="line">                i -= <span class="number">2</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> str;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
 
-<h4 id="解法二："><a href="#解法二：" class="headerlink" title="解法二："></a>解法二：</h4><p>所有元音作为一个集合，遍历s里面的所有字符，遇到元音就跳过，最后构造一个新的字符串返回</p>
+<h3 id="解法二："><a href="#解法二：" class="headerlink" title="解法二："></a>解法二：</h3><p>所有元音作为一个集合，遍历s里面的所有字符，遇到元音就跳过，最后构造一个新的字符串返回</p>
 <h4 id="JAVA"><a href="#JAVA" class="headerlink" title="JAVA"></a>JAVA</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">String <span class="title">removeVowel</span><span class="params">(String str)</span> </span>&#123;</span><br><span class="line">		Set&lt;Character&gt; vowels = <span class="keyword">new</span> HashSet&lt;&gt;();</span><br><span class="line">		vowels.add(<span class="string">'a'</span>);</span><br><span class="line">		vowels.add(<span class="string">'e'</span>);</span><br><span class="line">		vowels.add(<span class="string">'i'</span>);</span><br><span class="line">		vowels.add(<span class="string">'o'</span>);</span><br><span class="line">		vowels.add(<span class="string">'u'</span>);</span><br><span class="line">		</span><br><span class="line">		StringBuilder stringBuilder = <span class="keyword">new</span> StringBuilder();</span><br><span class="line">		<span class="keyword">for</span> (<span class="keyword">char</span> c : str.toCharArray()) &#123;</span><br><span class="line">			<span class="keyword">if</span> (vowels.contains(c)) &#123;</span><br><span class="line">				<span class="keyword">continue</span>;</span><br><span class="line">			&#125;</span><br><span class="line">			stringBuilder.append(c);</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">return</span> stringBuilder.toString();</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure>
 
 
@@ -447,8 +447,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2020/03/18/LeetCode/leetcode-001350.%20Students%20With%20Invalid%20Departments%20/" rel="next" title="1350. Students With Invalid Departments">
-                <i class="fa fa-chevron-left"></i> 1350. Students With Invalid Departments
+              <a href="/2020/03/18/LeetCode/leetcode-001378.%20Replace%20Employee%20ID%20With%20The%20Unique%20Identifier/" rel="next" title="1378. Replace Employee ID With The Unique Identifier">
+                <i class="fa fa-chevron-left"></i> 1378. Replace Employee ID With The Unique Identifier
               </a>
             
           </div>
@@ -536,7 +536,7 @@
               
                 <a href="/archives/%7C%7C%20archive">
               
-                  <span class="site-state-item-count">215</span>
+                  <span class="site-state-item-count">268</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -547,7 +547,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">8</span>
+                  <span class="site-state-item-count">10</span>
                   <span class="site-state-item-name">categories</span>
                 </a>
               </div>
@@ -558,7 +558,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">78</span>
+                  <span class="site-state-item-count">103</span>
                   <span class="site-state-item-name">tags</span>
                 </a>
               </div>
@@ -601,7 +601,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#题目"><span class="nav-number">1.</span> <span class="nav-text">题目</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Example-1"><span class="nav-number">1.1.</span> <span class="nav-text">Example 1:</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Example-2"><span class="nav-number">1.2.</span> <span class="nav-text">Example 2:</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Note"><span class="nav-number">1.3.</span> <span class="nav-text">Note:</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#解法"><span class="nav-number">2.</span> <span class="nav-text">解法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#解法一："><span class="nav-number">2.1.</span> <span class="nav-text">解法一：</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Java"><span class="nav-number">2.1.1.</span> <span class="nav-text">Java</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#CPP"><span class="nav-number">2.1.2.</span> <span class="nav-text">CPP</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#解法二："><span class="nav-number">2.1.3.</span> <span class="nav-text">解法二：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#JAVA"><span class="nav-number">2.1.4.</span> <span class="nav-text">JAVA</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#CPP-1"><span class="nav-number">2.1.5.</span> <span class="nav-text">CPP</span></a></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#题目"><span class="nav-number">1.</span> <span class="nav-text">题目</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Example-1"><span class="nav-number">1.1.</span> <span class="nav-text">Example 1:</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Example-2"><span class="nav-number">1.2.</span> <span class="nav-text">Example 2:</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Note"><span class="nav-number">1.3.</span> <span class="nav-text">Note:</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#解法"><span class="nav-number">2.</span> <span class="nav-text">解法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#解法一："><span class="nav-number">2.1.</span> <span class="nav-text">解法一：</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Java"><span class="nav-number">2.1.1.</span> <span class="nav-text">Java</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#CPP"><span class="nav-number">2.1.2.</span> <span class="nav-text">CPP</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#解法二："><span class="nav-number">2.2.</span> <span class="nav-text">解法二：</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#JAVA"><span class="nav-number">2.2.1.</span> <span class="nav-text">JAVA</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#CPP-1"><span class="nav-number">2.2.2.</span> <span class="nav-text">CPP</span></a></li></ol></li></ol></li></ol></div>
             
 
           </div>
