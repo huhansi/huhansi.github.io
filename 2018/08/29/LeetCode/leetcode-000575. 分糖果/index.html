@@ -79,15 +79,15 @@
 
 
 
-<meta name="description" content="题目给定一个偶数长度的数组，其中不同的数字代表着不同种类的糖果，每一个数字代表一个糖果。你需要把这些糖果平均分给一个弟弟和一个妹妹。返回妹妹可以获得的最大糖果的种类数。示例1： 1234输入: candies &#x3D; [1,1,2,2,3,3]输出: 3解析: 一共有三种种类的糖果，每一种都有两个。     最优分配方案：妹妹获得[1,2,3],弟弟也获得[1,2,3]。这样使妹妹获得糖果的">
+<meta name="description" content="题目给定一个偶数长度的数组，其中不同的数字代表着不同种类的糖果，每一个数字代表一个糖果。你需要把这些糖果平均分给一个弟弟和一个妹妹。返回妹妹可以获得的最大糖果的种类数。 示例1：1234输入: candies &#x3D; [1,1,2,2,3,3]输出: 3解析: 一共有三种种类的糖果，每一种都有两个。     最优分配方案：妹妹获得[1,2,3],弟弟也获得[1,2,3]。这样使妹妹获得糖果的">
 <meta property="og:type" content="article">
 <meta property="og:title" content="575. 分糖果">
 <meta property="og:url" content="http://huhansi.com/2018/08/29/LeetCode/leetcode-000575.%20%E5%88%86%E7%B3%96%E6%9E%9C/index.html">
 <meta property="og:site_name" content="Hansi Blog">
-<meta property="og:description" content="题目给定一个偶数长度的数组，其中不同的数字代表着不同种类的糖果，每一个数字代表一个糖果。你需要把这些糖果平均分给一个弟弟和一个妹妹。返回妹妹可以获得的最大糖果的种类数。示例1： 1234输入: candies &#x3D; [1,1,2,2,3,3]输出: 3解析: 一共有三种种类的糖果，每一种都有两个。     最优分配方案：妹妹获得[1,2,3],弟弟也获得[1,2,3]。这样使妹妹获得糖果的">
+<meta property="og:description" content="题目给定一个偶数长度的数组，其中不同的数字代表着不同种类的糖果，每一个数字代表一个糖果。你需要把这些糖果平均分给一个弟弟和一个妹妹。返回妹妹可以获得的最大糖果的种类数。 示例1：1234输入: candies &#x3D; [1,1,2,2,3,3]输出: 3解析: 一共有三种种类的糖果，每一种都有两个。     最优分配方案：妹妹获得[1,2,3],弟弟也获得[1,2,3]。这样使妹妹获得糖果的">
 <meta property="og:locale" content="Zh_CN">
 <meta property="article:published_time" content="2018-08-28T16:00:00.000Z">
-<meta property="article:modified_time" content="2020-03-02T05:28:49.727Z">
+<meta property="article:modified_time" content="2020-03-28T05:42:02.338Z">
 <meta property="article:author" content="Han si">
 <meta property="article:tag" content="leetcode">
 <meta property="article:tag" content="算法">
@@ -387,16 +387,14 @@
       
 
       
-        <h2 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h2><p>给定一个<strong>偶数</strong>长度的数组，其中不同的数字代表着不同种类的糖果，每一个数字代表一个糖果。你需要把这些糖果平均分给一个弟弟和一个妹妹。返回妹妹可以获得的最大糖果的种类数。<br><strong>示例1：</strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">输入: candies &#x3D; [1,1,2,2,3,3]</span><br><span class="line">输出: 3</span><br><span class="line">解析: 一共有三种种类的糖果，每一种都有两个。</span><br><span class="line">     最优分配方案：妹妹获得[1,2,3],弟弟也获得[1,2,3]。这样使妹妹获得糖果的种类数最多。</span><br></pre></td></tr></table></figure>
-<p><strong>示例2：</strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">输入: candies &#x3D; [1,1,2,3]</span><br><span class="line">输出: 2</span><br><span class="line">解析: 妹妹获得糖果[2,3],弟弟获得糖果[1,1]，妹妹有两种不同的糖果，弟弟只有一种。这样使得妹妹可以获得的糖果种类数最多。</span><br></pre></td></tr></table></figure>
-<p><strong>注意：</strong></p>
-<ol>
+        <h2 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h2><p>给定一个<strong>偶数</strong>长度的数组，其中不同的数字代表着不同种类的糖果，每一个数字代表一个糖果。你需要把这些糖果平均分给一个弟弟和一个妹妹。返回妹妹可以获得的最大糖果的种类数。</p>
+<h2 id="示例1："><a href="#示例1：" class="headerlink" title="示例1："></a>示例1：</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">输入: candies &#x3D; [1,1,2,2,3,3]</span><br><span class="line">输出: 3</span><br><span class="line">解析: 一共有三种种类的糖果，每一种都有两个。</span><br><span class="line">     最优分配方案：妹妹获得[1,2,3],弟弟也获得[1,2,3]。这样使妹妹获得糖果的种类数最多。</span><br></pre></td></tr></table></figure>
+<h2 id="示例2："><a href="#示例2：" class="headerlink" title="示例2："></a>示例2：</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">输入: candies &#x3D; [1,1,2,3]</span><br><span class="line">输出: 2</span><br><span class="line">解析: 妹妹获得糖果[2,3],弟弟获得糖果[1,1]，妹妹有两种不同的糖果，弟弟只有一种。这样使得妹妹可以获得的糖果种类数最多。</span><br></pre></td></tr></table></figure>
+<h2 id="注意："><a href="#注意：" class="headerlink" title="注意："></a>注意：</h2><ol>
 <li>数组的长度为[2, 10,000]，并且确定为偶数。</li>
-<li>数组中数字的大小在范围[-100,000, 100,000]内。<h2 id="解答"><a href="#解答" class="headerlink" title="解答"></a>解答</h2><h3 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h3>计算除所有的糖果种类，如果所有糖果种类大于数据长度的二分之一，那么妹妹能获得的最大值就是二分之一的数组长度，否则就是所有的糖果种类数。<h3 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">distributeCandies</span><span class="params">(<span class="keyword">int</span>[] candies)</span> </span>&#123;</span><br><span class="line">        HashSet&lt;Integer&gt; result = <span class="keyword">new</span> HashSet&lt;&gt;();</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i : candies) &#123;</span><br><span class="line">        	result.add(i);</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">if</span> (result.size() &gt; candies.length / <span class="number">2</span>) &#123;</span><br><span class="line">        	<span class="keyword">return</span> candies.length / <span class="number">2</span>;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        	<span class="keyword">return</span> result.size();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li>数组中数字的大小在范围[-100,000, 100,000]内。<h2 id="解法"><a href="#解法" class="headerlink" title="解法"></a>解法</h2><h3 id="解法一："><a href="#解法一：" class="headerlink" title="解法一："></a>解法一：</h3>计算除所有的糖果种类，如果所有糖果种类大于数据长度的二分之一，那么妹妹能获得的最大值就是二分之一的数组长度，否则就是所有的糖果种类数。</li>
 </ol>
-
+<h4 id="Java"><a href="#Java" class="headerlink" title="Java"></a>Java</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">distributeCandies</span><span class="params">(<span class="keyword">int</span>[] candies)</span> </span>&#123;</span><br><span class="line">        HashSet&lt;Integer&gt; result = <span class="keyword">new</span> HashSet&lt;&gt;();</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i : candies) &#123;</span><br><span class="line">        	result.add(i);</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">if</span> (result.size() &gt; candies.length / <span class="number">2</span>) &#123;</span><br><span class="line">        	<span class="keyword">return</span> candies.length / <span class="number">2</span>;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        	<span class="keyword">return</span> result.size();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
       
     </div>
     
@@ -428,8 +426,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/08/29/LeetCode/leetcode-000595.%20%E5%A4%A7%E7%9A%84%E5%9B%BD%E5%AE%B6/" rel="next" title="595. 大的国家">
-                <i class="fa fa-chevron-left"></i> 595. 大的国家
+              <a href="/2018/08/29/LeetCode/leetcode-000500.%20%E9%94%AE%E7%9B%98%E8%A1%8C/" rel="next" title="500. 键盘行">
+                <i class="fa fa-chevron-left"></i> 500. 键盘行
               </a>
             
           </div>
@@ -438,8 +436,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2018/08/29/LeetCode/leetcode-000561.%20%E6%95%B0%E7%BB%84%E6%8B%86%E5%88%86%20I/" rel="prev" title="561. 数组拆分 I">
-                561. 数组拆分 I <i class="fa fa-chevron-right"></i>
+              <a href="/2018/08/29/LeetCode/leetcode-000476.%20%E6%95%B0%E5%AD%97%E7%9A%84%E8%A1%A5%E6%95%B0/" rel="prev" title="476. 数字的补数">
+                476. 数字的补数 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -517,7 +515,7 @@
               
                 <a href="/archives/%7C%7C%20archive">
               
-                  <span class="site-state-item-count">215</span>
+                  <span class="site-state-item-count">268</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -528,7 +526,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">8</span>
+                  <span class="site-state-item-count">10</span>
                   <span class="site-state-item-name">categories</span>
                 </a>
               </div>
@@ -539,7 +537,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">78</span>
+                  <span class="site-state-item-count">103</span>
                   <span class="site-state-item-name">tags</span>
                 </a>
               </div>
@@ -582,7 +580,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#题目"><span class="nav-number">1.</span> <span class="nav-text">题目</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#解答"><span class="nav-number">2.</span> <span class="nav-text">解答</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#思路"><span class="nav-number">2.1.</span> <span class="nav-text">思路</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#代码"><span class="nav-number">2.2.</span> <span class="nav-text">代码</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#题目"><span class="nav-number">1.</span> <span class="nav-text">题目</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#示例1："><span class="nav-number">2.</span> <span class="nav-text">示例1：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#示例2："><span class="nav-number">3.</span> <span class="nav-text">示例2：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#注意："><span class="nav-number">4.</span> <span class="nav-text">注意：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#解法"><span class="nav-number">5.</span> <span class="nav-text">解法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#解法一："><span class="nav-number">5.1.</span> <span class="nav-text">解法一：</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Java"><span class="nav-number">5.1.1.</span> <span class="nav-text">Java</span></a></li></ol></li></ol></li></ol></div>
             
 
           </div>

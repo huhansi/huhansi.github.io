@@ -87,7 +87,7 @@
 <meta property="og:description" content="旋转数字我们称一个数 X 为好数, 如果它的每位数字逐个地被旋转 180 度后，我们仍可以得到一个有效的，且和 X 不同的数。要求每位数字都要被旋转。 如果一个数的每位数字被旋转以后仍然还是一个数字， 则这个数是有效的。0, 1, 和 8 被旋转后仍然是它们自己；2 和 5 可以互相旋转成对方；6 和 9 同理，除了这些以外其他的数字旋转以后都不再是有效的数字。 现在我们有一个正整数 N, 计算从">
 <meta property="og:locale" content="Zh_CN">
 <meta property="article:published_time" content="2018-08-28T16:00:00.000Z">
-<meta property="article:modified_time" content="2020-03-02T05:28:49.738Z">
+<meta property="article:modified_time" content="2020-03-28T06:08:57.162Z">
 <meta property="article:author" content="Han si">
 <meta property="article:tag" content="leetcode">
 <meta property="article:tag" content="算法">
@@ -389,11 +389,13 @@
       
         <h2 id="旋转数字"><a href="#旋转数字" class="headerlink" title="旋转数字"></a>旋转数字</h2><p>我们称一个数 X 为好数, 如果它的每位数字逐个地被旋转 180 度后，我们仍可以得到一个有效的，且和 X 不同的数。要求每位数字都要被旋转。</p>
 <p>如果一个数的每位数字被旋转以后仍然还是一个数字， 则这个数是有效的。0, 1, 和 8 被旋转后仍然是它们自己；2 和 5 可以互相旋转成对方；6 和 9 同理，除了这些以外其他的数字旋转以后都不再是有效的数字。</p>
-<p>现在我们有一个正整数 <code>N</code>, 计算从 <code>1</code> 到 <code>N</code> 中有多少个数 X 是好数？<br><strong>示例：</strong><br>输入: 10<br>输出: 4<br>解释:<br>在[1, 10]中有四个好数： 2, 5, 6, 9。<br>注意 1 和 10 不是好数, 因为他们在旋转之后不变。<br><strong>注意：</strong></p>
-<ul>
-<li>N 的取值范围是 [1, 10000]。<h2 id="解答"><a href="#解答" class="headerlink" title="解答"></a>解答</h2><h3 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h3>根据题目所术，如果一个数字中包含3或4或7，那么它就不是一个好数，如果它仅仅包含0或1或8也不是一个好数，那就是说，如果该数字不包含3或4或7，并且包含2或5或6或9任意中的一个的话，那么它就是一个好数。<br>N从1开始迭代，到N，将数字转换为字符串，然后判断是否满足条件即可。<h3 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">rotatedDigits</span><span class="params">(<span class="keyword">int</span> N)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">int</span> sum = <span class="number">0</span>;</span><br><span class="line">		<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt;= N; i++) &#123;</span><br><span class="line">			String num = String.valueOf(i);</span><br><span class="line">			<span class="keyword">if</span> ((num.contains(<span class="string">"2"</span>) || num.contains(<span class="string">"5"</span>) || num.contains(<span class="string">"6"</span>) || num.contains(<span class="string">"9"</span>))</span><br><span class="line">					&amp;&amp; (!num.contains(<span class="string">"3"</span>) &amp;&amp; !num.contains(<span class="string">"4"</span>) &amp;&amp; !num.contains(<span class="string">"7"</span>))) &#123;</span><br><span class="line">				sum++;</span><br><span class="line">			&#125;</span><br><span class="line"></span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">return</span> sum;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
-</ul>
+<p>现在我们有一个正整数 <code>N</code>, 计算从 <code>1</code> 到 <code>N</code> 中有多少个数 X 是好数？</p>
+<h2 id="示例1："><a href="#示例1：" class="headerlink" title="示例1："></a>示例1：</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">输入: <span class="number">10</span></span><br><span class="line">输出: <span class="number">4</span></span><br><span class="line">解释: </span><br><span class="line">在[<span class="number">1</span>, <span class="number">10</span>]中有四个好数： <span class="number">2</span>, <span class="number">5</span>, <span class="number">6</span>, <span class="number">9</span>。</span><br><span class="line">注意 <span class="number">1</span> 和 <span class="number">10</span> 不是好数, 因为他们在旋转之后不变。</span><br></pre></td></tr></table></figure>
 
+<h2 id="注意："><a href="#注意：" class="headerlink" title="注意："></a>注意：</h2><ul>
+<li>N 的取值范围是 [1, 10000]。<h2 id="解法"><a href="#解法" class="headerlink" title="解法"></a>解法</h2><h3 id="解法一："><a href="#解法一：" class="headerlink" title="解法一："></a>解法一：</h3>根据题目所术，如果一个数字中包含3或4或7，那么它就不是一个好数，如果它仅仅包含0或1或8也不是一个好数，那就是说，如果该数字不包含3或4或7，并且包含2或5或6或9任意中的一个的话，那么它就是一个好数。<br>N从1开始迭代，到N，将数字转换为字符串，然后判断是否满足条件即可。</li>
+</ul>
+<h4 id="Java"><a href="#Java" class="headerlink" title="Java"></a>Java</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">rotatedDigits</span><span class="params">(<span class="keyword">int</span> N)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">int</span> sum = <span class="number">0</span>;</span><br><span class="line">		<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt;= N; i++) &#123;</span><br><span class="line">			String num = String.valueOf(i);</span><br><span class="line">			<span class="keyword">if</span> ((num.contains(<span class="string">"2"</span>) || num.contains(<span class="string">"5"</span>) || num.contains(<span class="string">"6"</span>) || num.contains(<span class="string">"9"</span>))</span><br><span class="line">					&amp;&amp; (!num.contains(<span class="string">"3"</span>) &amp;&amp; !num.contains(<span class="string">"4"</span>) &amp;&amp; !num.contains(<span class="string">"7"</span>))) &#123;</span><br><span class="line">				sum++;</span><br><span class="line">			&#125;</span><br><span class="line"></span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">return</span> sum;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
       
     </div>
     
@@ -425,8 +427,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/08/29/LeetCode/leetcode-000804.%20%E5%94%AF%E4%B8%80%E6%91%A9%E5%B0%94%E6%96%AF%E5%AF%86%E7%A0%81%E8%AF%8D/" rel="next" title="804. 唯一摩尔斯密码词">
-                <i class="fa fa-chevron-left"></i> 804. 唯一摩尔斯密码词
+              <a href="/2018/08/29/LeetCode/leetcode-000821.%20%E5%AD%97%E7%AC%A6%E7%9A%84%E6%9C%80%E7%9F%AD%E8%B7%9D%E7%A6%BB/" rel="next" title="821. 字符的最短距离">
+                <i class="fa fa-chevron-left"></i> 821. 字符的最短距离
               </a>
             
           </div>
@@ -435,8 +437,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2018/08/29/LeetCode/leetcode-000771.%20%E5%AE%9D%E7%9F%B3%E4%B8%8E%E7%9F%B3%E5%A4%B4/" rel="prev" title="771. 宝石与石头">
-                771. 宝石与石头 <i class="fa fa-chevron-right"></i>
+              <a href="/2018/08/29/LeetCode/leetcode-000804.%20%E5%94%AF%E4%B8%80%E6%91%A9%E5%B0%94%E6%96%AF%E5%AF%86%E7%A0%81%E8%AF%8D/" rel="prev" title="804. 唯一摩尔斯密码词">
+                804. 唯一摩尔斯密码词 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -514,7 +516,7 @@
               
                 <a href="/archives/%7C%7C%20archive">
               
-                  <span class="site-state-item-count">215</span>
+                  <span class="site-state-item-count">268</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -525,7 +527,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">8</span>
+                  <span class="site-state-item-count">10</span>
                   <span class="site-state-item-name">categories</span>
                 </a>
               </div>
@@ -536,7 +538,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">78</span>
+                  <span class="site-state-item-count">103</span>
                   <span class="site-state-item-name">tags</span>
                 </a>
               </div>
@@ -579,7 +581,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#旋转数字"><span class="nav-number">1.</span> <span class="nav-text">旋转数字</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#解答"><span class="nav-number">2.</span> <span class="nav-text">解答</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#思路"><span class="nav-number">2.1.</span> <span class="nav-text">思路</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#代码"><span class="nav-number">2.2.</span> <span class="nav-text">代码</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#旋转数字"><span class="nav-number">1.</span> <span class="nav-text">旋转数字</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#示例1："><span class="nav-number">2.</span> <span class="nav-text">示例1：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#注意："><span class="nav-number">3.</span> <span class="nav-text">注意：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#解法"><span class="nav-number">4.</span> <span class="nav-text">解法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#解法一："><span class="nav-number">4.1.</span> <span class="nav-text">解法一：</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Java"><span class="nav-number">4.1.1.</span> <span class="nav-text">Java</span></a></li></ol></li></ol></li></ol></div>
             
 
           </div>

@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="leetcode,算法," />
+  <meta name="keywords" content="leetcode,算法,String," />
 
 
 
@@ -79,18 +79,19 @@
 
 
 
-<meta name="description" content="题目解答思路代码">
+<meta name="description" content="题目给定一个字符串 s 和一些长度相同的单词 words。找出 s 中恰好可以由 words 中所有单词串联形成的子串的起始位置。 注意子串要与 words 中的单词完全匹配，中间不能有其他字符，但不需要考虑 words 中单词串联的顺序。 示例1：1234567输入：  s &#x3D; &quot;barfoothefoobarman&quot;,  words &#x3D; [&quot;foo&quot;,&quot;bar&quot;]输出：[0,9]解释：从索引">
 <meta property="og:type" content="article">
 <meta property="og:title" content="30. 与所有单词相关联的字串">
 <meta property="og:url" content="http://huhansi.com/2018/09/10/LeetCode/leetcode-000030.%20%E4%B8%8E%E6%89%80%E6%9C%89%E5%8D%95%E8%AF%8D%E7%9B%B8%E5%85%B3%E8%81%94%E7%9A%84%E5%AD%97%E4%B8%B2/index.html">
 <meta property="og:site_name" content="Hansi Blog">
-<meta property="og:description" content="题目解答思路代码">
+<meta property="og:description" content="题目给定一个字符串 s 和一些长度相同的单词 words。找出 s 中恰好可以由 words 中所有单词串联形成的子串的起始位置。 注意子串要与 words 中的单词完全匹配，中间不能有其他字符，但不需要考虑 words 中单词串联的顺序。 示例1：1234567输入：  s &#x3D; &quot;barfoothefoobarman&quot;,  words &#x3D; [&quot;foo&quot;,&quot;bar&quot;]输出：[0,9]解释：从索引">
 <meta property="og:locale" content="Zh_CN">
 <meta property="article:published_time" content="2018-09-09T16:00:00.000Z">
-<meta property="article:modified_time" content="2020-03-02T05:28:49.697Z">
+<meta property="article:modified_time" content="2020-03-28T13:12:52.865Z">
 <meta property="article:author" content="Han si">
 <meta property="article:tag" content="leetcode">
 <meta property="article:tag" content="算法">
+<meta property="article:tag" content="String">
 <meta name="twitter:card" content="summary">
 
 
@@ -387,7 +388,13 @@
       
 
       
-        <h2 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h2><h2 id="解答"><a href="#解答" class="headerlink" title="解答"></a>解答</h2><h3 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h3><h3 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h3>
+        <h2 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h2><p>给定一个字符串 s 和一些长度相同的单词 words。找出 s 中恰好可以由 words 中所有单词串联形成的子串的起始位置。</p>
+<p>注意子串要与 words 中的单词完全匹配，中间不能有其他字符，但不需要考虑 words 中单词串联的顺序。</p>
+<h2 id="示例1："><a href="#示例1：" class="headerlink" title="示例1："></a>示例1：</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">输入：</span><br><span class="line">  s = <span class="string">"barfoothefoobarman"</span>,</span><br><span class="line">  words = [<span class="string">"foo"</span>,<span class="string">"bar"</span>]</span><br><span class="line">输出：[<span class="number">0</span>,<span class="number">9</span>]</span><br><span class="line">解释：</span><br><span class="line">从索引 <span class="number">0</span> 和 <span class="number">9</span> 开始的子串分别是 <span class="string">"barfoo"</span> 和 <span class="string">"foobar"</span> 。</span><br><span class="line">输出的顺序不重要, [<span class="number">9</span>,<span class="number">0</span>] 也是有效答案。</span><br></pre></td></tr></table></figure>
+
+<h2 id="示例2："><a href="#示例2：" class="headerlink" title="示例2："></a>示例2：</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">输入：</span><br><span class="line">  s &#x3D; &quot;wordgoodgoodgoodbestword&quot;,</span><br><span class="line">  words &#x3D; [&quot;word&quot;,&quot;good&quot;,&quot;best&quot;,&quot;word&quot;]</span><br><span class="line">输出：[]</span><br></pre></td></tr></table></figure>
+
+<h2 id="解法"><a href="#解法" class="headerlink" title="解法"></a>解法</h2>
       
     </div>
     
@@ -408,6 +415,8 @@
           
             <a href="/tags/%E7%AE%97%E6%B3%95/" rel="tag"># 算法</a>
           
+            <a href="/tags/String/" rel="tag"># String</a>
+          
         </div>
       
 
@@ -419,8 +428,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/09/10/LeetCode/leetcode-000029.%20%E4%B8%A4%E6%95%B0%E7%9B%B8%E9%99%A4/" rel="next" title="29. 两数相除">
-                <i class="fa fa-chevron-left"></i> 29. 两数相除
+              <a href="/2018/09/10/LeetCode/leetcode-000035.%20%E6%90%9C%E7%B4%A2%E6%8F%92%E5%85%A5%E4%BD%8D%E7%BD%AE/" rel="next" title="35. 搜索插入位置">
+                <i class="fa fa-chevron-left"></i> 35. 搜索插入位置
               </a>
             
           </div>
@@ -429,8 +438,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2018/09/10/LeetCode/leetcode-000028.%20%E5%AE%9E%E7%8E%B0strStr()/" rel="prev" title="28. 实现strStr()">
-                28. 实现strStr() <i class="fa fa-chevron-right"></i>
+              <a href="/2018/09/10/LeetCode/leetcode-000034.%20%E5%9C%A8%E6%8E%92%E5%BA%8F%E6%95%B0%E7%BB%84%E4%B8%AD%E6%9F%A5%E6%89%BE%E5%85%83%E7%B4%A0%E7%9A%84%E7%AC%AC%E4%B8%80%E4%B8%AA%E5%92%8C%E6%9C%80%E5%90%8E%E4%B8%80%E4%B8%AA%E4%BD%8D%E7%BD%AE/" rel="prev" title="34. 在排序数组中查找元素的第一个和最后一个位置">
+                34. 在排序数组中查找元素的第一个和最后一个位置 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -508,7 +517,7 @@
               
                 <a href="/archives/%7C%7C%20archive">
               
-                  <span class="site-state-item-count">215</span>
+                  <span class="site-state-item-count">268</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -519,7 +528,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">8</span>
+                  <span class="site-state-item-count">10</span>
                   <span class="site-state-item-name">categories</span>
                 </a>
               </div>
@@ -530,7 +539,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">78</span>
+                  <span class="site-state-item-count">103</span>
                   <span class="site-state-item-name">tags</span>
                 </a>
               </div>
@@ -573,7 +582,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#题目"><span class="nav-number">1.</span> <span class="nav-text">题目</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#解答"><span class="nav-number">2.</span> <span class="nav-text">解答</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#思路"><span class="nav-number">2.1.</span> <span class="nav-text">思路</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#代码"><span class="nav-number">2.2.</span> <span class="nav-text">代码</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#题目"><span class="nav-number">1.</span> <span class="nav-text">题目</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#示例1："><span class="nav-number">2.</span> <span class="nav-text">示例1：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#示例2："><span class="nav-number">3.</span> <span class="nav-text">示例2：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#解法"><span class="nav-number">4.</span> <span class="nav-text">解法</span></a></li></ol></div>
             
 
           </div>

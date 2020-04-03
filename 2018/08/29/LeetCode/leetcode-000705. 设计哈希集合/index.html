@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="leetcode,算法,哈希集合," />
+  <meta name="keywords" content="leetcode,算法,哈希," />
 
 
 
@@ -79,19 +79,19 @@
 
 
 
-<meta name="description" content="题目不使用任何内建的哈希表库设计一个哈希集合 具体地说，你的设计应该包含以下的功能 · add(value)：向哈希集合中插入一个值。· contains(value) ：返回哈希集合中是否存在这个值。· remove(value)：将给定值从哈希集合中删除。如果哈希集合中没有这个值，什么也不做。示例： 123456789MyHashSet hashSet &#x3D; new MyHashSet();ha">
+<meta name="description" content="题目不使用任何内建的哈希表库设计一个哈希集合 具体地说，你的设计应该包含以下的功能 · add(value)：向哈希集合中插入一个值。· contains(value) ：返回哈希集合中是否存在这个值。· remove(value)：将给定值从哈希集合中删除。如果哈希集合中没有这个值，什么也不做。 示例1：123456789MyHashSet hashSet &#x3D; new MyHashSet();h">
 <meta property="og:type" content="article">
 <meta property="og:title" content="705. 设计哈希集合">
 <meta property="og:url" content="http://huhansi.com/2018/08/29/LeetCode/leetcode-000705.%20%E8%AE%BE%E8%AE%A1%E5%93%88%E5%B8%8C%E9%9B%86%E5%90%88/index.html">
 <meta property="og:site_name" content="Hansi Blog">
-<meta property="og:description" content="题目不使用任何内建的哈希表库设计一个哈希集合 具体地说，你的设计应该包含以下的功能 · add(value)：向哈希集合中插入一个值。· contains(value) ：返回哈希集合中是否存在这个值。· remove(value)：将给定值从哈希集合中删除。如果哈希集合中没有这个值，什么也不做。示例： 123456789MyHashSet hashSet &#x3D; new MyHashSet();ha">
+<meta property="og:description" content="题目不使用任何内建的哈希表库设计一个哈希集合 具体地说，你的设计应该包含以下的功能 · add(value)：向哈希集合中插入一个值。· contains(value) ：返回哈希集合中是否存在这个值。· remove(value)：将给定值从哈希集合中删除。如果哈希集合中没有这个值，什么也不做。 示例1：123456789MyHashSet hashSet &#x3D; new MyHashSet();h">
 <meta property="og:locale" content="Zh_CN">
 <meta property="article:published_time" content="2018-08-28T16:00:00.000Z">
-<meta property="article:modified_time" content="2020-03-02T05:28:49.735Z">
+<meta property="article:modified_time" content="2020-04-02T10:45:16.028Z">
 <meta property="article:author" content="Han si">
 <meta property="article:tag" content="leetcode">
 <meta property="article:tag" content="算法">
-<meta property="article:tag" content="哈希集合">
+<meta property="article:tag" content="哈希">
 <meta name="twitter:card" content="summary">
 
 
@@ -390,11 +390,11 @@
       
         <h2 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h2><p>不使用任何内建的哈希表库设计一个哈希集合</p>
 <p>具体地说，你的设计应该包含以下的功能</p>
-<p>· <code>add(value)</code>：向哈希集合中插入一个值。<br>· <code>contains(value)</code> ：返回哈希集合中是否存在这个值。<br>· <code>remove(value)</code>：将给定值从哈希集合中删除。如果哈希集合中没有这个值，什么也不做。<br><strong>示例：</strong></p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">MyHashSet hashSet = <span class="keyword">new</span> MyHashSet();</span><br><span class="line">hashSet.add(<span class="number">1</span>);         </span><br><span class="line">hashSet.add(<span class="number">2</span>);         </span><br><span class="line">hashSet.contains(<span class="number">1</span>);    <span class="comment">// 返回 true</span></span><br><span class="line">hashSet.contains(<span class="number">3</span>);    <span class="comment">// 返回 false (未找到)</span></span><br><span class="line">hashSet.add(<span class="number">2</span>);          </span><br><span class="line">hashSet.contains(<span class="number">2</span>);    <span class="comment">// 返回 true</span></span><br><span class="line">hashSet.remove(<span class="number">2</span>);          </span><br><span class="line">hashSet.contains(<span class="number">2</span>);    <span class="comment">// 返回  false (已经被删除)</span></span><br></pre></td></tr></table></figure>
-<p><strong>注意：</strong><br>· 所有的值都在 [1, 1000000]的范围内。<br>· 操作的总数目在[1, 10000]范围内。<br>· 不要使用内建的哈希集合库。</p>
-<h2 id="解答"><a href="#解答" class="headerlink" title="解答"></a>解答</h2><h3 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h3><p>因为值的范围是确定的，那么，可以申请一个长度为1000001的数组，使用下标作为索引，来保存数据。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyHashSet</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span>[] data;</span><br><span class="line">	</span><br><span class="line">    <span class="comment">/** Initialize your data structure here. */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">MyHashSet</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        data = <span class="keyword">new</span> <span class="keyword">int</span>[<span class="number">1000001</span>];</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">add</span><span class="params">(<span class="keyword">int</span> key)</span> </span>&#123;</span><br><span class="line">    	data[key] = <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">remove</span><span class="params">(<span class="keyword">int</span> key)</span> </span>&#123;</span><br><span class="line">        data[key] = <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">/** Returns true if this set did not already contain the specified element */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">contains</span><span class="params">(<span class="keyword">int</span> key)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> data[key] == <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Your MyHashSet object will be instantiated and called as such:</span></span><br><span class="line"><span class="comment"> * MyHashSet obj = new MyHashSet();</span></span><br><span class="line"><span class="comment"> * obj.add(key);</span></span><br><span class="line"><span class="comment"> * obj.remove(key);</span></span><br><span class="line"><span class="comment"> * boolean param_3 = obj.contains(key);</span></span><br><span class="line"><span class="comment"> */</span></span><br></pre></td></tr></table></figure>
+<p>· <code>add(value)</code>：向哈希集合中插入一个值。<br>· <code>contains(value)</code> ：返回哈希集合中是否存在这个值。<br>· <code>remove(value)</code>：将给定值从哈希集合中删除。如果哈希集合中没有这个值，什么也不做。</p>
+<h2 id="示例1："><a href="#示例1：" class="headerlink" title="示例1："></a>示例1：</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">MyHashSet hashSet = <span class="keyword">new</span> MyHashSet();</span><br><span class="line">hashSet.add(<span class="number">1</span>);         </span><br><span class="line">hashSet.add(<span class="number">2</span>);         </span><br><span class="line">hashSet.contains(<span class="number">1</span>);    <span class="comment">// 返回 true</span></span><br><span class="line">hashSet.contains(<span class="number">3</span>);    <span class="comment">// 返回 false (未找到)</span></span><br><span class="line">hashSet.add(<span class="number">2</span>);          </span><br><span class="line">hashSet.contains(<span class="number">2</span>);    <span class="comment">// 返回 true</span></span><br><span class="line">hashSet.remove(<span class="number">2</span>);          </span><br><span class="line">hashSet.contains(<span class="number">2</span>);    <span class="comment">// 返回  false (已经被删除)</span></span><br></pre></td></tr></table></figure>
+<h2 id="注意："><a href="#注意：" class="headerlink" title="注意："></a>注意：</h2><p>· 所有的值都在 [1, 1000000]的范围内。<br>· 操作的总数目在[1, 10000]范围内。<br>· 不要使用内建的哈希集合库。</p>
+<h2 id="解法"><a href="#解法" class="headerlink" title="解法"></a>解法</h2><h3 id="解法一："><a href="#解法一：" class="headerlink" title="解法一："></a>解法一：</h3><p>因为值的范围是确定的，那么，可以申请一个长度为1000001的数组，使用下标作为索引，来保存数据。</p>
+<h4 id="Java"><a href="#Java" class="headerlink" title="Java"></a>Java</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyHashSet</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span>[] data;</span><br><span class="line">	</span><br><span class="line">    <span class="comment">/** Initialize your data structure here. */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">MyHashSet</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        data = <span class="keyword">new</span> <span class="keyword">int</span>[<span class="number">1000001</span>];</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">add</span><span class="params">(<span class="keyword">int</span> key)</span> </span>&#123;</span><br><span class="line">    	data[key] = <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">remove</span><span class="params">(<span class="keyword">int</span> key)</span> </span>&#123;</span><br><span class="line">        data[key] = <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">/** Returns true if this set did not already contain the specified element */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">contains</span><span class="params">(<span class="keyword">int</span> key)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> data[key] == <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Your MyHashSet object will be instantiated and called as such:</span></span><br><span class="line"><span class="comment"> * MyHashSet obj = new MyHashSet();</span></span><br><span class="line"><span class="comment"> * obj.add(key);</span></span><br><span class="line"><span class="comment"> * obj.remove(key);</span></span><br><span class="line"><span class="comment"> * boolean param_3 = obj.contains(key);</span></span><br><span class="line"><span class="comment"> */</span></span><br></pre></td></tr></table></figure>
       
     </div>
     
@@ -415,7 +415,7 @@
           
             <a href="/tags/%E7%AE%97%E6%B3%95/" rel="tag"># 算法</a>
           
-            <a href="/tags/%E5%93%88%E5%B8%8C%E9%9B%86%E5%90%88/" rel="tag"># 哈希集合</a>
+            <a href="/tags/%E5%93%88%E5%B8%8C/" rel="tag"># 哈希</a>
           
         </div>
       
@@ -517,7 +517,7 @@
               
                 <a href="/archives/%7C%7C%20archive">
               
-                  <span class="site-state-item-count">215</span>
+                  <span class="site-state-item-count">268</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -528,7 +528,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">8</span>
+                  <span class="site-state-item-count">10</span>
                   <span class="site-state-item-name">categories</span>
                 </a>
               </div>
@@ -539,7 +539,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">78</span>
+                  <span class="site-state-item-count">103</span>
                   <span class="site-state-item-name">tags</span>
                 </a>
               </div>
@@ -582,7 +582,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#题目"><span class="nav-number">1.</span> <span class="nav-text">题目</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#解答"><span class="nav-number">2.</span> <span class="nav-text">解答</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#思路"><span class="nav-number">2.1.</span> <span class="nav-text">思路</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#题目"><span class="nav-number">1.</span> <span class="nav-text">题目</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#示例1："><span class="nav-number">2.</span> <span class="nav-text">示例1：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#注意："><span class="nav-number">3.</span> <span class="nav-text">注意：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#解法"><span class="nav-number">4.</span> <span class="nav-text">解法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#解法一："><span class="nav-number">4.1.</span> <span class="nav-text">解法一：</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Java"><span class="nav-number">4.1.1.</span> <span class="nav-text">Java</span></a></li></ol></li></ol></li></ol></div>
             
 
           </div>

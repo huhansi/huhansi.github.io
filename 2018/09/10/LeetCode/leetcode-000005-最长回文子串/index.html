@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="leetcode,算法," />
+  <meta name="keywords" content="leetcode,算法,String," />
 
 
 
@@ -79,18 +79,19 @@
 
 
 
-<meta name="description" content="题目解答思路代码12345678910111213141516171819202122232425262728293031323334353637383940414243class Solution &amp;#123;public:    string longestPalindrome(string s) &amp;#123;        const int len &#x3D; s.size();        i">
+<meta name="description" content="题目给定一个字符串 s，找到 s 中最长的回文子串。你可以假设 s 的最大长度为 1000。 示例1123输入: &quot;babad&quot;输出: &quot;bab&quot;注意: &quot;aba&quot; 也是一个有效答案。  示例2：12输入: &quot;cbbd&quot;输出: &quot;bb&quot;  解法解法一：Java12345678910111213141">
 <meta property="og:type" content="article">
 <meta property="og:title" content="5. 最长回文子串">
 <meta property="og:url" content="http://huhansi.com/2018/09/10/LeetCode/leetcode-000005-%E6%9C%80%E9%95%BF%E5%9B%9E%E6%96%87%E5%AD%90%E4%B8%B2/index.html">
 <meta property="og:site_name" content="Hansi Blog">
-<meta property="og:description" content="题目解答思路代码12345678910111213141516171819202122232425262728293031323334353637383940414243class Solution &amp;#123;public:    string longestPalindrome(string s) &amp;#123;        const int len &#x3D; s.size();        i">
+<meta property="og:description" content="题目给定一个字符串 s，找到 s 中最长的回文子串。你可以假设 s 的最大长度为 1000。 示例1123输入: &quot;babad&quot;输出: &quot;bab&quot;注意: &quot;aba&quot; 也是一个有效答案。  示例2：12输入: &quot;cbbd&quot;输出: &quot;bb&quot;  解法解法一：Java12345678910111213141">
 <meta property="og:locale" content="Zh_CN">
 <meta property="article:published_time" content="2018-09-09T16:00:00.000Z">
-<meta property="article:modified_time" content="2020-03-02T05:28:49.685Z">
+<meta property="article:modified_time" content="2020-03-28T04:37:59.080Z">
 <meta property="article:author" content="Han si">
 <meta property="article:tag" content="leetcode">
 <meta property="article:tag" content="算法">
+<meta property="article:tag" content="String">
 <meta name="twitter:card" content="summary">
 
 
@@ -387,7 +388,12 @@
       
 
       
-        <h2 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h2><h2 id="解答"><a href="#解答" class="headerlink" title="解答"></a>解答</h2><h3 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h3><h3 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="built_in">string</span> <span class="title">longestPalindrome</span><span class="params">(<span class="built_in">string</span> s)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">const</span> <span class="keyword">int</span> len = s.size();</span><br><span class="line">        <span class="keyword">if</span>(len &lt;= <span class="number">1</span>)<span class="keyword">return</span> s;</span><br><span class="line">        <span class="built_in">string</span> str = preProcess(s);</span><br><span class="line">        <span class="keyword">int</span> n = str.size(), id = <span class="number">0</span>, mx = <span class="number">0</span>;</span><br><span class="line">        <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;p(n, <span class="number">0</span>);</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt; n<span class="number">-1</span>; i++)</span><br><span class="line">        &#123;</span><br><span class="line">            p[i] = mx &gt; i ? min(p[<span class="number">2</span>*id-i], mx-i) : <span class="number">1</span>;</span><br><span class="line">            <span class="keyword">while</span>(str[i+p[i]] == str[i-p[i]])p[i]++;</span><br><span class="line">            <span class="keyword">if</span>(i + p[i] &gt; mx)</span><br><span class="line">            &#123;</span><br><span class="line">                mx = i + p[i];</span><br><span class="line">                id = i;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">         </span><br><span class="line">        <span class="keyword">int</span> maxLen = <span class="number">0</span>, index = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt; n<span class="number">-1</span>; i++)</span><br><span class="line">            <span class="keyword">if</span>(p[i] &gt; maxLen)</span><br><span class="line">            &#123;</span><br><span class="line">                maxLen = p[i];</span><br><span class="line">                index = i;</span><br><span class="line">            &#125;</span><br><span class="line">        <span class="keyword">return</span> s.substr((index - maxLen)/<span class="number">2</span>, maxLen<span class="number">-1</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="built_in">string</span> <span class="title">preProcess</span><span class="params">(<span class="keyword">const</span> <span class="built_in">string</span> &amp;s)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> n = s.size();</span><br><span class="line">        <span class="built_in">string</span> res; </span><br><span class="line">        res.push_back(<span class="string">'$'</span>);</span><br><span class="line">        res.push_back(<span class="string">'#'</span>);</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i++)</span><br><span class="line">        &#123;</span><br><span class="line">            res.push_back(s[i]);</span><br><span class="line">            res.push_back(<span class="string">'#'</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        res.push_back(<span class="string">'^'</span>);</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+        <h2 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h2><p>给定一个字符串 <code>s</code>，找到 <code>s</code> 中最长的回文子串。你可以假设 <code>s</code> 的最大长度为 1000。</p>
+<h2 id="示例1"><a href="#示例1" class="headerlink" title="示例1"></a>示例1</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">输入: &quot;babad&quot;</span><br><span class="line">输出: &quot;bab&quot;</span><br><span class="line">注意: &quot;aba&quot; 也是一个有效答案。</span><br></pre></td></tr></table></figure>
+
+<h2 id="示例2："><a href="#示例2：" class="headerlink" title="示例2："></a>示例2：</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">输入: &quot;cbbd&quot;</span><br><span class="line">输出: &quot;bb&quot;</span><br></pre></td></tr></table></figure>
+
+<h2 id="解法"><a href="#解法" class="headerlink" title="解法"></a>解法</h2><h3 id="解法一："><a href="#解法一：" class="headerlink" title="解法一："></a>解法一：</h3><h4 id="Java"><a href="#Java" class="headerlink" title="Java"></a>Java</h4><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="built_in">string</span> <span class="title">longestPalindrome</span><span class="params">(<span class="built_in">string</span> s)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">const</span> <span class="keyword">int</span> len = s.size();</span><br><span class="line">        <span class="keyword">if</span>(len &lt;= <span class="number">1</span>)<span class="keyword">return</span> s;</span><br><span class="line">        <span class="built_in">string</span> str = preProcess(s);</span><br><span class="line">        <span class="keyword">int</span> n = str.size(), id = <span class="number">0</span>, mx = <span class="number">0</span>;</span><br><span class="line">        <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;p(n, <span class="number">0</span>);</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt; n<span class="number">-1</span>; i++)</span><br><span class="line">        &#123;</span><br><span class="line">            p[i] = mx &gt; i ? min(p[<span class="number">2</span>*id-i], mx-i) : <span class="number">1</span>;</span><br><span class="line">            <span class="keyword">while</span>(str[i+p[i]] == str[i-p[i]])p[i]++;</span><br><span class="line">            <span class="keyword">if</span>(i + p[i] &gt; mx)</span><br><span class="line">            &#123;</span><br><span class="line">                mx = i + p[i];</span><br><span class="line">                id = i;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">         </span><br><span class="line">        <span class="keyword">int</span> maxLen = <span class="number">0</span>, index = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt; n<span class="number">-1</span>; i++)</span><br><span class="line">            <span class="keyword">if</span>(p[i] &gt; maxLen)</span><br><span class="line">            &#123;</span><br><span class="line">                maxLen = p[i];</span><br><span class="line">                index = i;</span><br><span class="line">            &#125;</span><br><span class="line">        <span class="keyword">return</span> s.substr((index - maxLen)/<span class="number">2</span>, maxLen<span class="number">-1</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="built_in">string</span> <span class="title">preProcess</span><span class="params">(<span class="keyword">const</span> <span class="built_in">string</span> &amp;s)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> n = s.size();</span><br><span class="line">        <span class="built_in">string</span> res; </span><br><span class="line">        res.push_back(<span class="string">'$'</span>);</span><br><span class="line">        res.push_back(<span class="string">'#'</span>);</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i++)</span><br><span class="line">        &#123;</span><br><span class="line">            res.push_back(s[i]);</span><br><span class="line">            res.push_back(<span class="string">'#'</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        res.push_back(<span class="string">'^'</span>);</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
       
     </div>
     
@@ -408,6 +414,8 @@
           
             <a href="/tags/%E7%AE%97%E6%B3%95/" rel="tag"># 算法</a>
           
+            <a href="/tags/String/" rel="tag"># String</a>
+          
         </div>
       
 
@@ -419,8 +427,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/09/10/LeetCode/leetcode-000007%E5%8F%8D%E8%BD%AC%E6%95%B4%E6%95%B0/" rel="next" title="7. 反转整数">
-                <i class="fa fa-chevron-left"></i> 7. 反转整数
+              <a href="/2018/09/10/LeetCode/leetcode-000008-%E5%AD%97%E7%AC%A6%E4%B8%B2%E8%BD%AC%E6%95%B4%E6%95%B0%20(atoi)/" rel="next" title="8. 字符串转整数 (atoi)">
+                <i class="fa fa-chevron-left"></i> 8. 字符串转整数 (atoi)
               </a>
             
           </div>
@@ -429,8 +437,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2018/09/10/LeetCode/leetcode-000006-Z%E5%AD%97%E5%BD%A2%E5%8F%98%E6%8D%A2/" rel="prev" title="6. Z字形变换">
-                6. Z字形变换 <i class="fa fa-chevron-right"></i>
+              <a href="/2018/09/10/LeetCode/leetcode-000003-%E6%97%A0%E9%87%8D%E5%A4%8D%E5%AD%97%E7%AC%A6%E7%9A%84%E6%9C%80%E9%95%BF%E5%AD%90%E4%B8%B2/" rel="prev" title="3. 无重复字符的最长子串">
+                3. 无重复字符的最长子串 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -508,7 +516,7 @@
               
                 <a href="/archives/%7C%7C%20archive">
               
-                  <span class="site-state-item-count">215</span>
+                  <span class="site-state-item-count">268</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -519,7 +527,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">8</span>
+                  <span class="site-state-item-count">10</span>
                   <span class="site-state-item-name">categories</span>
                 </a>
               </div>
@@ -530,7 +538,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">78</span>
+                  <span class="site-state-item-count">103</span>
                   <span class="site-state-item-name">tags</span>
                 </a>
               </div>
@@ -573,7 +581,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#题目"><span class="nav-number">1.</span> <span class="nav-text">题目</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#解答"><span class="nav-number">2.</span> <span class="nav-text">解答</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#思路"><span class="nav-number">2.1.</span> <span class="nav-text">思路</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#代码"><span class="nav-number">2.2.</span> <span class="nav-text">代码</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#题目"><span class="nav-number">1.</span> <span class="nav-text">题目</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#示例1"><span class="nav-number">2.</span> <span class="nav-text">示例1</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#示例2："><span class="nav-number">3.</span> <span class="nav-text">示例2：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#解法"><span class="nav-number">4.</span> <span class="nav-text">解法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#解法一："><span class="nav-number">4.1.</span> <span class="nav-text">解法一：</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Java"><span class="nav-number">4.1.1.</span> <span class="nav-text">Java</span></a></li></ol></li></ol></li></ol></div>
             
 
           </div>
