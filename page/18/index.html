@@ -293,7 +293,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://huhansi.com/2018/09/05/LeetCode/leetcode-000844.%20%E6%AF%94%E8%BE%83%E5%90%AB%E9%80%80%E6%A0%BC%E7%9A%84%E5%AD%97%E7%AC%A6%E4%B8%B2/">
+    <link itemprop="mainEntityOfPage" href="http://huhansi.com/2018/09/10/LeetCode/leetcode-000035.%20%E6%90%9C%E7%B4%A2%E6%8F%92%E5%85%A5%E4%BD%8D%E7%BD%AE/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Han si">
@@ -312,7 +312,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/09/05/LeetCode/leetcode-000844.%20%E6%AF%94%E8%BE%83%E5%90%AB%E9%80%80%E6%A0%BC%E7%9A%84%E5%AD%97%E7%AC%A6%E4%B8%B2/" itemprop="url">844. 比较含退格的字符串</a></h1>
+                <a class="post-title-link" href="/2018/09/10/LeetCode/leetcode-000035.%20%E6%90%9C%E7%B4%A2%E6%8F%92%E5%85%A5%E4%BD%8D%E7%BD%AE/" itemprop="url">35. 搜索插入位置</a></h1>
         
 
         <div class="post-meta">
@@ -324,8 +324,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-09-05T00:00:00+08:00">
-                2018-09-05
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-09-10T00:00:00+08:00">
+                2018-09-10
               </time>
             
 
@@ -386,12 +386,17 @@
       
         
           
-          题目给定 S 和 T 两个字符串，当它们分别被输入到空白的文本编辑器后，判断二者是否相等，并返回结果。 # 代表退格字符。
-示例1：123输入：S &#x3D; &quot;ab#c&quot;, T &#x3D; &quot;ad#c&quot;输出：true解释：S 和 T 都会变成 “ac”。
+          题目给定一个排序数组和一个目标值，在数组中找到目标值，并返回其索引。如果目标值不存在于数组中，返回它将会被按顺序插入的位置。
+你可以假设数组中无重复元素。
+示例1：12输入: [1,3,5,6], 5输出: 2
+
+示例2：12输入: [1,3,5,6], 2输出: 1
+
+示例3：12输入: [1,3
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/09/05/LeetCode/leetcode-000844.%20%E6%AF%94%E8%BE%83%E5%90%AB%E9%80%80%E6%A0%BC%E7%9A%84%E5%AD%97%E7%AC%A6%E4%B8%B2/#more" rel="contents">
+            <a class="btn" href="/2018/09/10/LeetCode/leetcode-000035.%20%E6%90%9C%E7%B4%A2%E6%8F%92%E5%85%A5%E4%BD%8D%E7%BD%AE/#more" rel="contents">
               Read more &raquo;
             </a>
           </div>
@@ -442,7 +447,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://huhansi.com/2018/09/05/LeetCode/leetcode-000896.%20%E5%8D%95%E8%B0%83%E6%95%B0%E5%88%97/">
+    <link itemprop="mainEntityOfPage" href="http://huhansi.com/2018/09/10/LeetCode/leetcode-000031.%20%E4%B8%8B%E4%B8%80%E4%B8%AA%E6%8E%92%E5%88%97/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Han si">
@@ -461,7 +466,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/09/05/LeetCode/leetcode-000896.%20%E5%8D%95%E8%B0%83%E6%95%B0%E5%88%97/" itemprop="url">896. 单调数列</a></h1>
+                <a class="post-title-link" href="/2018/09/10/LeetCode/leetcode-000031.%20%E4%B8%8B%E4%B8%80%E4%B8%AA%E6%8E%92%E5%88%97/" itemprop="url">31. 下一个排列</a></h1>
         
 
         <div class="post-meta">
@@ -473,8 +478,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-09-05T00:00:00+08:00">
-                2018-09-05
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-09-10T00:00:00+08:00">
+                2018-09-10
               </time>
             
 
@@ -535,13 +540,15 @@
       
         
           
-          题目如果数组是单调递增或单调递减的，那么它是单调的。
-如果对于所有 i &lt;= j，A[i] &lt;= A[j]，那么数组 A 是单调递增的。 如果对于所有 i &lt;= j，A[i]&gt; = A[j]，那么数组 A 是单调递减的。
-当给定的数组 A 是单调数组时返回 true，否则返回
+          题目实现获取下一个排列的函数，算法需要将给定数字序列重新排列成字典序中下一个更大的排列。
+如果不存在下一个更大的排列，则将数字重新排列成最小的排列（即升序排列）。
+必须原地修改，只允许使用额外常数空间。
+以下是一些例子，输入位于左侧列，其相应输出位于右侧列。
+示例1：1231,2,3 → 1,3,2
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/09/05/LeetCode/leetcode-000896.%20%E5%8D%95%E8%B0%83%E6%95%B0%E5%88%97/#more" rel="contents">
+            <a class="btn" href="/2018/09/10/LeetCode/leetcode-000031.%20%E4%B8%8B%E4%B8%80%E4%B8%AA%E6%8E%92%E5%88%97/#more" rel="contents">
               Read more &raquo;
             </a>
           </div>
@@ -592,7 +599,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://huhansi.com/2018/09/05/Java/%E5%A4%9A%E7%BA%BF%E7%A8%8B%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/4.Balking%E6%A8%A1%E5%BC%8F/">
+    <link itemprop="mainEntityOfPage" href="http://huhansi.com/2018/09/06/Java/%E5%A4%9A%E7%BA%BF%E7%A8%8B%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/6.Read-Write%20Lock%E6%A8%A1%E5%BC%8F/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Han si">
@@ -611,7 +618,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/09/05/Java/%E5%A4%9A%E7%BA%BF%E7%A8%8B%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/4.Balking%E6%A8%A1%E5%BC%8F/" itemprop="url">Balking 模式</a></h1>
+                <a class="post-title-link" href="/2018/09/06/Java/%E5%A4%9A%E7%BA%BF%E7%A8%8B%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/6.Read-Write%20Lock%E6%A8%A1%E5%BC%8F/" itemprop="url">Read-Write Lock 模式</a></h1>
         
 
         <div class="post-meta">
@@ -623,8 +630,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-09-05T00:00:00+08:00">
-                2018-09-05
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-09-06T00:00:00+08:00">
+                2018-09-06
               </time>
             
 
@@ -685,12 +692,12 @@
       
         
           
-          Balking 模式所谓Balk，就是“停止并返回”的意思，如果现在不适合执行这个操作，或者没有必要执行这个操作，就停止处理，直接返回。
-示例程序我们来看一个使用了Balking模式的简单示例程序。这个程序会定期将当前数据内容写入文件中。当数据内容被写入时，会完全覆盖上次写入的内容，只有最新的内容才
+          Read-Write Lock 模式当线程“读取”实例的状态时，示例的状态不会发生变化。示例的状态尽在线程执行“写入”操作时才会发生变化。从实例的状态变化这个观点来看，“读取”和“写入”有着本质的区别。
+在Read-Write Lock模式中，读取操作和写入操作是分开考虑的，在执行读取操作之前，线程
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/09/05/Java/%E5%A4%9A%E7%BA%BF%E7%A8%8B%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/4.Balking%E6%A8%A1%E5%BC%8F/#more" rel="contents">
+            <a class="btn" href="/2018/09/06/Java/%E5%A4%9A%E7%BA%BF%E7%A8%8B%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/6.Read-Write%20Lock%E6%A8%A1%E5%BC%8F/#more" rel="contents">
               Read more &raquo;
             </a>
           </div>
@@ -741,7 +748,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://huhansi.com/2018/09/04/LeetCode/leetcode-000058.%20%E6%9C%80%E5%90%8E%E4%B8%80%E4%B8%AA%E5%8D%95%E8%AF%8D%E7%9A%84%E9%95%BF%E5%BA%A6/">
+    <link itemprop="mainEntityOfPage" href="http://huhansi.com/2018/09/06/Java/%E5%A4%9A%E7%BA%BF%E7%A8%8B%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/5.Producer-Consumer%20%E6%A8%A1%E5%BC%8F/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Han si">
@@ -760,7 +767,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/09/04/LeetCode/leetcode-000058.%20%E6%9C%80%E5%90%8E%E4%B8%80%E4%B8%AA%E5%8D%95%E8%AF%8D%E7%9A%84%E9%95%BF%E5%BA%A6/" itemprop="url">58. 最后一个单词的长度</a></h1>
+                <a class="post-title-link" href="/2018/09/06/Java/%E5%A4%9A%E7%BA%BF%E7%A8%8B%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/5.Producer-Consumer%20%E6%A8%A1%E5%BC%8F/" itemprop="url">Producer-Consumer 模式</a></h1>
         
 
         <div class="post-meta">
@@ -772,8 +779,157 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-09-04T00:00:00+08:00">
-                2018-09-04
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-09-06T00:00:00+08:00">
+                2018-09-06
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/java%E5%A4%9A%E7%BA%BF%E7%A8%8B%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" itemprop="url" rel="index">
+                    <span itemprop="name">java多线程设计模式</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+          Producer-Consumer 模式Producer是“生产者”的意思，指的是生成数据的线程。Consumer则是“消费者”的意思，指的是使用数据的线程。
+生产者安全地将数据交给消费者。虽然仅是这样看似简单的操作，但当生产者和消费者以不同的线程运行时，两者之间的处理速度差异便会引起问题。例如，消
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/09/06/Java/%E5%A4%9A%E7%BA%BF%E7%A8%8B%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/5.Producer-Consumer%20%E6%A8%A1%E5%BC%8F/#more" rel="contents">
+              Read more &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://huhansi.com/2018/09/05/LeetCode/leetcode-000118.%20%E6%9D%A8%E8%BE%89%E4%B8%89%E8%A7%92/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Han si">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hansi Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/09/05/LeetCode/leetcode-000118.%20%E6%9D%A8%E8%BE%89%E4%B8%89%E8%A7%92/" itemprop="url">118. 杨辉三角</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-09-05T00:00:00+08:00">
+                2018-09-05
               </time>
             
 
@@ -834,15 +990,15 @@
       
         
           
-          题目给定一个仅包含大小写字母和空格 &#39; &#39; 的字符串，返回其最后一个单词的长度。
-如果不存在最后一个单词，请返回 0 。
-说明：一个单词是指由字母组成，但不包含任何空格的字符串。
-示例1：12输入: "Hello World"输出: 5
-解法解法一：题目的意思就是找到最后一个非空格序
+          题目给定一个非负整数 numRows，生成杨辉三角的前 numRows 行。
+
+在杨辉三角中，每个数是它左上方和右上方的数的和。
+示例:123456789输入: 5输出:[     [1],    [1,1],   [1,2,1],  [1,3,3,1], [1,4,6,4,1]]
+解答解法一：第一
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/09/04/LeetCode/leetcode-000058.%20%E6%9C%80%E5%90%8E%E4%B8%80%E4%B8%AA%E5%8D%95%E8%AF%8D%E7%9A%84%E9%95%BF%E5%BA%A6/#more" rel="contents">
+            <a class="btn" href="/2018/09/05/LeetCode/leetcode-000118.%20%E6%9D%A8%E8%BE%89%E4%B8%89%E8%A7%92/#more" rel="contents">
               Read more &raquo;
             </a>
           </div>
@@ -893,7 +1049,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://huhansi.com/2018/09/04/LeetCode/leetcode-000414.%20%E7%AC%AC%E4%B8%89%E5%A4%A7%E7%9A%84%E6%95%B0/">
+    <link itemprop="mainEntityOfPage" href="http://huhansi.com/2018/09/05/LeetCode/leetcode-000232.%20%E7%94%A8%E6%A0%88%E5%AE%9E%E7%8E%B0%E9%98%9F%E5%88%97/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Han si">
@@ -912,7 +1068,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/09/04/LeetCode/leetcode-000414.%20%E7%AC%AC%E4%B8%89%E5%A4%A7%E7%9A%84%E6%95%B0/" itemprop="url">414. 第三大的数</a></h1>
+                <a class="post-title-link" href="/2018/09/05/LeetCode/leetcode-000232.%20%E7%94%A8%E6%A0%88%E5%AE%9E%E7%8E%B0%E9%98%9F%E5%88%97/" itemprop="url">232. 用栈实现队列</a></h1>
         
 
         <div class="post-meta">
@@ -924,8 +1080,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-09-04T00:00:00+08:00">
-                2018-09-04
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-09-05T00:00:00+08:00">
+                2018-09-05
               </time>
             
 
@@ -986,14 +1142,18 @@
       
         
           
-          题目给定一个非空数组，返回此数组中第三大的数。如果不存在，则返回数组中最大的数。要求算法时间复杂度必须是O(n)。
-示例1：12345输入: [3, 2, 1]输出: 1解释: 第三大的数是 1.
-示例2：12345输入: [1, 2]输出: 2解释: 第三大的数不存在, 所以返回最大的数 2 .
+          题目使用栈实现队列的下列操作：
 
+push(x) – 将一个元素放入队列的尾部。
+pop() – 从队列首部移除元素。
+peek() – 返回队列首部的元素。
+empty() – 返回队列是否为空。示例1：
+
+1234567MyQueue queue &#x3D; new MyQueue();que
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/09/04/LeetCode/leetcode-000414.%20%E7%AC%AC%E4%B8%89%E5%A4%A7%E7%9A%84%E6%95%B0/#more" rel="contents">
+            <a class="btn" href="/2018/09/05/LeetCode/leetcode-000232.%20%E7%94%A8%E6%A0%88%E5%AE%9E%E7%8E%B0%E9%98%9F%E5%88%97/#more" rel="contents">
               Read more &raquo;
             </a>
           </div>
@@ -1044,7 +1204,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://huhansi.com/2018/09/04/LeetCode/leetcode-000507.%20%E5%AE%8C%E7%BE%8E%E6%95%B0/">
+    <link itemprop="mainEntityOfPage" href="http://huhansi.com/2018/09/05/LeetCode/leetcode-000319.%20%E7%81%AF%E6%B3%A1%E5%BC%80%E5%85%B3/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Han si">
@@ -1063,7 +1223,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/09/04/LeetCode/leetcode-000507.%20%E5%AE%8C%E7%BE%8E%E6%95%B0/" itemprop="url">507. 完美数</a></h1>
+                <a class="post-title-link" href="/2018/09/05/LeetCode/leetcode-000319.%20%E7%81%AF%E6%B3%A1%E5%BC%80%E5%85%B3/" itemprop="url">319. 灯泡开关</a></h1>
         
 
         <div class="post-meta">
@@ -1075,8 +1235,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-09-04T00:00:00+08:00">
-                2018-09-04
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-09-05T00:00:00+08:00">
+                2018-09-05
               </time>
             
 
@@ -1137,14 +1297,12 @@
       
         
           
-          题目对于一个 正整数，如果它和除了它自身以外的所有正因子之和相等，我们称它为“完美数”。
-给定一个 正整数 n， 如果他是完美数，返回 True，否则返回 False
-示例：123输入: 28输出: True解释: 28 = 1 + 2 + 4 + 7 + 14
-注意：输入的数字 n 不会超过 10
+          题目初始时有 n 个灯泡关闭。 第 1 轮，你打开所有的灯泡。 第 2 轮，每两个灯泡你关闭一次。 第 3 轮，每三个灯泡切换一次开关（如果关闭则开启，如果开启则关闭）。第 i 轮，每 i 个灯泡切换一次开关。 对于第 n 轮，你只切换最后一个灯泡的开关。 找出 n 轮后有多少个亮着的灯泡。
+示例:
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/09/04/LeetCode/leetcode-000507.%20%E5%AE%8C%E7%BE%8E%E6%95%B0/#more" rel="contents">
+            <a class="btn" href="/2018/09/05/LeetCode/leetcode-000319.%20%E7%81%AF%E6%B3%A1%E5%BC%80%E5%85%B3/#more" rel="contents">
               Read more &raquo;
             </a>
           </div>
@@ -1195,7 +1353,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://huhansi.com/2018/09/04/LeetCode/leetcode-000589.%20N%E5%8F%89%E6%A0%91%E7%9A%84%E5%89%8D%E5%BA%8F%E9%81%8D%E5%8E%86/">
+    <link itemprop="mainEntityOfPage" href="http://huhansi.com/2018/09/05/LeetCode/leetcode-000521.%20%E6%9C%80%E9%95%BF%E7%89%B9%E6%AE%8A%E5%BA%8F%E5%88%97%20%E2%85%A0/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Han si">
@@ -1214,7 +1372,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/09/04/LeetCode/leetcode-000589.%20N%E5%8F%89%E6%A0%91%E7%9A%84%E5%89%8D%E5%BA%8F%E9%81%8D%E5%8E%86/" itemprop="url">589. N叉树的前序遍历</a></h1>
+                <a class="post-title-link" href="/2018/09/05/LeetCode/leetcode-000521.%20%E6%9C%80%E9%95%BF%E7%89%B9%E6%AE%8A%E5%BA%8F%E5%88%97%20%E2%85%A0/" itemprop="url">521. 最长特殊序列 Ⅰ</a></h1>
         
 
         <div class="post-meta">
@@ -1226,8 +1384,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-09-04T00:00:00+08:00">
-                2018-09-04
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-09-05T00:00:00+08:00">
+                2018-09-05
               </time>
             
 
@@ -1288,13 +1446,13 @@
       
         
           
-          题目给定一个N叉树，返回其节点值的前序遍历。例如，给定一个 3叉树 :返回其前序遍历: [1,3,5,6,2,4]。说明: 递归法很简单，你可以使用迭代法完成此题吗?
-解法解法一：递归
-Java1234567891011List&lt;Integer&gt; result = new ArrayLi
+          题目给定两个字符串，你需要从这两个字符串中找出最长的特殊序列。最长特殊序列定义如下：该序列为某字符串独有的最长子序列（即不能是其他字符串的子序列）。
+子序列可以通过删去字符串中的某些字符实现，但不能改变剩余字符的相对顺序。空序列为所有字符串的子序列，任何字符串为其自身的子序列。
+输入为两个字符串，输
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/09/04/LeetCode/leetcode-000589.%20N%E5%8F%89%E6%A0%91%E7%9A%84%E5%89%8D%E5%BA%8F%E9%81%8D%E5%8E%86/#more" rel="contents">
+            <a class="btn" href="/2018/09/05/LeetCode/leetcode-000521.%20%E6%9C%80%E9%95%BF%E7%89%B9%E6%AE%8A%E5%BA%8F%E5%88%97%20%E2%85%A0/#more" rel="contents">
               Read more &raquo;
             </a>
           </div>
@@ -1345,7 +1503,7 @@ Java1234567891011List&lt;Integer&gt; result = new ArrayLi
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://huhansi.com/2018/09/03/LeetCode/leetcode-000108.%20%E5%B0%86%E6%9C%89%E5%BA%8F%E6%95%B0%E7%BB%84%E8%BD%AC%E6%8D%A2%E4%B8%BA%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91/">
+    <link itemprop="mainEntityOfPage" href="http://huhansi.com/2018/09/05/LeetCode/leetcode-000551.%20%E5%AD%A6%E7%94%9F%E5%87%BA%E5%8B%A4%E7%BA%AA%E5%BD%95%20I/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Han si">
@@ -1364,7 +1522,7 @@ Java1234567891011List&lt;Integer&gt; result = new ArrayLi
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/09/03/LeetCode/leetcode-000108.%20%E5%B0%86%E6%9C%89%E5%BA%8F%E6%95%B0%E7%BB%84%E8%BD%AC%E6%8D%A2%E4%B8%BA%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91/" itemprop="url">108. 将有序数组转换为二叉搜索树</a></h1>
+                <a class="post-title-link" href="/2018/09/05/LeetCode/leetcode-000551.%20%E5%AD%A6%E7%94%9F%E5%87%BA%E5%8B%A4%E7%BA%AA%E5%BD%95%20I/" itemprop="url">551. 学生出勤纪录 I</a></h1>
         
 
         <div class="post-meta">
@@ -1376,8 +1534,8 @@ Java1234567891011List&lt;Integer&gt; result = new ArrayLi
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-09-03T00:00:00+08:00">
-                2018-09-03
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-09-05T00:00:00+08:00">
+                2018-09-05
               </time>
             
 
@@ -1438,13 +1596,18 @@ Java1234567891011List&lt;Integer&gt; result = new ArrayLi
       
         
           
-          题目将一个按照升序排列的有序数组，转换为一棵高度平衡二叉搜索树。
-本题中，一个高度平衡二叉树是指一个二叉树每个节点 的左右两个子树的高度差的绝对值不超过 1。
-示例：123456789给定有序数组: [-10,-3,0,5,9],一个可能的答案是：[0,-3,9,-10,null,5]，它可以表示下
+          题目给定一个字符串来代表一个学生的出勤纪录，这个纪录仅包含以下三个字符：
+
+‘A‘ : Absent，缺勤
+‘L‘ : Late，迟到
+‘P‘ : Present，到场
+
+如果一个学生的出勤纪录中不超过一个’A’(缺勤)并且不超过两个连续的’L’(迟到),那么这个学生会被奖赏。
+你需要根据这个学生的
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/09/03/LeetCode/leetcode-000108.%20%E5%B0%86%E6%9C%89%E5%BA%8F%E6%95%B0%E7%BB%84%E8%BD%AC%E6%8D%A2%E4%B8%BA%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91/#more" rel="contents">
+            <a class="btn" href="/2018/09/05/LeetCode/leetcode-000551.%20%E5%AD%A6%E7%94%9F%E5%87%BA%E5%8B%A4%E7%BA%AA%E5%BD%95%20I/#more" rel="contents">
               Read more &raquo;
             </a>
           </div>
@@ -1495,7 +1658,7 @@ Java1234567891011List&lt;Integer&gt; result = new ArrayLi
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://huhansi.com/2018/09/03/LeetCode/leetcode-000338.%20%E6%AF%94%E7%89%B9%E4%BD%8D%E8%AE%A1%E6%95%B0/">
+    <link itemprop="mainEntityOfPage" href="http://huhansi.com/2018/09/05/LeetCode/leetcode-000535.%20TinyURL%20%E7%9A%84%E5%8A%A0%E5%AF%86%E4%B8%8E%E8%A7%A3%E5%AF%86/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Han si">
@@ -1514,7 +1677,7 @@ Java1234567891011List&lt;Integer&gt; result = new ArrayLi
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/09/03/LeetCode/leetcode-000338.%20%E6%AF%94%E7%89%B9%E4%BD%8D%E8%AE%A1%E6%95%B0/" itemprop="url">338. 比特位计数</a></h1>
+                <a class="post-title-link" href="/2018/09/05/LeetCode/leetcode-000535.%20TinyURL%20%E7%9A%84%E5%8A%A0%E5%AF%86%E4%B8%8E%E8%A7%A3%E5%AF%86/" itemprop="url">535. TinyURL 的加密与解密</a></h1>
         
 
         <div class="post-meta">
@@ -1526,8 +1689,8 @@ Java1234567891011List&lt;Integer&gt; result = new ArrayLi
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-09-03T00:00:00+08:00">
-                2018-09-03
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-09-05T00:00:00+08:00">
+                2018-09-05
               </time>
             
 
@@ -1588,172 +1751,12 @@ Java1234567891011List&lt;Integer&gt; result = new ArrayLi
       
         
           
-          题目给定一个非负整数 num。对于 0 ≤ i ≤ num 范围中的每个数字 i ，计算其二进制数中的 1 的数目并将它们作为数组返回。
-示例1：12输入: 2输出: [0,1,1]
-示例2：12输入: 5输出: [0,1,1,2,1,2]
-进阶：
-给出时间复杂度为O(n*sizeof(intege
+          题目TinyURL是一种URL简化服务， 比如：当你输入一个URL https://leetcode.com/problems/design-tinyurl 时，它将返回一个简化的URL http://tinyurl.com/4e9iAk.
+要求：设计一个 TinyURL 的加密 encode 和解
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/09/03/LeetCode/leetcode-000338.%20%E6%AF%94%E7%89%B9%E4%BD%8D%E8%AE%A1%E6%95%B0/#more" rel="contents">
-              Read more &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://huhansi.com/2018/09/03/LeetCode/leetcode-000559.%20N%E5%8F%89%E6%A0%91%E7%9A%84%E6%9C%80%E5%A4%A7%E6%B7%B1%E5%BA%A6/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Han si">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hansi Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/09/03/LeetCode/leetcode-000559.%20N%E5%8F%89%E6%A0%91%E7%9A%84%E6%9C%80%E5%A4%A7%E6%B7%B1%E5%BA%A6/" itemprop="url">559. N叉树的最大深度</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-09-03T00:00:00+08:00">
-                2018-09-03
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/leetcode/" itemprop="url" rel="index">
-                    <span itemprop="name">leetcode</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-          题目给定一个N叉树，找到其最大深度最大深度是指从根节点到最远叶子节点的最长路径上的节点总数。
-例如，给定一个 3叉树 :
-
-我们应返回其最大深度，3。
-说明:
-树的深度不会超过 1000。
-树的节点总不会超过 5000。
-
-解法解法一：递归，求每棵子树的最大深度
-Java12345678910pub
-          ...
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2018/09/03/LeetCode/leetcode-000559.%20N%E5%8F%89%E6%A0%91%E7%9A%84%E6%9C%80%E5%A4%A7%E6%B7%B1%E5%BA%A6/#more" rel="contents">
+            <a class="btn" href="/2018/09/05/LeetCode/leetcode-000535.%20TinyURL%20%E7%9A%84%E5%8A%A0%E5%AF%86%E4%B8%8E%E8%A7%A3%E5%AF%86/#more" rel="contents">
               Read more &raquo;
             </a>
           </div>
@@ -1795,7 +1798,7 @@ Java12345678910pub
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/17/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/17/">17</a><span class="page-number current">18</span><a class="page-number" href="/page/19/">19</a><span class="space">&hellip;</span><a class="page-number" href="/page/27/">27</a><a class="extend next" rel="next" href="/page/19/"><i class="fa fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" href="/page/17/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/17/">17</a><span class="page-number current">18</span><a class="page-number" href="/page/19/">19</a><span class="space">&hellip;</span><a class="page-number" href="/page/28/">28</a><a class="extend next" rel="next" href="/page/19/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -1841,7 +1844,7 @@ Java12345678910pub
               
                 <a href="/archives/%7C%7C%20archive">
               
-                  <span class="site-state-item-count">268</span>
+                  <span class="site-state-item-count">279</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -1863,7 +1866,7 @@ Java12345678910pub
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">103</span>
+                  <span class="site-state-item-count">119</span>
                   <span class="site-state-item-name">tags</span>
                 </a>
               </div>

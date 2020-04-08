@@ -88,11 +88,12 @@
 <meta property="og:locale" content="Zh_CN">
 <meta property="og:image" content="https://huhansi.github.io/images/2020-03-28-jvm1.jpg">
 <meta property="og:image" content="https://huhansi.github.io/images/2020-03-28-jvm2.jpg">
+<meta property="og:image" content="https://huhansi.github.io/images/2020-04-06-zhanzheng.jpg">
 <meta property="og:image" content="https://huhansi.github.io/images/2020-03-31-new-java-object-flow.png">
 <meta property="og:image" content="https://huhansi.github.io/images/2020-03-31-jubingdingwei.png">
 <meta property="og:image" content="https://huhansi.github.io/images/2020-03-31-zhijiezhizhen.png">
 <meta property="article:published_time" content="2020-03-27T16:00:00.000Z">
-<meta property="article:modified_time" content="2020-04-03T08:12:58.128Z">
+<meta property="article:modified_time" content="2020-04-07T02:08:59.427Z">
 <meta property="article:author" content="Han si">
 <meta property="article:tag" content="Java">
 <meta property="article:tag" content="JVM">
@@ -412,7 +413,19 @@
 <li>唯一在 <code>Java</code>虚拟机规范中没有规定任何 <code>OutOfMemoryError</code>情况区域。</li>
 </ol>
 <h2 id="虚拟机栈"><a href="#虚拟机栈" class="headerlink" title="虚拟机栈"></a>虚拟机栈</h2><p>虚拟机栈描述的是Java方法执行的线程内存模型：每个方法被执行的时候，Java虚拟机都会同步创建一个栈帧（Stack Frame）用于存储局部变量表、操作数栈、动态连接和方法出口等信息。每一个方法被调用直至执行完毕的过程，都对应着各一个栈帧在虚拟机栈中从入栈到出栈的过程。</p>
-<h3 id="栈帧"><a href="#栈帧" class="headerlink" title="栈帧"></a>栈帧</h3><h4 id="局部变量表"><a href="#局部变量表" class="headerlink" title="局部变量表"></a>局部变量表</h4><h4 id="操作数栈"><a href="#操作数栈" class="headerlink" title="操作数栈"></a>操作数栈</h4><h4 id="动态连接"><a href="#动态连接" class="headerlink" title="动态连接"></a>动态连接</h4><h4 id="方法返回地址"><a href="#方法返回地址" class="headerlink" title="方法返回地址"></a>方法返回地址</h4><h4 id="附加信息"><a href="#附加信息" class="headerlink" title="附加信息"></a>附加信息</h4><h2 id="本地方法栈"><a href="#本地方法栈" class="headerlink" title="本地方法栈"></a>本地方法栈</h2><p>本地方法栈与虚拟机栈所发挥的作用是非常相似的，其区别只是虚拟机栈为虚拟机执行Java方法服务，二本地方法栈则是为虚拟机使用到的本地方法服务。</p>
+<p><img src="https://huhansi.github.io/images/2020-04-06-zhanzheng.jpg" alt="栈帧的概念结构"></p>
+<h3 id="栈帧"><a href="#栈帧" class="headerlink" title="栈帧"></a>栈帧</h3><h4 id="局部变量表"><a href="#局部变量表" class="headerlink" title="局部变量表"></a>局部变量表</h4><p>局部变量表是一组变量值的存储空间，用于存放方法参数和方法内部定义的局部变量。在Java程序被编译为Class文件时，就在方法的Code属性的max_locals数据项中确定了该方法所需分配的局部变脸表的最大容量。</p>
+<p>局部变量表的容量以变量槽为最小单位，《Java虚拟机规范》中并没有明确指出一个变量槽应占用的内存空间大小，只是很有导向性的说到每个变量槽都应该能存放一个boolean、byte、char、short、int、float、reference或returnAddress类型的数据。</p>
+<p>对于64位的数据类型（long或者double），Java虚拟机会以高位对其的方式为其分派两个连续的变量槽空间。</p>
+<p>Java虚拟机通过索引定位的方式使用局部变量表，索引值的范围是从0开始至局部变量表最大的变量槽数量。如果访问的是32位数据类型的变量，索引N就代表了使用第N个变量槽，如果访问的是64位的书库类型的变量，则说明会同时使用第N和N+1两个变量槽。对于两个相邻的共同存放一个64位数据的两个变量槽，虚拟机不允许采用任何方式单独访问其中某一个，《Java虚拟机规范》中明确要求了如果遇到进行这种操作的字节码序列，虚拟机就应该在类加载校验阶段中抛出异常。</p>
+<p>当一个方法被调用时，Java虚拟机会使用局部变量表来完成参数值到参数列表的传递过程，即实参到形参的传递。如果执行的是实例方法（没有被static修饰的方法），那么，局部变量表中第0位索引的变量槽默认是用于传递方法所属对象实例的引用，在方法中可以通过关键字this来访问到这个隐含的参数。其余参数则按照参数表顺序排列，占用从1开始的局部变量槽，参数表分配完毕后，再根据方法体内部定义的变量顺序和作用域分配其余的变量槽。</p>
+<h4 id="操作数栈"><a href="#操作数栈" class="headerlink" title="操作数栈"></a>操作数栈</h4><p>操作数栈是一个后入先出栈，它的最大深度也在编译的时候被写入到Code属性的max_stacks数据项之中。操作数栈的每一个元素都可以是包括long和double在内的任意Java数据类型。32位数据类型所占的栈容量为1，64位数据类型所占的栈容量为2.</p>
+<h4 id="动态连接"><a href="#动态连接" class="headerlink" title="动态连接"></a>动态连接</h4><p>每个栈帧都包含一个指向运行时常量池中该栈帧所属方法的引用，持有这个引用是为了支持方法调用过程中的动态连接。</p>
+<h4 id="方法返回地址"><a href="#方法返回地址" class="headerlink" title="方法返回地址"></a>方法返回地址</h4><p>当一个方法开始执行后，只有两种方式退出这个方法。第一种方式是执行引擎遇到任意一个方法返回的字节码指令，这时候可能会有返回值传递给上层的方法调用者（调用当前方法的方法称为调用者或者主调方法），方法是否有返回值以及返回值的类型将根据遇到何种方法返回指令来决定，这种退出方法的方式称为“正常调用完成”。</p>
+<p>另外一种退出方式是在方法执行的过程中遇到了异常，并且这个异常没有在方法体内得到妥善处理。无论是Java虚拟机内部产生的异常，还是代码中使用athrow字节码指令产生的异常，只要在本方法的异常表中没有搜索到匹配的异常处理器，就会导致方法退出。</p>
+<p>无论采取何种退出方式，在方法退出之后，都必须返回到最初方法被调用时的位置，程序才能继续执行。方法返回时可能需要在栈帧中保存一些信息，用来帮助恢复它的上层主调方法的执行状态。一般来说，方法正常退出时，主调方法的PC计数器的值就可以作为返回地址，栈帧中很可能会保存这个计数器值。而方法异常退出时，返回地址是要通过异常处理器表来确定的，栈帧中就一般不会保存这部分信息。</p>
+<h4 id="附加信息"><a href="#附加信息" class="headerlink" title="附加信息"></a>附加信息</h4><p>《Java虚拟机规范》允许虚拟机实现增加一些规范里没有描述的信息到栈帧之中，例如与调试、性能收集相关的信息，这部分信息完全取决于具体的虚拟机实现。</p>
+<h2 id="本地方法栈"><a href="#本地方法栈" class="headerlink" title="本地方法栈"></a>本地方法栈</h2><p>本地方法栈与虚拟机栈所发挥的作用是非常相似的，其区别只是虚拟机栈为虚拟机执行Java方法服务，二本地方法栈则是为虚拟机使用到的本地方法服务。</p>
 <h2 id="方法区"><a href="#方法区" class="headerlink" title="方法区"></a>方法区</h2><p>方法区和 <code>Java</code>堆一样，为多个线程共享，它用于存储<strong>类信息</strong>、<strong>常量</strong>、<strong>静态常量</strong>和<strong>即时编译后的代码</strong>等数据。</p>
 <h2 id="堆"><a href="#堆" class="headerlink" title="堆"></a>堆</h2><p><code>Java</code>堆是被所有<strong>线程共享</strong>的<strong>最大</strong>的一块内存区域，在虚拟机启动时创建。此内存区域的唯一目的就是<strong>存放对象实例</strong>，几乎所有的对象实例都在这里分配内存。</p>
 <h2 id="运行时常量池"><a href="#运行时常量池" class="headerlink" title="运行时常量池"></a>运行时常量池</h2><p>运行时常量池（Runtime Constant Pool）是方法区的一部分。Class文件中除了有类的版本、字段、方法、接口等描述信息外，还有一项信息是常量池表（Constant Pool table），用于存放编译期生成的各种字面量与符号引用，这部分内容将在类加载后存放到方法去的运行时常量池中。</p>
@@ -593,7 +606,7 @@
               
                 <a href="/archives/%7C%7C%20archive">
               
-                  <span class="site-state-item-count">268</span>
+                  <span class="site-state-item-count">279</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -615,7 +628,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">103</span>
+                  <span class="site-state-item-count">119</span>
                   <span class="site-state-item-name">tags</span>
                 </a>
               </div>
