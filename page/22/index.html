@@ -293,7 +293,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://huhansi.com/2018/08/30/LeetCode/leetcode-000367.%20%E6%9C%89%E6%95%88%E7%9A%84%E5%AE%8C%E5%85%A8%E5%B9%B3%E6%96%B9%E6%95%B0/">
+    <link itemprop="mainEntityOfPage" href="http://huhansi.com/2018/09/10/LeetCode/leetcode-000027.%20%E7%A7%BB%E9%99%A4%E5%85%83%E7%B4%A0/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Han si">
@@ -312,7 +312,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/08/30/LeetCode/leetcode-000367.%20%E6%9C%89%E6%95%88%E7%9A%84%E5%AE%8C%E5%85%A8%E5%B9%B3%E6%96%B9%E6%95%B0/" itemprop="url">367. 有效的完全平方数</a></h1>
+                <a class="post-title-link" href="/2018/09/10/LeetCode/leetcode-000027.%20%E7%A7%BB%E9%99%A4%E5%85%83%E7%B4%A0/" itemprop="url">27. 移除元素</a></h1>
         
 
         <div class="post-meta">
@@ -324,8 +324,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-08-30T00:00:00+08:00">
-                2018-08-30
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-09-10T00:00:00+08:00">
+                2018-09-10
               </time>
             
 
@@ -386,16 +386,14 @@
       
         
           
-          题目给定一个正整数 num，编写一个函数，如果 num 是一个完全平方数，则返回 True，否则返回 False。
-说明：不要使用任何内置的库函数，如  sqrt。
-示例1：123输入： 16输出： True
-示例2：123输入： 14输出： False
-解法解法一：牛顿迭代法
-Java123456
+          题目给你一个数组 nums 和一个值 val，你需要 原地 移除所有数值等于 val 的元素，并返回移除后数组的新长度。
+不要使用额外的数组空间，你必须仅使用 O(1) 额外空间并 原地 修改输入数组。
+元素的顺序可以改变。你不需要考虑数组中超出新长度后面的元素.
+示例1：12345给定 nums 
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/08/30/LeetCode/leetcode-000367.%20%E6%9C%89%E6%95%88%E7%9A%84%E5%AE%8C%E5%85%A8%E5%B9%B3%E6%96%B9%E6%95%B0/#more" rel="contents">
+            <a class="btn" href="/2018/09/10/LeetCode/leetcode-000027.%20%E7%A7%BB%E9%99%A4%E5%85%83%E7%B4%A0/#more" rel="contents">
               Read more &raquo;
             </a>
           </div>
@@ -446,7 +444,7 @@ Java123456
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://huhansi.com/2018/08/30/LeetCode/leetcode-000374.%20%E7%8C%9C%E6%95%B0%E5%AD%97%E5%A4%A7%E5%B0%8F/">
+    <link itemprop="mainEntityOfPage" href="http://huhansi.com/2018/09/10/LeetCode/leetcode-000029.%20%E4%B8%A4%E6%95%B0%E7%9B%B8%E9%99%A4/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Han si">
@@ -465,7 +463,7 @@ Java123456
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/08/30/LeetCode/leetcode-000374.%20%E7%8C%9C%E6%95%B0%E5%AD%97%E5%A4%A7%E5%B0%8F/" itemprop="url">374. 猜数字大小</a></h1>
+                <a class="post-title-link" href="/2018/09/10/LeetCode/leetcode-000029.%20%E4%B8%A4%E6%95%B0%E7%9B%B8%E9%99%A4/" itemprop="url">29. 两数相除</a></h1>
         
 
         <div class="post-meta">
@@ -477,8 +475,8 @@ Java123456
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-08-30T00:00:00+08:00">
-                2018-08-30
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-09-10T00:00:00+08:00">
+                2018-09-10
               </time>
             
 
@@ -539,12 +537,13 @@ Java123456
       
         
           
-          题目我们正在玩一个猜数字游戏。 游戏规则如下：我从 1 到 n 选择一个数字。 你需要猜我选择了哪个数字。每次你猜错了，我会告诉你这个数字是大了还是小了。你调用一个预先定义好的接口 guess(int num)，它会返回 3 个可能的结果（-1，1 或 0）：
-123-1 : 我的数字比较小 1 :
+          题目给定两个整数，被除数 dividend 和除数 divisor。将两数相除，要求不使用乘法、除法和 mod 运算符。
+返回被除数 dividend 除以除数 divisor 得到的商。
+整数除法的结果应当截去（truncate）其小数部分，例如：truncate(8.345) = 8 以及 tr
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/08/30/LeetCode/leetcode-000374.%20%E7%8C%9C%E6%95%B0%E5%AD%97%E5%A4%A7%E5%B0%8F/#more" rel="contents">
+            <a class="btn" href="/2018/09/10/LeetCode/leetcode-000029.%20%E4%B8%A4%E6%95%B0%E7%9B%B8%E9%99%A4/#more" rel="contents">
               Read more &raquo;
             </a>
           </div>
@@ -595,7 +594,7 @@ Java123456
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://huhansi.com/2018/08/30/LeetCode/leetcode-000326.%203%E7%9A%84%E5%B9%82/">
+    <link itemprop="mainEntityOfPage" href="http://huhansi.com/2018/09/10/LeetCode/leetcode-000030.%20%E4%B8%8E%E6%89%80%E6%9C%89%E5%8D%95%E8%AF%8D%E7%9B%B8%E5%85%B3%E8%81%94%E7%9A%84%E5%AD%97%E4%B8%B2/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Han si">
@@ -614,7 +613,7 @@ Java123456
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/08/30/LeetCode/leetcode-000326.%203%E7%9A%84%E5%B9%82/" itemprop="url">326. 3的幂</a></h1>
+                <a class="post-title-link" href="/2018/09/10/LeetCode/leetcode-000030.%20%E4%B8%8E%E6%89%80%E6%9C%89%E5%8D%95%E8%AF%8D%E7%9B%B8%E5%85%B3%E8%81%94%E7%9A%84%E5%AD%97%E4%B8%B2/" itemprop="url">30. 与所有单词相关联的字串</a></h1>
         
 
         <div class="post-meta">
@@ -626,8 +625,8 @@ Java123456
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-08-30T00:00:00+08:00">
-                2018-08-30
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-09-10T00:00:00+08:00">
+                2018-09-10
               </time>
             
 
@@ -688,17 +687,13 @@ Java123456
       
         
           
-          题目给定一个整数，写一个函数来判断它是否是 3 的幂次方。
-示例1：12输入: 27输出: true
-示例2：12输入: 0输出: false
-示例3：12输入: 9输出: true
-示例4：12输入: 45输出: false
-进阶你能不使用循环或者递归来完成本题吗？
-解法解法一：递归Java123
+          题目给定一个字符串 s 和一些长度相同的单词 words。找出 s 中恰好可以由 words 中所有单词串联形成的子串的起始位置。
+注意子串要与 words 中的单词完全匹配，中间不能有其他字符，但不需要考虑 words 中单词串联的顺序。
+示例1：1234567输入：  s = "barfooth
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/08/30/LeetCode/leetcode-000326.%203%E7%9A%84%E5%B9%82/#more" rel="contents">
+            <a class="btn" href="/2018/09/10/LeetCode/leetcode-000030.%20%E4%B8%8E%E6%89%80%E6%9C%89%E5%8D%95%E8%AF%8D%E7%9B%B8%E5%85%B3%E8%81%94%E7%9A%84%E5%AD%97%E4%B8%B2/#more" rel="contents">
               Read more &raquo;
             </a>
           </div>
@@ -749,7 +744,7 @@ Java123456
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://huhansi.com/2018/08/30/LeetCode/leetcode-000453.%20%E6%9C%80%E5%B0%8F%E7%A7%BB%E5%8A%A8%E6%AC%A1%E6%95%B0%E4%BD%BF%E6%95%B0%E7%BB%84%E5%85%83%E7%B4%A0%E7%9B%B8%E7%AD%89/">
+    <link itemprop="mainEntityOfPage" href="http://huhansi.com/2018/09/10/LeetCode/leetcode-000031.%20%E4%B8%8B%E4%B8%80%E4%B8%AA%E6%8E%92%E5%88%97/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Han si">
@@ -768,7 +763,7 @@ Java123456
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/08/30/LeetCode/leetcode-000453.%20%E6%9C%80%E5%B0%8F%E7%A7%BB%E5%8A%A8%E6%AC%A1%E6%95%B0%E4%BD%BF%E6%95%B0%E7%BB%84%E5%85%83%E7%B4%A0%E7%9B%B8%E7%AD%89/" itemprop="url">453. 最小移动次数使数组元素相等</a></h1>
+                <a class="post-title-link" href="/2018/09/10/LeetCode/leetcode-000031.%20%E4%B8%8B%E4%B8%80%E4%B8%AA%E6%8E%92%E5%88%97/" itemprop="url">31. 下一个排列</a></h1>
         
 
         <div class="post-meta">
@@ -780,8 +775,8 @@ Java123456
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-08-30T00:00:00+08:00">
-                2018-08-30
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-09-10T00:00:00+08:00">
+                2018-09-10
               </time>
             
 
@@ -842,12 +837,15 @@ Java123456
       
         
           
-          题目给定一个长度为 n 的非空整数数组，找到让数组所有元素相等的最小移动次数。每次移动可以使 n - 1 个元素增加 1。
-示例1：12345678910输入:[1,2,3]输出:3解释:只需要3次移动（注意每次移动会增加两个元素的值）：[1,2,3]  &#x3D;&gt;  [2,3,3]  &
+          题目实现获取下一个排列的函数，算法需要将给定数字序列重新排列成字典序中下一个更大的排列。
+如果不存在下一个更大的排列，则将数字重新排列成最小的排列（即升序排列）。
+必须原地修改，只允许使用额外常数空间。
+以下是一些例子，输入位于左侧列，其相应输出位于右侧列。
+示例1：1231,2,3 → 1,3,2
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/08/30/LeetCode/leetcode-000453.%20%E6%9C%80%E5%B0%8F%E7%A7%BB%E5%8A%A8%E6%AC%A1%E6%95%B0%E4%BD%BF%E6%95%B0%E7%BB%84%E5%85%83%E7%B4%A0%E7%9B%B8%E7%AD%89/#more" rel="contents">
+            <a class="btn" href="/2018/09/10/LeetCode/leetcode-000031.%20%E4%B8%8B%E4%B8%80%E4%B8%AA%E6%8E%92%E5%88%97/#more" rel="contents">
               Read more &raquo;
             </a>
           </div>
@@ -898,7 +896,7 @@ Java123456
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://huhansi.com/2018/08/30/LeetCode/leetcode-000581.%20%E6%9C%80%E7%9F%AD%E6%97%A0%E5%BA%8F%E8%BF%9E%E7%BB%AD%E5%AD%90%E6%95%B0%E7%BB%84/">
+    <link itemprop="mainEntityOfPage" href="http://huhansi.com/2018/09/10/LeetCode/leetcode-000032.%20%E6%9C%80%E9%95%BF%E6%9C%89%E6%95%88%E6%8B%AC%E5%8F%B7/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Han si">
@@ -917,7 +915,7 @@ Java123456
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/08/30/LeetCode/leetcode-000581.%20%E6%9C%80%E7%9F%AD%E6%97%A0%E5%BA%8F%E8%BF%9E%E7%BB%AD%E5%AD%90%E6%95%B0%E7%BB%84/" itemprop="url">581. 最短无序连续子数组</a></h1>
+                <a class="post-title-link" href="/2018/09/10/LeetCode/leetcode-000032.%20%E6%9C%80%E9%95%BF%E6%9C%89%E6%95%88%E6%8B%AC%E5%8F%B7/" itemprop="url">32. 最长有效括号</a></h1>
         
 
         <div class="post-meta">
@@ -929,8 +927,8 @@ Java123456
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-08-30T00:00:00+08:00">
-                2018-08-30
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-09-10T00:00:00+08:00">
+                2018-09-10
               </time>
             
 
@@ -991,13 +989,14 @@ Java123456
       
         
           
-          题目给定一个整数数组，你需要寻找一个连续的子数组，如果对这个子数组进行升序排序，那么整个数组都会变为升序排序。
-你找到的子数组应是最短的，请输出它的长度。
-示例1：123输入: [2, 6, 4, 8, 10, 9, 15]输出: 5解释: 你只需要对 [6, 4, 8, 10, 9] 进行升序排序
+          题目给定一个只包含 &#39;(&#39; 和 &#39;)&#39; 的字符串，找出最长的包含有效括号的子串的长度。
+示例 1:123输入: &quot;(()&quot;输出: 2解释: 最长有效括号子串为 &quot;()&quot;
+
+示例2：123输入: &quot;)()())&quot
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/08/30/LeetCode/leetcode-000581.%20%E6%9C%80%E7%9F%AD%E6%97%A0%E5%BA%8F%E8%BF%9E%E7%BB%AD%E5%AD%90%E6%95%B0%E7%BB%84/#more" rel="contents">
+            <a class="btn" href="/2018/09/10/LeetCode/leetcode-000032.%20%E6%9C%80%E9%95%BF%E6%9C%89%E6%95%88%E6%8B%AC%E5%8F%B7/#more" rel="contents">
               Read more &raquo;
             </a>
           </div>
@@ -1048,7 +1047,7 @@ Java123456
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://huhansi.com/2018/08/30/LeetCode/leetcode-000596.%20%E8%B6%85%E8%BF%875%E5%90%8D%E5%AD%A6%E7%94%9F%E7%9A%84%E8%AF%BE/">
+    <link itemprop="mainEntityOfPage" href="http://huhansi.com/2018/09/10/LeetCode/leetcode-000033.%20%E6%90%9C%E7%B4%A2%E6%97%8B%E8%BD%AC%E6%8E%92%E5%BA%8F%E6%95%B0%E7%BB%84/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Han si">
@@ -1067,7 +1066,7 @@ Java123456
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/08/30/LeetCode/leetcode-000596.%20%E8%B6%85%E8%BF%875%E5%90%8D%E5%AD%A6%E7%94%9F%E7%9A%84%E8%AF%BE/" itemprop="url">596. 超过5名学生的课</a></h1>
+                <a class="post-title-link" href="/2018/09/10/LeetCode/leetcode-000033.%20%E6%90%9C%E7%B4%A2%E6%97%8B%E8%BD%AC%E6%8E%92%E5%BA%8F%E6%95%B0%E7%BB%84/" itemprop="url">33. 搜索旋转排序数组</a></h1>
         
 
         <div class="post-meta">
@@ -1079,8 +1078,8 @@ Java123456
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-08-30T00:00:00+08:00">
-                2018-08-30
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-09-10T00:00:00+08:00">
+                2018-09-10
               </time>
             
 
@@ -1141,14 +1140,15 @@ Java123456
       
         
           
-          题目有一个courses 表 ，有: student (学生) 和 class (课程)。
-请列出所有超过或等于5名学生的课。
-例如,表:
-12345678910111213+---------+------------+| student | class      |+---------+----
+          题目假设按照升序排序的数组在预先未知的某个点上进行了旋转。
+( 例如，数组 [0,1,2,4,5,6,7] 可能变为 [4,5,6,7,0,1,2] )。
+搜索一个给定的目标值，如果数组中存在这个目标值，则返回它的索引，否则返回 -1 。
+你可以假设数组中不存在重复的元素。
+你的算法时间复杂度必须是
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/08/30/LeetCode/leetcode-000596.%20%E8%B6%85%E8%BF%875%E5%90%8D%E5%AD%A6%E7%94%9F%E7%9A%84%E8%AF%BE/#more" rel="contents">
+            <a class="btn" href="/2018/09/10/LeetCode/leetcode-000033.%20%E6%90%9C%E7%B4%A2%E6%97%8B%E8%BD%AC%E6%8E%92%E5%BA%8F%E6%95%B0%E7%BB%84/#more" rel="contents">
               Read more &raquo;
             </a>
           </div>
@@ -1199,7 +1199,7 @@ Java123456
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://huhansi.com/2018/08/30/LeetCode/leetcode-000645.%20%E9%94%99%E8%AF%AF%E7%9A%84%E9%9B%86%E5%90%88/">
+    <link itemprop="mainEntityOfPage" href="http://huhansi.com/2018/09/10/LeetCode/leetcode-000034.%20%E5%9C%A8%E6%8E%92%E5%BA%8F%E6%95%B0%E7%BB%84%E4%B8%AD%E6%9F%A5%E6%89%BE%E5%85%83%E7%B4%A0%E7%9A%84%E7%AC%AC%E4%B8%80%E4%B8%AA%E5%92%8C%E6%9C%80%E5%90%8E%E4%B8%80%E4%B8%AA%E4%BD%8D%E7%BD%AE/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Han si">
@@ -1218,7 +1218,7 @@ Java123456
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/08/30/LeetCode/leetcode-000645.%20%E9%94%99%E8%AF%AF%E7%9A%84%E9%9B%86%E5%90%88/" itemprop="url">645. 错误的集合</a></h1>
+                <a class="post-title-link" href="/2018/09/10/LeetCode/leetcode-000034.%20%E5%9C%A8%E6%8E%92%E5%BA%8F%E6%95%B0%E7%BB%84%E4%B8%AD%E6%9F%A5%E6%89%BE%E5%85%83%E7%B4%A0%E7%9A%84%E7%AC%AC%E4%B8%80%E4%B8%AA%E5%92%8C%E6%9C%80%E5%90%8E%E4%B8%80%E4%B8%AA%E4%BD%8D%E7%BD%AE/" itemprop="url">34. 在排序数组中查找元素的第一个和最后一个位置</a></h1>
         
 
         <div class="post-meta">
@@ -1230,8 +1230,8 @@ Java123456
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-08-30T00:00:00+08:00">
-                2018-08-30
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-09-10T00:00:00+08:00">
+                2018-09-10
               </time>
             
 
@@ -1292,12 +1292,14 @@ Java123456
       
         
           
-          题目集合 S 包含从1到 n 的整数。不幸的是，因为数据错误，导致集合里面某一个元素复制了成了集合里面的另外一个元素的值，导致集合丢失了一个整数并且有一个元素重复。
-给定一个数组 nums 代表了集合 S 发生错误后的结果。你的任务是首先寻找到重复出现的整数，再找到丢失的整数，将它们以数组的形式返回
+          题目给定一个按照升序排列的整数数组 nums，和一个目标值 target。找出给定目标值在数组中的开始位置和结束位置。
+你的算法时间复杂度必须是 O(log n) 级别。
+如果数组中不存在目标值，返回 [-1, -1]。
+示例1：12输入: nums &#x3D; [5,7,7,8,8,10], t
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/08/30/LeetCode/leetcode-000645.%20%E9%94%99%E8%AF%AF%E7%9A%84%E9%9B%86%E5%90%88/#more" rel="contents">
+            <a class="btn" href="/2018/09/10/LeetCode/leetcode-000034.%20%E5%9C%A8%E6%8E%92%E5%BA%8F%E6%95%B0%E7%BB%84%E4%B8%AD%E6%9F%A5%E6%89%BE%E5%85%83%E7%B4%A0%E7%9A%84%E7%AC%AC%E4%B8%80%E4%B8%AA%E5%92%8C%E6%9C%80%E5%90%8E%E4%B8%80%E4%B8%AA%E4%BD%8D%E7%BD%AE/#more" rel="contents">
               Read more &raquo;
             </a>
           </div>
@@ -1348,7 +1350,7 @@ Java123456
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://huhansi.com/2018/08/30/LeetCode/leetcode-000686.%20%E9%87%8D%E5%A4%8D%E5%8F%A0%E5%8A%A0%E5%AD%97%E7%AC%A6%E4%B8%B2%E5%8C%B9%E9%85%8D/">
+    <link itemprop="mainEntityOfPage" href="http://huhansi.com/2018/09/10/LeetCode/leetcode-000035.%20%E6%90%9C%E7%B4%A2%E6%8F%92%E5%85%A5%E4%BD%8D%E7%BD%AE/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Han si">
@@ -1367,7 +1369,7 @@ Java123456
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/08/30/LeetCode/leetcode-000686.%20%E9%87%8D%E5%A4%8D%E5%8F%A0%E5%8A%A0%E5%AD%97%E7%AC%A6%E4%B8%B2%E5%8C%B9%E9%85%8D/" itemprop="url">686. 重复叠加字符串匹配</a></h1>
+                <a class="post-title-link" href="/2018/09/10/LeetCode/leetcode-000035.%20%E6%90%9C%E7%B4%A2%E6%8F%92%E5%85%A5%E4%BD%8D%E7%BD%AE/" itemprop="url">35. 搜索插入位置</a></h1>
         
 
         <div class="post-meta">
@@ -1379,8 +1381,8 @@ Java123456
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-08-30T00:00:00+08:00">
-                2018-08-30
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-09-10T00:00:00+08:00">
+                2018-09-10
               </time>
             
 
@@ -1441,13 +1443,17 @@ Java123456
       
         
           
-          题目给定两个字符串 A 和 B, 寻找重复叠加字符串A的最小次数，使得字符串B成为叠加后的字符串A的子串，如果不存在则返回 -1。
-举个例子，A = “abcd”，B = “cdabcdab”。
-答案为 3， 因为 A 重复叠加三遍后为 “abcdabcdabcd”，此时 B 是其子串；A 重复叠加
+          题目给定一个排序数组和一个目标值，在数组中找到目标值，并返回其索引。如果目标值不存在于数组中，返回它将会被按顺序插入的位置。
+你可以假设数组中无重复元素。
+示例1：12输入: [1,3,5,6], 5输出: 2
+
+示例2：12输入: [1,3,5,6], 2输出: 1
+
+示例3：12输入: [1,3
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/08/30/LeetCode/leetcode-000686.%20%E9%87%8D%E5%A4%8D%E5%8F%A0%E5%8A%A0%E5%AD%97%E7%AC%A6%E4%B8%B2%E5%8C%B9%E9%85%8D/#more" rel="contents">
+            <a class="btn" href="/2018/09/10/LeetCode/leetcode-000035.%20%E6%90%9C%E7%B4%A2%E6%8F%92%E5%85%A5%E4%BD%8D%E7%BD%AE/#more" rel="contents">
               Read more &raquo;
             </a>
           </div>
@@ -1498,7 +1504,7 @@ Java123456
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://huhansi.com/2018/08/30/LeetCode/leetcode-000633.%20%E5%B9%B3%E6%96%B9%E6%95%B0%E4%B9%8B%E5%92%8C/">
+    <link itemprop="mainEntityOfPage" href="http://huhansi.com/2018/09/10/LeetCode/leetcode-000028.%20%E5%AE%9E%E7%8E%B0strStr()/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Han si">
@@ -1517,7 +1523,7 @@ Java123456
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/08/30/LeetCode/leetcode-000633.%20%E5%B9%B3%E6%96%B9%E6%95%B0%E4%B9%8B%E5%92%8C/" itemprop="url">633. 平方数之和</a></h1>
+                <a class="post-title-link" href="/2018/09/10/LeetCode/leetcode-000028.%20%E5%AE%9E%E7%8E%B0strStr()/" itemprop="url">28. 实现strStr()</a></h1>
         
 
         <div class="post-meta">
@@ -1529,8 +1535,8 @@ Java123456
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-08-30T00:00:00+08:00">
-                2018-08-30
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-09-10T00:00:00+08:00">
+                2018-09-10
               </time>
             
 
@@ -1591,16 +1597,13 @@ Java123456
       
         
           
-          题目给定一个非负整数 c ，你要判断是否存在两个整数 a 和 b，使得 a^2 + b^2 = c。
-示例1：123输入: 5输出: True解释: 1 * 1 + 2 * 2 &#x3D; 5
-
-示例2：12输入: 3输出: False
-解法解法一：不好说
-Java1234567891011121
+          题目实现 strStr() 函数。
+给定一个 haystack 字符串和一个 needle 字符串，在 haystack 字符串中找出 needle 字符串出现的第一个位置 (从0开始)。如果不存在，则返回  -1。
+示例1：12输入: haystack = "hello", needle = "l
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/08/30/LeetCode/leetcode-000633.%20%E5%B9%B3%E6%96%B9%E6%95%B0%E4%B9%8B%E5%92%8C/#more" rel="contents">
+            <a class="btn" href="/2018/09/10/LeetCode/leetcode-000028.%20%E5%AE%9E%E7%8E%B0strStr()/#more" rel="contents">
               Read more &raquo;
             </a>
           </div>
@@ -1651,7 +1654,7 @@ Java1234567891011121
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://huhansi.com/2018/08/30/LeetCode/leetcode-000717.%201%E6%AF%94%E7%89%B9%E4%B8%8E2%E6%AF%94%E7%89%B9%E5%AD%97%E7%AC%A6/">
+    <link itemprop="mainEntityOfPage" href="http://huhansi.com/2018/09/06/Java/%E5%A4%9A%E7%BA%BF%E7%A8%8B%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/5.Producer-Consumer%20%E6%A8%A1%E5%BC%8F/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Han si">
@@ -1670,7 +1673,7 @@ Java1234567891011121
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/08/30/LeetCode/leetcode-000717.%201%E6%AF%94%E7%89%B9%E4%B8%8E2%E6%AF%94%E7%89%B9%E5%AD%97%E7%AC%A6/" itemprop="url">717. 1比特与2比特字符</a></h1>
+                <a class="post-title-link" href="/2018/09/06/Java/%E5%A4%9A%E7%BA%BF%E7%A8%8B%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/5.Producer-Consumer%20%E6%A8%A1%E5%BC%8F/" itemprop="url">Producer-Consumer 模式</a></h1>
         
 
         <div class="post-meta">
@@ -1682,8 +1685,8 @@ Java1234567891011121
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-08-30T00:00:00+08:00">
-                2018-08-30
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-09-06T00:00:00+08:00">
+                2018-09-06
               </time>
             
 
@@ -1705,8 +1708,8 @@ Java1234567891011121
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/leetcode/" itemprop="url" rel="index">
-                    <span itemprop="name">leetcode</span>
+                  <a href="/categories/java%E5%A4%9A%E7%BA%BF%E7%A8%8B%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" itemprop="url" rel="index">
+                    <span itemprop="name">java多线程设计模式</span>
                   </a>
                 </span>
 
@@ -1744,13 +1747,12 @@ Java1234567891011121
       
         
           
-          题目有两种特殊字符。第一种字符可以用一比特0来表示。第二种字符可以用两比特(10 或 11)来表示。
-现给一个由若干比特组成的字符串。问最后一个字符是否必定为一个一比特字符。给定的字符串总是由0结束。
-示例1：12345输入: bits &#x3D; [1, 0, 0]输出: True解释: 唯一的
+          Producer-Consumer 模式Producer是“生产者”的意思，指的是生成数据的线程。Consumer则是“消费者”的意思，指的是使用数据的线程。
+生产者安全地将数据交给消费者。虽然仅是这样看似简单的操作，但当生产者和消费者以不同的线程运行时，两者之间的处理速度差异便会引起问题。例如，消
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/08/30/LeetCode/leetcode-000717.%201%E6%AF%94%E7%89%B9%E4%B8%8E2%E6%AF%94%E7%89%B9%E5%AD%97%E7%AC%A6/#more" rel="contents">
+            <a class="btn" href="/2018/09/06/Java/%E5%A4%9A%E7%BA%BF%E7%A8%8B%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/5.Producer-Consumer%20%E6%A8%A1%E5%BC%8F/#more" rel="contents">
               Read more &raquo;
             </a>
           </div>
@@ -1792,7 +1794,7 @@ Java1234567891011121
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/21/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/21/">21</a><span class="page-number current">22</span><a class="page-number" href="/page/23/">23</a><span class="space">&hellip;</span><a class="page-number" href="/page/28/">28</a><a class="extend next" rel="next" href="/page/23/"><i class="fa fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" href="/page/21/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/21/">21</a><span class="page-number current">22</span><a class="page-number" href="/page/23/">23</a><span class="space">&hellip;</span><a class="page-number" href="/page/33/">33</a><a class="extend next" rel="next" href="/page/23/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -1838,7 +1840,7 @@ Java1234567891011121
               
                 <a href="/archives/%7C%7C%20archive">
               
-                  <span class="site-state-item-count">279</span>
+                  <span class="site-state-item-count">327</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -1860,7 +1862,7 @@ Java1234567891011121
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">119</span>
+                  <span class="site-state-item-count">137</span>
                   <span class="site-state-item-name">tags</span>
                 </a>
               </div>
