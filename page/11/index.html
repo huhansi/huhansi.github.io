@@ -293,7 +293,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://huhansi.com/2020/04/05/LeetCode/leetcode-%E9%9D%A2%E8%AF%95%E9%A2%98-01.03-URL%E5%8C%96/">
+    <link itemprop="mainEntityOfPage" href="http://huhansi.com/2020/04/05/LeetCode/leetcode-%E9%9D%A2%E8%AF%95%E9%A2%98-01.04-%E5%9B%9E%E6%96%87%E6%8E%92%E5%88%97/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Han si">
@@ -312,7 +312,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2020/04/05/LeetCode/leetcode-%E9%9D%A2%E8%AF%95%E9%A2%98-01.03-URL%E5%8C%96/" itemprop="url">面试题 01.03 URL化</a></h1>
+                <a class="post-title-link" href="/2020/04/05/LeetCode/leetcode-%E9%9D%A2%E8%AF%95%E9%A2%98-01.04-%E5%9B%9E%E6%96%87%E6%8E%92%E5%88%97/" itemprop="url">面试题 01.04 回文排列</a></h1>
         
 
         <div class="post-meta">
@@ -386,12 +386,14 @@
       
         
           
-          题目URL化。编写一种方法，将字符串中的空格全部替换为%20。假定该字符串尾部有足够的空间存放新增字符，并且知道字符串的“真实”长度。（注：用Java实现的话，请使用字符数组实现，以便直接在数组上操作。）
-示例 1:12输入：&quot;Mr John Smith    &quot;, 13输出：&
+          题目给定一个字符串，编写一个函数判定其是否为某个回文串的排列之一。
+回文串是指正反两个方向都一样的单词或短语。排列是指字母的重新排列。
+回文串不一定是字典当中的单词。
+示例 1:12输入：&quot;tactcoa&quot;输出：true（排列有&quot;tacocat&quot;、&quot;
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2020/04/05/LeetCode/leetcode-%E9%9D%A2%E8%AF%95%E9%A2%98-01.03-URL%E5%8C%96/#more" rel="contents">
+            <a class="btn" href="/2020/04/05/LeetCode/leetcode-%E9%9D%A2%E8%AF%95%E9%A2%98-01.04-%E5%9B%9E%E6%96%87%E6%8E%92%E5%88%97/#more" rel="contents">
               Read more &raquo;
             </a>
           </div>
@@ -1047,6 +1049,156 @@ add 操作 - 对内部数据结构增加一个数。 find 操作 - 寻找内部�
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://huhansi.com/2020/04/03/LeetCode/leetcode-000288-%E5%8D%95%E8%AF%8D%E7%9A%84%E5%94%AF%E4%B8%80%E7%BC%A9%E5%86%99/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Han si">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hansi Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2020/04/03/LeetCode/leetcode-000288-%E5%8D%95%E8%AF%8D%E7%9A%84%E5%94%AF%E4%B8%80%E7%BC%A9%E5%86%99/" itemprop="url">288. 单词的唯一缩写</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-04-03T00:00:00+08:00">
+                2020-04-03
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/leetcode/" itemprop="url" rel="index">
+                    <span itemprop="name">leetcode</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+          题目一个单词的缩写需要遵循 &lt;起始字母&gt;&lt;中间字母数&gt;&lt;结尾字母&gt; 这样的格式。
+以下是一些单词缩写的范例：
+123456789101112131415a) it                      --&gt; it    (没有缩写)     1    
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2020/04/03/LeetCode/leetcode-000288-%E5%8D%95%E8%AF%8D%E7%9A%84%E5%94%AF%E4%B8%80%E7%BC%A9%E5%86%99/#more" rel="contents">
+              Read more &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://huhansi.com/2020/04/03/LeetCode/leetcode-000380-%E5%B8%B8%E6%95%B0%E6%97%B6%E9%97%B4%E6%8F%92%E5%85%A5%E3%80%81%E5%88%A0%E9%99%A4%E5%92%8C%E8%8E%B7%E5%8F%96%E9%9A%8F%E6%9C%BA%E5%85%83%E7%B4%A0/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1150,156 +1302,6 @@ getRandom：随机返回现有集合中的一项。每个元素应该有相同�
           <!--noindex-->
           <div class="post-button text-center">
             <a class="btn" href="/2020/04/03/LeetCode/leetcode-000380-%E5%B8%B8%E6%95%B0%E6%97%B6%E9%97%B4%E6%8F%92%E5%85%A5%E3%80%81%E5%88%A0%E9%99%A4%E5%92%8C%E8%8E%B7%E5%8F%96%E9%9A%8F%E6%9C%BA%E5%85%83%E7%B4%A0/#more" rel="contents">
-              Read more &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://huhansi.com/2020/04/03/LeetCode/leetcode-000288-%E5%8D%95%E8%AF%8D%E7%9A%84%E5%94%AF%E4%B8%80%E7%BC%A9%E5%86%99/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Han si">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hansi Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2020/04/03/LeetCode/leetcode-000288-%E5%8D%95%E8%AF%8D%E7%9A%84%E5%94%AF%E4%B8%80%E7%BC%A9%E5%86%99/" itemprop="url">288. 单词的唯一缩写</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-04-03T00:00:00+08:00">
-                2020-04-03
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/leetcode/" itemprop="url" rel="index">
-                    <span itemprop="name">leetcode</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-          题目一个单词的缩写需要遵循 &lt;起始字母&gt;&lt;中间字母数&gt;&lt;结尾字母&gt; 这样的格式。
-以下是一些单词缩写的范例：
-123456789101112131415a) it                      --&gt; it    (没有缩写)     1    
-          ...
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2020/04/03/LeetCode/leetcode-000288-%E5%8D%95%E8%AF%8D%E7%9A%84%E5%94%AF%E4%B8%80%E7%BC%A9%E5%86%99/#more" rel="contents">
               Read more &raquo;
             </a>
           </div>
@@ -1650,7 +1652,7 @@ getRandom：随机返回现有集合中的一项。每个元素应该有相同�
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://huhansi.com/2020/04/03/Java/JVM/2020-03-29-Java-%E5%87%A0%E7%A7%8D%E5%BC%95%E7%94%A8%E7%B1%BB%E5%9E%8B/">
+    <link itemprop="mainEntityOfPage" href="http://huhansi.com/2020/04/03/Java/JVM/2020-03-29-Java-%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6%E5%99%A8/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Han si">
@@ -1669,7 +1671,7 @@ getRandom：随机返回现有集合中的一项。每个元素应该有相同�
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2020/04/03/Java/JVM/2020-03-29-Java-%E5%87%A0%E7%A7%8D%E5%BC%95%E7%94%A8%E7%B1%BB%E5%9E%8B/" itemprop="url">Java中的4种引用类型</a></h1>
+                <a class="post-title-link" href="/2020/04/03/Java/JVM/2020-03-29-Java-%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6%E5%99%A8/" itemprop="url">垃圾回收器概览</a></h1>
         
 
         <div class="post-meta">
@@ -1743,12 +1745,11 @@ getRandom：随机返回现有集合中的一项。每个元素应该有相同�
       
         
           
-          Java中的4种引用类型强引用强引用是最传统的“引用”的定义，是指在程序代码之中普遍存在的引用赋值，即类似“Object obj = new Object()”这种引用关系。无论任何情况下，只要强引用关系还在，垃圾收集器就永远不会回收掉被引用的对象。
-示例1String[] arr = new St
-          ...
+          
+          
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2020/04/03/Java/JVM/2020-03-29-Java-%E5%87%A0%E7%A7%8D%E5%BC%95%E7%94%A8%E7%B1%BB%E5%9E%8B/#more" rel="contents">
+            <a class="btn" href="/2020/04/03/Java/JVM/2020-03-29-Java-%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6%E5%99%A8/#more" rel="contents">
               Read more &raquo;
             </a>
           </div>
