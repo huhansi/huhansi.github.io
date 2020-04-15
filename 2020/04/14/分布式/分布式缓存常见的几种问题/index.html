@@ -1,0 +1,1286 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="Zh_cn">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="分布式缓存,缓存穿透,缓存雪崩,布隆过滤器,缓存预热," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="分布式缓存常见的几种问题为什么使用分布式缓存和分布式缓存的应用场景就先不说了。我们着重看看，分布式缓存的若干问题 缓存选型当前主流的做缓存的开源组件有Memcache和Redis，它们各有千秋，那么到底怎么选择呢？我们一项一项比较看看。     Memcache Redis    数据类型 只支持简单的数据类型 支持K&#x2F;V之外，还有list、set、zset、hash等数据结构   持久化 不支持">
+<meta property="og:type" content="article">
+<meta property="og:title" content="分布式缓存常见的几种问题">
+<meta property="og:url" content="http://huhansi.com/2020/04/14/%E5%88%86%E5%B8%83%E5%BC%8F/%E5%88%86%E5%B8%83%E5%BC%8F%E7%BC%93%E5%AD%98%E5%B8%B8%E8%A7%81%E7%9A%84%E5%87%A0%E7%A7%8D%E9%97%AE%E9%A2%98/index.html">
+<meta property="og:site_name" content="Hansi Blog">
+<meta property="og:description" content="分布式缓存常见的几种问题为什么使用分布式缓存和分布式缓存的应用场景就先不说了。我们着重看看，分布式缓存的若干问题 缓存选型当前主流的做缓存的开源组件有Memcache和Redis，它们各有千秋，那么到底怎么选择呢？我们一项一项比较看看。     Memcache Redis    数据类型 只支持简单的数据类型 支持K&#x2F;V之外，还有list、set、zset、hash等数据结构   持久化 不支持">
+<meta property="og:locale" content="Zh_CN">
+<meta property="og:image" content="https://huhansi.github.io/images/2020-04-15-cache1.png">
+<meta property="og:image" content="https://huhansi.github.io/images/2020-04-15-cache2.jpeg">
+<meta property="og:image" content="https://huhansi.github.io/images/2020-04-15-cache3.jpg">
+<meta property="og:image" content="https://huhansi.github.io/images/2020-04-15-cache4.jpg">
+<meta property="article:published_time" content="2020-04-13T16:00:00.000Z">
+<meta property="article:modified_time" content="2020-04-15T05:01:54.550Z">
+<meta property="article:author" content="Han si">
+<meta property="article:tag" content="分布式缓存">
+<meta property="article:tag" content="缓存穿透">
+<meta property="article:tag" content="缓存雪崩">
+<meta property="article:tag" content="布隆过滤器">
+<meta property="article:tag" content="缓存预热">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://huhansi.github.io/images/2020-04-15-cache1.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://huhansi.com/2020/04/14/分布式/分布式缓存常见的几种问题/"/>
+
+
+
+
+
+  <title>分布式缓存常见的几种问题 | Hansi Blog</title>
+  
+
+
+
+
+
+
+
+
+<meta name="generator" content="Hexo 4.2.0"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="Zh_cn">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Hansi Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Know something of everything, know everything of something</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            About
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            Search
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="Searching..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://huhansi.com/2020/04/14/%E5%88%86%E5%B8%83%E5%BC%8F/%E5%88%86%E5%B8%83%E5%BC%8F%E7%BC%93%E5%AD%98%E5%B8%B8%E8%A7%81%E7%9A%84%E5%87%A0%E7%A7%8D%E9%97%AE%E9%A2%98/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Han si">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hansi Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">分布式缓存常见的几种问题</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-04-14T00:00:00+08:00">
+                2020-04-14
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%88%86%E5%B8%83%E5%BC%8F/" itemprop="url" rel="index">
+                    <span itemprop="name">分布式</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="分布式缓存常见的几种问题"><a href="#分布式缓存常见的几种问题" class="headerlink" title="分布式缓存常见的几种问题"></a>分布式缓存常见的几种问题</h1><p>为什么使用分布式缓存和分布式缓存的应用场景就先不说了。我们着重看看，分布式缓存的若干问题</p>
+<h2 id="缓存选型"><a href="#缓存选型" class="headerlink" title="缓存选型"></a>缓存选型</h2><p>当前主流的做缓存的开源组件有Memcache和Redis，它们各有千秋，那么到底怎么选择呢？我们一项一项比较看看。</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>Memcache</th>
+<th>Redis</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>数据类型</td>
+<td>只支持简单的数据类型</td>
+<td>支持K/V之外，还有list、set、zset、hash等数据结构</td>
+</tr>
+<tr>
+<td>持久化</td>
+<td>不支持持久化</td>
+<td>支持AOF和RDB</td>
+</tr>
+<tr>
+<td>键大小</td>
+<td>键长最大为250个字符</td>
+<td>最大支持512M</td>
+</tr>
+<tr>
+<td>值大小</td>
+<td>值不能超过1MB，但是可以修改配置以支持更大的value</td>
+<td>最大支持512M</td>
+</tr>
+<tr>
+<td>线程模型</td>
+<td>多线程模型</td>
+<td>单线程模型</td>
+</tr>
+<tr>
+<td>内存管理</td>
+<td>使用Slab Allocation。原理相当简单，预先分配一系列大小固定的组，然后根据数据大小选择最合适的块存储。避免了内存碎片。</td>
+<td>Redis通过定义一个数组来记录所有的内存分配情况， Redis采用的是包装的malloc/free。由于malloc 首先以链表的方式搜索已管理的内存中可用的空间分配，导致内存碎片比较多。</td>
+</tr>
+<tr>
+<td>集群部署</td>
+<td>支持</td>
+<td>支持</td>
+</tr>
+<tr>
+<td>分布式</td>
+<td>使用Magent在客户端进行一致性hash做分布式</td>
+<td>Redis支持在服务器端做分布式（PS:Twemproxy/Codis/Redis-cluster多种分布式实现方式）</td>
+</tr>
+</tbody></table>
+<h2 id="缓存穿透"><a href="#缓存穿透" class="headerlink" title="缓存穿透"></a>缓存穿透</h2><p>缓存穿透指的是，每次查询数据，发现查询不到，然后又去数据库查询，数据库也没。第二次同样数据过来查询，还是走缓存，再走数据库，查询两次。</p>
+<p>这种情况一般可以用以下方式解决。</p>
+<h3 id="布隆过滤器"><a href="#布隆过滤器" class="headerlink" title="布隆过滤器"></a>布隆过滤器</h3><p>一个很长的二进制向量和一系列随机映射函数组成，将确定不存在的数据构建到过滤器中，用它来过滤请求。</p>
+<h3 id="缓存空对象"><a href="#缓存空对象" class="headerlink" title="缓存空对象"></a>缓存空对象</h3><p>就算数据库里查询出来的是个null对象，也把它丢到缓存里，下来再来的时候就不用再去数据库里面查了。</p>
+<h2 id="缓存雪崩"><a href="#缓存雪崩" class="headerlink" title="缓存雪崩"></a>缓存雪崩</h2><p>缓存雪崩指的是在某个时刻，大批量缓存同时失效，导致所有的查询全部被倒流到数据库，给数据库和内存造成巨大的压力，甚至造成数据库宕机。</p>
+<p>它也有几种解决办法</p>
+<h3 id="加锁排队"><a href="#加锁排队" class="headerlink" title="加锁排队"></a>加锁排队</h3><p>通过加锁或者排队机制来限制读数据库写缓存的线程数量</p>
+<h3 id="缓存时间增加随机值"><a href="#缓存时间增加随机值" class="headerlink" title="缓存时间增加随机值"></a>缓存时间增加随机值</h3><p>避免多个缓存key在同一时间失效，导致压力更加集中。</p>
+<h2 id="缓存预热"><a href="#缓存预热" class="headerlink" title="缓存预热"></a>缓存预热</h2><p>缓存预热就是系统上线后，将相关的缓存数据直接加载到缓存系统。</p>
+<h2 id="缓存无底洞"><a href="#缓存无底洞" class="headerlink" title="缓存无底洞"></a>缓存无底洞</h2><p>键值数据库由于通常采用哈希函数将key映射到各个节点上，造成key的分布与业务无关，但是由于数据量和访问量的持续增长，造成需要添加大量节点做水平扩容，导致键值分布到更多的节点上，所以无论是Memcache还是Redis的分布式，批量操作通常需要从不同节点上获取，相对于单机批量操作只涉及一次网络操作，分布式批量操作会涉及多次网络时间。</p>
+<ul>
+<li>客户端一次批量操作会涉及多次网络操作，也就意味着批量操作会随着节点的增多，耗时会不断增大。</li>
+<li>网络连接数变多，对节点的性能也有一定影响。</li>
+</ul>
+<p>有几种解决方案：</p>
+<h3 id="串行命令"><a href="#串行命令" class="headerlink" title="串行命令"></a>串行命令</h3><p>逐次执行n个get命令</p>
+<h3 id="串行IO"><a href="#串行IO" class="headerlink" title="串行IO"></a>串行IO</h3><p>Redis Cluster使用CRC16算法计算出散列值，再取对16383的余数就可以算出slot值，同时Smart客户端会保存slot和节点的对应关系，有了这两个数据就可以将属于同一个节点的key进行归档，得到每个节点的key子列表，之后对每个节点执行mget或者Pipeline操作</p>
+<h3 id="并行IO"><a href="#并行IO" class="headerlink" title="并行IO"></a>并行IO</h3><p>将串行IO中的串行操作改为并行操作</p>
+<h3 id="hash-tag实现"><a href="#hash-tag实现" class="headerlink" title="hash_tag实现"></a>hash_tag实现</h3><p>Redis Cluster的hash_tag功能，他可以将多个key强制分配到一个节点上</p>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><table>
+<thead>
+<tr>
+<th align="left">方案</th>
+<th align="left">优点</th>
+<th align="left">缺点</th>
+<th align="left">网络IO</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">串行命令</td>
+<td align="left">编程简单如果少量keys，性能可以满足要求</td>
+<td align="left">大量keys请求延迟严重</td>
+<td align="left"><em>O(keys)</em></td>
+</tr>
+<tr>
+<td align="left">串行IO</td>
+<td align="left">编程简单少量节点，性能满足要求</td>
+<td align="left">大量node延迟严重</td>
+<td align="left"><em>O(nodes)</em></td>
+</tr>
+<tr>
+<td align="left">并行IO</td>
+<td align="left">利用并行特性，延迟取决于最慢的节点</td>
+<td align="left">编程复杂由于多线程，问题定位可能较难</td>
+<td align="left"><em>O(max_slow(nodes))</em></td>
+</tr>
+<tr>
+<td align="left">hash_tag</td>
+<td align="left">性能最高</td>
+<td align="left">业务维护成本较高容易出现数据倾斜</td>
+<td align="left"><em>O(1)</em></td>
+</tr>
+</tbody></table>
+<h2 id="分布式缓存的一致性"><a href="#分布式缓存的一致性" class="headerlink" title="分布式缓存的一致性"></a>分布式缓存的一致性</h2><p>在读取的情况下，先读取缓存，如果缓存有数据，直接返回，没有的话，从数据库读取数据，然后设置到缓存中，返回数据。这种情况下，数据是可以保持一致性的。但是在更新或者删除的时候呢？怎样确保新数据更新至数据库之后，不会读取到缓存里的旧数据呢？</p>
+<p>下面我们看下常见的几种策略。</p>
+<h3 id="先更新缓存，再更新数据库"><a href="#先更新缓存，再更新数据库" class="headerlink" title="先更新缓存，再更新数据库"></a>先更新缓存，再更新数据库</h3><p>这种场景会有问题，如果更新缓存成功了，更新数据库失败了。并且缓存没有做持久化，在更新完之后就挂了，那么数据就永远地丢失了。</p>
+<h3 id="先删除缓存，再更新数据库"><a href="#先删除缓存，再更新数据库" class="headerlink" title="先删除缓存，再更新数据库"></a>先删除缓存，再更新数据库</h3><p>这里就是把上面的更新操作换成删除操作。删除操作在并发情况下会有问题。假设两个线程A和B，线程A刚删除完缓存的时候，线程B正巧来查询，这时候B发现缓存里面没有数据，于是去数据库里查询，然后更新到缓存中，之后A又把最新的数据更新到数据库里。这个时候，缓存中的数据时更新前的老数据，数据库里面是最新的数据。数据就脏了，并且会一直保持下去。</p>
+<h3 id="先更新数据库，再更新缓存"><a href="#先更新数据库，再更新缓存" class="headerlink" title="先更新数据库，再更新缓存"></a>先更新数据库，再更新缓存</h3><p>这个场景下会有ABBA问题，线程A和B先后更新一个值，A改为1，B改为2.系统要求值最后值为2</p>
+<p>因为线程调度的不确定性和网络等原因，存在下面这种时序：</p>
+<ol>
+<li>A更新了数据库，值设置为1</li>
+<li>B更新了数据库，值设置为2</li>
+<li>B更新了缓存，值设置为2</li>
+<li>A更新了缓存，值设置为1</li>
+</ol>
+<p>此时就产生了脏数据</p>
+<h3 id="先更新数据库，再删除缓存"><a href="#先更新数据库，再删除缓存" class="headerlink" title="先更新数据库，再删除缓存"></a>先更新数据库，再删除缓存</h3><p>这种情况也会存在并发问题。线程A和B，线程A做更新操作，线程B做查询操作。</p>
+<ol>
+<li>缓存刚好失效</li>
+<li>线程B查询数据库，获取一个旧值</li>
+<li>线程A将新值写入数据库</li>
+<li>线程A删除缓存</li>
+<li>线程B将查询的旧值写入缓存</li>
+</ol>
+<p>这种情况下就会产生脏数据。但是概率极低。因为，要在步骤3耗费的时间小于步骤2的情况下，步骤4才有可能比步骤5先发生。但数据库肯定是读操作远远快于写操作的，所以这一情形很难出现。</p>
+<p>如果非要解决这个问题的话，采用下文说的延时双删策略。</p>
+<h3 id="先删除缓存，再更新数据库-1"><a href="#先删除缓存，再更新数据库-1" class="headerlink" title="先删除缓存，再更新数据库"></a>先删除缓存，再更新数据库</h3><p>还是线程A和B，线程A负责写入新值，线程B负责查询。这两个线程同时执行的话，存在下面这种场景：</p>
+<ol>
+<li>线程A先删除缓存</li>
+<li>线程B查询缓存，发现缓存不存在</li>
+<li>线程B查询数据库得到旧值</li>
+<li>线程B将旧值写入缓存</li>
+<li>线程A将新值写入缓存</li>
+</ol>
+<p>这个时候又出现了脏数据的问题，并且脏数据也有可能长时间存在。</p>
+<h4 id="延时双删"><a href="#延时双删" class="headerlink" title="延时双删"></a>延时双删</h4><p>这个时候可以采用延时双删策略，以达到最终一致性的目的。</p>
+<p>意思就是，先删除缓存，在更新数据库，隔特定时间，再删除缓存一次。就是在上文的场景中把步骤5改为，等待1S（举例，实际时间需更具业务确定，但不能太短，防止线程B还没写入就已经开始删数据），再次删除缓存。</p>
+<p>这种策略下，如果数据库做了读写分离，还会存在问题。睡眠时间就得加上主从同步的延时时间。</p>
+<p>等待的这个时间也可以改为异步线程执行，以免减低系统的吞吐量。</p>
+<p>第二次删除也存在删除缓存失败的可能，这个时候可以借助消息队列做重试，直到成功为止。</p>
+<p>其实延时双删也只是个最终一致性策略，更新完数据库第二次删除的那段时间，数据还是不一致的。</p>
+<h3 id="延时双删的补偿策略"><a href="#延时双删的补偿策略" class="headerlink" title="延时双删的补偿策略"></a>延时双删的补偿策略</h3><p>本章节所讲的策略，可以说是延时双删的补偿策略，确保数据最后一致行的机制。</p>
+<h5 id="策略1："><a href="#策略1：" class="headerlink" title="策略1："></a>策略1：</h5><p>采用消息队列</p>
+<p><img src="https://huhansi.github.io/images/2020-04-15-cache1.png" alt="采用消息队列补偿"></p>
+<ol>
+<li>更新数据库数据； </li>
+<li>缓存因为种种问题删除失败 </li>
+<li>将需要删除的key发送至消息队列</li>
+<li>自己消费消息，获得需要删除的key </li>
+<li>继续重试删除操作，直到成功</li>
+</ol>
+<h5 id="策略2："><a href="#策略2：" class="headerlink" title="策略2："></a>策略2：</h5><p>策略1的缺陷在于对业务代码的大量侵入，为此，有人提出了订阅数据库的binlog的方案</p>
+<p>启动一个订阅程序去订阅数据库的binlog，获得需要操作的数据。在应用程序中，另起一段程序，获得这个订阅程序传来的信息，进行删除缓存操作。</p>
+<p><img src="https://huhansi.github.io/images/2020-04-15-cache2.jpeg" alt="订阅数据库binlog补偿"></p>
+<ol>
+<li>更新数据库数据 </li>
+<li>数据库会将操作信息写入binlog日志当中</li>
+<li>订阅程序提取出所需要的数据以及key </li>
+<li>另起一段非业务代码，获得该信息 </li>
+<li>尝试删除缓存操作，发现删除失败 </li>
+<li>将这些信息发送至消息队列 </li>
+<li>重新从消息队列中获得该数据，重试操作。</li>
+</ol>
+<h3 id="read-write-through-缓存代理"><a href="#read-write-through-缓存代理" class="headerlink" title="read/write through 缓存代理"></a>read/write through 缓存代理</h3><p>Read/Write Through套路是把更新数据库（Repository）的操作由缓存自己代理了，所以，对于应用层来说，就简单很多了。<strong>可以理解为，应用认为后端就是一个单一的存储，而存储自己维护自己的Cache。</strong>数据库由缓存代理，缓存未命中时由缓存加载数据库数据然后应用从缓存读，写数据时更新完缓存后同步写数据库。应用只感知缓存而不感知数据库。</p>
+<p><img src="https://huhansi.github.io/images/2020-04-15-cache3.jpg" alt="缓存代理"></p>
+<h3 id="写回"><a href="#写回" class="headerlink" title="写回"></a>写回</h3><p>这种模式是指在更新数据的时候，只更新缓存，不更新数据库，而我们的缓存会异步地批量更新数据库。</p>
+<p><img src="https://huhansi.github.io/images/2020-04-15-cache4.jpg" alt="写回"></p>
+<h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><p><a href="https://zhuanlan.zhihu.com/p/62314107" target="_blank" rel="noopener">分布式系统关注点——「缓存穿透」和「缓存雪崩」到底啥区别？</a></p>
+<p><a href="https://blog.csdn.net/en_joker/article/details/90205936" target="_blank" rel="noopener">缓存：无底洞优化。</a></p>
+<p><a href="https://cloud.tencent.com/developer/article/1154683" target="_blank" rel="noopener">分布式之数据库和缓存双写一致性方案解析</a></p>
+<p><a href="https://database.51cto.com/art/201808/580720.htm" target="_blank" rel="noopener">阿里P8架构师谈：分布式缓存的应用场景、选型比较、问题和挑战</a></p>
+<p><a href="https://zhuanlan.zhihu.com/p/86396877" target="_blank" rel="noopener">常见的缓存更新策略剖析</a></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/%E5%88%86%E5%B8%83%E5%BC%8F%E7%BC%93%E5%AD%98/" rel="tag"># 分布式缓存</a>
+          
+            <a href="/tags/%E7%BC%93%E5%AD%98%E7%A9%BF%E9%80%8F/" rel="tag"># 缓存穿透</a>
+          
+            <a href="/tags/%E7%BC%93%E5%AD%98%E9%9B%AA%E5%B4%A9/" rel="tag"># 缓存雪崩</a>
+          
+            <a href="/tags/%E5%B8%83%E9%9A%86%E8%BF%87%E6%BB%A4%E5%99%A8/" rel="tag"># 布隆过滤器</a>
+          
+            <a href="/tags/%E7%BC%93%E5%AD%98%E9%A2%84%E7%83%AD/" rel="tag"># 缓存预热</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2020/04/13/Redis/Redis%E7%9A%84%E5%87%A0%E7%A7%8D%E9%83%A8%E7%BD%B2%E6%9E%B6%E6%9E%84/" rel="next" title="Redis的几种部署架构">
+                <i class="fa fa-chevron-left"></i> Redis的几种部署架构
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2020/04/14/SpringCloud/2020-04-14-004-%E5%90%84%E7%A7%8D%E6%9C%8D%E5%8A%A1%E5%8F%91%E7%8E%B0%E6%A1%86%E6%9E%B6%E5%AF%B9%E6%AF%94/" rel="prev" title="各种服务发现框架对比">
+                各种服务发现框架对比 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Han si</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/%7C%7C%20archive">
+              
+                  <span class="site-state-item-count">392</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">14</span>
+                  <span class="site-state-item-name">categories</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">220</span>
+                  <span class="site-state-item-name">tags</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:kw120943839@gmail.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#分布式缓存常见的几种问题"><span class="nav-number">1.</span> <span class="nav-text">分布式缓存常见的几种问题</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#缓存选型"><span class="nav-number">1.1.</span> <span class="nav-text">缓存选型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#缓存穿透"><span class="nav-number">1.2.</span> <span class="nav-text">缓存穿透</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#布隆过滤器"><span class="nav-number">1.2.1.</span> <span class="nav-text">布隆过滤器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#缓存空对象"><span class="nav-number">1.2.2.</span> <span class="nav-text">缓存空对象</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#缓存雪崩"><span class="nav-number">1.3.</span> <span class="nav-text">缓存雪崩</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#加锁排队"><span class="nav-number">1.3.1.</span> <span class="nav-text">加锁排队</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#缓存时间增加随机值"><span class="nav-number">1.3.2.</span> <span class="nav-text">缓存时间增加随机值</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#缓存预热"><span class="nav-number">1.4.</span> <span class="nav-text">缓存预热</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#缓存无底洞"><span class="nav-number">1.5.</span> <span class="nav-text">缓存无底洞</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#串行命令"><span class="nav-number">1.5.1.</span> <span class="nav-text">串行命令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#串行IO"><span class="nav-number">1.5.2.</span> <span class="nav-text">串行IO</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#并行IO"><span class="nav-number">1.5.3.</span> <span class="nav-text">并行IO</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#hash-tag实现"><span class="nav-number">1.5.4.</span> <span class="nav-text">hash_tag实现</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#总结"><span class="nav-number">1.5.5.</span> <span class="nav-text">总结</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#分布式缓存的一致性"><span class="nav-number">1.6.</span> <span class="nav-text">分布式缓存的一致性</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#先更新缓存，再更新数据库"><span class="nav-number">1.6.1.</span> <span class="nav-text">先更新缓存，再更新数据库</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#先删除缓存，再更新数据库"><span class="nav-number">1.6.2.</span> <span class="nav-text">先删除缓存，再更新数据库</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#先更新数据库，再更新缓存"><span class="nav-number">1.6.3.</span> <span class="nav-text">先更新数据库，再更新缓存</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#先更新数据库，再删除缓存"><span class="nav-number">1.6.4.</span> <span class="nav-text">先更新数据库，再删除缓存</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#先删除缓存，再更新数据库-1"><span class="nav-number">1.6.5.</span> <span class="nav-text">先删除缓存，再更新数据库</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#延时双删"><span class="nav-number">1.6.5.1.</span> <span class="nav-text">延时双删</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#延时双删的补偿策略"><span class="nav-number">1.6.6.</span> <span class="nav-text">延时双删的补偿策略</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#策略1："><span class="nav-number">1.6.6.0.1.</span> <span class="nav-text">策略1：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#策略2："><span class="nav-number">1.6.6.0.2.</span> <span class="nav-text">策略2：</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#read-write-through-缓存代理"><span class="nav-number">1.6.7.</span> <span class="nav-text">read&#x2F;write through 缓存代理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#写回"><span class="nav-number">1.6.8.</span> <span class="nav-text">写回</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考资料"><span class="nav-number">1.7.</span> <span class="nav-text">参考资料</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Han si</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('-1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
