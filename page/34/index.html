@@ -293,7 +293,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://huhansi.com/2018/08/29/LeetCode/leetcode-000268.%20%E7%BC%BA%E5%A4%B1%E6%95%B0%E5%AD%97/">
+    <link itemprop="mainEntityOfPage" href="http://huhansi.com/2018/08/30/LeetCode/leetcode-000367.%20%E6%9C%89%E6%95%88%E7%9A%84%E5%AE%8C%E5%85%A8%E5%B9%B3%E6%96%B9%E6%95%B0/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Han si">
@@ -312,7 +312,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/08/29/LeetCode/leetcode-000268.%20%E7%BC%BA%E5%A4%B1%E6%95%B0%E5%AD%97/" itemprop="url">268. 缺失数字</a></h1>
+                <a class="post-title-link" href="/2018/08/30/LeetCode/leetcode-000367.%20%E6%9C%89%E6%95%88%E7%9A%84%E5%AE%8C%E5%85%A8%E5%B9%B3%E6%96%B9%E6%95%B0/" itemprop="url">367. 有效的完全平方数</a></h1>
         
 
         <div class="post-meta">
@@ -324,8 +324,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-08-29T00:00:00+08:00">
-                2018-08-29
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-08-30T00:00:00+08:00">
+                2018-08-30
               </time>
             
 
@@ -386,14 +386,16 @@
       
         
           
-          题目给定一个包含 0, 1, 2, ..., n 中 n 个数的序列，找出 0 .. n 中没有出现在序列中的那个数。
-示例1：12输入: [3,0,1]输出: 2
-示例2：12输入: [9,6,4,2,3,5,7,0,1]输出: 8
-说明：你的算法应具有线性时间复杂度。你能否仅使用额外常数空间来实
+          题目给定一个正整数 num，编写一个函数，如果 num 是一个完全平方数，则返回 True，否则返回 False。
+说明：不要使用任何内置的库函数，如  sqrt。
+示例1：123输入： 16输出： True
+示例2：123输入： 14输出： False
+解法解法一：牛顿迭代法
+Java123456
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/08/29/LeetCode/leetcode-000268.%20%E7%BC%BA%E5%A4%B1%E6%95%B0%E5%AD%97/#more" rel="contents">
+            <a class="btn" href="/2018/08/30/LeetCode/leetcode-000367.%20%E6%9C%89%E6%95%88%E7%9A%84%E5%AE%8C%E5%85%A8%E5%B9%B3%E6%96%B9%E6%95%B0/#more" rel="contents">
               Read more &raquo;
             </a>
           </div>
@@ -444,7 +446,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://huhansi.com/2018/08/29/LeetCode/leetcode-000292.%20Nim%E6%B8%B8%E6%88%8F/">
+    <link itemprop="mainEntityOfPage" href="http://huhansi.com/2018/08/30/LeetCode/leetcode-000717.%201%E6%AF%94%E7%89%B9%E4%B8%8E2%E6%AF%94%E7%89%B9%E5%AD%97%E7%AC%A6/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Han si">
@@ -463,7 +465,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/08/29/LeetCode/leetcode-000292.%20Nim%E6%B8%B8%E6%88%8F/" itemprop="url">292. Nim游戏</a></h1>
+                <a class="post-title-link" href="/2018/08/30/LeetCode/leetcode-000717.%201%E6%AF%94%E7%89%B9%E4%B8%8E2%E6%AF%94%E7%89%B9%E5%AD%97%E7%AC%A6/" itemprop="url">717. 1比特与2比特字符</a></h1>
         
 
         <div class="post-meta">
@@ -475,8 +477,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-08-29T00:00:00+08:00">
-                2018-08-29
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-08-30T00:00:00+08:00">
+                2018-08-30
               </time>
             
 
@@ -537,13 +539,13 @@
       
         
           
-          题目你和你的朋友，两个人一起玩 Nim游戏：桌子上有一堆石头，每次你们轮流拿掉 1 - 3 块石头。 拿掉最后一块石头的人就是获胜者。你作为先手。
-你们是聪明人，每一步都是最优解。 编写一个函数，来判断你是否可以在给定石头数量的情况下赢得游戏。
-示例：1234输入: 4输出: false 解释: 如
+          题目有两种特殊字符。第一种字符可以用一比特0来表示。第二种字符可以用两比特(10 或 11)来表示。
+现给一个由若干比特组成的字符串。问最后一个字符是否必定为一个一比特字符。给定的字符串总是由0结束。
+示例1：12345输入: bits &#x3D; [1, 0, 0]输出: True解释: 唯一的
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/08/29/LeetCode/leetcode-000292.%20Nim%E6%B8%B8%E6%88%8F/#more" rel="contents">
+            <a class="btn" href="/2018/08/30/LeetCode/leetcode-000717.%201%E6%AF%94%E7%89%B9%E4%B8%8E2%E6%AF%94%E7%89%B9%E5%AD%97%E7%AC%A6/#more" rel="contents">
               Read more &raquo;
             </a>
           </div>
@@ -594,7 +596,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://huhansi.com/2018/08/29/LeetCode/leetcode-000349.%20%E4%B8%A4%E4%B8%AA%E6%95%B0%E7%BB%84%E7%9A%84%E4%BA%A4%E9%9B%86/">
+    <link itemprop="mainEntityOfPage" href="http://huhansi.com/2018/08/30/LeetCode/leetcode-%E9%9D%A2%E8%AF%95%E9%A2%98-15-%E4%BA%8C%E7%BA%A7%E5%88%B6%E4%B8%AD1%E7%9A%84%E4%B8%AA%E6%95%B0/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Han si">
@@ -613,7 +615,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/08/29/LeetCode/leetcode-000349.%20%E4%B8%A4%E4%B8%AA%E6%95%B0%E7%BB%84%E7%9A%84%E4%BA%A4%E9%9B%86/" itemprop="url">349. 两个数组的交集</a></h1>
+                <a class="post-title-link" href="/2018/08/30/LeetCode/leetcode-%E9%9D%A2%E8%AF%95%E9%A2%98-15-%E4%BA%8C%E7%BA%A7%E5%88%B6%E4%B8%AD1%E7%9A%84%E4%B8%AA%E6%95%B0/" itemprop="url">191. 位1的个数</a></h1>
         
 
         <div class="post-meta">
@@ -625,8 +627,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-08-29T00:00:00+08:00">
-                2018-08-29
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-08-30T00:00:00+08:00">
+                2018-08-30
               </time>
             
 
@@ -687,13 +689,13 @@
       
         
           
-          题目给定两个数组，编写一个函数来计算它们的交集。
-示例1：12输入: nums1 &#x3D; [1,2,2,1], nums2 &#x3D; [2,2]输出: [2]
-示例2：12输入: nums1 &#x3D; [4,9,5], nums2 &#x3D; [9,4,9,8,4]输出: [9,4]
+          题目编写一个函数，输入是一个无符号整数，返回其二进制表达式中数字位数为 ‘1’ 的个数（也被称为汉明重量）
+示例1：123输入: 11输出: 3解释: 整数 11 的二进制表示为 00000000000000000000000000001011
+示例2：123输入: 128输出: 1解释: 整数 1
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/08/29/LeetCode/leetcode-000349.%20%E4%B8%A4%E4%B8%AA%E6%95%B0%E7%BB%84%E7%9A%84%E4%BA%A4%E9%9B%86/#more" rel="contents">
+            <a class="btn" href="/2018/08/30/LeetCode/leetcode-%E9%9D%A2%E8%AF%95%E9%A2%98-15-%E4%BA%8C%E7%BA%A7%E5%88%B6%E4%B8%AD1%E7%9A%84%E4%B8%AA%E6%95%B0/#more" rel="contents">
               Read more &raquo;
             </a>
           </div>
@@ -744,7 +746,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://huhansi.com/2018/08/29/LeetCode/leetcode-000371.%20%E4%B8%A4%E6%95%B4%E6%95%B0%E4%B9%8B%E5%92%8C/">
+    <link itemprop="mainEntityOfPage" href="http://huhansi.com/2018/08/30/Java/%E5%A4%9A%E7%BA%BF%E7%A8%8B%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/0.Java%E7%BA%BF%E7%A8%8B/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Han si">
@@ -763,7 +765,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/08/29/LeetCode/leetcode-000371.%20%E4%B8%A4%E6%95%B4%E6%95%B0%E4%B9%8B%E5%92%8C/" itemprop="url">371. 两整数之和</a></h1>
+                <a class="post-title-link" href="/2018/08/30/Java/%E5%A4%9A%E7%BA%BF%E7%A8%8B%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/0.Java%E7%BA%BF%E7%A8%8B/" itemprop="url">Java线程</a></h1>
         
 
         <div class="post-meta">
@@ -775,8 +777,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-08-29T00:00:00+08:00">
-                2018-08-29
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-08-30T00:00:00+08:00">
+                2018-08-30
               </time>
             
 
@@ -798,8 +800,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/leetcode/" itemprop="url" rel="index">
-                    <span itemprop="name">leetcode</span>
+                  <a href="/categories/java%E5%A4%9A%E7%BA%BF%E7%A8%8B%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" itemprop="url" rel="index">
+                    <span itemprop="name">java多线程设计模式</span>
                   </a>
                 </span>
 
@@ -837,14 +839,11 @@
       
         
           
-          题目不使用运算符 + 和-，计算两整数a 、b之和。
-示例：若 a = 1 ，b = 2，返回 3。
-解法解法一：使用位运算
-Java12345678910111213141516class Solution &#123;    public int getSum(int a, int b) &#1
+          Java线程什么是线程线程，有时候被称为轻量进程，是程序执行流的最小单元。一个标准的线程由线程ID，当前指令指针，寄存器集合和堆栈组合。另外，线程是进程中的一个实体，是被系统独立调度和分派的基本单位，线程自己不拥有系统资源，只拥有一点儿运行中必不可少的资源，但它可与同属一个进程的其他线程共享进程所拥
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/08/29/LeetCode/leetcode-000371.%20%E4%B8%A4%E6%95%B4%E6%95%B0%E4%B9%8B%E5%92%8C/#more" rel="contents">
+            <a class="btn" href="/2018/08/30/Java/%E5%A4%9A%E7%BA%BF%E7%A8%8B%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/0.Java%E7%BA%BF%E7%A8%8B/#more" rel="contents">
               Read more &raquo;
             </a>
           </div>
@@ -895,7 +894,7 @@ Java12345678910111213141516class Solution &#123;    public int getSum(int a, int
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://huhansi.com/2018/08/29/LeetCode/leetcode-000389.%20%E6%89%BE%E4%B8%8D%E5%90%8C/">
+    <link itemprop="mainEntityOfPage" href="http://huhansi.com/2018/08/29/LeetCode/leetcode-000104.%20%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E6%9C%80%E5%A4%A7%E6%B7%B1%E5%BA%A6/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Han si">
@@ -914,7 +913,7 @@ Java12345678910111213141516class Solution &#123;    public int getSum(int a, int
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/08/29/LeetCode/leetcode-000389.%20%E6%89%BE%E4%B8%8D%E5%90%8C/" itemprop="url">389. 找不同</a></h1>
+                <a class="post-title-link" href="/2018/08/29/LeetCode/leetcode-000104.%20%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E6%9C%80%E5%A4%A7%E6%B7%B1%E5%BA%A6/" itemprop="url">104. 二叉树的最大深度</a></h1>
         
 
         <div class="post-meta">
@@ -988,14 +987,16 @@ Java12345678910111213141516class Solution &#123;    public int getSum(int a, int
       
         
           
-          题目给定两个字符串 s 和 t，它们只包含小写字母。
-字符串 t 由字符串 s 随机重排，然后在随机位置添加一个字母。
-请找出在 t 中被添加的字母。
-示例：123456789输入：s &#x3D; &quot;abcd&quot;t &#x3D; &quot;abcde&quot;输出：e解释：&
+          题目给定一个二叉树，找出其最大深度。
+二叉树的深度为根节点到最远叶子节点的最长路径上的节点数。
+说明: 叶子节点是指没有子节点的节点。
+示例1：给定二叉树 [3,9,20,null,null,15,7]，
+12345  3 &#x2F; \9  20  &#x2F;  \ 15   7
+返回它的最大
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/08/29/LeetCode/leetcode-000389.%20%E6%89%BE%E4%B8%8D%E5%90%8C/#more" rel="contents">
+            <a class="btn" href="/2018/08/29/LeetCode/leetcode-000104.%20%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E6%9C%80%E5%A4%A7%E6%B7%B1%E5%BA%A6/#more" rel="contents">
               Read more &raquo;
             </a>
           </div>
@@ -1046,7 +1047,7 @@ Java12345678910111213141516class Solution &#123;    public int getSum(int a, int
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://huhansi.com/2018/08/29/LeetCode/leetcode-000476.%20%E6%95%B0%E5%AD%97%E7%9A%84%E8%A1%A5%E6%95%B0/">
+    <link itemprop="mainEntityOfPage" href="http://huhansi.com/2018/08/29/LeetCode/leetcode-000141.%E7%8E%AF%E5%BD%A2%E9%93%BE%E8%A1%A8/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Han si">
@@ -1065,7 +1066,7 @@ Java12345678910111213141516class Solution &#123;    public int getSum(int a, int
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/08/29/LeetCode/leetcode-000476.%20%E6%95%B0%E5%AD%97%E7%9A%84%E8%A1%A5%E6%95%B0/" itemprop="url">476. 数字的补数</a></h1>
+                <a class="post-title-link" href="/2018/08/29/LeetCode/leetcode-000141.%E7%8E%AF%E5%BD%A2%E9%93%BE%E8%A1%A8/" itemprop="url">141.环形链表</a></h1>
         
 
         <div class="post-meta">
@@ -1139,16 +1140,13 @@ Java12345678910111213141516class Solution &#123;    public int getSum(int a, int
       
         
           
-          题目注意：
-给定的整数保证在32位带符号整数的范围内。
-你可以假定二进制数不包含前导零位。示例1：
-
-123输入: 5输出: 2解释: 5的二进制表示为101（没有前导零位），其补数为010。所以你需要输出2。
-示例2：123输入: 1输出: 0解释: 1的二进制表示为1（没有前导零位），其补数为0
+          题目给定一个链表，判断链表中是否有环。
+为了表示给定链表中的环，我们使用整数 pos 来表示链表尾连接到链表中的位置（索引从 0 开始）。 如果 pos 是 -1，则在该链表中没有环。
+示例1123输入：head = [3,2,0,-4], pos = 1输出：true解释：链表中有一个环，其尾部连
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/08/29/LeetCode/leetcode-000476.%20%E6%95%B0%E5%AD%97%E7%9A%84%E8%A1%A5%E6%95%B0/#more" rel="contents">
+            <a class="btn" href="/2018/08/29/LeetCode/leetcode-000141.%E7%8E%AF%E5%BD%A2%E9%93%BE%E8%A1%A8/#more" rel="contents">
               Read more &raquo;
             </a>
           </div>
@@ -1199,7 +1197,7 @@ Java12345678910111213141516class Solution &#123;    public int getSum(int a, int
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://huhansi.com/2018/08/29/LeetCode/leetcode-000461.%20%E6%B1%89%E6%98%8E%E8%B7%9D%E7%A6%BB/">
+    <link itemprop="mainEntityOfPage" href="http://huhansi.com/2018/08/29/LeetCode/leetcode-000111.%20%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E6%9C%80%E5%B0%8F%E6%B7%B1%E5%BA%A6/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Han si">
@@ -1218,7 +1216,7 @@ Java12345678910111213141516class Solution &#123;    public int getSum(int a, int
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/08/29/LeetCode/leetcode-000461.%20%E6%B1%89%E6%98%8E%E8%B7%9D%E7%A6%BB/" itemprop="url">461. 汉明距离</a></h1>
+                <a class="post-title-link" href="/2018/08/29/LeetCode/leetcode-000111.%20%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E6%9C%80%E5%B0%8F%E6%B7%B1%E5%BA%A6/" itemprop="url">111. 二叉树的最小深度</a></h1>
         
 
         <div class="post-meta">
@@ -1292,14 +1290,16 @@ Java12345678910111213141516class Solution &#123;    public int getSum(int a, int
       
         
           
-          题目两个整数之间的汉明距离指的是这两个数字对应二进制位不同的位置的数目。
-给出两个整数 x 和 y，计算它们之间的汉明距离。
-注意：0 ≤ x, y &lt; 2^31.
-示例1：12345678910输入: x &#x3D; 1, y &#x3D; 4输出: 2解释:1   (0 0 0 1)4 
+          题目给定一个二叉树，找出其最小深度。
+最小深度是从根节点到最近叶子节点的最短路径上的节点数量。
+说明: 叶子节点是指没有子节点的节点。
+示例1：给定二叉树 [3,9,20,null,null,15,7],
+12345  3 &#x2F; \9  20  &#x2F;  \ 15   7
+返回它的最小
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/08/29/LeetCode/leetcode-000461.%20%E6%B1%89%E6%98%8E%E8%B7%9D%E7%A6%BB/#more" rel="contents">
+            <a class="btn" href="/2018/08/29/LeetCode/leetcode-000111.%20%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E6%9C%80%E5%B0%8F%E6%B7%B1%E5%BA%A6/#more" rel="contents">
               Read more &raquo;
             </a>
           </div>
@@ -1350,7 +1350,7 @@ Java12345678910111213141516class Solution &#123;    public int getSum(int a, int
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://huhansi.com/2018/08/29/LeetCode/leetcode-000500.%20%E9%94%AE%E7%9B%98%E8%A1%8C/">
+    <link itemprop="mainEntityOfPage" href="http://huhansi.com/2018/08/29/LeetCode/leetcode-000169.%20%E6%B1%82%E4%BC%97%E6%95%B0/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Han si">
@@ -1369,7 +1369,7 @@ Java12345678910111213141516class Solution &#123;    public int getSum(int a, int
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/08/29/LeetCode/leetcode-000500.%20%E9%94%AE%E7%9B%98%E8%A1%8C/" itemprop="url">500. 键盘行</a></h1>
+                <a class="post-title-link" href="/2018/08/29/LeetCode/leetcode-000169.%20%E6%B1%82%E4%BC%97%E6%95%B0/" itemprop="url">169. 求众数</a></h1>
         
 
         <div class="post-meta">
@@ -1443,14 +1443,16 @@ Java12345678910111213141516class Solution &#123;    public int getSum(int a, int
       
         
           
-          题目给定一个单词列表，只返回可以使用在键盘同一行的字母打印出来的单词。键盘如下图所示。
+          题目给定一个大小为 n 的数组，找到其中的众数。众数是指在数组中出现次数大于 ⌊ n/2 ⌋ 的元素。
+你可以假设数组是非空的，并且给定的数组总是存在众数。
+示例1：12输入: [3,2,3]输出: 3
+示例2：12输入: [2,2,1,1,1,2,2]输出: 2
 
-示例1：
-12输入: [&quot;Hello&quot;, &quot;Alaska&quot;, &quot;Dad&quot;, &quot;Peace&quot;]输出: [&quot;Alaska&q
+解法解法一：既然众数是出现次数大
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/08/29/LeetCode/leetcode-000500.%20%E9%94%AE%E7%9B%98%E8%A1%8C/#more" rel="contents">
+            <a class="btn" href="/2018/08/29/LeetCode/leetcode-000169.%20%E6%B1%82%E4%BC%97%E6%95%B0/#more" rel="contents">
               Read more &raquo;
             </a>
           </div>
@@ -1501,7 +1503,7 @@ Java12345678910111213141516class Solution &#123;    public int getSum(int a, int
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://huhansi.com/2018/08/29/LeetCode/leetcode-000520.%20%E6%A3%80%E6%B5%8B%E5%A4%A7%E5%86%99%E5%AD%97%E6%AF%8D/">
+    <link itemprop="mainEntityOfPage" href="http://huhansi.com/2018/08/29/LeetCode/leetcode-000171.%20Excel%E8%A1%A8%E5%88%97%E5%BA%8F%E5%8F%B7/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Han si">
@@ -1520,7 +1522,7 @@ Java12345678910111213141516class Solution &#123;    public int getSum(int a, int
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/08/29/LeetCode/leetcode-000520.%20%E6%A3%80%E6%B5%8B%E5%A4%A7%E5%86%99%E5%AD%97%E6%AF%8D/" itemprop="url">520. 检测大写字母</a></h1>
+                <a class="post-title-link" href="/2018/08/29/LeetCode/leetcode-000171.%20Excel%E8%A1%A8%E5%88%97%E5%BA%8F%E5%8F%B7/" itemprop="url">171. Excel表列序号</a></h1>
         
 
         <div class="post-meta">
@@ -1594,16 +1596,14 @@ Java12345678910111213141516class Solution &#123;    public int getSum(int a, int
       
         
           
-          题目给定一个单词，你需要判断单词的大写使用是否正确。
-我们定义，在以下情况时，单词的大写用法是正确的：
-
-全部字母都是大写，比如”USA”。
-单词中所有字母都不是大写，比如”leetcode”。
-如果单词不只含有一个字母，只有首字母大写， 比如 “Google”。否则，我们定义这个单词没有正确使用大
+          题目给定一个Excel表格中的列名称，返回其相应的列序号。例如，
+12345678A -&gt; 1B -&gt; 2C -&gt; 3...Z -&gt; 26AA -&gt; 27AB -&gt; 28 ...
+示例1：12输入: &quot;A&quot;输出: 1
+示例2：12输入: &qu
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/08/29/LeetCode/leetcode-000520.%20%E6%A3%80%E6%B5%8B%E5%A4%A7%E5%86%99%E5%AD%97%E6%AF%8D/#more" rel="contents">
+            <a class="btn" href="/2018/08/29/LeetCode/leetcode-000171.%20Excel%E8%A1%A8%E5%88%97%E5%BA%8F%E5%8F%B7/#more" rel="contents">
               Read more &raquo;
             </a>
           </div>
@@ -1654,7 +1654,7 @@ Java12345678910111213141516class Solution &#123;    public int getSum(int a, int
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://huhansi.com/2018/08/29/LeetCode/leetcode-000575.%20%E5%88%86%E7%B3%96%E6%9E%9C/">
+    <link itemprop="mainEntityOfPage" href="http://huhansi.com/2018/08/29/LeetCode/leetcode-000167-%E4%B8%A4%E6%95%B0%E4%B9%8B%E5%92%8C%20II%20%E8%BE%93%E5%85%A5%E6%9C%89%E5%BA%8F%E6%95%B0%E7%BB%84/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Han si">
@@ -1673,7 +1673,7 @@ Java12345678910111213141516class Solution &#123;    public int getSum(int a, int
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/08/29/LeetCode/leetcode-000575.%20%E5%88%86%E7%B3%96%E6%9E%9C/" itemprop="url">575. 分糖果</a></h1>
+                <a class="post-title-link" href="/2018/08/29/LeetCode/leetcode-000167-%E4%B8%A4%E6%95%B0%E4%B9%8B%E5%92%8C%20II%20%E8%BE%93%E5%85%A5%E6%9C%89%E5%BA%8F%E6%95%B0%E7%BB%84/" itemprop="url">167. 两数之和 II 输入有序数组</a></h1>
         
 
         <div class="post-meta">
@@ -1747,12 +1747,13 @@ Java12345678910111213141516class Solution &#123;    public int getSum(int a, int
       
         
           
-          题目给定一个偶数长度的数组，其中不同的数字代表着不同种类的糖果，每一个数字代表一个糖果。你需要把这些糖果平均分给一个弟弟和一个妹妹。返回妹妹可以获得的最大糖果的种类数。
-示例1：1234输入: candies &#x3D; [1,1,2,2,3,3]输出: 3解析: 一共有三种种类的糖果，每一种都有
+          题目给定一个已按照升序排列 的有序数组，找到两个数使得它们相加之和等于目标数。
+函数应该返回这两个下标值 index1 和 index2，其中 index1 必须小于 index2。
+示例1：123输入: numbers &#x3D; [2, 7, 11, 15], target &#x3D; 9输
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/08/29/LeetCode/leetcode-000575.%20%E5%88%86%E7%B3%96%E6%9E%9C/#more" rel="contents">
+            <a class="btn" href="/2018/08/29/LeetCode/leetcode-000167-%E4%B8%A4%E6%95%B0%E4%B9%8B%E5%92%8C%20II%20%E8%BE%93%E5%85%A5%E6%9C%89%E5%BA%8F%E6%95%B0%E7%BB%84/#more" rel="contents">
               Read more &raquo;
             </a>
           </div>
@@ -1794,7 +1795,7 @@ Java12345678910111213141516class Solution &#123;    public int getSum(int a, int
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/33/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/33/">33</a><span class="page-number current">34</span><a class="page-number" href="/page/35/">35</a><span class="space">&hellip;</span><a class="page-number" href="/page/38/">38</a><a class="extend next" rel="next" href="/page/35/"><i class="fa fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" href="/page/33/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/33/">33</a><span class="page-number current">34</span><a class="page-number" href="/page/35/">35</a><span class="space">&hellip;</span><a class="page-number" href="/page/40/">40</a><a class="extend next" rel="next" href="/page/35/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -1840,7 +1841,7 @@ Java12345678910111213141516class Solution &#123;    public int getSum(int a, int
               
                 <a href="/archives/%7C%7C%20archive">
               
-                  <span class="site-state-item-count">375</span>
+                  <span class="site-state-item-count">392</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -1851,7 +1852,7 @@ Java12345678910111213141516class Solution &#123;    public int getSum(int a, int
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">11</span>
+                  <span class="site-state-item-count">14</span>
                   <span class="site-state-item-name">categories</span>
                 </a>
               </div>
@@ -1862,7 +1863,7 @@ Java12345678910111213141516class Solution &#123;    public int getSum(int a, int
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">155</span>
+                  <span class="site-state-item-count">220</span>
                   <span class="site-state-item-name">tags</span>
                 </a>
               </div>
