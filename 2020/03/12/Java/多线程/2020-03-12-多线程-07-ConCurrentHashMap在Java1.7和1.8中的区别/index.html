@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="多线程,锁,Java,并发,ConcurrentHashMap," />
+  <meta name="keywords" content="Java,锁,多线程,ConcurrentHashMap,并发," />
 
 
 
@@ -82,18 +82,18 @@
 <meta name="description" content="ConcurrentHashMap在Java 7和Java 8中的区别ConcurrentHashMap在Java中一直是一个多线程的大杀器。在多线程环境下，使用它就可以免去使用HashMap造成的线程不安全的问题。鉴于Java 8已经出来N久了，在各个方面和Java 7都有所不同。下面我们就从源码级别对ConcurrentHashMap进行分析，看看从Java 7 到Java 8，它到底有哪些变">
 <meta property="og:type" content="article">
 <meta property="og:title" content="ConcurrentHashMap在Java1.7和1.8中的区别">
-<meta property="og:url" content="http://huhansi.com/2020/03/12/Java/%E5%A4%9A%E7%BA%BF%E7%A8%8B/2020-03-12-%E5%A4%9A%E7%BA%BF%E7%A8%8B-07-ConCurrentHashMap%E5%9C%A8Java1.7%E5%92%8C1.8%E4%B8%AD%E7%9A%84%E5%8C%BA%E5%88%AB/index.html">
+<meta property="og:url" content="http://huhansi.com/2020/03/12/Java/%E5%A4%9A%E7%BA%BF%E7%A8%8B/2020-03-12-%E5%A4%9A%E7%BA%BF%E7%A8%8B-07-ConcurrentHashMap%E5%9C%A8Java1.7%E5%92%8C1.8%E4%B8%AD%E7%9A%84%E5%8C%BA%E5%88%AB/index.html">
 <meta property="og:site_name" content="Hansi Blog">
 <meta property="og:description" content="ConcurrentHashMap在Java 7和Java 8中的区别ConcurrentHashMap在Java中一直是一个多线程的大杀器。在多线程环境下，使用它就可以免去使用HashMap造成的线程不安全的问题。鉴于Java 8已经出来N久了，在各个方面和Java 7都有所不同。下面我们就从源码级别对ConcurrentHashMap进行分析，看看从Java 7 到Java 8，它到底有哪些变">
 <meta property="og:locale" content="Zh_CN">
 <meta property="article:published_time" content="2020-03-11T16:00:00.000Z">
 <meta property="article:modified_time" content="2020-03-20T08:31:56.466Z">
 <meta property="article:author" content="Han si">
-<meta property="article:tag" content="多线程">
-<meta property="article:tag" content="锁">
 <meta property="article:tag" content="Java">
-<meta property="article:tag" content="并发">
+<meta property="article:tag" content="锁">
+<meta property="article:tag" content="多线程">
 <meta property="article:tag" content="ConcurrentHashMap">
+<meta property="article:tag" content="并发">
 <meta name="twitter:card" content="summary">
 
 
@@ -124,7 +124,7 @@
 
 
 
-  <link rel="canonical" href="http://huhansi.com/2020/03/12/Java/多线程/2020-03-12-多线程-07-ConCurrentHashMap在Java1.7和1.8中的区别/"/>
+  <link rel="canonical" href="http://huhansi.com/2020/03/12/Java/多线程/2020-03-12-多线程-07-ConcurrentHashMap在Java1.7和1.8中的区别/"/>
 
 
 
@@ -301,7 +301,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://huhansi.com/2020/03/12/Java/%E5%A4%9A%E7%BA%BF%E7%A8%8B/2020-03-12-%E5%A4%9A%E7%BA%BF%E7%A8%8B-07-ConCurrentHashMap%E5%9C%A8Java1.7%E5%92%8C1.8%E4%B8%AD%E7%9A%84%E5%8C%BA%E5%88%AB/">
+    <link itemprop="mainEntityOfPage" href="http://huhansi.com/2020/03/12/Java/%E5%A4%9A%E7%BA%BF%E7%A8%8B/2020-03-12-%E5%A4%9A%E7%BA%BF%E7%A8%8B-07-ConcurrentHashMap%E5%9C%A8Java1.7%E5%92%8C1.8%E4%B8%AD%E7%9A%84%E5%8C%BA%E5%88%AB/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Han si">
@@ -451,15 +451,15 @@
       
         <div class="post-tags">
           
-            <a href="/tags/%E5%A4%9A%E7%BA%BF%E7%A8%8B/" rel="tag"># 多线程</a>
+            <a href="/tags/Java/" rel="tag"># Java</a>
           
             <a href="/tags/%E9%94%81/" rel="tag"># 锁</a>
           
-            <a href="/tags/Java/" rel="tag"># Java</a>
-          
-            <a href="/tags/%E5%B9%B6%E5%8F%91/" rel="tag"># 并发</a>
+            <a href="/tags/%E5%A4%9A%E7%BA%BF%E7%A8%8B/" rel="tag"># 多线程</a>
           
             <a href="/tags/ConcurrentHashMap/" rel="tag"># ConcurrentHashMap</a>
+          
+            <a href="/tags/%E5%B9%B6%E5%8F%91/" rel="tag"># 并发</a>
           
         </div>
       
@@ -472,8 +472,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2020/03/10/Java/%E5%A4%9A%E7%BA%BF%E7%A8%8B/2020-03-10-%E5%A4%9A%E7%BA%BF%E7%A8%8B-02-synchronized%E5%85%B3%E9%94%AE%E5%AD%97%E8%A7%A3%E6%9E%90/" rel="next" title="synchronized关键字解析">
-                <i class="fa fa-chevron-left"></i> synchronized关键字解析
+              <a href="/2020/03/10/Java/%E5%A4%9A%E7%BA%BF%E7%A8%8B/2020-03-10-%E5%A4%9A%E7%BA%BF%E7%A8%8B-01-Java%E4%B8%AD%E7%9A%84%E9%94%81/" rel="next" title="Java中的锁">
+                <i class="fa fa-chevron-left"></i> Java中的锁
               </a>
             
           </div>
@@ -561,7 +561,7 @@
               
                 <a href="/archives/%7C%7C%20archive">
               
-                  <span class="site-state-item-count">392</span>
+                  <span class="site-state-item-count">435</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -583,7 +583,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">220</span>
+                  <span class="site-state-item-count">252</span>
                   <span class="site-state-item-name">tags</span>
                 </a>
               </div>

@@ -293,7 +293,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://huhansi.com/2020/04/14/SpringCloud/2020-04-14-001-eukera%E4%BB%8B%E7%BB%8D/">
+    <link itemprop="mainEntityOfPage" href="http://huhansi.com/2020/04/25/SpringCloud/2020-04-25-011-Hystrix%E6%95%B4%E5%90%88Spring/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Han si">
@@ -312,7 +312,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2020/04/14/SpringCloud/2020-04-14-001-eukera%E4%BB%8B%E7%BB%8D/" itemprop="url">Eureka介绍</a></h1>
+                <a class="post-title-link" href="/2020/04/25/SpringCloud/2020-04-25-011-Hystrix%E6%95%B4%E5%90%88Spring/" itemprop="url">Hystrix整合Spring</a></h1>
         
 
         <div class="post-meta">
@@ -324,8 +324,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-04-14T00:00:00+08:00">
-                2020-04-14
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-04-25T00:00:00+08:00">
+                2020-04-25
               </time>
             
 
@@ -386,16 +386,15 @@
       
         
           
-          Eureka介绍产生的背景一般我们自己的服务之间互相调用的时候，直接就在配置文件中配置被调用的服务地址。然后服务读取配置文件，发起调用。调用关系可以简化为下图：
+          Hystrix整合SpringHystrix主要用于保护调用服务的一方，如果被调用的服务发生故障，符合一定的条件，就开启断路器，对调用的程序进行隔离。
+下面就一个测试项目入口，看看怎么在Spring中使用Hystrix。
+测试项目分为3个部分：
 
-这样的调用会存在一些不小的问题：
-
-服务B如果挂了的话，服务A即时调用不同
-如果后续再新增了N多服务器的话，服务A每个服务都要维护一个调
+hystrix-spring-server：作为Eu
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2020/04/14/SpringCloud/2020-04-14-001-eukera%E4%BB%8B%E7%BB%8D/#more" rel="contents">
+            <a class="btn" href="/2020/04/25/SpringCloud/2020-04-25-011-Hystrix%E6%95%B4%E5%90%88Spring/#more" rel="contents">
               Read more &raquo;
             </a>
           </div>
@@ -446,7 +445,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://huhansi.com/2020/04/14/SpringCloud/2020-04-14-002-Consul%E4%BB%8B%E7%BB%8D/">
+    <link itemprop="mainEntityOfPage" href="http://huhansi.com/2020/04/24/SpringCloud/2020-04-24-010-Hystrix%E5%85%A5%E9%97%A8/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Han si">
@@ -465,7 +464,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2020/04/14/SpringCloud/2020-04-14-002-Consul%E4%BB%8B%E7%BB%8D/" itemprop="url">Consul介绍</a></h1>
+                <a class="post-title-link" href="/2020/04/24/SpringCloud/2020-04-24-010-Hystrix%E5%85%A5%E9%97%A8/" itemprop="url">Hystrix入门</a></h1>
         
 
         <div class="post-meta">
@@ -477,8 +476,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-04-14T00:00:00+08:00">
-                2020-04-14
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-04-24T00:00:00+08:00">
+                2020-04-24
               </time>
             
 
@@ -539,13 +538,13 @@
       
         
           
-          Consul介绍简介Consul是HashiCorp公司推出的开源工具，用于实现分布式系统的服务发现与配置。Consul是分布式的、高可用的、 可横向扩展的。它具备以下特性:
+          Hystrix入门假设有一个应用程序，有着如下的调用关系：
 
-服务发现: Consul提供了通过DNS或者HTTP接口的方式来注册服务和发现服务。一些外部的服务通过Consul很容易的
+假设在某个时刻，数据库因为某些原因不可用了，基础服务就会得到“数据库无法访问”的信息，炳辉将次信息告知服务A。在出现问题时，用户不断地请求服务A模块，而服务A模块则继续请求基础服务模块，基础服务模块仍然不停地连接有问题的数据库直到超时，大
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2020/04/14/SpringCloud/2020-04-14-002-Consul%E4%BB%8B%E7%BB%8D/#more" rel="contents">
+            <a class="btn" href="/2020/04/24/SpringCloud/2020-04-24-010-Hystrix%E5%85%A5%E9%97%A8/#more" rel="contents">
               Read more &raquo;
             </a>
           </div>
@@ -596,7 +595,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://huhansi.com/2020/04/14/SpringCloud/2020-04-14-003-RAFT%E5%8D%8F%E8%AE%AE%E4%BB%8B%E7%BB%8D/">
+    <link itemprop="mainEntityOfPage" href="http://huhansi.com/2020/04/24/SpringCloud/2020-04-24-009-Spring%E6%95%B4%E5%90%88Feign/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Han si">
@@ -615,7 +614,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2020/04/14/SpringCloud/2020-04-14-003-RAFT%E5%8D%8F%E8%AE%AE%E4%BB%8B%E7%BB%8D/" itemprop="url">RAFT协议介绍</a></h1>
+                <a class="post-title-link" href="/2020/04/24/SpringCloud/2020-04-24-009-Spring%E6%95%B4%E5%90%88Feign/" itemprop="url">Spring整合Feign</a></h1>
         
 
         <div class="post-meta">
@@ -627,8 +626,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-04-14T00:00:00+08:00">
-                2020-04-14
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-04-24T00:00:00+08:00">
+                2020-04-24
               </time>
             
 
@@ -689,12 +688,15 @@
       
         
           
-          RAFT协议介绍参考资料RAFT协议动图演示
+          Spring整合FeignSpring Cloud对Feign进行了封装，我们通过一个例子，说明下如何在Spring中整合Feign。
+测试案例测试案例主要分为三个部分：
 
-          
+spring-feign-server：Eureka服务器端项目，端口为8761，提供服务注册，查询功能
+spring-fei
+          ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2020/04/14/SpringCloud/2020-04-14-003-RAFT%E5%8D%8F%E8%AE%AE%E4%BB%8B%E7%BB%8D/#more" rel="contents">
+            <a class="btn" href="/2020/04/24/SpringCloud/2020-04-24-009-Spring%E6%95%B4%E5%90%88Feign/#more" rel="contents">
               Read more &raquo;
             </a>
           </div>
@@ -745,7 +747,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://huhansi.com/2020/04/14/SpringCloud/2020-04-14-005-%E7%86%94%E6%96%AD%E3%80%81%E9%99%90%E6%B5%81%E5%92%8C%E9%99%8D%E7%BA%A7%E4%B9%8B%E5%89%8D%E7%9A%84%E5%8C%BA%E5%88%AB/">
+    <link itemprop="mainEntityOfPage" href="http://huhansi.com/2020/04/24/SpringCloud/2020-04-24-008-Feign%E5%85%A5%E9%97%A8/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Han si">
@@ -764,7 +766,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2020/04/14/SpringCloud/2020-04-14-005-%E7%86%94%E6%96%AD%E3%80%81%E9%99%90%E6%B5%81%E5%92%8C%E9%99%8D%E7%BA%A7%E4%B9%8B%E5%89%8D%E7%9A%84%E5%8C%BA%E5%88%AB/" itemprop="url">熔断、降级和限流之间的区别</a></h1>
+                <a class="post-title-link" href="/2020/04/24/SpringCloud/2020-04-24-008-Feign%E5%85%A5%E9%97%A8/" itemprop="url">Feign入门</a></h1>
         
 
         <div class="post-meta">
@@ -776,8 +778,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-04-14T00:00:00+08:00">
-                2020-04-14
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-04-24T00:00:00+08:00">
+                2020-04-24
               </time>
             
 
@@ -838,12 +840,11 @@
       
         
           
-          熔断、降级和限流之间的区别当我们的系统整体访问量突然剧增，大量的请求在瞬间涌入，或者某个下游服务突然异常，大量请求调用阻塞又或者在可预见的将来，几天内比如，会有一波流量的高峰（比如双十一）。这个时候，我们要怎么做才能保证系统正常提供功能，或者说，最低要求，如何保证系统核心业务能正常提供功能？
-这种情
+          Feign入门Feign是Github上的一个开源项目，目的是简化Web Service客户端的开发。在使用Feign时，可以使用注解来修饰接口，被注解修饰的接口具有访问Web Service的能力。这些注解中既包括Feign自带的注解，也支持使用第三方注解。除此之外，Feign还支持插件式的编码器
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2020/04/14/SpringCloud/2020-04-14-005-%E7%86%94%E6%96%AD%E3%80%81%E9%99%90%E6%B5%81%E5%92%8C%E9%99%8D%E7%BA%A7%E4%B9%8B%E5%89%8D%E7%9A%84%E5%8C%BA%E5%88%AB/#more" rel="contents">
+            <a class="btn" href="/2020/04/24/SpringCloud/2020-04-24-008-Feign%E5%85%A5%E9%97%A8/#more" rel="contents">
               Read more &raquo;
             </a>
           </div>
@@ -894,7 +895,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://huhansi.com/2020/04/14/SpringCloud/2020-04-14-004-%E5%90%84%E7%A7%8D%E6%9C%8D%E5%8A%A1%E5%8F%91%E7%8E%B0%E6%A1%86%E6%9E%B6%E5%AF%B9%E6%AF%94/">
+    <link itemprop="mainEntityOfPage" href="http://huhansi.com/2020/04/24/Java/Java%E5%9F%BA%E7%A1%80/2020-04-24-Java%E4%B8%AD%E7%9A%84%E6%B3%A8%E8%A7%A3/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Han si">
@@ -913,7 +914,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2020/04/14/SpringCloud/2020-04-14-004-%E5%90%84%E7%A7%8D%E6%9C%8D%E5%8A%A1%E5%8F%91%E7%8E%B0%E6%A1%86%E6%9E%B6%E5%AF%B9%E6%AF%94/" itemprop="url">各种服务发现框架对比</a></h1>
+                <a class="post-title-link" href="/2020/04/24/Java/Java%E5%9F%BA%E7%A1%80/2020-04-24-Java%E4%B8%AD%E7%9A%84%E6%B3%A8%E8%A7%A3/" itemprop="url">Java中的注解</a></h1>
         
 
         <div class="post-meta">
@@ -925,8 +926,159 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-04-14T00:00:00+08:00">
-                2020-04-14
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-04-24T00:00:00+08:00">
+                2020-04-24
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Java/" itemprop="url" rel="index">
+                    <span itemprop="name">Java</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+          Java中的注解什么是注解注解也叫元数据，例如我们常见的@Override和@Deprecated，注解是JDK1.5版本开始引入的一个特性，用于对代码进行说明，可以对包、类、接口、字段、方法参数、局部变量等进行注解。
+它主要的作用有以下四方面：
+
+生成文档，通过代码里标识的元数据生成javadoc
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2020/04/24/Java/Java%E5%9F%BA%E7%A1%80/2020-04-24-Java%E4%B8%AD%E7%9A%84%E6%B3%A8%E8%A7%A3/#more" rel="contents">
+              Read more &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://huhansi.com/2020/04/23/SpringCloud/2020-04-23-006-%E6%90%AD%E5%BB%BA%E4%B8%80%E4%B8%AA%E7%AE%80%E5%8D%95%E7%9A%84Eureka%E5%BA%94%E7%94%A8/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Han si">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hansi Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2020/04/23/SpringCloud/2020-04-23-006-%E6%90%AD%E5%BB%BA%E4%B8%80%E4%B8%AA%E7%AE%80%E5%8D%95%E7%9A%84Eureka%E5%BA%94%E7%94%A8/" itemprop="url">搭建一个简单的Eureka应用</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-04-23T00:00:00+08:00">
+                2020-04-23
               </time>
             
 
@@ -987,12 +1139,11 @@
       
         
           
-          各种服务发现框架对比当前比较流程且常用的框架大体上有4个。Consul、Eureka、Zookeeper和Etcd。它们都解决了服务注册和服务发现问题。其中Eureka满足CAP中的AP，Consul、Etcd和Zookeeper满足了CAP中的CP。
-EurekaEureka是在Java语言上，基
+          搭建一个简单的Eureka应用Eureka提供基于REST的服务，在集群中主要用于服务管理。Eureka提供了基于Java语言的客户端组件，客户端组件实现了负载均很的功能，为业务组件的集群部署创建了条件。使用该框架，可以将业务组件注册到Eureka容器中，这些组件可进行集群部署，Eureka主要维护
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2020/04/14/SpringCloud/2020-04-14-004-%E5%90%84%E7%A7%8D%E6%9C%8D%E5%8A%A1%E5%8F%91%E7%8E%B0%E6%A1%86%E6%9E%B6%E5%AF%B9%E6%AF%94/#more" rel="contents">
+            <a class="btn" href="/2020/04/23/SpringCloud/2020-04-23-006-%E6%90%AD%E5%BB%BA%E4%B8%80%E4%B8%AA%E7%AE%80%E5%8D%95%E7%9A%84Eureka%E5%BA%94%E7%94%A8/#more" rel="contents">
               Read more &raquo;
             </a>
           </div>
@@ -1043,7 +1194,7 @@ EurekaEureka是在Java语言上，基
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://huhansi.com/2020/04/14/%E5%88%86%E5%B8%83%E5%BC%8F/%E5%88%86%E5%B8%83%E5%BC%8F%E7%BC%93%E5%AD%98%E5%B8%B8%E8%A7%81%E7%9A%84%E5%87%A0%E7%A7%8D%E9%97%AE%E9%A2%98/">
+    <link itemprop="mainEntityOfPage" href="http://huhansi.com/2020/04/23/SpringCloud/2020-04-23-007-%E6%90%AD%E5%BB%BA%E4%B8%80%E4%B8%AA%E7%AE%80%E5%8D%95%E7%9A%84Eureka%E9%9B%86%E7%BE%A4/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Han si">
@@ -1062,7 +1213,7 @@ EurekaEureka是在Java语言上，基
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2020/04/14/%E5%88%86%E5%B8%83%E5%BC%8F/%E5%88%86%E5%B8%83%E5%BC%8F%E7%BC%93%E5%AD%98%E5%B8%B8%E8%A7%81%E7%9A%84%E5%87%A0%E7%A7%8D%E9%97%AE%E9%A2%98/" itemprop="url">分布式缓存常见的几种问题</a></h1>
+                <a class="post-title-link" href="/2020/04/23/SpringCloud/2020-04-23-007-%E6%90%AD%E5%BB%BA%E4%B8%80%E4%B8%AA%E7%AE%80%E5%8D%95%E7%9A%84Eureka%E9%9B%86%E7%BE%A4/" itemprop="url">搭建一个简单的Eureka集群</a></h1>
         
 
         <div class="post-meta">
@@ -1074,8 +1225,8 @@ EurekaEureka是在Java语言上，基
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-04-14T00:00:00+08:00">
-                2020-04-14
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-04-23T00:00:00+08:00">
+                2020-04-23
               </time>
             
 
@@ -1097,8 +1248,8 @@ EurekaEureka是在Java语言上，基
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E5%88%86%E5%B8%83%E5%BC%8F/" itemprop="url" rel="index">
-                    <span itemprop="name">分布式</span>
+                  <a href="/categories/Spring-Cloud/" itemprop="url" rel="index">
+                    <span itemprop="name">Spring Cloud</span>
                   </a>
                 </span>
 
@@ -1136,23 +1287,15 @@ EurekaEureka是在Java语言上，基
       
         
           
-          分布式缓存常见的几种问题为什么使用分布式缓存和分布式缓存的应用场景就先不说了。我们着重看看，分布式缓存的若干问题
-缓存选型当前主流的做缓存的开源组件有Memcache和Redis，它们各有千秋，那么到底怎么选择呢？我们一项一项比较看看。
+          搭建一个简单的Eureka集群现在我们稍微把上一篇文章中的Eureka应用扩展一下，扩展成一个简单的Eureka集群。架构图如下所示：
 
+我们要部署两台Eureka服务器，两台ServiceProvider。为此，首先要修改本机的Hosts文件，以便在一台机子上模拟出多台的效果。
 
-
-
-Memcache
-Redis
-
-
-
-数据类型
-只支持简
+Eureka S
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2020/04/14/%E5%88%86%E5%B8%83%E5%BC%8F/%E5%88%86%E5%B8%83%E5%BC%8F%E7%BC%93%E5%AD%98%E5%B8%B8%E8%A7%81%E7%9A%84%E5%87%A0%E7%A7%8D%E9%97%AE%E9%A2%98/#more" rel="contents">
+            <a class="btn" href="/2020/04/23/SpringCloud/2020-04-23-007-%E6%90%AD%E5%BB%BA%E4%B8%80%E4%B8%AA%E7%AE%80%E5%8D%95%E7%9A%84Eureka%E9%9B%86%E7%BE%A4/#more" rel="contents">
               Read more &raquo;
             </a>
           </div>
@@ -1203,7 +1346,7 @@ Redis
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://huhansi.com/2020/04/13/Redis/Redis%E7%9A%84%E5%87%A0%E7%A7%8D%E9%83%A8%E7%BD%B2%E6%9E%B6%E6%9E%84/">
+    <link itemprop="mainEntityOfPage" href="http://huhansi.com/2020/04/21/Java/Java%E5%9F%BA%E7%A1%80/2020-04-21-equals%E5%92%8ChashCode%E6%96%B9%E6%B3%95/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Han si">
@@ -1222,7 +1365,7 @@ Redis
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2020/04/13/Redis/Redis%E7%9A%84%E5%87%A0%E7%A7%8D%E9%83%A8%E7%BD%B2%E6%9E%B6%E6%9E%84/" itemprop="url">Redis的几种部署架构</a></h1>
+                <a class="post-title-link" href="/2020/04/21/Java/Java%E5%9F%BA%E7%A1%80/2020-04-21-equals%E5%92%8ChashCode%E6%96%B9%E6%B3%95/" itemprop="url">equals和hashCode方法</a></h1>
         
 
         <div class="post-meta">
@@ -1234,8 +1377,8 @@ Redis
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-04-13T00:00:00+08:00">
-                2020-04-13
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-04-21T00:00:00+08:00">
+                2020-04-21
               </time>
             
 
@@ -1257,8 +1400,8 @@ Redis
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/" itemprop="url" rel="index">
-                    <span itemprop="name">数据库</span>
+                  <a href="/categories/Java/" itemprop="url" rel="index">
+                    <span itemprop="name">Java</span>
                   </a>
                 </span>
 
@@ -1296,16 +1439,12 @@ Redis
       
         
           
-          Redis的几种部署架构单例部署Redis单例部署，采用单个Redis节点部署架构，没有备用节点实时同步数据，不提供数据持久化和备份策略，适用于数据可靠性要求不高的纯缓存业务场景。
-
-这个方案优点是：
-
-架构简单，部署方便；
-高性价比：缓存使用时无需备用节点（单实例可用性可以用supervisor或
+          equals和hashCode方法equals和hashCode都是Object对象中的非final方法，它们设计的目的就是被用来覆盖(override)的，所以在程序设计中还是经常需要处理这两个方法的。而掌握这两个方法的覆盖准则以及它们的区别还是很必要的，相关问题也不少。
+不被重写的equals和
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2020/04/13/Redis/Redis%E7%9A%84%E5%87%A0%E7%A7%8D%E9%83%A8%E7%BD%B2%E6%9E%B6%E6%9E%84/#more" rel="contents">
+            <a class="btn" href="/2020/04/21/Java/Java%E5%9F%BA%E7%A1%80/2020-04-21-equals%E5%92%8ChashCode%E6%96%B9%E6%B3%95/#more" rel="contents">
               Read more &raquo;
             </a>
           </div>
@@ -1356,7 +1495,7 @@ Redis
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://huhansi.com/2020/04/12/MySQL/MySQL%E4%B8%AD%E7%9A%84%E7%B4%A2%E5%BC%95%E5%8F%8A%E5%85%B6%E5%AE%9E%E7%8E%B0/">
+    <link itemprop="mainEntityOfPage" href="http://huhansi.com/2020/04/20/Maven/2020-04-20-Maven%E4%B8%AD%E5%A6%82%E4%BD%95%E8%A7%A3%E5%86%B3%E5%8C%85%E5%86%B2%E7%AA%81/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Han si">
@@ -1375,7 +1514,7 @@ Redis
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2020/04/12/MySQL/MySQL%E4%B8%AD%E7%9A%84%E7%B4%A2%E5%BC%95%E5%8F%8A%E5%85%B6%E5%AE%9E%E7%8E%B0/" itemprop="url">MySQL中的索引及其实现</a></h1>
+                <a class="post-title-link" href="/2020/04/20/Maven/2020-04-20-Maven%E4%B8%AD%E5%A6%82%E4%BD%95%E8%A7%A3%E5%86%B3%E5%8C%85%E5%86%B2%E7%AA%81/" itemprop="url">Maven如何解决包冲突</a></h1>
         
 
         <div class="post-meta">
@@ -1387,8 +1526,8 @@ Redis
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-04-12T00:00:00+08:00">
-                2020-04-12
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-04-20T00:00:00+08:00">
+                2020-04-20
               </time>
             
 
@@ -1410,8 +1549,8 @@ Redis
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/" itemprop="url" rel="index">
-                    <span itemprop="name">数据库</span>
+                  <a href="/categories/JVM/" itemprop="url" rel="index">
+                    <span itemprop="name">JVM</span>
                   </a>
                 </span>
 
@@ -1449,12 +1588,13 @@ Redis
       
         
           
-          MySQL中的索引及其实现索引，在MySQL中也叫做键（Key）是存储引擎用于快速找到记录的一种数据结构。在MySQL中，存储引擎用类似的方法使用索引，其现在索引中找到对应值，然后根据匹配的索引记录找到对应的数据行。
-索引可以包含一个或多个列的值。如果索引包含多个列，那么列的顺序也十分重要，因为My
+          Maven如何解决包冲突Maven是一个跨平台的项目管理工具。作为Apache组织的一个颇为成功的开源项目，其主要服务于基于Java平台的项目创建，依赖管理和项目信息管理。
+Maven依赖配置maven的依赖配置主要是如下格式：
+12345678910111213141516171819202122
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2020/04/12/MySQL/MySQL%E4%B8%AD%E7%9A%84%E7%B4%A2%E5%BC%95%E5%8F%8A%E5%85%B6%E5%AE%9E%E7%8E%B0/#more" rel="contents">
+            <a class="btn" href="/2020/04/20/Maven/2020-04-20-Maven%E4%B8%AD%E5%A6%82%E4%BD%95%E8%A7%A3%E5%86%B3%E5%8C%85%E5%86%B2%E7%AA%81/#more" rel="contents">
               Read more &raquo;
             </a>
           </div>
@@ -1505,7 +1645,7 @@ Redis
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://huhansi.com/2020/04/12/MySQL/MySQL%E5%A6%82%E4%BD%95%E5%AE%9E%E7%8E%B0%E5%88%86%E5%B8%83%E5%BC%8FXA%E4%BA%8B%E5%8A%A1/">
+    <link itemprop="mainEntityOfPage" href="http://huhansi.com/2020/04/20/MySQL/2020-04-20-SQL%E4%B8%AD%E7%9A%84%E5%90%84%E7%A7%8Djoin/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Han si">
@@ -1524,7 +1664,7 @@ Redis
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2020/04/12/MySQL/MySQL%E5%A6%82%E4%BD%95%E5%AE%9E%E7%8E%B0%E5%88%86%E5%B8%83%E5%BC%8FXA%E4%BA%8B%E5%8A%A1/" itemprop="url">MySQL中的XA事务</a></h1>
+                <a class="post-title-link" href="/2020/04/20/MySQL/2020-04-20-SQL%E4%B8%AD%E7%9A%84%E5%90%84%E7%A7%8Djoin/" itemprop="url">SQL中的各种join</a></h1>
         
 
         <div class="post-meta">
@@ -1536,8 +1676,8 @@ Redis
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-04-12T00:00:00+08:00">
-                2020-04-12
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-04-20T00:00:00+08:00">
+                2020-04-20
               </time>
             
 
@@ -1559,8 +1699,8 @@ Redis
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/" itemprop="url" rel="index">
-                    <span itemprop="name">数据库</span>
+                  <a href="/categories/JVM/" itemprop="url" rel="index">
+                    <span itemprop="name">JVM</span>
                   </a>
                 </span>
 
@@ -1598,162 +1738,13 @@ Redis
       
         
           
-          MySQL中的XA事务存储引擎的事务特性能够保证在存储引擎级别实现ACID，而分布式事务则让存储引擎级别的ACID可以扩展到数据库层面，甚至可以扩展到多个数据库之间-这需要两阶段提交实现。MySQL5.0和更新的版本的数据库已经开始支持XA事务了。
-XA事务中需要有一个事务协调器来保证所有的事务参与
+          SQL中的各种join在实际的数据库应用中，我们经常需要从多个数据表中读取数据，这时我们就可以使用SQL语句中的连接（JOIN），在两个或多个数据表中查询数据。
+inner joininner join 被称为内连接，在使用的时候可以把inner 关键字省略，直接使用join。
+它返回的是两张表中的
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2020/04/12/MySQL/MySQL%E5%A6%82%E4%BD%95%E5%AE%9E%E7%8E%B0%E5%88%86%E5%B8%83%E5%BC%8FXA%E4%BA%8B%E5%8A%A1/#more" rel="contents">
-              Read more &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://huhansi.com/2020/04/12/MySQL/%E4%BC%98%E5%8C%96MySQL%E7%B4%A2%E5%BC%95%E7%9A%84N%E7%A7%8D%E6%96%B9%E6%B3%95/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Han si">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hansi Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2020/04/12/MySQL/%E4%BC%98%E5%8C%96MySQL%E7%B4%A2%E5%BC%95%E7%9A%84N%E7%A7%8D%E6%96%B9%E6%B3%95/" itemprop="url">优化MySQL索引的N种方法</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-04-12T00:00:00+08:00">
-                2020-04-12
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/" itemprop="url" rel="index">
-                    <span itemprop="name">数据库</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-          优化MySQL索引的N种方法正确创建和使用索引是实现高性能查询的基础。
-独立的列索引列不能是表达式的一部分， 也不能是函数的参数，必须是独立的列。如果查询中的列不是独立的，则MySQL就不会使用索引。
-前缀索引和索引选择性有时候需要索引很长的字符列，这回让索引变得大且慢。那么，就可以索引开始的部分字
-          ...
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2020/04/12/MySQL/%E4%BC%98%E5%8C%96MySQL%E7%B4%A2%E5%BC%95%E7%9A%84N%E7%A7%8D%E6%96%B9%E6%B3%95/#more" rel="contents">
+            <a class="btn" href="/2020/04/20/MySQL/2020-04-20-SQL%E4%B8%AD%E7%9A%84%E5%90%84%E7%A7%8Djoin/#more" rel="contents">
               Read more &raquo;
             </a>
           </div>
@@ -1795,7 +1786,7 @@ XA事务中需要有一个事务协调器来保证所有的事务参与
 
   
   <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/40/">40</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right"></i></a>
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/44/">44</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -1841,7 +1832,7 @@ XA事务中需要有一个事务协调器来保证所有的事务参与
               
                 <a href="/archives/%7C%7C%20archive">
               
-                  <span class="site-state-item-count">392</span>
+                  <span class="site-state-item-count">435</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -1863,7 +1854,7 @@ XA事务中需要有一个事务协调器来保证所有的事务参与
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">220</span>
+                  <span class="site-state-item-count">252</span>
                   <span class="site-state-item-name">tags</span>
                 </a>
               </div>

@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="Java,JVM,垃圾回收算法," />
+  <meta name="keywords" content="Java,JVM,垃圾回收器,G1,Garbage First,CMS,Concurrent Mark Sweep," />
 
 
 
@@ -79,18 +79,30 @@
 
 
 
+<meta name="description" content="常见的几种垃圾回收器介绍Serial收集器Serial收集器是最基础、历史最悠久的收集器，它是一个单线程工作的收集器。它在进行垃圾收集的时候，必须暂停其他所有工作线程，知道它收集结束。  它是HotSpot虚拟机运行在客户端模式下的默认新生代收集器，有着优于其他收集器的地方，那就是简单高效。对于内存资源受限的环境，它是所有收集器里额外内存消耗最小的；对于单核处理器或处理器核心数较少的环境来说，Se">
 <meta property="og:type" content="article">
 <meta property="og:title" content="垃圾回收器概览">
 <meta property="og:url" content="http://huhansi.com/2020/04/03/Java/JVM/2020-03-29-Java-%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6%E5%99%A8/index.html">
 <meta property="og:site_name" content="Hansi Blog">
+<meta property="og:description" content="常见的几种垃圾回收器介绍Serial收集器Serial收集器是最基础、历史最悠久的收集器，它是一个单线程工作的收集器。它在进行垃圾收集的时候，必须暂停其他所有工作线程，知道它收集结束。  它是HotSpot虚拟机运行在客户端模式下的默认新生代收集器，有着优于其他收集器的地方，那就是简单高效。对于内存资源受限的环境，它是所有收集器里额外内存消耗最小的；对于单核处理器或处理器核心数较少的环境来说，Se">
 <meta property="og:locale" content="Zh_CN">
+<meta property="og:image" content="https://huhansi.github.io/images/2020-04-21-collector1.jpg">
+<meta property="og:image" content="https://huhansi.github.io/images/2020-04-21-collector2.jpg">
+<meta property="og:image" content="https://huhansi.github.io/images/2020-04-21-collector3.jpg">
+<meta property="og:image" content="https://huhansi.github.io/images/2020-04-21-collector4.jpg">
+<meta property="og:image" content="https://huhansi.github.io/images/2020-04-21-collector5.jpg">
 <meta property="article:published_time" content="2020-04-02T16:00:00.000Z">
-<meta property="article:modified_time" content="2020-04-03T13:03:35.694Z">
+<meta property="article:modified_time" content="2020-04-21T02:37:37.435Z">
 <meta property="article:author" content="Han si">
 <meta property="article:tag" content="Java">
 <meta property="article:tag" content="JVM">
-<meta property="article:tag" content="垃圾回收算法">
+<meta property="article:tag" content="垃圾回收器">
+<meta property="article:tag" content="G1">
+<meta property="article:tag" content="Garbage First">
+<meta property="article:tag" content="CMS">
+<meta property="article:tag" content="Concurrent Mark Sweep">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://huhansi.github.io/images/2020-04-21-collector1.jpg">
 
 
 
@@ -386,7 +398,53 @@
       
 
       
-        <h1 id><a href="#" class="headerlink" title></a></h1>
+        <h1 id="常见的几种垃圾回收器介绍"><a href="#常见的几种垃圾回收器介绍" class="headerlink" title="常见的几种垃圾回收器介绍"></a>常见的几种垃圾回收器介绍</h1><h2 id="Serial收集器"><a href="#Serial收集器" class="headerlink" title="Serial收集器"></a>Serial收集器</h2><p>Serial收集器是最基础、历史最悠久的收集器，它是一个单线程工作的收集器。它在进行垃圾收集的时候，必须暂停其他所有工作线程，知道它收集结束。</p>
+<p><img src="https://huhansi.github.io/images/2020-04-21-collector1.jpg" alt="Serial收集器"></p>
+<p>它是HotSpot虚拟机运行在客户端模式下的默认新生代收集器，有着优于其他收集器的地方，那就是简单高效。对于内存资源受限的环境，它是所有收集器里额外内存消耗最小的；对于单核处理器或处理器核心数较少的环境来说，Serial收集器由于没有现成交互的开销，专心做垃圾收集自然可以获得最高的单线程收集效率。</p>
+<h2 id="ParNew收集器"><a href="#ParNew收集器" class="headerlink" title="ParNew收集器"></a>ParNew收集器</h2><p>ParNew收集器实质上是Serial收集器的多线程并行版本，除了同事使用多线程进行垃圾收集之外，其余的行为和Serial收集器一致。</p>
+<p>ParNew收集器是激活CMS后的默认新生代收集器。</p>
+<p><img src="https://huhansi.github.io/images/2020-04-21-collector2.jpg" alt="ParNew收集器"></p>
+<h2 id="Parallel-Scavenge收集器"><a href="#Parallel-Scavenge收集器" class="headerlink" title="Parallel Scavenge收集器"></a>Parallel Scavenge收集器</h2><p>Parallel Scavenge收集器是并行的多线程新生代收集器，它使用复制算法。Parallel Scavenge收集器的目标是达到一个可控制的吞吐量（Throughput）。</p>
+<p>停顿时间越短就越适合需要与用户交互的程序，良好的响应速度能提升用户体验。而高吞吐量则可以高效率地利用CPU时间，尽快完成程序的运算任务，主要适合在后台运算而不需要太多交互的任务。</p>
+<p>Parallel Scavenge收集器除了会显而易见地提供可以精确控制吞吐量的参数，还提供了一个参数-XX:+UseAdaptiveSizePolicy，这是一个开关参数，打开参数后，就不需要手工指定新生代的大小（-Xmn）、Eden和Survivor区的比例（-XX:SurvivorRatio）、晋升老年代对象年龄（-XX:PretenureSizeThreshold）等细节参数了，虚拟机会根据当前系统的运行情况收集性能监控信息，动态调整这些参数以提供最合适的停顿时间或者最大的吞吐量，这种方式称为GC自适应的调节策略（GC Ergonomics）。自适应调节策略也是Parallel Scavenge收集器与ParNew收集器的一个重要区别。</p>
+<p>另外值得注意的一点是，Parallel Scavenge收集器无法与CMS收集器配合使用，所以在JDK 1.6推出Parallel Old之前，如果新生代选择Parallel Scavenge收集器，老年代只有Serial Old收集器能与之配合使用。</p>
+<h2 id="Serial-Old收集器"><a href="#Serial-Old收集器" class="headerlink" title="Serial Old收集器"></a>Serial Old收集器</h2><p>Serial Old 是 Serial收集器的老年代版本，它同样是一个单线程收集器，使用“标记-整理”（Mark-Compact）算法。</p>
+<p>此收集器的主要意义也是在于给Client模式下的虚拟机使用。如果在Server模式下，它还有两大用途：</p>
+<ul>
+<li>在JDK1.5 以及之前版本（Parallel Old诞生以前）中与Parallel Scavenge收集器搭配使用。</li>
+<li>作为CMS收集器的后备预案，在并发收集发生Concurrent Mode Failure时使用。</li>
+</ul>
+<p>它的工作流程与Serial收集器相同，这里给出Serial/Serial Old配合使用的工作流程图：</p>
+<p><img src="https://huhansi.github.io/images/2020-04-21-collector3.jpg" alt="Serial Old收集器"></p>
+<h2 id="Parallel-Old收集器"><a href="#Parallel-Old收集器" class="headerlink" title="Parallel Old收集器"></a>Parallel Old收集器</h2><p>Parallel Old收集器是Parallel Scavenge收集器的老年代版本，使用<strong>多线程</strong>和<strong>“标记-整理”</strong>算法。前面已经提到过，这个收集器是在JDK 1.6中才开始提供的，在此之前，如果新生代选择了Parallel Scavenge收集器，老年代除了Serial Old以外别无选择，所以在Parallel Old诞生以后，<strong>“吞吐量优先”收集器</strong>终于有了比较名副其实的应用组合，在<strong>注重吞吐量</strong>以及<strong>CPU资源敏感</strong>的场合，都可以优先考虑Parallel Scavenge加Parallel Old收集器。Parallel Old收集器的工作流程与Parallel Scavenge相同，这里给出Parallel Scavenge/Parallel Old收集器配合使用的流程图：</p>
+<p><img src="https://huhansi.github.io/images/2020-04-21-collector4.jpg" alt="Parallel Old收集器"></p>
+<h2 id="CMS收集器"><a href="#CMS收集器" class="headerlink" title="CMS收集器"></a>CMS收集器</h2><p>CMS（Concurrent Mark Sweep）收集器是一种以获取最短回收停顿时间为目标的收集器。它是基于标记-清除算法实现的，它的运作过程相对复杂一些，分为四个步骤：</p>
+<ol>
+<li><strong>初始标记</strong>（CMS initial mark）</li>
+<li><strong>并发标记</strong>（CMS concurrent mark）</li>
+<li><strong>重新标记</strong>（CMS Remark）</li>
+<li><strong>并发清除</strong>（CMS Concurrent sweep）</li>
+</ol>
+<p>初始标记和重新标记阶段仍然需要STW。初始阶段仅仅只是标记一下GC Roots能直接关联的对象，速度很快</p>
+<p>并发标记阶段就是从GC Roots的直接关联对象开始遍历整个对象图的过程，这个过程耗时较长，但是不需要停止用户线程；</p>
+<p>重新标记阶段是为了修正并发标记期间，因用户程序继续运作而导致标记产生变动的那一部分对象的标记记录。这个阶段的停止时间通常比初始阶段长一些，但是远比并发标记阶段的时间短。</p>
+<p>并发清除阶段，清理删除掉标记阶段判断已经死亡的对象，由于不需要移动存活的对象，所以这个阶段也是可以与用户线程同时并发的。</p>
+<p>CMS收集器的优点：并发收集、低停顿，但是CMS还远远达不到完美，主要有三个显著缺点：cpu敏感，浮动垃圾，空间碎片。</p>
+<p>CMS收集器对CPU资源非常敏感。在并发阶段，虽然不会导致用户线程停顿，但是会占用CPU资源而导致引用程序变慢，总吞吐量下降。CMS默认启动的回收线程数是：(CPU数量+3) / 4。</p>
+<p>CMS收集器无法处理浮动垃圾，可能出现“Concurrent Mode Failure“，失败后而导致另一次Full  GC的产生。由于CMS并发清理阶段用户线程还在运行，伴随程序的运行自热会有新的垃圾不断产生，这一部分垃圾出现在标记过程之后，CMS无法在本次收集中处理它们，只好留待下一次GC时将其清理掉。这一部分垃圾称为“浮动垃圾”。</p>
+<p>CMS是基于“标记-清除”算法实现的收集器，使用“标记-清除”算法收集后，会产生大量碎片。空间碎片太多时，将会给对象分配带来很多麻烦，比如说大对象，内存空间找不到连续的空间来分配不得不提前触发一次Full  GC。为了解决这个问题，CMS收集器提供了一个-XX:UseCMSCompactAtFullCollection开关参数，用于在Full  GC之后增加一个碎片整理过程，还可通过-XX:CMSFullGCBeforeCompaction参数设置执行多少次不压缩的Full  GC之后，跟着来一次碎片整理过程。</p>
+<p><img src="https://huhansi.github.io/images/2020-04-21-collector5.jpg" alt="CMS收集器"></p>
+<h2 id="Garbage-First收集器"><a href="#Garbage-First收集器" class="headerlink" title="Garbage First收集器"></a>Garbage First收集器</h2><p>Garbage First （简称G1）收集器是一款主要面向服务端应用的垃圾收集器。G1除了追求低停顿外，还能建立可预测的停顿时间模型，能让使用者明确指定在一个长度为M毫秒的时间片段内，消耗在垃圾收集上的时间不得超过N毫秒。G1开创的基于Region的堆内存布局是它能实现这个目标的关键。</p>
+<p>G1不再坚持固定大小和固定数量的分代区域划分，而是把连续的Java对划分为多个大小相等的独立区域（Region），每一个Region可以根据需要扮演新生代的Eden空间、Survivor空间或者老年代空间。收集器能够对扮演不同角色的Region采用不同的策略去处理。</p>
+<p>Region中还有一类特殊的Humongous区域，专门用来存储大对象。G1认为只要大小超过了一个Region容量一半的对象即可判断为大对象。每个Region的大小可以通过参数-XX：G1HeapRegionSize设定，取值范围为1MB-32MB，且应为2的N次幂。对于那些超过了整个Region的超级大对象，将会被存放在N个连续的Humongous Region之中，G1大多数行为都把Humongous Region作为老年代的一部分来看待。</p>
+<p>G1收集器的运作过程大致也可以分为以下四个步骤：</p>
+<ol>
+<li><strong>初始标记</strong>（Initial Marking）：标记一下GC Roots能直接关联到的对象，并且修改TAMS指针的值，让下一阶段用户线程并发运行时，能正确地在可用的Region中分配新对象。这个阶段需要停顿线程，但耗时很短，而且是借用进行Minor GC的时候同步完成，所以G1收集器在这个阶段实际并没有额外的停顿。</li>
+<li><strong>并发标记</strong>（Concurrent Marking）：从GC Root开始对堆中对象进行可达性分析，递归扫描整个堆里的对象图，找出要回收的对象，这阶段耗时较长，但可与用户程序并发执行。当对象图扫描完成以后，还要重新处理STAB记录下的在并发时有引用变动的对象。</li>
+<li><strong>最终标记</strong>（Final Marking）：对用户线程做另一个短暂的暂停，用于处理并发阶段结束后仍留下来的最后那少量的SATB记录。</li>
+<li><strong>筛选回收</strong>（Live Data Counting and Evacuation）：负责更新Region的统计数据，对各个Region的回收价值和成本进行排序，根据用户所期望的停顿时间来制定回收计划，可以自由选择任意多个Region构成的回收集，然后把决定回收的那一部分Region的存活对象复制到空Region中，再清理掉整个旧Region的全部空间。</li>
+</ol>
+
       
     </div>
     
@@ -407,7 +465,15 @@
           
             <a href="/tags/JVM/" rel="tag"># JVM</a>
           
-            <a href="/tags/%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6%E7%AE%97%E6%B3%95/" rel="tag"># 垃圾回收算法</a>
+            <a href="/tags/%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6%E5%99%A8/" rel="tag"># 垃圾回收器</a>
+          
+            <a href="/tags/G1/" rel="tag"># G1</a>
+          
+            <a href="/tags/Garbage-First/" rel="tag"># Garbage First</a>
+          
+            <a href="/tags/CMS/" rel="tag"># CMS</a>
+          
+            <a href="/tags/Concurrent-Mark-Sweep/" rel="tag"># Concurrent Mark Sweep</a>
           
         </div>
       
@@ -430,8 +496,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2020/04/03/Java/JVM/2020-03-29-Java-%E5%87%A0%E7%A7%8D%E5%BC%95%E7%94%A8%E7%B1%BB%E5%9E%8B/" rel="prev" title="Java中的4种引用类型">
-                Java中的4种引用类型 <i class="fa fa-chevron-right"></i>
+              <a href="/2020/04/03/LeetCode/leetcode-%E9%9D%A2%E8%AF%95%E9%A2%98-16.24-%E6%95%B0%E5%AF%B9%E5%92%8C/" rel="prev" title="16.24. 数对和">
+                16.24. 数对和 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -509,7 +575,7 @@
               
                 <a href="/archives/%7C%7C%20archive">
               
-                  <span class="site-state-item-count">392</span>
+                  <span class="site-state-item-count">435</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -531,7 +597,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">220</span>
+                  <span class="site-state-item-count">252</span>
                   <span class="site-state-item-name">tags</span>
                 </a>
               </div>
@@ -574,7 +640,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#"><span class="nav-number">1.</span> <span class="nav-text"></span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#常见的几种垃圾回收器介绍"><span class="nav-number">1.</span> <span class="nav-text">常见的几种垃圾回收器介绍</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Serial收集器"><span class="nav-number">1.1.</span> <span class="nav-text">Serial收集器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ParNew收集器"><span class="nav-number">1.2.</span> <span class="nav-text">ParNew收集器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Parallel-Scavenge收集器"><span class="nav-number">1.3.</span> <span class="nav-text">Parallel Scavenge收集器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Serial-Old收集器"><span class="nav-number">1.4.</span> <span class="nav-text">Serial Old收集器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Parallel-Old收集器"><span class="nav-number">1.5.</span> <span class="nav-text">Parallel Old收集器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#CMS收集器"><span class="nav-number">1.6.</span> <span class="nav-text">CMS收集器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Garbage-First收集器"><span class="nav-number">1.7.</span> <span class="nav-text">Garbage First收集器</span></a></li></ol></li></ol></div>
             
 
           </div>
