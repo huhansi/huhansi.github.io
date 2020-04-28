@@ -293,7 +293,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://huhansi.com/2020/03/26/LeetCode/leetcode-000066-%E5%8A%A0%E4%B8%80/">
+    <link itemprop="mainEntityOfPage" href="http://huhansi.com/2020/03/28/Java/JVM/2020-03-28-Java-%E5%86%85%E5%AD%98%E5%8C%BA%E5%9F%9F%E8%AF%A6%E8%A7%A3/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Han si">
@@ -312,7 +312,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2020/03/26/LeetCode/leetcode-000066-%E5%8A%A0%E4%B8%80/" itemprop="url">66. 加一</a></h1>
+                <a class="post-title-link" href="/2020/03/28/Java/JVM/2020-03-28-Java-%E5%86%85%E5%AD%98%E5%8C%BA%E5%9F%9F%E8%AF%A6%E8%A7%A3/" itemprop="url">Java内存区域详解</a></h1>
         
 
         <div class="post-meta">
@@ -324,8 +324,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-03-26T00:00:00+08:00">
-                2020-03-26
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-03-28T00:00:00+08:00">
+                2020-03-28
               </time>
             
 
@@ -347,8 +347,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/leetcode/" itemprop="url" rel="index">
-                    <span itemprop="name">leetcode</span>
+                  <a href="/categories/JVM/" itemprop="url" rel="index">
+                    <span itemprop="name">JVM</span>
                   </a>
                 </span>
 
@@ -386,16 +386,16 @@
       
         
           
-          题目给定一个由整数组成的非空数组所表示的非负整数，在该数的基础上加一。
-最高位数字存放在数组的首位， 数组中每个元素只存储单个数字。
-你可以假设除了整数 0 之外，这个整数不会以零开头。
-示例1:123输入: [1,2,3]输出: [1,2,4]解释: 输入数组表示数字 123。
+          Java内存区域根据《Java虚拟机规范》规定，Java虚拟机，即JVM所管理的内容将会包括以下几个运行时数据区域。
 
-示例2:123输
+主要划分为五大块：程序计数器、虚拟机栈、本地方法栈、方法区和堆。
+其中，程序计数器、虚拟机栈和本地方法栈是线程私有的，方法区和堆是共享数据。如下图：
+
+接下来我们挨个看看这五块数据
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2020/03/26/LeetCode/leetcode-000066-%E5%8A%A0%E4%B8%80/#more" rel="contents">
+            <a class="btn" href="/2020/03/28/Java/JVM/2020-03-28-Java-%E5%86%85%E5%AD%98%E5%8C%BA%E5%9F%9F%E8%AF%A6%E8%A7%A3/#more" rel="contents">
               Read more &raquo;
             </a>
           </div>
@@ -446,7 +446,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://huhansi.com/2020/03/26/LeetCode/leetcode-000048-%E6%97%8B%E8%BD%AC%E5%9B%BE%E5%83%8F/">
+    <link itemprop="mainEntityOfPage" href="http://huhansi.com/2020/03/28/Java/JVM/2020-03-28-Java-%E5%A6%82%E4%BD%95%E5%88%A4%E6%96%AD%E5%AF%B9%E8%B1%A1%E6%98%AF%E5%90%A6%E5%8F%AF%E4%BB%A5%E5%9B%9E%E6%94%B6/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Han si">
@@ -465,7 +465,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2020/03/26/LeetCode/leetcode-000048-%E6%97%8B%E8%BD%AC%E5%9B%BE%E5%83%8F/" itemprop="url">48. 旋转图像</a></h1>
+                <a class="post-title-link" href="/2020/03/28/Java/JVM/2020-03-28-Java-%E5%A6%82%E4%BD%95%E5%88%A4%E6%96%AD%E5%AF%B9%E8%B1%A1%E6%98%AF%E5%90%A6%E5%8F%AF%E4%BB%A5%E5%9B%9E%E6%94%B6/" itemprop="url">如何判断对象是否可以回收</a></h1>
         
 
         <div class="post-meta">
@@ -477,8 +477,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-03-26T00:00:00+08:00">
-                2020-03-26
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-03-28T00:00:00+08:00">
+                2020-03-28
               </time>
             
 
@@ -500,8 +500,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/leetcode/" itemprop="url" rel="index">
-                    <span itemprop="name">leetcode</span>
+                  <a href="/categories/JVM/" itemprop="url" rel="index">
+                    <span itemprop="name">JVM</span>
                   </a>
                 </span>
 
@@ -539,13 +539,13 @@
       
         
           
-          题目给定一个 n × n 的二维矩阵表示一个图像。
-将图像顺时针旋转 90 度。
-示例1:12345678910111213给定 matrix &#x3D; [  [1,2,3],  [4,5,6],  [7,8,9]],原地旋转输入矩阵，使其变为:[  [7,4,1],  [8,5,2],  [9
+          如何判断Java对象是否可以回收Java中垃圾回收是负责税收已经消亡或者是不再使用的对象，那么如何判断对象是否可以回收呢？
+主流的方法有两种：引用计数和可达性分析
+引用计数引用计数的算法流程是这样的：在对象中添加一个引用计数器，一旦有一个新的引用指向这个对象，它的计数器值就加一；当引用失效或者指向别
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2020/03/26/LeetCode/leetcode-000048-%E6%97%8B%E8%BD%AC%E5%9B%BE%E5%83%8F/#more" rel="contents">
+            <a class="btn" href="/2020/03/28/Java/JVM/2020-03-28-Java-%E5%A6%82%E4%BD%95%E5%88%A4%E6%96%AD%E5%AF%B9%E8%B1%A1%E6%98%AF%E5%90%A6%E5%8F%AF%E4%BB%A5%E5%9B%9E%E6%94%B6/#more" rel="contents">
               Read more &raquo;
             </a>
           </div>
@@ -596,7 +596,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://huhansi.com/2020/03/26/LeetCode/leetcode-000036-%E6%9C%89%E6%95%88%E7%9A%84%E6%95%B0%E7%8B%AC/">
+    <link itemprop="mainEntityOfPage" href="http://huhansi.com/2020/03/28/Java/Java%E5%9F%BA%E7%A1%80/2020-03-29-Java-%E7%BA%BF%E7%A8%8B%E6%B1%A0%E6%A8%A1%E5%9E%8B/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Han si">
@@ -615,7 +615,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2020/03/26/LeetCode/leetcode-000036-%E6%9C%89%E6%95%88%E7%9A%84%E6%95%B0%E7%8B%AC/" itemprop="url">36. 有效的数独</a></h1>
+                <a class="post-title-link" href="/2020/03/28/Java/Java%E5%9F%BA%E7%A1%80/2020-03-29-Java-%E7%BA%BF%E7%A8%8B%E6%B1%A0%E6%A8%A1%E5%9E%8B/" itemprop="url">Java-线程池</a></h1>
         
 
         <div class="post-meta">
@@ -627,8 +627,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-03-26T00:00:00+08:00">
-                2020-03-26
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-03-28T00:00:00+08:00">
+                2020-03-28
               </time>
             
 
@@ -650,8 +650,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/leetcode/" itemprop="url" rel="index">
-                    <span itemprop="name">leetcode</span>
+                  <a href="/categories/Java/" itemprop="url" rel="index">
+                    <span itemprop="name">Java</span>
                   </a>
                 </span>
 
@@ -689,15 +689,20 @@
       
         
           
-          题目判断一个 9x9 的数独是否有效。只需要根据以下规则，验证已经填入的数字是否有效即可。
-数字 1-9 在每一行只能出现一次。
-数字 1-9 在每一列只能出现一次。
-数字 1-9 在每一个以粗实线分隔的 3x3 宫内只能出现一次。
-示例1:12345678910111213输入:[  [&quot
+          Java中的线程池线程池是一个管理线程的池子，它的作用有以下几点：
+
+管理线程，避免增加创建线程和销毁线程的资源损耗
+提高响应速度
+重复利用
+
+创建线程池常见的创建线程池的方式有以下几种：
+Executors.newCachedThreadPool()
+核心线程数为0
+最大线程数为Integer.M
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2020/03/26/LeetCode/leetcode-000036-%E6%9C%89%E6%95%88%E7%9A%84%E6%95%B0%E7%8B%AC/#more" rel="contents">
+            <a class="btn" href="/2020/03/28/Java/Java%E5%9F%BA%E7%A1%80/2020-03-29-Java-%E7%BA%BF%E7%A8%8B%E6%B1%A0%E6%A8%A1%E5%9E%8B/#more" rel="contents">
               Read more &raquo;
             </a>
           </div>
@@ -748,7 +753,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://huhansi.com/2020/03/26/LeetCode/leetcode-000136.%20%E5%8F%AA%E5%87%BA%E7%8E%B0%E4%B8%80%E6%AC%A1%E7%9A%84%E6%95%B0%E5%AD%97/">
+    <link itemprop="mainEntityOfPage" href="http://huhansi.com/2020/03/27/LeetCode/leetcode-000038-%E5%A4%96%E8%A7%82%E6%95%B0%E5%88%97/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Han si">
@@ -767,7 +772,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2020/03/26/LeetCode/leetcode-000136.%20%E5%8F%AA%E5%87%BA%E7%8E%B0%E4%B8%80%E6%AC%A1%E7%9A%84%E6%95%B0%E5%AD%97/" itemprop="url">136. 只出现一次的数字</a></h1>
+                <a class="post-title-link" href="/2020/03/27/LeetCode/leetcode-000038-%E5%A4%96%E8%A7%82%E6%95%B0%E5%88%97/" itemprop="url">38. 外观数列</a></h1>
         
 
         <div class="post-meta">
@@ -779,8 +784,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-03-26T00:00:00+08:00">
-                2020-03-26
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-03-27T00:00:00+08:00">
+                2020-03-27
               </time>
             
 
@@ -841,15 +846,14 @@
       
         
           
-          题目给定一个非空整数数组，除了某个元素只出现一次以外，其余每个元素均出现两次。找出那个只出现了一次的元素。
-示例1：12输入: [2,2,1]输出: 1
-示例2：12输入: [4,1,2,1,2]输出: 4
-说明：你的算法应该具有线性时间复杂度。 你可以不使用额外空间来实现吗？
-解法解法一：使用异或
+          题目「外观数列」是一个整数序列，从数字 1 开始，序列中的每一项都是对前一项的描述。前五项如下：
+123451.     12.     113.     214.     12115.     111221
+
+1 被读作  “one 1”  (“一个一”) , 即 11。11 被读作 “two 1
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2020/03/26/LeetCode/leetcode-000136.%20%E5%8F%AA%E5%87%BA%E7%8E%B0%E4%B8%80%E6%AC%A1%E7%9A%84%E6%95%B0%E5%AD%97/#more" rel="contents">
+            <a class="btn" href="/2020/03/27/LeetCode/leetcode-000038-%E5%A4%96%E8%A7%82%E6%95%B0%E5%88%97/#more" rel="contents">
               Read more &raquo;
             </a>
           </div>
@@ -900,7 +904,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://huhansi.com/2020/03/26/LeetCode/leetcode-000122.%20%E4%B9%B0%E5%8D%96%E8%82%A1%E7%A5%A8%E7%9A%84%E6%9C%80%E4%BD%B3%E6%97%B6%E6%9C%BA%20II/">
+    <link itemprop="mainEntityOfPage" href="http://huhansi.com/2020/03/27/LeetCode/leetcode-000053-%E6%9C%80%E5%A4%A7%E5%AD%90%E5%BA%8F%E5%92%8C/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Han si">
@@ -919,7 +923,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2020/03/26/LeetCode/leetcode-000122.%20%E4%B9%B0%E5%8D%96%E8%82%A1%E7%A5%A8%E7%9A%84%E6%9C%80%E4%BD%B3%E6%97%B6%E6%9C%BA%20II/" itemprop="url">122. 买卖股票的最佳时机 II</a></h1>
+                <a class="post-title-link" href="/2020/03/27/LeetCode/leetcode-000053-%E6%9C%80%E5%A4%A7%E5%AD%90%E5%BA%8F%E5%92%8C/" itemprop="url">53. 最大子序和</a></h1>
         
 
         <div class="post-meta">
@@ -931,8 +935,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-03-26T00:00:00+08:00">
-                2020-03-26
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-03-27T00:00:00+08:00">
+                2020-03-27
               </time>
             
 
@@ -993,14 +997,14 @@
       
         
           
-          题目给定一个数组，它的第 i 个元素是一支给定股票第 i 天的价格。
-设计一个算法来计算你所能获取的最大利润。你可以尽可能地完成更多的交易（多次买卖一支股票）。
-注意：你不能同时参与多笔交易（你必须在再次购买前出售掉之前的股票）。
-示例1：1234输入: [7,1,5,3,6,4]输出: 7解释: 
+          题目给定一个整数数组 nums ，找到一个具有最大和的连续子数组（子数组最少包含一个元素），返回其最大和。
+示例1：123输入: [-2,1,-3,4,-1,2,1,-5,4],输出: 6解释: 连续子数组 [4,-1,2,1] 的和最大，为 6。
+
+进阶：如果你已经实现复杂度为 O(n) 的解法，
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2020/03/26/LeetCode/leetcode-000122.%20%E4%B9%B0%E5%8D%96%E8%82%A1%E7%A5%A8%E7%9A%84%E6%9C%80%E4%BD%B3%E6%97%B6%E6%9C%BA%20II/#more" rel="contents">
+            <a class="btn" href="/2020/03/27/LeetCode/leetcode-000053-%E6%9C%80%E5%A4%A7%E5%AD%90%E5%BA%8F%E5%92%8C/#more" rel="contents">
               Read more &raquo;
             </a>
           </div>
@@ -1051,7 +1055,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://huhansi.com/2020/03/26/LeetCode/leetcode-000155-%E6%9C%80%E5%B0%8F%E6%A0%88/">
+    <link itemprop="mainEntityOfPage" href="http://huhansi.com/2020/03/27/LeetCode/leetcode-000054-%E8%9E%BA%E6%97%8B%E7%9F%A9%E9%98%B5/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Han si">
@@ -1070,7 +1074,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2020/03/26/LeetCode/leetcode-000155-%E6%9C%80%E5%B0%8F%E6%A0%88/" itemprop="url">155. 最小栈</a></h1>
+                <a class="post-title-link" href="/2020/03/27/LeetCode/leetcode-000054-%E8%9E%BA%E6%97%8B%E7%9F%A9%E9%98%B5/" itemprop="url">54. 螺旋矩阵</a></h1>
         
 
         <div class="post-meta">
@@ -1082,8 +1086,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-03-26T00:00:00+08:00">
-                2020-03-26
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-03-27T00:00:00+08:00">
+                2020-03-27
               </time>
             
 
@@ -1144,15 +1148,14 @@
       
         
           
-          题目设计一个支持 push，pop，top 操作，并能在常数时间内检索到最小元素的栈。
-push(x) -- 将元素 x 推入栈中。
-pop() -- 删除栈顶的元素。
-top() -- 获取栈顶元素。
-getMin() -- 检索栈中的最小元素。示例：12345678MinStack minSta
+          题目给定一个包含 m x n 个元素的矩阵（m 行, n 列），请按照顺时针螺旋顺序，返回矩阵中的所有元素。
+示例1：1234567输入:[ [ 1, 2, 3 ], [ 4, 5, 6 ], [ 7, 8, 9 ]]输出: [1,2,3,6,9,8,7,4,5]
+
+示例2：1234567输入:[ 
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2020/03/26/LeetCode/leetcode-000155-%E6%9C%80%E5%B0%8F%E6%A0%88/#more" rel="contents">
+            <a class="btn" href="/2020/03/27/LeetCode/leetcode-000054-%E8%9E%BA%E6%97%8B%E7%9F%A9%E9%98%B5/#more" rel="contents">
               Read more &raquo;
             </a>
           </div>
@@ -1203,7 +1206,7 @@ getMin() -- 检索栈中的最小元素。示例：12345678MinStack minSta
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://huhansi.com/2020/03/26/LeetCode/leetcode-000189-%E6%97%8B%E8%BD%AC%E6%95%B0%E7%BB%84/">
+    <link itemprop="mainEntityOfPage" href="http://huhansi.com/2020/03/27/LeetCode/leetcode-000088-%E5%90%88%E5%B9%B6%E4%B8%A4%E4%B8%AA%E6%9C%89%E5%BA%8F%E6%95%B0%E7%BB%84/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Han si">
@@ -1222,7 +1225,7 @@ getMin() -- 检索栈中的最小元素。示例：12345678MinStack minSta
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2020/03/26/LeetCode/leetcode-000189-%E6%97%8B%E8%BD%AC%E6%95%B0%E7%BB%84/" itemprop="url">189. 旋转数组</a></h1>
+                <a class="post-title-link" href="/2020/03/27/LeetCode/leetcode-000088-%E5%90%88%E5%B9%B6%E4%B8%A4%E4%B8%AA%E6%9C%89%E5%BA%8F%E6%95%B0%E7%BB%84/" itemprop="url">88. 合并两个有序数组</a></h1>
         
 
         <div class="post-meta">
@@ -1234,8 +1237,8 @@ getMin() -- 检索栈中的最小元素。示例：12345678MinStack minSta
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-03-26T00:00:00+08:00">
-                2020-03-26
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-03-27T00:00:00+08:00">
+                2020-03-27
               </time>
             
 
@@ -1296,12 +1299,12 @@ getMin() -- 检索栈中的最小元素。示例：12345678MinStack minSta
       
         
           
-          题目给定一个数组，将数组中的元素向右移动 k 个位置，其中 k 是非负数。
-示例1：123456输入: [1,2,3,4,5,6,7] 和 k = 3输出: [5,6,7,1,2,3,4]解释:向右旋转 1 步: [7,1,2,3,4,5,6]向右旋转 2 步: [6,7,1,2,3,4,5]向右旋
+          题目给你两个有序整数数组 nums1 和 nums2*，请你将 *nums2 合并到 nums1 中，使 num1 成为一个有序数组。
+说明初始化 nums1 和 nums2 的元素数量分别为 m 和 n 。你可以假设 nums1 有足够的空间（空间大小大于或等于 m + n）来保存 nums2 中
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2020/03/26/LeetCode/leetcode-000189-%E6%97%8B%E8%BD%AC%E6%95%B0%E7%BB%84/#more" rel="contents">
+            <a class="btn" href="/2020/03/27/LeetCode/leetcode-000088-%E5%90%88%E5%B9%B6%E4%B8%A4%E4%B8%AA%E6%9C%89%E5%BA%8F%E6%95%B0%E7%BB%84/#more" rel="contents">
               Read more &raquo;
             </a>
           </div>
@@ -1352,7 +1355,7 @@ getMin() -- 检索栈中的最小元素。示例：12345678MinStack minSta
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://huhansi.com/2020/03/26/LeetCode/leetcode-000190-%E9%A2%A0%E5%80%92%E4%BA%8C%E8%BF%9B%E5%88%B6%E4%BD%8D/">
+    <link itemprop="mainEntityOfPage" href="http://huhansi.com/2020/03/27/LeetCode/leetcode-000098-%E9%AA%8C%E8%AF%81%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Han si">
@@ -1371,7 +1374,7 @@ getMin() -- 检索栈中的最小元素。示例：12345678MinStack minSta
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2020/03/26/LeetCode/leetcode-000190-%E9%A2%A0%E5%80%92%E4%BA%8C%E8%BF%9B%E5%88%B6%E4%BD%8D/" itemprop="url">190. 颠倒二进制位</a></h1>
+                <a class="post-title-link" href="/2020/03/27/LeetCode/leetcode-000098-%E9%AA%8C%E8%AF%81%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91/" itemprop="url">98. 验证二叉搜索树</a></h1>
         
 
         <div class="post-meta">
@@ -1383,8 +1386,8 @@ getMin() -- 检索栈中的最小元素。示例：12345678MinStack minSta
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-03-26T00:00:00+08:00">
-                2020-03-26
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-03-27T00:00:00+08:00">
+                2020-03-27
               </time>
             
 
@@ -1445,12 +1448,19 @@ getMin() -- 检索栈中的最小元素。示例：12345678MinStack minSta
       
         
           
-          题目颠倒给定的 32 位无符号整数的二进制位。
-示例1:1234输入: 00000010100101000001111010011100输出: 00111001011110000010100101000000解释: 输入的二进制串 00000010100101000001111010011100 表
+          题目给定一个二叉树，判断其是否是一个有效的二叉搜索树。
+假设一个二叉搜索树具有如下特征：
+
+节点的左子树只包含小于当前节点的数。
+节点的右子树只包含大于当前节点的数。
+所有左子树和右子树自身必须也是二叉搜索树。
+
+示例1：给定二叉树 [3,9,20,null,null,15,7]，
+12345输入:
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2020/03/26/LeetCode/leetcode-000190-%E9%A2%A0%E5%80%92%E4%BA%8C%E8%BF%9B%E5%88%B6%E4%BD%8D/#more" rel="contents">
+            <a class="btn" href="/2020/03/27/LeetCode/leetcode-000098-%E9%AA%8C%E8%AF%81%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91/#more" rel="contents">
               Read more &raquo;
             </a>
           </div>
@@ -1501,7 +1511,7 @@ getMin() -- 检索栈中的最小元素。示例：12345678MinStack minSta
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://huhansi.com/2020/03/26/LeetCode/leetcode-000204-%E8%AE%A1%E6%95%B0%E8%B4%A8%E6%95%B0/">
+    <link itemprop="mainEntityOfPage" href="http://huhansi.com/2020/03/27/LeetCode/leetcode-000070.%20%E7%88%AC%E6%A5%BC%E6%A2%AF/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Han si">
@@ -1520,7 +1530,7 @@ getMin() -- 检索栈中的最小元素。示例：12345678MinStack minSta
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2020/03/26/LeetCode/leetcode-000204-%E8%AE%A1%E6%95%B0%E8%B4%A8%E6%95%B0/" itemprop="url">204. 计数质数</a></h1>
+                <a class="post-title-link" href="/2020/03/27/LeetCode/leetcode-000070.%20%E7%88%AC%E6%A5%BC%E6%A2%AF/" itemprop="url">70. 爬楼梯</a></h1>
         
 
         <div class="post-meta">
@@ -1532,8 +1542,8 @@ getMin() -- 检索栈中的最小元素。示例：12345678MinStack minSta
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-03-26T00:00:00+08:00">
-                2020-03-26
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-03-27T00:00:00+08:00">
+                2020-03-27
               </time>
             
 
@@ -1594,14 +1604,15 @@ getMin() -- 检索栈中的最小元素。示例：12345678MinStack minSta
       
         
           
-          题目统计所有小于非负整数 n 的质数的数量。
-示例1：123输入: 10输出: 4解释: 小于 10 的质数一共有 4 个, 它们是 2, 3, 5, 7 。
-
-解法解法一：筛法求素数Java1234567891011121314public int countPrimes(int n) &#123
+          题目假设你正在爬楼梯。需要 n 阶你才能到达楼顶。
+每次你可以爬 1 或 2 个台阶。你有多少种不同的方法可以爬到楼顶呢？
+注意：给定 n 是一个正整数。
+示例1：12345输入： 2输出： 2解释： 有两种方法可以爬到楼顶。1.  1 阶 + 1 阶2.  2 阶
+示例2：123456输入： 3输
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2020/03/26/LeetCode/leetcode-000204-%E8%AE%A1%E6%95%B0%E8%B4%A8%E6%95%B0/#more" rel="contents">
+            <a class="btn" href="/2020/03/27/LeetCode/leetcode-000070.%20%E7%88%AC%E6%A5%BC%E6%A2%AF/#more" rel="contents">
               Read more &raquo;
             </a>
           </div>
@@ -1652,7 +1663,7 @@ getMin() -- 检索栈中的最小元素。示例：12345678MinStack minSta
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://huhansi.com/2020/03/26/LeetCode/leetcode-000283-%E7%A7%BB%E5%8A%A8%E9%9B%B6/">
+    <link itemprop="mainEntityOfPage" href="http://huhansi.com/2020/03/27/LeetCode/leetcode-000119-%E6%9D%A8%E8%BE%89%E4%B8%89%E8%A7%92%20II/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Han si">
@@ -1671,7 +1682,7 @@ getMin() -- 检索栈中的最小元素。示例：12345678MinStack minSta
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2020/03/26/LeetCode/leetcode-000283-%E7%A7%BB%E5%8A%A8%E9%9B%B6/" itemprop="url">283. 移动零</a></h1>
+                <a class="post-title-link" href="/2020/03/27/LeetCode/leetcode-000119-%E6%9D%A8%E8%BE%89%E4%B8%89%E8%A7%92%20II/" itemprop="url">119. 杨辉三角 II</a></h1>
         
 
         <div class="post-meta">
@@ -1683,8 +1694,8 @@ getMin() -- 检索栈中的最小元素。示例：12345678MinStack minSta
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-03-26T00:00:00+08:00">
-                2020-03-26
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-03-27T00:00:00+08:00">
+                2020-03-27
               </time>
             
 
@@ -1745,14 +1756,16 @@ getMin() -- 检索栈中的最小元素。示例：12345678MinStack minSta
       
         
           
-          题目给定一个数组 nums，编写一个函数将所有 0 移动到数组的末尾，同时保持非零元素的相对顺序。
-示例1:12输入: [0,1,0,3,12]输出: [1,3,12,0,0]
+          题目给定一个非负索引 k，其中 k ≤ 33，返回杨辉三角的第 k 行。
 
-解法解法一：快慢指针使用快慢指针。i-慢指针指向数组首位，j-快指针遍历数组，遇到不为0的数据，就将该数据移到i处，i自
+示例1：12输入: 3输出: [1,3,3,1]
+
+进阶：你可以优化你的算法到 O(k) 空间复杂度吗？
+解法解法一：迭代法Java1234567891011121314151617public List&lt;Intege
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2020/03/26/LeetCode/leetcode-000283-%E7%A7%BB%E5%8A%A8%E9%9B%B6/#more" rel="contents">
+            <a class="btn" href="/2020/03/27/LeetCode/leetcode-000119-%E6%9D%A8%E8%BE%89%E4%B8%89%E8%A7%92%20II/#more" rel="contents">
               Read more &raquo;
             </a>
           </div>
@@ -1794,7 +1807,7 @@ getMin() -- 检索栈中的最小元素。示例：12345678MinStack minSta
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/22/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/22/">22</a><span class="page-number current">23</span><a class="page-number" href="/page/24/">24</a><span class="space">&hellip;</span><a class="page-number" href="/page/44/">44</a><a class="extend next" rel="next" href="/page/24/"><i class="fa fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" href="/page/22/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/22/">22</a><span class="page-number current">23</span><a class="page-number" href="/page/24/">24</a><span class="space">&hellip;</span><a class="page-number" href="/page/47/">47</a><a class="extend next" rel="next" href="/page/24/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -1840,7 +1853,7 @@ getMin() -- 检索栈中的最小元素。示例：12345678MinStack minSta
               
                 <a href="/archives/%7C%7C%20archive">
               
-                  <span class="site-state-item-count">435</span>
+                  <span class="site-state-item-count">461</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -1851,7 +1864,7 @@ getMin() -- 检索栈中的最小元素。示例：12345678MinStack minSta
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">14</span>
+                  <span class="site-state-item-count">15</span>
                   <span class="site-state-item-name">categories</span>
                 </a>
               </div>
@@ -1862,7 +1875,7 @@ getMin() -- 检索栈中的最小元素。示例：12345678MinStack minSta
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">252</span>
+                  <span class="site-state-item-count">259</span>
                   <span class="site-state-item-name">tags</span>
                 </a>
               </div>

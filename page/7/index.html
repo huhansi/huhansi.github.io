@@ -293,7 +293,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://huhansi.com/2020/04/11/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E5%88%86%E5%B8%83%E5%BC%8F%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84%E5%8E%9F%E7%90%86%E3%80%81%E6%A1%86%E6%9E%B6%E4%B8%8E%E5%AE%9E%E6%88%98/2020-04-11-%E5%88%86%E5%B8%83%E5%BC%8F1-%E5%BE%AE%E6%9C%8D%E5%8A%A1%E7%9A%84%E5%88%86%E8%A7%A3%E5%92%8C%E7%BB%84%E5%90%88%E6%A8%A1%E5%BC%8F/">
+    <link itemprop="mainEntityOfPage" href="http://huhansi.com/2020/04/17/Java/Java%E5%9F%BA%E7%A1%80/2020-04-17-%E7%BA%BF%E7%A8%8B%E6%B1%A0%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Han si">
@@ -312,7 +312,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2020/04/11/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E5%88%86%E5%B8%83%E5%BC%8F%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84%E5%8E%9F%E7%90%86%E3%80%81%E6%A1%86%E6%9E%B6%E4%B8%8E%E5%AE%9E%E6%88%98/2020-04-11-%E5%88%86%E5%B8%83%E5%BC%8F1-%E5%BE%AE%E6%9C%8D%E5%8A%A1%E7%9A%84%E5%88%86%E8%A7%A3%E5%92%8C%E7%BB%84%E5%90%88%E6%A8%A1%E5%BC%8F/" itemprop="url">微服务的分解和组合模式</a></h1>
+                <a class="post-title-link" href="/2020/04/17/Java/Java%E5%9F%BA%E7%A1%80/2020-04-17-%E7%BA%BF%E7%A8%8B%E6%B1%A0%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90/" itemprop="url">ThreadPoolExecutor源码解析</a></h1>
         
 
         <div class="post-meta">
@@ -324,8 +324,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-04-11T00:00:00+08:00">
-                2020-04-11
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-04-17T00:00:00+08:00">
+                2020-04-17
               </time>
             
 
@@ -347,8 +347,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E5%88%86%E5%B8%83%E5%BC%8F/" itemprop="url" rel="index">
-                    <span itemprop="name">分布式</span>
+                  <a href="/categories/Java/" itemprop="url" rel="index">
+                    <span itemprop="name">Java</span>
                   </a>
                 </span>
 
@@ -386,12 +386,12 @@
       
         
           
-          微服务的分解和组合模式使用微服务架构划分服务和团队是微服务架构实施的重要一步，良好的划分和拆分是使系统达到松耦合和高内聚的效果，然后通过微服务的灵活组装可以满足上层各种各样的业务处理需求。
-在微服务架构的需求分析和架构设计过程中，通常是用领域的动词和名词来划分微服务的。例如，对于一个电商后台系统，可
+          ThreadPoolExecutor源码解析简介线程池作用就是限制系统中执行线程的数量。
+根据系统的环境情况，可以自动或手动设置线程数量，达到运行的最佳效果；如果线程少了会浪费系统资源，多了又会造成系统拥挤效率不高。用线程池控制线程数量，使得其他线程排队等候。一个任务执行完毕，再从队列的中取最前面的
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2020/04/11/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E5%88%86%E5%B8%83%E5%BC%8F%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84%E5%8E%9F%E7%90%86%E3%80%81%E6%A1%86%E6%9E%B6%E4%B8%8E%E5%AE%9E%E6%88%98/2020-04-11-%E5%88%86%E5%B8%83%E5%BC%8F1-%E5%BE%AE%E6%9C%8D%E5%8A%A1%E7%9A%84%E5%88%86%E8%A7%A3%E5%92%8C%E7%BB%84%E5%90%88%E6%A8%A1%E5%BC%8F/#more" rel="contents">
+            <a class="btn" href="/2020/04/17/Java/Java%E5%9F%BA%E7%A1%80/2020-04-17-%E7%BA%BF%E7%A8%8B%E6%B1%A0%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90/#more" rel="contents">
               Read more &raquo;
             </a>
           </div>
@@ -442,7 +442,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://huhansi.com/2020/04/11/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E5%88%86%E5%B8%83%E5%BC%8F%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84%E5%8E%9F%E7%90%86%E3%80%81%E6%A1%86%E6%9E%B6%E4%B8%8E%E5%AE%9E%E6%88%98/2020-04-11-%E5%88%86%E5%B8%83%E5%BC%8F2-%E5%BE%AE%E6%9C%8D%E5%8A%A1%E7%9A%84%E5%AE%B9%E9%94%99%E6%A8%A1%E5%BC%8F/">
+    <link itemprop="mainEntityOfPage" href="http://huhansi.com/2020/04/17/Java/Java%E5%9F%BA%E7%A1%80/2020-04-17-ArrayList%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Han si">
@@ -461,7 +461,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2020/04/11/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E5%88%86%E5%B8%83%E5%BC%8F%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84%E5%8E%9F%E7%90%86%E3%80%81%E6%A1%86%E6%9E%B6%E4%B8%8E%E5%AE%9E%E6%88%98/2020-04-11-%E5%88%86%E5%B8%83%E5%BC%8F2-%E5%BE%AE%E6%9C%8D%E5%8A%A1%E7%9A%84%E5%AE%B9%E9%94%99%E6%A8%A1%E5%BC%8F/" itemprop="url">微服务容错模式</a></h1>
+                <a class="post-title-link" href="/2020/04/17/Java/Java%E5%9F%BA%E7%A1%80/2020-04-17-ArrayList%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90/" itemprop="url">ArrayList源码解析</a></h1>
         
 
         <div class="post-meta">
@@ -473,8 +473,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-04-11T00:00:00+08:00">
-                2020-04-11
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-04-17T00:00:00+08:00">
+                2020-04-17
               </time>
             
 
@@ -496,8 +496,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E5%88%86%E5%B8%83%E5%BC%8F/" itemprop="url" rel="index">
-                    <span itemprop="name">分布式</span>
+                  <a href="/categories/Java/" itemprop="url" rel="index">
+                    <span itemprop="name">Java</span>
                   </a>
                 </span>
 
@@ -535,11 +535,12 @@
       
         
           
-          微服务的容错模式在使用了微服务架构以后，整体的业务流程被拆分成小的微服务，并组合在一起对外提供服务，微服务之间使用轻量级的网络通信协议，通常是RESTFul风格的远程调用。由于服务与服务的调用不再是进程内的调用，而是通过网络进行的远程调用，众所周知，网络通信是不稳定、不可靠的，一个服务依赖的服务可能
+          ArrayList源码解析简介ArrayList是Java SDK中提供的动态数组。相比于普通的数组，它的容量能自动增长，继承于AbstractList抽象类，实现了List、RandomAccess、Cloneable和Serializable接口。
+12public class ArrayLis
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2020/04/11/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E5%88%86%E5%B8%83%E5%BC%8F%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84%E5%8E%9F%E7%90%86%E3%80%81%E6%A1%86%E6%9E%B6%E4%B8%8E%E5%AE%9E%E6%88%98/2020-04-11-%E5%88%86%E5%B8%83%E5%BC%8F2-%E5%BE%AE%E6%9C%8D%E5%8A%A1%E7%9A%84%E5%AE%B9%E9%94%99%E6%A8%A1%E5%BC%8F/#more" rel="contents">
+            <a class="btn" href="/2020/04/17/Java/Java%E5%9F%BA%E7%A1%80/2020-04-17-ArrayList%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90/#more" rel="contents">
               Read more &raquo;
             </a>
           </div>
@@ -590,7 +591,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://huhansi.com/2020/04/10/Linux/Linux%E7%9A%84N%E7%A7%8DIO%E6%A8%A1%E5%9E%8B/">
+    <link itemprop="mainEntityOfPage" href="http://huhansi.com/2020/04/16/LeetCode/leetcode-000603.%20%E8%BF%9E%E7%BB%AD%E7%A9%BA%E4%BD%99%E5%BA%A7%E4%BD%8D/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Han si">
@@ -609,7 +610,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2020/04/10/Linux/Linux%E7%9A%84N%E7%A7%8DIO%E6%A8%A1%E5%9E%8B/" itemprop="url">Linux/Linux的N种IO模型</a></h1>
+                <a class="post-title-link" href="/2020/04/16/LeetCode/leetcode-000603.%20%E8%BF%9E%E7%BB%AD%E7%A9%BA%E4%BD%99%E5%BA%A7%E4%BD%8D/" itemprop="url">908. 最小差值 I</a></h1>
         
 
         <div class="post-meta">
@@ -621,134 +622,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-04-10T15:44:26+08:00">
-                2020-04-10
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-          
-          
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2020/04/10/Linux/Linux%E7%9A%84N%E7%A7%8DIO%E6%A8%A1%E5%9E%8B/#more" rel="contents">
-              Read more &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://huhansi.com/2020/04/10/LeetCode/leetcode-001064.%20%E4%B8%8D%E5%8A%A8%E7%82%B9/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Han si">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hansi Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2020/04/10/LeetCode/leetcode-001064.%20%E4%B8%8D%E5%8A%A8%E7%82%B9/" itemprop="url">1064. 不动点</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-04-10T14:27:55+08:00">
-                2020-04-10
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-04-16T00:00:00+08:00">
+                2020-04-16
               </time>
             
 
@@ -809,12 +684,13 @@
       
         
           
-          题目给定已经按升序排列、由不同整数组成的数组 A，返回满足 A[i] == i 的最小索引 i。如果不存在这样的 i，返回 -1。
-示例 1:1234输入：[-10,-5,0,3,7]输出：3解释：对于给定的数组，A[0] &#x3D; -10，A[1] &#x3D; -5，A[2] &#x3D; 
+          题目几个朋友来到电影院的售票处，准备预约连续空余座位。
+你能利用表 cinema ，帮他们写一个查询语句，获取所有空余座位，并将它们按照 seat_id 排序后返回吗？
+1234567| seat_id | free ||---------|------|| 1       | 1    || 2 
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2020/04/10/LeetCode/leetcode-001064.%20%E4%B8%8D%E5%8A%A8%E7%82%B9/#more" rel="contents">
+            <a class="btn" href="/2020/04/16/LeetCode/leetcode-000603.%20%E8%BF%9E%E7%BB%AD%E7%A9%BA%E4%BD%99%E5%BA%A7%E4%BD%8D/#more" rel="contents">
               Read more &raquo;
             </a>
           </div>
@@ -865,7 +741,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://huhansi.com/2020/04/10/LeetCode/leetcode-000293.%20%E7%BF%BB%E8%BD%AC%E6%B8%B8%E6%88%8F/">
+    <link itemprop="mainEntityOfPage" href="http://huhansi.com/2020/04/16/LeetCode/leetcode-000908.%20%E6%9C%80%E5%B0%8F%E5%B7%AE%E5%80%BC%20I/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Han si">
@@ -884,7 +760,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2020/04/10/LeetCode/leetcode-000293.%20%E7%BF%BB%E8%BD%AC%E6%B8%B8%E6%88%8F/" itemprop="url">293. 翻转游戏</a></h1>
+                <a class="post-title-link" href="/2020/04/16/LeetCode/leetcode-000908.%20%E6%9C%80%E5%B0%8F%E5%B7%AE%E5%80%BC%20I/" itemprop="url">908. 最小差值 I</a></h1>
         
 
         <div class="post-meta">
@@ -896,8 +772,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-04-10T00:00:00+08:00">
-                2020-04-10
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-04-16T00:00:00+08:00">
+                2020-04-16
               </time>
             
 
@@ -958,13 +834,14 @@
       
         
           
-          题目你和朋友玩一个叫做「翻转游戏」的游戏，游戏规则：给定一个只有 + 和 - 的字符串。你和朋友轮流将 连续 的两个 “++” 反转成 “–”。 当一方无法进行有效的翻转时便意味着游戏结束，则另一方获胜。
-请你写出一个函数，来计算出每个有效操作后，字符串所有的可能状态
-示例 1:1234567输入:
+          题目给你一个整数数组 A，对于每个整数 A[i]，我们可以选择处于区间 [-K, K] 中的任意数 x ，将 x 与 A[i] 相加，结果存入 A[i] 。
+在此过程之后，我们得到一些数组 B。
+返回 B 的最大值和 B 的最小值之间可能存在的最小差值。
+示例 1:123输入：A &#x3D; [1
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2020/04/10/LeetCode/leetcode-000293.%20%E7%BF%BB%E8%BD%AC%E6%B8%B8%E6%88%8F/#more" rel="contents">
+            <a class="btn" href="/2020/04/16/LeetCode/leetcode-000908.%20%E6%9C%80%E5%B0%8F%E5%B7%AE%E5%80%BC%20I/#more" rel="contents">
               Read more &raquo;
             </a>
           </div>
@@ -1015,7 +892,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://huhansi.com/2020/04/10/LeetCode/leetcode-000577.%20%E5%91%98%E5%B7%A5%E5%A5%96%E9%87%91/">
+    <link itemprop="mainEntityOfPage" href="http://huhansi.com/2020/04/16/LeetCode/leetcode-001025.%20%E9%99%A4%E6%95%B0%E5%8D%9A%E5%BC%88/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Han si">
@@ -1034,7 +911,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2020/04/10/LeetCode/leetcode-000577.%20%E5%91%98%E5%B7%A5%E5%A5%96%E9%87%91/" itemprop="url">577. 员工奖金</a></h1>
+                <a class="post-title-link" href="/2020/04/16/LeetCode/leetcode-001025.%20%E9%99%A4%E6%95%B0%E5%8D%9A%E5%BC%88/" itemprop="url">1025. 除数博弈</a></h1>
         
 
         <div class="post-meta">
@@ -1046,8 +923,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-04-10T00:00:00+08:00">
-                2020-04-10
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-04-16T00:00:00+08:00">
+                2020-04-16
               </time>
             
 
@@ -1108,13 +985,15 @@
       
         
           
-          题目选出所有 bonus &lt; 1000 的员工的 name 及其 bonus。
-Employee 表单
-12345678910111213+-------+--------+-----------+--------+| empId |  name  | supervisor| salary |
+          题目爱丽丝和鲍勃一起玩游戏，他们轮流行动。爱丽丝先手开局。
+最初，黑板上有一个数字 N 。在每个玩家的回合，玩家需要执行以下操作：
+选出任一 x，满足 0 &lt; x &lt; N 且 N % x == 0 。
+用 N - x 替换黑板上的数字 N 。如果玩家无法执行这些操作，就会输掉游戏。
+只有
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2020/04/10/LeetCode/leetcode-000577.%20%E5%91%98%E5%B7%A5%E5%A5%96%E9%87%91/#more" rel="contents">
+            <a class="btn" href="/2020/04/16/LeetCode/leetcode-001025.%20%E9%99%A4%E6%95%B0%E5%8D%9A%E5%BC%88/#more" rel="contents">
               Read more &raquo;
             </a>
           </div>
@@ -1165,7 +1044,7 @@ Employee 表单
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://huhansi.com/2020/04/10/LeetCode/leetcode-000586-%E8%AE%A2%E5%8D%95%E6%9C%80%E5%A4%9A%E7%9A%84%E5%AE%A2%E6%88%B7/">
+    <link itemprop="mainEntityOfPage" href="http://huhansi.com/2020/04/16/LeetCode/leetcode-001237.%20%E6%89%BE%E5%87%BA%E7%BB%99%E5%AE%9A%E6%96%B9%E7%A8%8B%E7%9A%84%E6%AD%A3%E6%95%B4%E6%95%B0%E8%A7%A3/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Han si">
@@ -1184,7 +1063,7 @@ Employee 表单
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2020/04/10/LeetCode/leetcode-000586-%E8%AE%A2%E5%8D%95%E6%9C%80%E5%A4%9A%E7%9A%84%E5%AE%A2%E6%88%B7/" itemprop="url">586. 订单最多的客户</a></h1>
+                <a class="post-title-link" href="/2020/04/16/LeetCode/leetcode-001237.%20%E6%89%BE%E5%87%BA%E7%BB%99%E5%AE%9A%E6%96%B9%E7%A8%8B%E7%9A%84%E6%AD%A3%E6%95%B4%E6%95%B0%E8%A7%A3/" itemprop="url">1237. 找出给定方程的正整数解</a></h1>
         
 
         <div class="post-meta">
@@ -1196,8 +1075,8 @@ Employee 表单
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-04-10T00:00:00+08:00">
-                2020-04-10
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-04-16T00:00:00+08:00">
+                2020-04-16
               </time>
             
 
@@ -1258,14 +1137,18 @@ Employee 表单
       
         
           
-          题目在表 orders 中找到订单数最多客户对应的 customer_number 。
-数据保证订单数最多的顾客恰好只有一位。
-表 orders 定义如下：
-123456789| Column            | Type      ||-------------------|--------
+          题目给出一个函数  f(x, y) 和一个目标结果 z，请你计算方程 f(x,y) == z 所有可能的正整数 数对 x 和 y。
+给定函数是严格单调的，也就是说：
+
+f(x, y) &lt; f(x + 1, y)
+f(x, y) &lt; f(x, y + 1)
+
+函数接口定义如下：
+inter
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2020/04/10/LeetCode/leetcode-000586-%E8%AE%A2%E5%8D%95%E6%9C%80%E5%A4%9A%E7%9A%84%E5%AE%A2%E6%88%B7/#more" rel="contents">
+            <a class="btn" href="/2020/04/16/LeetCode/leetcode-001237.%20%E6%89%BE%E5%87%BA%E7%BB%99%E5%AE%9A%E6%96%B9%E7%A8%8B%E7%9A%84%E6%AD%A3%E6%95%B4%E6%95%B0%E8%A7%A3/#more" rel="contents">
               Read more &raquo;
             </a>
           </div>
@@ -1316,7 +1199,7 @@ Employee 表单
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://huhansi.com/2020/04/10/LeetCode/leetcode-000511.%20%E6%B8%B8%E6%88%8F%E7%8E%A9%E6%B3%95%E5%88%86%E6%9E%90%20I/">
+    <link itemprop="mainEntityOfPage" href="http://huhansi.com/2020/04/16/LeetCode/leetcode-001217.%20%E7%8E%A9%E7%AD%B9%E7%A0%81/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Han si">
@@ -1335,7 +1218,7 @@ Employee 表单
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2020/04/10/LeetCode/leetcode-000511.%20%E6%B8%B8%E6%88%8F%E7%8E%A9%E6%B3%95%E5%88%86%E6%9E%90%20I/" itemprop="url">511. 游戏玩法分析 I</a></h1>
+                <a class="post-title-link" href="/2020/04/16/LeetCode/leetcode-001217.%20%E7%8E%A9%E7%AD%B9%E7%A0%81/" itemprop="url">1217. 玩筹码</a></h1>
         
 
         <div class="post-meta">
@@ -1347,8 +1230,8 @@ Employee 表单
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-04-10T00:00:00+08:00">
-                2020-04-10
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-04-16T00:00:00+08:00">
+                2020-04-16
               </time>
             
 
@@ -1409,12 +1292,17 @@ Employee 表单
       
         
           
-          题目活动表 Activity：
-1234567891011+--------------+---------+| Column Name  | Type    |+--------------+---------+| player_id    | int     || device_id    | 
+          题目数轴上放置了一些筹码，每个筹码的位置存在数组 chips 当中。
+你可以对 任何筹码 执行下面两种操作之一（不限操作次数，0 次也可以）：
+
+将第 i 个筹码向左或者右移动 2 个单位，代价为 0。
+将第 i 个筹码向左或者右移动 1 个单位，代价为 1。
+
+最开始的时候，同一位置上也可能放着两
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2020/04/10/LeetCode/leetcode-000511.%20%E6%B8%B8%E6%88%8F%E7%8E%A9%E6%B3%95%E5%88%86%E6%9E%90%20I/#more" rel="contents">
+            <a class="btn" href="/2020/04/16/LeetCode/leetcode-001217.%20%E7%8E%A9%E7%AD%B9%E7%A0%81/#more" rel="contents">
               Read more &raquo;
             </a>
           </div>
@@ -1465,7 +1353,7 @@ Employee 表单
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://huhansi.com/2020/04/10/LeetCode/leetcode-000700.%20%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91%E4%B8%AD%E7%9A%84%E6%90%9C%E7%B4%A2/">
+    <link itemprop="mainEntityOfPage" href="http://huhansi.com/2020/04/16/LeetCode/leetcode-001207-%E7%8B%AC%E4%B8%80%E6%97%A0%E4%BA%8C%E7%9A%84%E5%87%BA%E7%8E%B0%E6%AC%A1%E6%95%B0/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Han si">
@@ -1484,7 +1372,7 @@ Employee 表单
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2020/04/10/LeetCode/leetcode-000700.%20%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91%E4%B8%AD%E7%9A%84%E6%90%9C%E7%B4%A2/" itemprop="url">700. 二叉搜索树中的搜索</a></h1>
+                <a class="post-title-link" href="/2020/04/16/LeetCode/leetcode-001207-%E7%8B%AC%E4%B8%80%E6%97%A0%E4%BA%8C%E7%9A%84%E5%87%BA%E7%8E%B0%E6%AC%A1%E6%95%B0/" itemprop="url">1207. 独一无二的出现次数</a></h1>
         
 
         <div class="post-meta">
@@ -1496,8 +1384,8 @@ Employee 表单
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-04-10T00:00:00+08:00">
-                2020-04-10
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-04-16T00:00:00+08:00">
+                2020-04-16
               </time>
             
 
@@ -1558,12 +1446,13 @@ Employee 表单
       
         
           
-          题目给定二叉搜索树（BST）的根节点和一个值。 你需要在BST中找到节点值等于给定值的节点。 返回以该节点为根的子树。 如果节点不存在，则返回 NULL。
-示例 1:123456789101112131415给定二叉搜索树:        4       &#x2F; \      2   7   
+          题目给你一个整数数组 arr，请你帮忙统计数组中每个数的出现次数。
+如果每个数的出现次数都是独一无二的，就返回 true；否则返回 false。
+示例 1:123输入：arr &#x3D; [1,2,2,1,1,3]输出：true解释：在该数组中，1 出现了 3 次，2 出现了 2 次，3 只出现了
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2020/04/10/LeetCode/leetcode-000700.%20%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91%E4%B8%AD%E7%9A%84%E6%90%9C%E7%B4%A2/#more" rel="contents">
+            <a class="btn" href="/2020/04/16/LeetCode/leetcode-001207-%E7%8B%AC%E4%B8%80%E6%97%A0%E4%BA%8C%E7%9A%84%E5%87%BA%E7%8E%B0%E6%AC%A1%E6%95%B0/#more" rel="contents">
               Read more &raquo;
             </a>
           </div>
@@ -1614,7 +1503,7 @@ Employee 表单
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://huhansi.com/2020/04/10/LeetCode/leetcode-000933.%20%E6%9C%80%E8%BF%91%E7%9A%84%E8%AF%B7%E6%B1%82%E6%AC%A1%E6%95%B0/">
+    <link itemprop="mainEntityOfPage" href="http://huhansi.com/2020/04/16/LeetCode/leetcode-001394.%20%E6%89%BE%E5%87%BA%E6%95%B0%E7%BB%84%E4%B8%AD%E7%9A%84%E5%B9%B8%E8%BF%90%E6%95%B0/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Han si">
@@ -1633,7 +1522,7 @@ Employee 表单
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2020/04/10/LeetCode/leetcode-000933.%20%E6%9C%80%E8%BF%91%E7%9A%84%E8%AF%B7%E6%B1%82%E6%AC%A1%E6%95%B0/" itemprop="url">933. 最近的请求次数</a></h1>
+                <a class="post-title-link" href="/2020/04/16/LeetCode/leetcode-001394.%20%E6%89%BE%E5%87%BA%E6%95%B0%E7%BB%84%E4%B8%AD%E7%9A%84%E5%B9%B8%E8%BF%90%E6%95%B0/" itemprop="url">1394. 找出数组中的幸运数</a></h1>
         
 
         <div class="post-meta">
@@ -1645,8 +1534,8 @@ Employee 表单
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-04-10T00:00:00+08:00">
-                2020-04-10
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-04-16T00:00:00+08:00">
+                2020-04-16
               </time>
             
 
@@ -1707,14 +1596,166 @@ Employee 表单
       
         
           
-          题目写一个 RecentCounter 类来计算最近的请求。
-它只有一个方法：ping(int t)，其中 t 代表以毫秒为单位的某个时间。
-返回从 3000 毫秒前到现在的 ping 数。
-任何处于 [t - 3000, t] 时间范围之内的 ping 都将会被计算在内，包括当前（指 t 时刻）的
+          题目在整数数组中，如果一个整数的出现频次和它的数值大小相等，我们就称这个整数为「幸运数」。
+给你一个整数数组 arr，请你从中找出并返回一个幸运数。
+
+如果数组中存在多个幸运数，只需返回 最大 的那个。
+如果数组中不含幸运数，则返回 -1 。
+
+示例 1:123输入：arr &#x3D; [2,2,
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2020/04/10/LeetCode/leetcode-000933.%20%E6%9C%80%E8%BF%91%E7%9A%84%E8%AF%B7%E6%B1%82%E6%AC%A1%E6%95%B0/#more" rel="contents">
+            <a class="btn" href="/2020/04/16/LeetCode/leetcode-001394.%20%E6%89%BE%E5%87%BA%E6%95%B0%E7%BB%84%E4%B8%AD%E7%9A%84%E5%B9%B8%E8%BF%90%E6%95%B0/#more" rel="contents">
+              Read more &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://huhansi.com/2020/04/16/LeetCode/leetcode-001407.%20Top%20Travellers/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Han si">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hansi Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2020/04/16/LeetCode/leetcode-001407.%20Top%20Travellers/" itemprop="url">1407. Top Travellers</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-04-16T00:00:00+08:00">
+                2020-04-16
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/leetcode/" itemprop="url" rel="index">
+                    <span itemprop="name">leetcode</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+          题目Table: Users
+12345678+---------------+---------+| Column Name   | Type    |+---------------+---------+| id            | int     || name          | v
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2020/04/16/LeetCode/leetcode-001407.%20Top%20Travellers/#more" rel="contents">
               Read more &raquo;
             </a>
           </div>
@@ -1756,7 +1797,7 @@ Employee 表单
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/6/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/6/">6</a><span class="page-number current">7</span><a class="page-number" href="/page/8/">8</a><span class="space">&hellip;</span><a class="page-number" href="/page/44/">44</a><a class="extend next" rel="next" href="/page/8/"><i class="fa fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" href="/page/6/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/6/">6</a><span class="page-number current">7</span><a class="page-number" href="/page/8/">8</a><span class="space">&hellip;</span><a class="page-number" href="/page/47/">47</a><a class="extend next" rel="next" href="/page/8/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -1802,7 +1843,7 @@ Employee 表单
               
                 <a href="/archives/%7C%7C%20archive">
               
-                  <span class="site-state-item-count">435</span>
+                  <span class="site-state-item-count">461</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -1813,7 +1854,7 @@ Employee 表单
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">14</span>
+                  <span class="site-state-item-count">15</span>
                   <span class="site-state-item-name">categories</span>
                 </a>
               </div>
@@ -1824,7 +1865,7 @@ Employee 表单
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">252</span>
+                  <span class="site-state-item-count">259</span>
                   <span class="site-state-item-name">tags</span>
                 </a>
               </div>

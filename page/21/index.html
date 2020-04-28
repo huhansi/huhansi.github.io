@@ -293,7 +293,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://huhansi.com/2020/03/27/LeetCode/leetcode-000070.%20%E7%88%AC%E6%A5%BC%E6%A2%AF/">
+    <link itemprop="mainEntityOfPage" href="http://huhansi.com/2020/04/03/Java/JVM/2020-03-29-Java-%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6%E7%AE%97%E6%B3%95/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Han si">
@@ -312,7 +312,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2020/03/27/LeetCode/leetcode-000070.%20%E7%88%AC%E6%A5%BC%E6%A2%AF/" itemprop="url">70. 爬楼梯</a></h1>
+                <a class="post-title-link" href="/2020/04/03/Java/JVM/2020-03-29-Java-%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6%E7%AE%97%E6%B3%95/" itemprop="url">常见的垃圾回收算法</a></h1>
         
 
         <div class="post-meta">
@@ -324,8 +324,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-03-27T00:00:00+08:00">
-                2020-03-27
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-04-03T00:00:00+08:00">
+                2020-04-03
               </time>
             
 
@@ -347,8 +347,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/leetcode/" itemprop="url" rel="index">
-                    <span itemprop="name">leetcode</span>
+                  <a href="/categories/JVM/" itemprop="url" rel="index">
+                    <span itemprop="name">JVM</span>
                   </a>
                 </span>
 
@@ -386,15 +386,16 @@
       
         
           
-          题目假设你正在爬楼梯。需要 n 阶你才能到达楼顶。
-每次你可以爬 1 或 2 个台阶。你有多少种不同的方法可以爬到楼顶呢？
-注意：给定 n 是一个正整数。
-示例1：12345输入： 2输出： 2解释： 有两种方法可以爬到楼顶。1.  1 阶 + 1 阶2.  2 阶
-示例2：123456输入： 3输
+          常见的垃圾回收算法分代收集理论当前商业虚拟机的垃圾收集器，大多数都遵循了“分代收集”的理论进行设计，分代收集名为理论，实质是一套符合大多数程序运行实际情况的经验法则，它建立在两个分代假说之上：
+
+弱分代假说：绝大多数对象都是朝生夕灭的
+强分代假说：熬过越多次垃圾收集过程的对象就越难以消亡
+
+这两个分
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2020/03/27/LeetCode/leetcode-000070.%20%E7%88%AC%E6%A5%BC%E6%A2%AF/#more" rel="contents">
+            <a class="btn" href="/2020/04/03/Java/JVM/2020-03-29-Java-%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6%E7%AE%97%E6%B3%95/#more" rel="contents">
               Read more &raquo;
             </a>
           </div>
@@ -445,7 +446,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://huhansi.com/2020/03/27/LeetCode/leetcode-000054-%E8%9E%BA%E6%97%8B%E7%9F%A9%E9%98%B5/">
+    <link itemprop="mainEntityOfPage" href="http://huhansi.com/2020/04/02/LeetCode/leetcode-000049-%E5%AD%97%E6%AF%8D%E5%BC%82%E4%BD%8D%E8%AF%8D%E5%88%86%E7%BB%84/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Han si">
@@ -464,7 +465,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2020/03/27/LeetCode/leetcode-000054-%E8%9E%BA%E6%97%8B%E7%9F%A9%E9%98%B5/" itemprop="url">54. 螺旋矩阵</a></h1>
+                <a class="post-title-link" href="/2020/04/02/LeetCode/leetcode-000049-%E5%AD%97%E6%AF%8D%E5%BC%82%E4%BD%8D%E8%AF%8D%E5%88%86%E7%BB%84/" itemprop="url">49. 字母异位词分组</a></h1>
         
 
         <div class="post-meta">
@@ -476,8 +477,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-03-27T00:00:00+08:00">
-                2020-03-27
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-04-02T00:00:00+08:00">
+                2020-04-02
               </time>
             
 
@@ -538,14 +539,12 @@
       
         
           
-          题目给定一个包含 m x n 个元素的矩阵（m 行, n 列），请按照顺时针螺旋顺序，返回矩阵中的所有元素。
-示例1：1234567输入:[ [ 1, 2, 3 ], [ 4, 5, 6 ], [ 7, 8, 9 ]]输出: [1,2,3,6,9,8,7,4,5]
-
-示例2：1234567输入:[ 
+          题目给定一个字符串数组，将字母异位词组合在一起。字母异位词指字母相同，但排列不同的字符串。
+示例1：1234567输入: ["eat", "tea", "tan", "ate", "nat", "bat"],输出:[  ["ate","eat","tea"],  ["nat","tan"],  ["
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2020/03/27/LeetCode/leetcode-000054-%E8%9E%BA%E6%97%8B%E7%9F%A9%E9%98%B5/#more" rel="contents">
+            <a class="btn" href="/2020/04/02/LeetCode/leetcode-000049-%E5%AD%97%E6%AF%8D%E5%BC%82%E4%BD%8D%E8%AF%8D%E5%88%86%E7%BB%84/#more" rel="contents">
               Read more &raquo;
             </a>
           </div>
@@ -596,7 +595,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://huhansi.com/2020/03/27/LeetCode/leetcode-000121-%E4%B9%B0%E5%8D%96%E8%82%A1%E7%A5%A8%E7%9A%84%E6%9C%80%E4%BD%B3%E6%97%B6%E6%9C%BA/">
+    <link itemprop="mainEntityOfPage" href="http://huhansi.com/2020/04/02/LeetCode/leetcode-000205-%E5%90%8C%E6%9E%84%E5%AD%97%E7%AC%A6%E4%B8%B2/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Han si">
@@ -615,7 +614,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2020/03/27/LeetCode/leetcode-000121-%E4%B9%B0%E5%8D%96%E8%82%A1%E7%A5%A8%E7%9A%84%E6%9C%80%E4%BD%B3%E6%97%B6%E6%9C%BA/" itemprop="url">121. 买卖股票的最佳时机</a></h1>
+                <a class="post-title-link" href="/2020/04/02/LeetCode/leetcode-000205-%E5%90%8C%E6%9E%84%E5%AD%97%E7%AC%A6%E4%B8%B2/" itemprop="url">205. 同构字符串</a></h1>
         
 
         <div class="post-meta">
@@ -627,8 +626,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-03-27T00:00:00+08:00">
-                2020-03-27
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-04-02T00:00:00+08:00">
+                2020-04-02
               </time>
             
 
@@ -689,14 +688,14 @@
       
         
           
-          题目给定一个数组，它的第 i 个元素是一支给定股票第 i 天的价格。
-如果你最多只允许完成一笔交易（即买入和卖出一支股票一次），设计一个算法来计算你所能获取的最大利润。
-注意：你不能在买入股票前卖出股票。
-示例1：1234输入: [7,1,5,3,6,4]输出: 5解释: 在第 2 天（股票价格 &
+          题目给定两个字符串 s 和 t，判断它们是否是同构的。
+如果 s 中的字符可以被替换得到 t ，那么这两个字符串是同构的。
+所有出现的字符都必须用另一个字符替换，同时保留字符的顺序。两个字符不能映射到同一个字符上，但字符可以映射自己本身。
+示例1：12输入: s = "egg", t = "add"
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2020/03/27/LeetCode/leetcode-000121-%E4%B9%B0%E5%8D%96%E8%82%A1%E7%A5%A8%E7%9A%84%E6%9C%80%E4%BD%B3%E6%97%B6%E6%9C%BA/#more" rel="contents">
+            <a class="btn" href="/2020/04/02/LeetCode/leetcode-000205-%E5%90%8C%E6%9E%84%E5%AD%97%E7%AC%A6%E4%B8%B2/#more" rel="contents">
               Read more &raquo;
             </a>
           </div>
@@ -747,7 +746,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://huhansi.com/2020/03/27/LeetCode/leetcode-000125-%E9%AA%8C%E8%AF%81%E5%9B%9E%E6%96%87%E4%B8%B2/">
+    <link itemprop="mainEntityOfPage" href="http://huhansi.com/2020/04/02/LeetCode/leetcode-000219-%E5%AD%98%E5%9C%A8%E9%87%8D%E5%A4%8D%E5%85%83%E7%B4%A0%20II/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Han si">
@@ -766,7 +765,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2020/03/27/LeetCode/leetcode-000125-%E9%AA%8C%E8%AF%81%E5%9B%9E%E6%96%87%E4%B8%B2/" itemprop="url">125. 验证回文串</a></h1>
+                <a class="post-title-link" href="/2020/04/02/LeetCode/leetcode-000219-%E5%AD%98%E5%9C%A8%E9%87%8D%E5%A4%8D%E5%85%83%E7%B4%A0%20II/" itemprop="url">219. 存在重复元素 II</a></h1>
         
 
         <div class="post-meta">
@@ -778,8 +777,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-03-27T00:00:00+08:00">
-                2020-03-27
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-04-02T00:00:00+08:00">
+                2020-04-02
               </time>
             
 
@@ -840,15 +839,14 @@
       
         
           
-          题目给定一个字符串，验证它是否是回文串，只考虑字母和数字字符，可以忽略字母的大小写。
-说明本题中，我们将空字符串定义为有效的回文串。
-示例1：12输入: "A man, a plan, a canal: Panama"输出: true
+          题目给定一个整数数组和一个整数 k，判断数组中是否存在两个不同的索引 i 和 j，使得 nums [i] = nums [j]，并且 i 和 j 的差的 绝对值 至多为 k。
+示例1：12输入: nums = [1,2,3,1], k = 3输出: true
 
-示例2：12输入: "race a car"输出: false
+示例2：12输入: nums = [1
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2020/03/27/LeetCode/leetcode-000125-%E9%AA%8C%E8%AF%81%E5%9B%9E%E6%96%87%E4%B8%B2/#more" rel="contents">
+            <a class="btn" href="/2020/04/02/LeetCode/leetcode-000219-%E5%AD%98%E5%9C%A8%E9%87%8D%E5%A4%8D%E5%85%83%E7%B4%A0%20II/#more" rel="contents">
               Read more &raquo;
             </a>
           </div>
@@ -899,7 +897,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://huhansi.com/2020/03/27/LeetCode/leetcode-000088-%E5%90%88%E5%B9%B6%E4%B8%A4%E4%B8%AA%E6%9C%89%E5%BA%8F%E6%95%B0%E7%BB%84/">
+    <link itemprop="mainEntityOfPage" href="http://huhansi.com/2020/04/02/LeetCode/leetcode-000225-%E7%94%A8%E9%98%9F%E5%88%97%E5%AE%9E%E7%8E%B0%E6%A0%88/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Han si">
@@ -918,7 +916,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2020/03/27/LeetCode/leetcode-000088-%E5%90%88%E5%B9%B6%E4%B8%A4%E4%B8%AA%E6%9C%89%E5%BA%8F%E6%95%B0%E7%BB%84/" itemprop="url">88. 合并两个有序数组</a></h1>
+                <a class="post-title-link" href="/2020/04/02/LeetCode/leetcode-000225-%E7%94%A8%E9%98%9F%E5%88%97%E5%AE%9E%E7%8E%B0%E6%A0%88/" itemprop="url">225. 用队列实现栈</a></h1>
         
 
         <div class="post-meta">
@@ -930,8 +928,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-03-27T00:00:00+08:00">
-                2020-03-27
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-04-02T00:00:00+08:00">
+                2020-04-02
               </time>
             
 
@@ -992,12 +990,19 @@
       
         
           
-          题目给你两个有序整数数组 nums1 和 nums2*，请你将 *nums2 合并到 nums1 中，使 num1 成为一个有序数组。
-说明初始化 nums1 和 nums2 的元素数量分别为 m 和 n 。你可以假设 nums1 有足够的空间（空间大小大于或等于 m + n）来保存 nums2 中
+          题目使用队列实现栈的下列操作：
+
+push(x) – 元素 x 入栈
+pop() – 移除栈顶元素
+top() – 获取栈顶元素
+empty() – 返回栈是否为空
+
+注意：
+你只能使用队列的基本操作– 也就是 push to back, peek/pop from front, size, 和 i
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2020/03/27/LeetCode/leetcode-000088-%E5%90%88%E5%B9%B6%E4%B8%A4%E4%B8%AA%E6%9C%89%E5%BA%8F%E6%95%B0%E7%BB%84/#more" rel="contents">
+            <a class="btn" href="/2020/04/02/LeetCode/leetcode-000225-%E7%94%A8%E9%98%9F%E5%88%97%E5%AE%9E%E7%8E%B0%E6%A0%88/#more" rel="contents">
               Read more &raquo;
             </a>
           </div>
@@ -1048,7 +1053,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://huhansi.com/2020/03/27/LeetCode/leetcode-000119-%E6%9D%A8%E8%BE%89%E4%B8%89%E8%A7%92%20II/">
+    <link itemprop="mainEntityOfPage" href="http://huhansi.com/2020/04/02/LeetCode/leetcode-000346-%E6%95%B0%E6%8D%AE%E6%B5%81%E4%B8%AD%E7%9A%84%E7%A7%BB%E5%8A%A8%E5%B9%B3%E5%9D%87%E5%80%BC/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Han si">
@@ -1067,7 +1072,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2020/03/27/LeetCode/leetcode-000119-%E6%9D%A8%E8%BE%89%E4%B8%89%E8%A7%92%20II/" itemprop="url">119. 杨辉三角 II</a></h1>
+                <a class="post-title-link" href="/2020/04/02/LeetCode/leetcode-000346-%E6%95%B0%E6%8D%AE%E6%B5%81%E4%B8%AD%E7%9A%84%E7%A7%BB%E5%8A%A8%E5%B9%B3%E5%9D%87%E5%80%BC/" itemprop="url">346. 数据流中的移动平均值</a></h1>
         
 
         <div class="post-meta">
@@ -1079,8 +1084,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-03-27T00:00:00+08:00">
-                2020-03-27
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-04-02T00:00:00+08:00">
+                2020-04-02
               </time>
             
 
@@ -1141,16 +1146,12 @@
       
         
           
-          题目给定一个非负索引 k，其中 k ≤ 33，返回杨辉三角的第 k 行。
-
-示例1：12输入: 3输出: [1,3,3,1]
-
-进阶：你可以优化你的算法到 O(k) 空间复杂度吗？
-解法解法一：迭代法Java1234567891011121314151617public List&lt;Intege
+          题目给定一个整数数据流和一个窗口大小，根据该滑动窗口的大小，计算其所有整数的移动平均值。
+示例 1:12345MovingAverage m &#x3D; new MovingAverage(3);m.next(1) &#x3D; 1m.next(10) &#x3D; (1 + 10) &#x2F;
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2020/03/27/LeetCode/leetcode-000119-%E6%9D%A8%E8%BE%89%E4%B8%89%E8%A7%92%20II/#more" rel="contents">
+            <a class="btn" href="/2020/04/02/LeetCode/leetcode-000346-%E6%95%B0%E6%8D%AE%E6%B5%81%E4%B8%AD%E7%9A%84%E7%A7%BB%E5%8A%A8%E5%B9%B3%E5%9D%87%E5%80%BC/#more" rel="contents">
               Read more &raquo;
             </a>
           </div>
@@ -1201,7 +1202,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://huhansi.com/2020/03/27/LeetCode/leetcode-000151-%E7%BF%BB%E8%BD%AC%E5%AD%97%E7%AC%A6%E4%B8%B2%E9%87%8C%E7%9A%84%E5%8D%95%E8%AF%8D/">
+    <link itemprop="mainEntityOfPage" href="http://huhansi.com/2020/04/02/LeetCode/leetcode-000365-%E6%B0%B4%E5%A3%B6%E9%97%AE%E9%A2%98/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Han si">
@@ -1220,7 +1221,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2020/03/27/LeetCode/leetcode-000151-%E7%BF%BB%E8%BD%AC%E5%AD%97%E7%AC%A6%E4%B8%B2%E9%87%8C%E7%9A%84%E5%8D%95%E8%AF%8D/" itemprop="url">151. 翻转字符串里的单词</a></h1>
+                <a class="post-title-link" href="/2020/04/02/LeetCode/leetcode-000365-%E6%B0%B4%E5%A3%B6%E9%97%AE%E9%A2%98/" itemprop="url">365. 水壶问题</a></h1>
         
 
         <div class="post-meta">
@@ -1232,8 +1233,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-03-27T00:00:00+08:00">
-                2020-03-27
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-04-02T00:00:00+08:00">
+                2020-04-02
               </time>
             
 
@@ -1294,14 +1295,19 @@
       
         
           
-          题目给定一个字符串，逐个翻转字符串中的每个单词。
-示例1：12输入: "the sky is blue"输出: "blue is sky the"
+          题目有两个容量分别为 x升 和 y升 的水壶以及无限多的水。请判断能否通过使用这两个水壶，从而可以得到恰好 z升 的水？
+如果可以，最后请用以上水壶中的一或两个来盛放取得的 z升 水.
+你允许：
 
-示例2：123输入: "  hello world!  "输出: "world! hello"解释: 输入字符串可以在前面或者后面包含多余的空格，但是
+装满任意一个水壶
+清空任意一个水壶
+从一个水壶向另外一个水壶倒水，直到装满或者倒空
+
+示例1：12输入
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2020/03/27/LeetCode/leetcode-000151-%E7%BF%BB%E8%BD%AC%E5%AD%97%E7%AC%A6%E4%B8%B2%E9%87%8C%E7%9A%84%E5%8D%95%E8%AF%8D/#more" rel="contents">
+            <a class="btn" href="/2020/04/02/LeetCode/leetcode-000365-%E6%B0%B4%E5%A3%B6%E9%97%AE%E9%A2%98/#more" rel="contents">
               Read more &raquo;
             </a>
           </div>
@@ -1352,7 +1358,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://huhansi.com/2020/03/27/LeetCode/leetcode-000198-%E6%89%93%E5%AE%B6%E5%8A%AB%E8%88%8D/">
+    <link itemprop="mainEntityOfPage" href="http://huhansi.com/2020/04/02/LeetCode/leetcode-000359-%E6%97%A5%E5%BF%97%E9%80%9F%E7%8E%87%E9%99%90%E5%88%B6%E5%99%A8/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Han si">
@@ -1371,7 +1377,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2020/03/27/LeetCode/leetcode-000198-%E6%89%93%E5%AE%B6%E5%8A%AB%E8%88%8D/" itemprop="url">198. 打家劫舍</a></h1>
+                <a class="post-title-link" href="/2020/04/02/LeetCode/leetcode-000359-%E6%97%A5%E5%BF%97%E9%80%9F%E7%8E%87%E9%99%90%E5%88%B6%E5%99%A8/" itemprop="url">359. 日志速率限制器</a></h1>
         
 
         <div class="post-meta">
@@ -1383,8 +1389,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-03-27T00:00:00+08:00">
-                2020-03-27
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-04-02T00:00:00+08:00">
+                2020-04-02
               </time>
             
 
@@ -1445,13 +1451,14 @@
       
         
           
-          题目你是一个专业的小偷，计划偷窃沿街的房屋。每间房内都藏有一定的现金，影响你偷窃的唯一制约因素就是相邻的房屋装有相互连通的防盗系统，如果两间相邻的房屋在同一晚上被小偷闯入，系统会自动报警。
-给定一个代表每个房屋存放金额的非负整数数组，计算你在不触动警报装置的情况下，能够偷窃到的最高金额。
-示例1：1
+          题目请你设计一个日志系统，可以流式接收日志以及它的时间戳。
+该日志会被打印出来，需要满足一个条件：当且仅当日志内容 在过去的 10 秒钟内没有被打印过。
+给你一条日志的内容和它的时间戳（粒度为秒级），如果这条日志在给定的时间戳应该被打印出来，则返回 true，否则请返回 false。
+要注意的是，可
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2020/03/27/LeetCode/leetcode-000198-%E6%89%93%E5%AE%B6%E5%8A%AB%E8%88%8D/#more" rel="contents">
+            <a class="btn" href="/2020/04/02/LeetCode/leetcode-000359-%E6%97%A5%E5%BF%97%E9%80%9F%E7%8E%87%E9%99%90%E5%88%B6%E5%99%A8/#more" rel="contents">
               Read more &raquo;
             </a>
           </div>
@@ -1502,7 +1509,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://huhansi.com/2020/03/27/LeetCode/leetcode-000209-%E9%95%BF%E5%BA%A6%E6%9C%80%E5%B0%8F%E7%9A%84%E5%AD%90%E6%95%B0%E7%BB%84/">
+    <link itemprop="mainEntityOfPage" href="http://huhansi.com/2020/04/02/LeetCode/leetcode-000599-%E4%B8%A4%E4%B8%AA%E5%88%97%E8%A1%A8%E7%9A%84%E6%9C%80%E5%B0%8F%E7%B4%A2%E5%BC%95%E6%80%BB%E5%92%8C/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Han si">
@@ -1521,7 +1528,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2020/03/27/LeetCode/leetcode-000209-%E9%95%BF%E5%BA%A6%E6%9C%80%E5%B0%8F%E7%9A%84%E5%AD%90%E6%95%B0%E7%BB%84/" itemprop="url">209. 长度最小的子数组</a></h1>
+                <a class="post-title-link" href="/2020/04/02/LeetCode/leetcode-000599-%E4%B8%A4%E4%B8%AA%E5%88%97%E8%A1%A8%E7%9A%84%E6%9C%80%E5%B0%8F%E7%B4%A2%E5%BC%95%E6%80%BB%E5%92%8C/" itemprop="url">599. 两个列表的最小索引总和</a></h1>
         
 
         <div class="post-meta">
@@ -1533,8 +1540,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-03-27T00:00:00+08:00">
-                2020-03-27
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-04-02T00:00:00+08:00">
+                2020-04-02
               </time>
             
 
@@ -1595,12 +1602,13 @@
       
         
           
-          题目给定一个含有 n 个正整数的数组和一个正整数 s ，找出该数组中满足其和 ≥ s 的长度最小的连续子数组。如果不存在符合条件的连续子数组，返回 0。
-示例1：123输入: s = 7, nums = [2,3,1,2,4,3]输出: 2解释: 子数组 [4,3] 是该条件下的长度最小的连续子数组
+          题目假设Andy和Doris想在晚餐时选择一家餐厅，并且他们都有一个表示最喜爱餐厅的列表，每个餐厅的名字用字符串表示。
+你需要帮助他们用最少的索引和找出他们共同喜爱的餐厅。 如果答案不止一个，则输出所有答案并且不考虑顺序。 你可以假设总是存在一个答案。
+示例1：12345输入:["Shogun", 
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2020/03/27/LeetCode/leetcode-000209-%E9%95%BF%E5%BA%A6%E6%9C%80%E5%B0%8F%E7%9A%84%E5%AD%90%E6%95%B0%E7%BB%84/#more" rel="contents">
+            <a class="btn" href="/2020/04/02/LeetCode/leetcode-000599-%E4%B8%A4%E4%B8%AA%E5%88%97%E8%A1%A8%E7%9A%84%E6%9C%80%E5%B0%8F%E7%B4%A2%E5%BC%95%E6%80%BB%E5%92%8C/#more" rel="contents">
               Read more &raquo;
             </a>
           </div>
@@ -1651,7 +1659,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://huhansi.com/2020/03/27/LeetCode/leetcode-000234-%E5%9B%9E%E6%96%87%E9%93%BE%E8%A1%A8/">
+    <link itemprop="mainEntityOfPage" href="http://huhansi.com/2020/04/02/LeetCode/leetcode-000622-%E8%AE%BE%E8%AE%A1%E5%BE%AA%E7%8E%AF%E9%98%9F%E5%88%97/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Han si">
@@ -1670,7 +1678,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2020/03/27/LeetCode/leetcode-000234-%E5%9B%9E%E6%96%87%E9%93%BE%E8%A1%A8/" itemprop="url">234. 回文链表</a></h1>
+                <a class="post-title-link" href="/2020/04/02/LeetCode/leetcode-000622-%E8%AE%BE%E8%AE%A1%E5%BE%AA%E7%8E%AF%E9%98%9F%E5%88%97/" itemprop="url">622. 设计循环队列</a></h1>
         
 
         <div class="post-meta">
@@ -1682,8 +1690,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-03-27T00:00:00+08:00">
-                2020-03-27
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-04-02T00:00:00+08:00">
+                2020-04-02
               </time>
             
 
@@ -1744,17 +1752,12 @@
       
         
           
-          题目请判断一个链表是否为回文链表。
-示例1：12输入: 1-&gt;2输出: false
-
-示例2：12输入: 1-&gt;2-&gt;2-&gt;1输出: true
-
-进阶你能否用 O(n) 时间复杂度和 O(1) 空间复杂度解决此题？
-解法解法一：借助数组Java1234567891011121
+          题目设计你的循环队列实现。 循环队列是一种线性数据结构，其操作表现基于 FIFO（先进先出）原则并且队尾被连接在队首之后以形成一个循环。它也被称为“环形缓冲器”。
+循环队列的一个好处是我们可以利用这个队列之前用过的空间。在一个普通队列里，一旦一个队列满了，我们就不能插入下一个元素，即使在队列前面仍有
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2020/03/27/LeetCode/leetcode-000234-%E5%9B%9E%E6%96%87%E9%93%BE%E8%A1%A8/#more" rel="contents">
+            <a class="btn" href="/2020/04/02/LeetCode/leetcode-000622-%E8%AE%BE%E8%AE%A1%E5%BE%AA%E7%8E%AF%E9%98%9F%E5%88%97/#more" rel="contents">
               Read more &raquo;
             </a>
           </div>
@@ -1796,7 +1799,7 @@
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/20/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/20/">20</a><span class="page-number current">21</span><a class="page-number" href="/page/22/">22</a><span class="space">&hellip;</span><a class="page-number" href="/page/44/">44</a><a class="extend next" rel="next" href="/page/22/"><i class="fa fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" href="/page/20/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/20/">20</a><span class="page-number current">21</span><a class="page-number" href="/page/22/">22</a><span class="space">&hellip;</span><a class="page-number" href="/page/47/">47</a><a class="extend next" rel="next" href="/page/22/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -1842,7 +1845,7 @@
               
                 <a href="/archives/%7C%7C%20archive">
               
-                  <span class="site-state-item-count">435</span>
+                  <span class="site-state-item-count">461</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -1853,7 +1856,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">14</span>
+                  <span class="site-state-item-count">15</span>
                   <span class="site-state-item-name">categories</span>
                 </a>
               </div>
@@ -1864,7 +1867,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">252</span>
+                  <span class="site-state-item-count">259</span>
                   <span class="site-state-item-name">tags</span>
                 </a>
               </div>
