@@ -79,15 +79,15 @@
 
 
 
-<meta name="description" content="题目不使用任何内建的哈希表库设计一个哈希映射 具体地说，你的设计应该包含以下的功能：  put(key, value)：向哈希映射中插入(键,值)的数值对。如果键对应的值已经存在，更新这个值。 get(key)：返回给定的键所对应的值，如果映射中不包含这个键，返回-1。 remove(key)：如果映射中存在这个键，删除这个数值对。  示例：123456789MyHashMap hashMap &#x3D;">
+<meta name="description" content="题目不使用任何内建的哈希表库设计一个哈希映射 具体地说，你的设计应该包含以下的功能：  put(key, value)：向哈希映射中插入(键,值)的数值对。如果键对应的值已经存在，更新这个值。 get(key)：返回给定的键所对应的值，如果映射中不包含这个键，返回-1。 remove(key)：如果映射中存在这个键，删除这个数值对。  示例1：123456789MyHashMap hashMap">
 <meta property="og:type" content="article">
 <meta property="og:title" content="706. 设计哈希映射">
 <meta property="og:url" content="http://huhansi.com/2018/08/29/LeetCode/leetcode-000706-%E8%AE%BE%E8%AE%A1%E5%93%88%E5%B8%8C%E6%98%A0%E5%B0%84/index.html">
 <meta property="og:site_name" content="Hansi Blog">
-<meta property="og:description" content="题目不使用任何内建的哈希表库设计一个哈希映射 具体地说，你的设计应该包含以下的功能：  put(key, value)：向哈希映射中插入(键,值)的数值对。如果键对应的值已经存在，更新这个值。 get(key)：返回给定的键所对应的值，如果映射中不包含这个键，返回-1。 remove(key)：如果映射中存在这个键，删除这个数值对。  示例：123456789MyHashMap hashMap &#x3D;">
+<meta property="og:description" content="题目不使用任何内建的哈希表库设计一个哈希映射 具体地说，你的设计应该包含以下的功能：  put(key, value)：向哈希映射中插入(键,值)的数值对。如果键对应的值已经存在，更新这个值。 get(key)：返回给定的键所对应的值，如果映射中不包含这个键，返回-1。 remove(key)：如果映射中存在这个键，删除这个数值对。  示例1：123456789MyHashMap hashMap">
 <meta property="og:locale" content="Zh_CN">
 <meta property="article:published_time" content="2018-08-28T16:00:00.000Z">
-<meta property="article:modified_time" content="2020-03-28T06:03:12.689Z">
+<meta property="article:modified_time" content="2020-04-29T02:13:31.027Z">
 <meta property="article:author" content="Han si">
 <meta property="article:tag" content="leetcode">
 <meta property="article:tag" content="算法">
@@ -395,7 +395,7 @@
 <li><code>get(key)</code>：返回给定的键所对应的值，如果映射中不包含这个键，返回-1。</li>
 <li><code>remove(key)</code>：如果映射中存在这个键，删除这个数值对。</li>
 </ul>
-<h2 id="示例："><a href="#示例：" class="headerlink" title="示例："></a>示例：</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">MyHashMap hashMap = <span class="keyword">new</span> MyHashMap();</span><br><span class="line">hashMap.put(<span class="number">1</span>, <span class="number">1</span>);          </span><br><span class="line">hashMap.put(<span class="number">2</span>, <span class="number">2</span>);         </span><br><span class="line">hashMap.get(<span class="number">1</span>);            <span class="comment">// 返回 1</span></span><br><span class="line">hashMap.get(<span class="number">3</span>);            <span class="comment">// 返回 -1 (未找到)</span></span><br><span class="line">hashMap.put(<span class="number">2</span>, <span class="number">1</span>);         <span class="comment">// 更新已有的值</span></span><br><span class="line">hashMap.get(<span class="number">2</span>);            <span class="comment">// 返回 1 </span></span><br><span class="line">hashMap.remove(<span class="number">2</span>);         <span class="comment">// 删除键为2的数据</span></span><br><span class="line">hashMap.get(<span class="number">2</span>);            <span class="comment">// 返回 -1 (未找到)</span></span><br></pre></td></tr></table></figure>
+<h2 id="示例1："><a href="#示例1：" class="headerlink" title="示例1："></a>示例1：</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">MyHashMap hashMap = <span class="keyword">new</span> MyHashMap();</span><br><span class="line">hashMap.put(<span class="number">1</span>, <span class="number">1</span>);          </span><br><span class="line">hashMap.put(<span class="number">2</span>, <span class="number">2</span>);         </span><br><span class="line">hashMap.get(<span class="number">1</span>);            <span class="comment">// 返回 1</span></span><br><span class="line">hashMap.get(<span class="number">3</span>);            <span class="comment">// 返回 -1 (未找到)</span></span><br><span class="line">hashMap.put(<span class="number">2</span>, <span class="number">1</span>);         <span class="comment">// 更新已有的值</span></span><br><span class="line">hashMap.get(<span class="number">2</span>);            <span class="comment">// 返回 1 </span></span><br><span class="line">hashMap.remove(<span class="number">2</span>);         <span class="comment">// 删除键为2的数据</span></span><br><span class="line">hashMap.get(<span class="number">2</span>);            <span class="comment">// 返回 -1 (未找到)</span></span><br></pre></td></tr></table></figure>
 <h2 id="注意："><a href="#注意：" class="headerlink" title="注意："></a>注意：</h2><ul>
 <li>所有的值都在 <code>[1, 1000000]</code>的范围内。</li>
 <li>操作的总数目在<code>[1, 10000]</code>范围内。</li>
@@ -436,8 +436,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/08/29/LeetCode/leetcode-000728.%20%E8%87%AA%E9%99%A4%E6%95%B0/" rel="next" title="728. 自除数">
-                <i class="fa fa-chevron-left"></i> 728. 自除数
+              <a href="/2018/08/29/LeetCode/leetcode-000771.%20%E5%AE%9D%E7%9F%B3%E4%B8%8E%E7%9F%B3%E5%A4%B4/" rel="next" title="771. 宝石与石头">
+                <i class="fa fa-chevron-left"></i> 771. 宝石与石头
               </a>
             
           </div>
@@ -446,8 +446,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2018/08/29/LeetCode/leetcode-000705.%20%E8%AE%BE%E8%AE%A1%E5%93%88%E5%B8%8C%E9%9B%86%E5%90%88/" rel="prev" title="705. 设计哈希集合">
-                705. 设计哈希集合 <i class="fa fa-chevron-right"></i>
+              <a href="/2018/08/29/LeetCode/leetcode-000709.%20%E8%BD%AC%E6%8D%A2%E6%88%90%E5%B0%8F%E5%86%99%E5%AD%97%E6%AF%8D/" rel="prev" title="709. 转换成小写字母">
+                709. 转换成小写字母 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -525,7 +525,7 @@
               
                 <a href="/archives/%7C%7C%20archive">
               
-                  <span class="site-state-item-count">461</span>
+                  <span class="site-state-item-count">482</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -590,7 +590,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#题目"><span class="nav-number">1.</span> <span class="nav-text">题目</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#示例："><span class="nav-number">2.</span> <span class="nav-text">示例：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#注意："><span class="nav-number">3.</span> <span class="nav-text">注意：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#解法"><span class="nav-number">4.</span> <span class="nav-text">解法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#解法一："><span class="nav-number">4.1.</span> <span class="nav-text">解法一：</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Java"><span class="nav-number">4.1.1.</span> <span class="nav-text">Java</span></a></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#题目"><span class="nav-number">1.</span> <span class="nav-text">题目</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#示例1："><span class="nav-number">2.</span> <span class="nav-text">示例1：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#注意："><span class="nav-number">3.</span> <span class="nav-text">注意：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#解法"><span class="nav-number">4.</span> <span class="nav-text">解法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#解法一："><span class="nav-number">4.1.</span> <span class="nav-text">解法一：</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Java"><span class="nav-number">4.1.1.</span> <span class="nav-text">Java</span></a></li></ol></li></ol></li></ol></div>
             
 
           </div>

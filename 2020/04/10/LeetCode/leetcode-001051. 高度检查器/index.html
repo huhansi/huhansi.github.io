@@ -87,7 +87,7 @@
 <meta property="og:description" content="题目学校在拍年度纪念照时，一般要求学生按照 非递减 的高度顺序排列。 请你返回能让所有学生以 非递减 高度排列的最小必要移动人数。 注意，当一组学生被选中时，他们之间可以以任何可能的方式重新排序，而未被选中的学生应该保持不动。 示例 1:12345678输入：heights &#x3D; [1,1,4,2,1,3]输出：3 解释：当前数组：[1,1,4,2,1,3]目标数组：[1,1,1,2,3,">
 <meta property="og:locale" content="Zh_CN">
 <meta property="article:published_time" content="2020-04-09T16:00:00.000Z">
-<meta property="article:modified_time" content="2020-04-10T03:16:15.505Z">
+<meta property="article:modified_time" content="2020-04-29T02:25:08.603Z">
 <meta property="article:author" content="Han si">
 <meta property="article:tag" content="leetcode">
 <meta property="article:tag" content="算法">
@@ -391,7 +391,7 @@
         <h2 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h2><p>学校在拍年度纪念照时，一般要求学生按照 非递减 的高度顺序排列。</p>
 <p>请你返回能让所有学生以 非递减 高度排列的最小必要移动人数。</p>
 <p>注意，当一组学生被选中时，他们之间可以以任何可能的方式重新排序，而未被选中的学生应该保持不动。</p>
-<h3 id="示例-1"><a href="#示例-1" class="headerlink" title="示例 1:"></a>示例 1:</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">输入：heights &#x3D; [1,1,4,2,1,3]</span><br><span class="line">输出：3 </span><br><span class="line">解释：</span><br><span class="line">当前数组：[1,1,4,2,1,3]</span><br><span class="line">目标数组：[1,1,1,2,3,4]</span><br><span class="line">在下标 2 处（从 0 开始计数）出现 4 vs 1 ，所以我们必须移动这名学生。</span><br><span class="line">在下标 4 处（从 0 开始计数）出现 1 vs 3 ，所以我们必须移动这名学生。</span><br><span class="line">在下标 5 处（从 0 开始计数）出现 3 vs 4 ，所以我们必须移动这名学生。</span><br></pre></td></tr></table></figure>
+<h2 id="示例-1"><a href="#示例-1" class="headerlink" title="示例 1:"></a>示例 1:</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">输入：heights &#x3D; [1,1,4,2,1,3]</span><br><span class="line">输出：3 </span><br><span class="line">解释：</span><br><span class="line">当前数组：[1,1,4,2,1,3]</span><br><span class="line">目标数组：[1,1,1,2,3,4]</span><br><span class="line">在下标 2 处（从 0 开始计数）出现 4 vs 1 ，所以我们必须移动这名学生。</span><br><span class="line">在下标 4 处（从 0 开始计数）出现 1 vs 3 ，所以我们必须移动这名学生。</span><br><span class="line">在下标 5 处（从 0 开始计数）出现 3 vs 4 ，所以我们必须移动这名学生。</span><br></pre></td></tr></table></figure>
 
 <h2 id="示例2："><a href="#示例2：" class="headerlink" title="示例2："></a>示例2：</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">输入：heights = [<span class="number">5</span>,<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>]</span><br><span class="line">输出：<span class="number">5</span></span><br></pre></td></tr></table></figure>
 
@@ -528,7 +528,7 @@
               
                 <a href="/archives/%7C%7C%20archive">
               
-                  <span class="site-state-item-count">461</span>
+                  <span class="site-state-item-count">482</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -593,7 +593,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#题目"><span class="nav-number">1.</span> <span class="nav-text">题目</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#示例-1"><span class="nav-number">1.1.</span> <span class="nav-text">示例 1:</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#示例2："><span class="nav-number">2.</span> <span class="nav-text">示例2：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#示例3："><span class="nav-number">3.</span> <span class="nav-text">示例3：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#提示："><span class="nav-number">4.</span> <span class="nav-text">提示：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#解法"><span class="nav-number">5.</span> <span class="nav-text">解法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#解法一："><span class="nav-number">5.1.</span> <span class="nav-text">解法一：</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#JAVA"><span class="nav-number">5.1.1.</span> <span class="nav-text">JAVA</span></a></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#题目"><span class="nav-number">1.</span> <span class="nav-text">题目</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#示例-1"><span class="nav-number">2.</span> <span class="nav-text">示例 1:</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#示例2："><span class="nav-number">3.</span> <span class="nav-text">示例2：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#示例3："><span class="nav-number">4.</span> <span class="nav-text">示例3：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#提示："><span class="nav-number">5.</span> <span class="nav-text">提示：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#解法"><span class="nav-number">6.</span> <span class="nav-text">解法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#解法一："><span class="nav-number">6.1.</span> <span class="nav-text">解法一：</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#JAVA"><span class="nav-number">6.1.1.</span> <span class="nav-text">JAVA</span></a></li></ol></li></ol></li></ol></div>
             
 
           </div>

@@ -87,7 +87,7 @@
 <meta property="og:description" content="题目销售表 Sales： 123456789101112+-------------+-------+| Column Name | Type  |+-------------+-------+| sale_id     | int   || product_id  | int   || year        | int   || quantity    | int   || price">
 <meta property="og:locale" content="Zh_CN">
 <meta property="article:published_time" content="2020-04-08T16:00:00.000Z">
-<meta property="article:modified_time" content="2020-04-09T07:14:26.587Z">
+<meta property="article:modified_time" content="2020-04-29T02:25:33.508Z">
 <meta property="article:author" content="Han si">
 <meta property="article:tag" content="leetcode">
 <meta property="article:tag" content="SQL">
@@ -394,7 +394,7 @@
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">+<span class="comment">--------------+---------+</span></span><br><span class="line">| Column Name  | Type    |</span><br><span class="line">+<span class="comment">--------------+---------+</span></span><br><span class="line">| product_id   | int     |</span><br><span class="line">| product_name | varchar |</span><br><span class="line">+<span class="comment">--------------+---------+</span></span><br><span class="line">product_id 是表的主键.</span><br></pre></td></tr></table></figure>
 
 <p>写一条SQL 查询语句获取产品表 Product 中所有的 产品名称 product name 以及 该产品在 Sales 表中相对应的 上市年份 year 和 价格 price。</p>
-<h3 id="示例1"><a href="#示例1" class="headerlink" title="示例1:"></a>示例1:</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">Sales 表：</span><br><span class="line">+---------+------------+------+----------+-------+</span><br><span class="line">| sale_id | product_id | year | quantity | price |</span><br><span class="line">+---------+------------+------+----------+-------+ </span><br><span class="line">| 1       | 100        | 2008 | 10       | 5000  |</span><br><span class="line">| 2       | 100        | 2009 | 12       | 5000  |</span><br><span class="line">| 7       | 200        | 2011 | 15       | 9000  |</span><br><span class="line">+---------+------------+------+----------+-------+</span><br><span class="line"></span><br><span class="line">Product 表：</span><br><span class="line">+------------+--------------+</span><br><span class="line">| product_id | product_name |</span><br><span class="line">+------------+--------------+</span><br><span class="line">| 100        | Nokia        |</span><br><span class="line">| 200        | Apple        |</span><br><span class="line">| 300        | Samsung      |</span><br><span class="line">+------------+--------------+</span><br><span class="line"></span><br><span class="line">Result 表：</span><br><span class="line">+--------------+-------+-------+</span><br><span class="line">| product_name | year  | price |</span><br><span class="line">+--------------+-------+-------+</span><br><span class="line">| Nokia        | 2008  | 5000  |</span><br><span class="line">| Nokia        | 2009  | 5000  |</span><br><span class="line">| Apple        | 2011  | 9000  |</span><br><span class="line">+--------------+-------+-------+</span><br></pre></td></tr></table></figure>
+<h2 id="示例1"><a href="#示例1" class="headerlink" title="示例1:"></a>示例1:</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">Sales 表：</span><br><span class="line">+---------+------------+------+----------+-------+</span><br><span class="line">| sale_id | product_id | year | quantity | price |</span><br><span class="line">+---------+------------+------+----------+-------+ </span><br><span class="line">| 1       | 100        | 2008 | 10       | 5000  |</span><br><span class="line">| 2       | 100        | 2009 | 12       | 5000  |</span><br><span class="line">| 7       | 200        | 2011 | 15       | 9000  |</span><br><span class="line">+---------+------------+------+----------+-------+</span><br><span class="line"></span><br><span class="line">Product 表：</span><br><span class="line">+------------+--------------+</span><br><span class="line">| product_id | product_name |</span><br><span class="line">+------------+--------------+</span><br><span class="line">| 100        | Nokia        |</span><br><span class="line">| 200        | Apple        |</span><br><span class="line">| 300        | Samsung      |</span><br><span class="line">+------------+--------------+</span><br><span class="line"></span><br><span class="line">Result 表：</span><br><span class="line">+--------------+-------+-------+</span><br><span class="line">| product_name | year  | price |</span><br><span class="line">+--------------+-------+-------+</span><br><span class="line">| Nokia        | 2008  | 5000  |</span><br><span class="line">| Nokia        | 2009  | 5000  |</span><br><span class="line">| Apple        | 2011  | 9000  |</span><br><span class="line">+--------------+-------+-------+</span><br></pre></td></tr></table></figure>
 
 <h2 id="解法"><a href="#解法" class="headerlink" title="解法"></a>解法</h2><h3 id="解法一："><a href="#解法一：" class="headerlink" title="解法一："></a>解法一：</h3><h4 id="SQL"><a href="#SQL" class="headerlink" title="SQL"></a>SQL</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select P.product_name,S.year,S.price from Sales S,Product P where S.product_id=P.product_id</span><br></pre></td></tr></table></figure>
 
@@ -430,8 +430,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2020/04/09/LeetCode/leetcode-001173-%E5%8D%B3%E6%97%B6%E9%A3%9F%E7%89%A9%E9%85%8D%E9%80%81%20I/" rel="next" title="1173. 即时食物配送 I">
-                <i class="fa fa-chevron-left"></i> 1173. 即时食物配送 I
+              <a href="/2020/04/09/LeetCode/leetcode-001069-%E4%BA%A7%E5%93%81%E9%94%80%E5%94%AE%E5%88%86%E6%9E%90%20II/" rel="next" title="1069. 产品销售分析">
+                <i class="fa fa-chevron-left"></i> 1069. 产品销售分析
               </a>
             
           </div>
@@ -440,8 +440,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2020/04/09/LeetCode/leetcode-001069-%E4%BA%A7%E5%93%81%E9%94%80%E5%94%AE%E5%88%86%E6%9E%90%20II/" rel="prev" title="1069. 产品销售分析">
-                1069. 产品销售分析 <i class="fa fa-chevron-right"></i>
+              <a href="/2020/04/09/LeetCode/leetcode-001021-%E5%88%A0%E9%99%A4%E6%9C%80%E5%A4%96%E5%B1%82%E7%9A%84%E6%8B%AC%E5%8F%B7/" rel="prev" title="1021. 删除最外层的括号">
+                1021. 删除最外层的括号 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -519,7 +519,7 @@
               
                 <a href="/archives/%7C%7C%20archive">
               
-                  <span class="site-state-item-count">461</span>
+                  <span class="site-state-item-count">482</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -584,7 +584,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#题目"><span class="nav-number">1.</span> <span class="nav-text">题目</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#示例1"><span class="nav-number">1.1.</span> <span class="nav-text">示例1:</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#解法"><span class="nav-number">2.</span> <span class="nav-text">解法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#解法一："><span class="nav-number">2.1.</span> <span class="nav-text">解法一：</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#SQL"><span class="nav-number">2.1.1.</span> <span class="nav-text">SQL</span></a></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#题目"><span class="nav-number">1.</span> <span class="nav-text">题目</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#示例1"><span class="nav-number">2.</span> <span class="nav-text">示例1:</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#解法"><span class="nav-number">3.</span> <span class="nav-text">解法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#解法一："><span class="nav-number">3.1.</span> <span class="nav-text">解法一：</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#SQL"><span class="nav-number">3.1.1.</span> <span class="nav-text">SQL</span></a></li></ol></li></ol></li></ol></div>
             
 
           </div>

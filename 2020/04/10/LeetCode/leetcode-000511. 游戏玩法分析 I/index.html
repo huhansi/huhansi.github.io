@@ -87,7 +87,7 @@
 <meta property="og:description" content="题目活动表 Activity： 1234567891011+--------------+---------+| Column Name  | Type    |+--------------+---------+| player_id    | int     || device_id    | int     || event_date   | date    || games_played">
 <meta property="og:locale" content="Zh_CN">
 <meta property="article:published_time" content="2020-04-09T16:00:00.000Z">
-<meta property="article:modified_time" content="2020-04-10T04:40:38.013Z">
+<meta property="article:modified_time" content="2020-04-29T02:09:17.458Z">
 <meta property="article:author" content="Han si">
 <meta property="article:tag" content="leetcode">
 <meta property="article:tag" content="SQL">
@@ -392,7 +392,7 @@
 
 <p>写一条 SQL 查询语句获取每位玩家 <strong>第一次登陆平台的日期</strong>。</p>
 <p>查询结果的格式如下所示：</p>
-<h2 id="示例2："><a href="#示例2：" class="headerlink" title="示例2："></a>示例2：</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">Activity 表：</span><br><span class="line">+-----------+-----------+------------+--------------+</span><br><span class="line">| player_id | device_id | event_date | games_played |</span><br><span class="line">+-----------+-----------+------------+--------------+</span><br><span class="line">| <span class="number">1</span>         | <span class="number">2</span>         | <span class="number">2016</span>-<span class="number">03</span>-<span class="number">01</span> | <span class="number">5</span>            |</span><br><span class="line">| <span class="number">1</span>         | <span class="number">2</span>         | <span class="number">2016</span>-<span class="number">05</span>-<span class="number">02</span> | <span class="number">6</span>            |</span><br><span class="line">| <span class="number">2</span>         | <span class="number">3</span>         | <span class="number">2017</span>-<span class="number">06</span>-<span class="number">25</span> | <span class="number">1</span>            |</span><br><span class="line">| <span class="number">3</span>         | <span class="number">1</span>         | <span class="number">2016</span>-<span class="number">03</span>-<span class="number">02</span> | <span class="number">0</span>            |</span><br><span class="line">| <span class="number">3</span>         | <span class="number">4</span>         | <span class="number">2018</span>-<span class="number">07</span>-<span class="number">03</span> | <span class="number">5</span>            |</span><br><span class="line">+-----------+-----------+------------+--------------+</span><br><span class="line"></span><br><span class="line">Result 表：</span><br><span class="line">+-----------+-------------+</span><br><span class="line">| player_id | first_login |</span><br><span class="line">+-----------+-------------+</span><br><span class="line">| <span class="number">1</span>         | <span class="number">2016</span>-<span class="number">03</span>-<span class="number">01</span>  |</span><br><span class="line">| <span class="number">2</span>         | <span class="number">2017</span>-<span class="number">06</span>-<span class="number">25</span>  |</span><br><span class="line">| <span class="number">3</span>         | <span class="number">2016</span>-<span class="number">03</span>-<span class="number">02</span>  |</span><br><span class="line">+-----------+-------------+</span><br></pre></td></tr></table></figure>
+<h2 id="示例1："><a href="#示例1：" class="headerlink" title="示例1："></a>示例1：</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">Activity 表：</span><br><span class="line">+-----------+-----------+------------+--------------+</span><br><span class="line">| player_id | device_id | event_date | games_played |</span><br><span class="line">+-----------+-----------+------------+--------------+</span><br><span class="line">| <span class="number">1</span>         | <span class="number">2</span>         | <span class="number">2016</span>-<span class="number">03</span>-<span class="number">01</span> | <span class="number">5</span>            |</span><br><span class="line">| <span class="number">1</span>         | <span class="number">2</span>         | <span class="number">2016</span>-<span class="number">05</span>-<span class="number">02</span> | <span class="number">6</span>            |</span><br><span class="line">| <span class="number">2</span>         | <span class="number">3</span>         | <span class="number">2017</span>-<span class="number">06</span>-<span class="number">25</span> | <span class="number">1</span>            |</span><br><span class="line">| <span class="number">3</span>         | <span class="number">1</span>         | <span class="number">2016</span>-<span class="number">03</span>-<span class="number">02</span> | <span class="number">0</span>            |</span><br><span class="line">| <span class="number">3</span>         | <span class="number">4</span>         | <span class="number">2018</span>-<span class="number">07</span>-<span class="number">03</span> | <span class="number">5</span>            |</span><br><span class="line">+-----------+-----------+------------+--------------+</span><br><span class="line"></span><br><span class="line">Result 表：</span><br><span class="line">+-----------+-------------+</span><br><span class="line">| player_id | first_login |</span><br><span class="line">+-----------+-------------+</span><br><span class="line">| <span class="number">1</span>         | <span class="number">2016</span>-<span class="number">03</span>-<span class="number">01</span>  |</span><br><span class="line">| <span class="number">2</span>         | <span class="number">2017</span>-<span class="number">06</span>-<span class="number">25</span>  |</span><br><span class="line">| <span class="number">3</span>         | <span class="number">2016</span>-<span class="number">03</span>-<span class="number">02</span>  |</span><br><span class="line">+-----------+-------------+</span><br></pre></td></tr></table></figure>
 
 <h2 id="解法"><a href="#解法" class="headerlink" title="解法"></a>解法</h2><h3 id="解法一："><a href="#解法一：" class="headerlink" title="解法一："></a>解法一：</h3><h4 id="SQL"><a href="#SQL" class="headerlink" title="SQL"></a>SQL</h4><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Write your MySQL query statement below</span></span><br><span class="line"><span class="keyword">select</span> player_id ,<span class="keyword">min</span>(event_date) <span class="keyword">as</span> first_login <span class="keyword">from</span> Activity <span class="keyword">group</span> <span class="keyword">by</span> player_id;</span><br></pre></td></tr></table></figure>
 
@@ -428,8 +428,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2020/04/10/LeetCode/leetcode-000577.%20%E5%91%98%E5%B7%A5%E5%A5%96%E9%87%91/" rel="next" title="577. 员工奖金">
-                <i class="fa fa-chevron-left"></i> 577. 员工奖金
+              <a href="/2020/04/10/LeetCode/leetcode-000933.%20%E6%9C%80%E8%BF%91%E7%9A%84%E8%AF%B7%E6%B1%82%E6%AC%A1%E6%95%B0/" rel="next" title="933. 最近的请求次数">
+                <i class="fa fa-chevron-left"></i> 933. 最近的请求次数
               </a>
             
           </div>
@@ -438,8 +438,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2020/04/10/LeetCode/leetcode-000293.%20%E7%BF%BB%E8%BD%AC%E6%B8%B8%E6%88%8F/" rel="prev" title="293. 翻转游戏">
-                293. 翻转游戏 <i class="fa fa-chevron-right"></i>
+              <a href="/2020/04/10/LeetCode/leetcode-000700.%20%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91%E4%B8%AD%E7%9A%84%E6%90%9C%E7%B4%A2/" rel="prev" title="700. 二叉搜索树中的搜索">
+                700. 二叉搜索树中的搜索 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -517,7 +517,7 @@
               
                 <a href="/archives/%7C%7C%20archive">
               
-                  <span class="site-state-item-count">461</span>
+                  <span class="site-state-item-count">482</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -582,7 +582,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#题目"><span class="nav-number">1.</span> <span class="nav-text">题目</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#示例2："><span class="nav-number">2.</span> <span class="nav-text">示例2：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#解法"><span class="nav-number">3.</span> <span class="nav-text">解法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#解法一："><span class="nav-number">3.1.</span> <span class="nav-text">解法一：</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#SQL"><span class="nav-number">3.1.1.</span> <span class="nav-text">SQL</span></a></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#题目"><span class="nav-number">1.</span> <span class="nav-text">题目</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#示例1："><span class="nav-number">2.</span> <span class="nav-text">示例1：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#解法"><span class="nav-number">3.</span> <span class="nav-text">解法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#解法一："><span class="nav-number">3.1.</span> <span class="nav-text">解法一：</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#SQL"><span class="nav-number">3.1.1.</span> <span class="nav-text">SQL</span></a></li></ol></li></ol></li></ol></div>
             
 
           </div>
