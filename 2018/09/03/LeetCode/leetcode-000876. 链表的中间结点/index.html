@@ -87,7 +87,7 @@
 <meta property="og:description" content="题目给定一个带有头结点 head 的非空单链表，返回链表的中间结点。 如果有两个中间结点，则返回第二个中间结点。 示例1：12345输入：[1,2,3,4,5]输出：此列表中的结点 3 (序列化形式：[3,4,5])返回的结点值为 3 。 (测评系统对该结点序列化表述是 [3,4,5])。注意，我们返回了一个 ListNode 类型的对象 ans，这样：ans.val &#x3D; 3, ans.">
 <meta property="og:locale" content="Zh_CN">
 <meta property="article:published_time" content="2018-09-02T16:00:00.000Z">
-<meta property="article:modified_time" content="2020-03-18T06:26:37.968Z">
+<meta property="article:modified_time" content="2020-04-29T02:17:07.469Z">
 <meta property="article:author" content="Han si">
 <meta property="article:tag" content="leetcode">
 <meta property="article:tag" content="算法">
@@ -390,10 +390,9 @@
       
         <h2 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h2><p>给定一个带有头结点 <code>head</code> 的非空单链表，返回链表的中间结点。</p>
 <p>如果有两个中间结点，则返回第二个中间结点。</p>
-<h3 id="示例1："><a href="#示例1：" class="headerlink" title="示例1："></a>示例1：</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">输入：[1,2,3,4,5]</span><br><span class="line">输出：此列表中的结点 3 (序列化形式：[3,4,5])</span><br><span class="line">返回的结点值为 3 。 (测评系统对该结点序列化表述是 [3,4,5])。</span><br><span class="line">注意，我们返回了一个 ListNode 类型的对象 ans，这样：</span><br><span class="line">ans.val &#x3D; 3, ans.next.val &#x3D; 4, ans.next.next.val &#x3D; 5, 以及 ans.next.next.next &#x3D; NULL.</span><br></pre></td></tr></table></figure>
-<h3 id="示例2："><a href="#示例2：" class="headerlink" title="示例2："></a>示例2：</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">输入：[1,2,3,4,5,6]</span><br><span class="line">输出：此列表中的结点 4 (序列化形式：[4,5,6])</span><br><span class="line">由于该列表有两个中间结点，值分别为 3 和 4，我们返回第二个结点。</span><br></pre></td></tr></table></figure>
-<p><strong>提示：</strong></p>
-<ul>
+<h2 id="示例1："><a href="#示例1：" class="headerlink" title="示例1："></a>示例1：</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">输入：[1,2,3,4,5]</span><br><span class="line">输出：此列表中的结点 3 (序列化形式：[3,4,5])</span><br><span class="line">返回的结点值为 3 。 (测评系统对该结点序列化表述是 [3,4,5])。</span><br><span class="line">注意，我们返回了一个 ListNode 类型的对象 ans，这样：</span><br><span class="line">ans.val &#x3D; 3, ans.next.val &#x3D; 4, ans.next.next.val &#x3D; 5, 以及 ans.next.next.next &#x3D; NULL.</span><br></pre></td></tr></table></figure>
+<h2 id="示例2："><a href="#示例2：" class="headerlink" title="示例2："></a>示例2：</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">输入：[1,2,3,4,5,6]</span><br><span class="line">输出：此列表中的结点 4 (序列化形式：[4,5,6])</span><br><span class="line">由于该列表有两个中间结点，值分别为 3 和 4，我们返回第二个结点。</span><br></pre></td></tr></table></figure>
+<h2 id="提示："><a href="#提示：" class="headerlink" title="提示："></a>提示：</h2><ul>
 <li>给定链表的结点数介于 <code>1</code> 和 <code>100</code> 之间。</li>
 </ul>
 <h2 id="解法"><a href="#解法" class="headerlink" title="解法"></a>解法</h2><h3 id="解法一："><a href="#解法一：" class="headerlink" title="解法一："></a>解法一：</h3><p>借助外部数组，将链表的值存入数组，返回数组的中间位置元素即可。</p>
@@ -442,8 +441,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/09/03/LeetCode/leetcode-000762.%20%E4%BA%8C%E8%BF%9B%E5%88%B6%E8%A1%A8%E7%A4%BA%E4%B8%AD%E8%B4%A8%E6%95%B0%E4%B8%AA%E8%AE%A1%E7%AE%97%E7%BD%AE%E4%BD%8D/" rel="next" title="762. 二进制表示中质数个计算置位">
-                <i class="fa fa-chevron-left"></i> 762. 二进制表示中质数个计算置位
+              <a href="/2018/09/03/Java/%E5%A4%9A%E7%BA%BF%E7%A8%8B%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/2.Immutable%20%E6%A8%A1%E5%BC%8F/" rel="next" title="Immutable 模式">
+                <i class="fa fa-chevron-left"></i> Immutable 模式
               </a>
             
           </div>
@@ -452,8 +451,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2018/09/03/LeetCode/leetcode-000590.%20N%E5%8F%89%E6%A0%91%E7%9A%84%E5%90%8E%E5%BA%8F%E9%81%8D%E5%8E%86/" rel="prev" title="590. N叉树的后序遍历">
-                590. N叉树的后序遍历 <i class="fa fa-chevron-right"></i>
+              <a href="/2018/09/03/LeetCode/leetcode-000762.%20%E4%BA%8C%E8%BF%9B%E5%88%B6%E8%A1%A8%E7%A4%BA%E4%B8%AD%E8%B4%A8%E6%95%B0%E4%B8%AA%E8%AE%A1%E7%AE%97%E7%BD%AE%E4%BD%8D/" rel="prev" title="762. 二进制表示中质数个计算置位">
+                762. 二进制表示中质数个计算置位 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -531,7 +530,7 @@
               
                 <a href="/archives/%7C%7C%20archive">
               
-                  <span class="site-state-item-count">461</span>
+                  <span class="site-state-item-count">482</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -596,7 +595,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#题目"><span class="nav-number">1.</span> <span class="nav-text">题目</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#示例1："><span class="nav-number">1.1.</span> <span class="nav-text">示例1：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#示例2："><span class="nav-number">1.2.</span> <span class="nav-text">示例2：</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#解法"><span class="nav-number">2.</span> <span class="nav-text">解法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#解法一："><span class="nav-number">2.1.</span> <span class="nav-text">解法一：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Java"><span class="nav-number">2.2.</span> <span class="nav-text">Java</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#CPP"><span class="nav-number">2.2.1.</span> <span class="nav-text">CPP</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#解法二："><span class="nav-number">2.3.</span> <span class="nav-text">解法二：</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Java-1"><span class="nav-number">2.3.1.</span> <span class="nav-text">Java</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#CPP-1"><span class="nav-number">2.3.2.</span> <span class="nav-text">CPP</span></a></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#题目"><span class="nav-number">1.</span> <span class="nav-text">题目</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#示例1："><span class="nav-number">2.</span> <span class="nav-text">示例1：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#示例2："><span class="nav-number">3.</span> <span class="nav-text">示例2：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#提示："><span class="nav-number">4.</span> <span class="nav-text">提示：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#解法"><span class="nav-number">5.</span> <span class="nav-text">解法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#解法一："><span class="nav-number">5.1.</span> <span class="nav-text">解法一：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Java"><span class="nav-number">5.2.</span> <span class="nav-text">Java</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#CPP"><span class="nav-number">5.2.1.</span> <span class="nav-text">CPP</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#解法二："><span class="nav-number">5.3.</span> <span class="nav-text">解法二：</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Java-1"><span class="nav-number">5.3.1.</span> <span class="nav-text">Java</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#CPP-1"><span class="nav-number">5.3.2.</span> <span class="nav-text">CPP</span></a></li></ol></li></ol></li></ol></div>
             
 
           </div>

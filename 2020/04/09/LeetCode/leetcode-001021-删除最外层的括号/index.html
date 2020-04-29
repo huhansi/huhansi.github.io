@@ -87,7 +87,7 @@
 <meta property="og:description" content="题目有效括号字符串为空 (“”)、”(“ + A + “)” 或 A + B，其中 A 和 B 都是有效的括号字符串，+ 代表字符串的连接。例如，””，”()”，”(())()” 和 “(()(()))” 都是有效的括号字符串。 如果有效字符串 S 非空，且不存在将其拆分为 S &#x3D; A+B 的方法，我们称其为原语（primitive），其中 A 和 B 都是非空有效括号字符串。 给出一个非空有效字">
 <meta property="og:locale" content="Zh_CN">
 <meta property="article:published_time" content="2020-04-08T16:00:00.000Z">
-<meta property="article:modified_time" content="2020-04-09T14:11:10.153Z">
+<meta property="article:modified_time" content="2020-04-29T02:24:04.560Z">
 <meta property="article:author" content="Han si">
 <meta property="article:tag" content="leetcode">
 <meta property="article:tag" content="算法">
@@ -392,7 +392,7 @@
 <p>如果有效字符串 S 非空，且不存在将其拆分为 S = A+B 的方法，我们称其为原语（primitive），其中 A 和 B 都是非空有效括号字符串。</p>
 <p>给出一个非空有效字符串 S，考虑将其进行原语化分解，使得：S = P_1 + P_2 + … + P_k，其中 P_i 是有效括号字符串原语。</p>
 <p>对 S 进行原语化分解，删除分解中每个原语字符串的最外层括号，返回 S 。</p>
-<h3 id="示例-1"><a href="#示例-1" class="headerlink" title="示例 1:"></a>示例 1:</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">输入：&quot;(()())(())&quot;</span><br><span class="line">输出：&quot;()()()&quot;</span><br><span class="line">解释：</span><br><span class="line">输入字符串为 &quot;(()())(())&quot;，原语化分解得到 &quot;(()())&quot; + &quot;(())&quot;，</span><br><span class="line">删除每个部分中的最外层括号后得到 &quot;()()&quot; + &quot;()&quot; &#x3D; &quot;()()()&quot;。</span><br></pre></td></tr></table></figure>
+<h2 id="示例1："><a href="#示例1：" class="headerlink" title="示例1："></a>示例1：</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">输入：&quot;(()())(())&quot;</span><br><span class="line">输出：&quot;()()()&quot;</span><br><span class="line">解释：</span><br><span class="line">输入字符串为 &quot;(()())(())&quot;，原语化分解得到 &quot;(()())&quot; + &quot;(())&quot;，</span><br><span class="line">删除每个部分中的最外层括号后得到 &quot;()()&quot; + &quot;()&quot; &#x3D; &quot;()()()&quot;。</span><br></pre></td></tr></table></figure>
 
 <h2 id="示例2："><a href="#示例2：" class="headerlink" title="示例2："></a>示例2：</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">输入：<span class="string">"(()())(())(()(()))"</span></span><br><span class="line">输出：<span class="string">"()()()()(())"</span></span><br><span class="line">解释：</span><br><span class="line">输入字符串为 <span class="string">"(()())(())(()(()))"</span>，原语化分解得到 <span class="string">"(()())"</span> + <span class="string">"(())"</span> + <span class="string">"(()(()))"</span>，</span><br><span class="line">删除每个部分中的最外层括号后得到 <span class="string">"()()"</span> + <span class="string">"()"</span> + <span class="string">"()(())"</span> = <span class="string">"()()()()(())"</span>。</span><br></pre></td></tr></table></figure>
 
@@ -441,8 +441,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2020/04/09/LeetCode/leetcode-001069-%E4%BA%A7%E5%93%81%E9%94%80%E5%94%AE%E5%88%86%E6%9E%90%20II/" rel="next" title="1069. 产品销售分析">
-                <i class="fa fa-chevron-left"></i> 1069. 产品销售分析
+              <a href="/2020/04/09/LeetCode/leetcode-001068-%E4%BA%A7%E5%93%81%E9%94%80%E5%94%AE%E5%88%86%E6%9E%90%20I/" rel="next" title="1068. 产品销售分析 I">
+                <i class="fa fa-chevron-left"></i> 1068. 产品销售分析 I
               </a>
             
           </div>
@@ -530,7 +530,7 @@
               
                 <a href="/archives/%7C%7C%20archive">
               
-                  <span class="site-state-item-count">461</span>
+                  <span class="site-state-item-count">482</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -595,7 +595,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#题目"><span class="nav-number">1.</span> <span class="nav-text">题目</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#示例-1"><span class="nav-number">1.1.</span> <span class="nav-text">示例 1:</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#示例2："><span class="nav-number">2.</span> <span class="nav-text">示例2：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#示例3："><span class="nav-number">3.</span> <span class="nav-text">示例3：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#提示："><span class="nav-number">4.</span> <span class="nav-text">提示：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#解法"><span class="nav-number">5.</span> <span class="nav-text">解法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#解法一："><span class="nav-number">5.1.</span> <span class="nav-text">解法一：</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#JAVA"><span class="nav-number">5.1.1.</span> <span class="nav-text">JAVA</span></a></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#题目"><span class="nav-number">1.</span> <span class="nav-text">题目</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#示例1："><span class="nav-number">2.</span> <span class="nav-text">示例1：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#示例2："><span class="nav-number">3.</span> <span class="nav-text">示例2：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#示例3："><span class="nav-number">4.</span> <span class="nav-text">示例3：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#提示："><span class="nav-number">5.</span> <span class="nav-text">提示：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#解法"><span class="nav-number">6.</span> <span class="nav-text">解法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#解法一："><span class="nav-number">6.1.</span> <span class="nav-text">解法一：</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#JAVA"><span class="nav-number">6.1.1.</span> <span class="nav-text">JAVA</span></a></li></ol></li></ol></li></ol></div>
             
 
           </div>

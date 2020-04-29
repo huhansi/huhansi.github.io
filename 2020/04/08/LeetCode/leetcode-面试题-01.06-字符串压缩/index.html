@@ -79,15 +79,15 @@
 
 
 
-<meta name="description" content="题目字符串压缩。利用字符重复出现的次数，编写一种方法，实现基本的字符串压缩功能。比如，字符串aabcccccaaa会变为a2b1c5a3。若“压缩”后的字符串没有变短，则返回原先的字符串。你可以假设字符串中只包含大小写英文字母（a至z） 示例 1:12输入：&quot;aabcccccaaa&quot;输出：&quot;a2b1c5a3&quot;  示例2：123输入：&quot;abbccd&quot;输出：&quot;a">
+<meta name="description" content="题目字符串压缩。利用字符重复出现的次数，编写一种方法，实现基本的字符串压缩功能。比如，字符串aabcccccaaa会变为a2b1c5a3。若“压缩”后的字符串没有变短，则返回原先的字符串。你可以假设字符串中只包含大小写英文字母（a至z） 示例1：12输入：&quot;aabcccccaaa&quot;输出：&quot;a2b1c5a3&quot;  示例2：123输入：&quot;abbccd&quot;输出：&quot;ab">
 <meta property="og:type" content="article">
 <meta property="og:title" content="面试题 01.06 字符串压缩">
 <meta property="og:url" content="http://huhansi.com/2020/04/08/LeetCode/leetcode-%E9%9D%A2%E8%AF%95%E9%A2%98-01.06-%E5%AD%97%E7%AC%A6%E4%B8%B2%E5%8E%8B%E7%BC%A9/index.html">
 <meta property="og:site_name" content="Hansi Blog">
-<meta property="og:description" content="题目字符串压缩。利用字符重复出现的次数，编写一种方法，实现基本的字符串压缩功能。比如，字符串aabcccccaaa会变为a2b1c5a3。若“压缩”后的字符串没有变短，则返回原先的字符串。你可以假设字符串中只包含大小写英文字母（a至z） 示例 1:12输入：&quot;aabcccccaaa&quot;输出：&quot;a2b1c5a3&quot;  示例2：123输入：&quot;abbccd&quot;输出：&quot;a">
+<meta property="og:description" content="题目字符串压缩。利用字符重复出现的次数，编写一种方法，实现基本的字符串压缩功能。比如，字符串aabcccccaaa会变为a2b1c5a3。若“压缩”后的字符串没有变短，则返回原先的字符串。你可以假设字符串中只包含大小写英文字母（a至z） 示例1：12输入：&quot;aabcccccaaa&quot;输出：&quot;a2b1c5a3&quot;  示例2：123输入：&quot;abbccd&quot;输出：&quot;ab">
 <meta property="og:locale" content="Zh_CN">
 <meta property="article:published_time" content="2020-04-07T16:00:00.000Z">
-<meta property="article:modified_time" content="2020-04-08T08:54:05.924Z">
+<meta property="article:modified_time" content="2020-04-29T02:41:39.629Z">
 <meta property="article:author" content="Han si">
 <meta property="article:tag" content="leetcode">
 <meta property="article:tag" content="算法">
@@ -389,7 +389,7 @@
 
       
         <h2 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h2><p>字符串压缩。利用字符重复出现的次数，编写一种方法，实现基本的字符串压缩功能。比如，字符串aabcccccaaa会变为a2b1c5a3。若“压缩”后的字符串没有变短，则返回原先的字符串。你可以假设字符串中只包含大小写英文字母（a至z）</p>
-<h3 id="示例-1"><a href="#示例-1" class="headerlink" title="示例 1:"></a>示例 1:</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">输入：&quot;aabcccccaaa&quot;</span><br><span class="line">输出：&quot;a2b1c5a3&quot;</span><br></pre></td></tr></table></figure>
+<h2 id="示例1："><a href="#示例1：" class="headerlink" title="示例1："></a>示例1：</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">输入：&quot;aabcccccaaa&quot;</span><br><span class="line">输出：&quot;a2b1c5a3&quot;</span><br></pre></td></tr></table></figure>
 
 <h2 id="示例2："><a href="#示例2：" class="headerlink" title="示例2："></a>示例2：</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">输入：<span class="string">"abbccd"</span></span><br><span class="line">输出：<span class="string">"abbccd"</span></span><br><span class="line">解释：<span class="string">"abbccd"</span>压缩后为<span class="string">"a1b2c2d1"</span>，比原字符串长度更长。</span><br></pre></td></tr></table></figure>
 
@@ -440,8 +440,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2020/04/09/Java/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E5%BB%BA%E9%80%A0%E8%80%85%E6%A8%A1%E5%BC%8F/" rel="prev" title="设计模式-建造者模式">
-                设计模式-建造者模式 <i class="fa fa-chevron-right"></i>
+              <a href="/2020/04/09/Java/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E6%8A%BD%E8%B1%A1%E5%B7%A5%E5%8E%82%E6%A8%A1%E5%BC%8F/" rel="prev" title="设计模式-抽象工厂模式">
+                设计模式-抽象工厂模式 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -519,7 +519,7 @@
               
                 <a href="/archives/%7C%7C%20archive">
               
-                  <span class="site-state-item-count">461</span>
+                  <span class="site-state-item-count">482</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -584,7 +584,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#题目"><span class="nav-number">1.</span> <span class="nav-text">题目</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#示例-1"><span class="nav-number">1.1.</span> <span class="nav-text">示例 1:</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#示例2："><span class="nav-number">2.</span> <span class="nav-text">示例2：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#解法"><span class="nav-number">3.</span> <span class="nav-text">解法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#解法一："><span class="nav-number">3.1.</span> <span class="nav-text">解法一：</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#JAVA"><span class="nav-number">3.1.1.</span> <span class="nav-text">JAVA</span></a></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#题目"><span class="nav-number">1.</span> <span class="nav-text">题目</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#示例1："><span class="nav-number">2.</span> <span class="nav-text">示例1：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#示例2："><span class="nav-number">3.</span> <span class="nav-text">示例2：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#解法"><span class="nav-number">4.</span> <span class="nav-text">解法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#解法一："><span class="nav-number">4.1.</span> <span class="nav-text">解法一：</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#JAVA"><span class="nav-number">4.1.1.</span> <span class="nav-text">JAVA</span></a></li></ol></li></ol></li></ol></div>
             
 
           </div>
