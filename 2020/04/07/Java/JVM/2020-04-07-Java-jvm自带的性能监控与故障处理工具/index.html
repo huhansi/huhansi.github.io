@@ -95,7 +95,7 @@
 <meta property="og:image" content="https://huhansi.github.io/images/2020-04-08-jhat2.png">
 <meta property="og:image" content="https://huhansi.github.io/images/2020-04-08-jstack1.png">
 <meta property="article:published_time" content="2020-04-06T16:00:00.000Z">
-<meta property="article:modified_time" content="2020-04-08T01:01:36.952Z">
+<meta property="article:modified_time" content="2020-04-29T12:57:31.546Z">
 <meta property="article:author" content="Han si">
 <meta property="article:tag" content="Java">
 <meta property="article:tag" content="JVM">
@@ -588,7 +588,44 @@
 <td>如果调用到本地方法的话，可以显示c/c++的堆栈</td>
 </tr>
 </tbody></table>
-<p><img src="https://huhansi.github.io/images/2020-04-08-jstack1.png" alt="jhat执行样例2"></p>
+<p><img src="https://huhansi.github.io/images/2020-04-08-jstack1.png" alt="jstat执行样例2"></p>
+<h2 id="btrace：Java运行时跟踪工具"><a href="#btrace：Java运行时跟踪工具" class="headerlink" title="btrace：Java运行时跟踪工具"></a>btrace：Java运行时跟踪工具</h2><p>btrace可以动态的跟踪Java运行时程序，将定制化的跟踪字节码切面注入运行类中，对运行代码无侵入，对性能的影响也可以忽略不计。</p>
+<p>btrace命令格式：</p>
+<blockquote>
+<p>btrace [ - p port ] [-cp classpath] pid btrace-script</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>选项</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>port</td>
+<td>指定btrace agent的服务端监听端口号，供客户端连接</td>
+</tr>
+<tr>
+<td>classpath</td>
+<td>用来指定依赖的类加载路径</td>
+</tr>
+<tr>
+<td>pid</td>
+<td>如果调用到本地方法的话，可以显示c/c++的堆栈</td>
+</tr>
+<tr>
+<td>btrace-script</td>
+<td>btrace跟踪切面脚本</td>
+</tr>
+</tbody></table>
+<p>举一个简单的btrace切面脚本</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.date;</span><br><span class="line"><span class="keyword">import</span> com.sum.btrace.BTraceUtils;</span><br><span class="line"><span class="keyword">import</span> <span class="keyword">static</span> com.sun.btrace.BTraceUtils;</span><br><span class="line"><span class="keyword">import</span> com.sum.btrace.annotations.*;</span><br><span class="line"></span><br><span class="line"><span class="meta">@BTrace</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Btrace</span> </span>&#123;</span><br><span class="line">    <span class="meta">@OnMethod</span> (</span><br><span class="line">    	clazz = <span class="string">"com.cloudate.controller.AdminController"</span>,</span><br><span class="line">        method = <span class="string">"sayHello"</span>,</span><br><span class="line">        location = <span class="meta">@Location</span>(Kind.RETURN)</span><br><span class="line">    )</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        println(<span class="string">"duration(ms)："</span>, str(duration / <span class="number">1000000</span>)));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>使用示例：</p>
+<blockquote>
+<p>btrace -p 2020 -cp ~/servlet-api.jar 1507 ~/BTrace.java</p>
+</blockquote>
+<p>AdminController的sayHello方法被调用时，控制台就会打印方法的执行时间。</p>
 
       
     </div>
@@ -639,8 +676,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2020/04/07/Java/JVM/2020-03-29-Java-%E5%86%85%E5%AD%98%E6%A8%A1%E5%9E%8B/" rel="prev" title="Java内存模型">
-                Java内存模型 <i class="fa fa-chevron-right"></i>
+              <a href="/2020/04/07/Java/JVM/2020-04-07-Java-%E4%BB%A3%E7%90%86/" rel="prev" title="Java-代理">
+                Java-代理 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -718,7 +755,7 @@
               
                 <a href="/archives/%7C%7C%20archive">
               
-                  <span class="site-state-item-count">482</span>
+                  <span class="site-state-item-count">486</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -740,7 +777,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">259</span>
+                  <span class="site-state-item-count">264</span>
                   <span class="site-state-item-name">tags</span>
                 </a>
               </div>
@@ -783,7 +820,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#jvm自带的性能监控与故障处理工具"><span class="nav-number">1.</span> <span class="nav-text">jvm自带的性能监控与故障处理工具</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#jps：虚拟机进程状况工具"><span class="nav-number">1.1.</span> <span class="nav-text">jps：虚拟机进程状况工具</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#jstat：虚拟机统计信息监视工具"><span class="nav-number">1.2.</span> <span class="nav-text">jstat：虚拟机统计信息监视工具</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#jinfo：Java配置信息工具"><span class="nav-number">1.3.</span> <span class="nav-text">jinfo：Java配置信息工具</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#jmap：内存映像工具"><span class="nav-number">1.4.</span> <span class="nav-text">jmap：内存映像工具</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#jhat：虚拟机堆转储快照分析工具"><span class="nav-number">1.5.</span> <span class="nav-text">jhat：虚拟机堆转储快照分析工具</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#jstack：Java堆栈跟踪工具"><span class="nav-number">1.6.</span> <span class="nav-text">jstack：Java堆栈跟踪工具</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#jvm自带的性能监控与故障处理工具"><span class="nav-number">1.</span> <span class="nav-text">jvm自带的性能监控与故障处理工具</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#jps：虚拟机进程状况工具"><span class="nav-number">1.1.</span> <span class="nav-text">jps：虚拟机进程状况工具</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#jstat：虚拟机统计信息监视工具"><span class="nav-number">1.2.</span> <span class="nav-text">jstat：虚拟机统计信息监视工具</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#jinfo：Java配置信息工具"><span class="nav-number">1.3.</span> <span class="nav-text">jinfo：Java配置信息工具</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#jmap：内存映像工具"><span class="nav-number">1.4.</span> <span class="nav-text">jmap：内存映像工具</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#jhat：虚拟机堆转储快照分析工具"><span class="nav-number">1.5.</span> <span class="nav-text">jhat：虚拟机堆转储快照分析工具</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#jstack：Java堆栈跟踪工具"><span class="nav-number">1.6.</span> <span class="nav-text">jstack：Java堆栈跟踪工具</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#btrace：Java运行时跟踪工具"><span class="nav-number">1.7.</span> <span class="nav-text">btrace：Java运行时跟踪工具</span></a></li></ol></li></ol></div>
             
 
           </div>
