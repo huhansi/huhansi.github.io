@@ -293,7 +293,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://huhansi.com/2020/04/14/SpringCloud/2020-04-14-005-%E7%86%94%E6%96%AD%E3%80%81%E9%99%90%E6%B5%81%E5%92%8C%E9%99%8D%E7%BA%A7%E4%B9%8B%E5%89%8D%E7%9A%84%E5%8C%BA%E5%88%AB/">
+    <link itemprop="mainEntityOfPage" href="http://huhansi.com/2020/04/17/Java/Java%E5%9F%BA%E7%A1%80/2020-04-17-ConcurrentHashMap%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Han si">
@@ -312,7 +312,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2020/04/14/SpringCloud/2020-04-14-005-%E7%86%94%E6%96%AD%E3%80%81%E9%99%90%E6%B5%81%E5%92%8C%E9%99%8D%E7%BA%A7%E4%B9%8B%E5%89%8D%E7%9A%84%E5%8C%BA%E5%88%AB/" itemprop="url">熔断、降级和限流之间的区别</a></h1>
+                <a class="post-title-link" href="/2020/04/17/Java/Java%E5%9F%BA%E7%A1%80/2020-04-17-ConcurrentHashMap%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90/" itemprop="url">ConcurrentHashMap源码解析</a></h1>
         
 
         <div class="post-meta">
@@ -324,8 +324,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-04-14T00:00:00+08:00">
-                2020-04-14
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-04-17T00:00:00+08:00">
+                2020-04-17
               </time>
             
 
@@ -347,8 +347,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Spring-Cloud/" itemprop="url" rel="index">
-                    <span itemprop="name">Spring Cloud</span>
+                  <a href="/categories/Java/" itemprop="url" rel="index">
+                    <span itemprop="name">Java</span>
                   </a>
                 </span>
 
@@ -386,12 +386,13 @@
       
         
           
-          熔断、降级和限流之间的区别当我们的系统整体访问量突然剧增，大量的请求在瞬间涌入，或者某个下游服务突然异常，大量请求调用阻塞又或者在可预见的将来，几天内比如，会有一波流量的高峰（比如双十一）。这个时候，我们要怎么做才能保证系统正常提供功能，或者说，最低要求，如何保证系统核心业务能正常提供功能？
-这种情
+          ConcurrentHashMap源码解析简介ConcurrentHashMap是Java SDK提供的线程安全的HashMap类。在多线程并发的场景下，用它做添加、删除是不会出现线程安全问题的。
+它实现了ConcurrentMap和Serializable接口。
+实现逻辑ConcurrentHas
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2020/04/14/SpringCloud/2020-04-14-005-%E7%86%94%E6%96%AD%E3%80%81%E9%99%90%E6%B5%81%E5%92%8C%E9%99%8D%E7%BA%A7%E4%B9%8B%E5%89%8D%E7%9A%84%E5%8C%BA%E5%88%AB/#more" rel="contents">
+            <a class="btn" href="/2020/04/17/Java/Java%E5%9F%BA%E7%A1%80/2020-04-17-ConcurrentHashMap%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90/#more" rel="contents">
               Read more &raquo;
             </a>
           </div>
@@ -442,7 +443,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://huhansi.com/2020/04/14/SpringCloud/2020-04-14-004-%E5%90%84%E7%A7%8D%E6%9C%8D%E5%8A%A1%E5%8F%91%E7%8E%B0%E6%A1%86%E6%9E%B6%E5%AF%B9%E6%AF%94/">
+    <link itemprop="mainEntityOfPage" href="http://huhansi.com/2020/04/16/LeetCode/leetcode-000603.%20%E8%BF%9E%E7%BB%AD%E7%A9%BA%E4%BD%99%E5%BA%A7%E4%BD%8D/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Han si">
@@ -461,7 +462,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2020/04/14/SpringCloud/2020-04-14-004-%E5%90%84%E7%A7%8D%E6%9C%8D%E5%8A%A1%E5%8F%91%E7%8E%B0%E6%A1%86%E6%9E%B6%E5%AF%B9%E6%AF%94/" itemprop="url">各种服务发现框架对比</a></h1>
+                <a class="post-title-link" href="/2020/04/16/LeetCode/leetcode-000603.%20%E8%BF%9E%E7%BB%AD%E7%A9%BA%E4%BD%99%E5%BA%A7%E4%BD%8D/" itemprop="url">908. 最小差值 I</a></h1>
         
 
         <div class="post-meta">
@@ -473,8 +474,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-04-14T00:00:00+08:00">
-                2020-04-14
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-04-16T00:00:00+08:00">
+                2020-04-16
               </time>
             
 
@@ -496,8 +497,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Spring-Cloud/" itemprop="url" rel="index">
-                    <span itemprop="name">Spring Cloud</span>
+                  <a href="/categories/leetcode/" itemprop="url" rel="index">
+                    <span itemprop="name">leetcode</span>
                   </a>
                 </span>
 
@@ -535,12 +536,13 @@
       
         
           
-          各种服务发现框架对比当前比较流程且常用的框架大体上有4个。Consul、Eureka、Zookeeper和Etcd。它们都解决了服务注册和服务发现问题。其中Eureka满足CAP中的AP，Consul、Etcd和Zookeeper满足了CAP中的CP。
-EurekaEureka是在Java语言上，基
+          题目几个朋友来到电影院的售票处，准备预约连续空余座位。
+你能利用表 cinema ，帮他们写一个查询语句，获取所有空余座位，并将它们按照 seat_id 排序后返回吗？
+1234567| seat_id | free ||---------|------|| 1       | 1    || 2 
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2020/04/14/SpringCloud/2020-04-14-004-%E5%90%84%E7%A7%8D%E6%9C%8D%E5%8A%A1%E5%8F%91%E7%8E%B0%E6%A1%86%E6%9E%B6%E5%AF%B9%E6%AF%94/#more" rel="contents">
+            <a class="btn" href="/2020/04/16/LeetCode/leetcode-000603.%20%E8%BF%9E%E7%BB%AD%E7%A9%BA%E4%BD%99%E5%BA%A7%E4%BD%8D/#more" rel="contents">
               Read more &raquo;
             </a>
           </div>
@@ -591,7 +593,7 @@ EurekaEureka是在Java语言上，基
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://huhansi.com/2020/04/13/Redis/Redis%E7%9A%84%E5%87%A0%E7%A7%8D%E9%83%A8%E7%BD%B2%E6%9E%B6%E6%9E%84/">
+    <link itemprop="mainEntityOfPage" href="http://huhansi.com/2020/04/16/LeetCode/leetcode-000908.%20%E6%9C%80%E5%B0%8F%E5%B7%AE%E5%80%BC%20I/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Han si">
@@ -610,7 +612,7 @@ EurekaEureka是在Java语言上，基
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2020/04/13/Redis/Redis%E7%9A%84%E5%87%A0%E7%A7%8D%E9%83%A8%E7%BD%B2%E6%9E%B6%E6%9E%84/" itemprop="url">Redis的几种部署架构</a></h1>
+                <a class="post-title-link" href="/2020/04/16/LeetCode/leetcode-000908.%20%E6%9C%80%E5%B0%8F%E5%B7%AE%E5%80%BC%20I/" itemprop="url">908. 最小差值 I</a></h1>
         
 
         <div class="post-meta">
@@ -622,8 +624,8 @@ EurekaEureka是在Java语言上，基
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-04-13T00:00:00+08:00">
-                2020-04-13
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-04-16T00:00:00+08:00">
+                2020-04-16
               </time>
             
 
@@ -645,8 +647,8 @@ EurekaEureka是在Java语言上，基
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/" itemprop="url" rel="index">
-                    <span itemprop="name">数据库</span>
+                  <a href="/categories/leetcode/" itemprop="url" rel="index">
+                    <span itemprop="name">leetcode</span>
                   </a>
                 </span>
 
@@ -684,16 +686,14 @@ EurekaEureka是在Java语言上，基
       
         
           
-          Redis的几种部署架构单例部署Redis单例部署，采用单个Redis节点部署架构，没有备用节点实时同步数据，不提供数据持久化和备份策略，适用于数据可靠性要求不高的纯缓存业务场景。
-
-这个方案优点是：
-
-架构简单，部署方便；
-高性价比：缓存使用时无需备用节点（单实例可用性可以用supervisor或
+          题目给你一个整数数组 A，对于每个整数 A[i]，我们可以选择处于区间 [-K, K] 中的任意数 x ，将 x 与 A[i] 相加，结果存入 A[i] 。
+在此过程之后，我们得到一些数组 B。
+返回 B 的最大值和 B 的最小值之间可能存在的最小差值。
+示例1：123输入：A &#x3D; [1]
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2020/04/13/Redis/Redis%E7%9A%84%E5%87%A0%E7%A7%8D%E9%83%A8%E7%BD%B2%E6%9E%B6%E6%9E%84/#more" rel="contents">
+            <a class="btn" href="/2020/04/16/LeetCode/leetcode-000908.%20%E6%9C%80%E5%B0%8F%E5%B7%AE%E5%80%BC%20I/#more" rel="contents">
               Read more &raquo;
             </a>
           </div>
@@ -744,7 +744,7 @@ EurekaEureka是在Java语言上，基
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://huhansi.com/2020/04/12/MySQL/2020-04-12-MySQL%E4%B8%AD%E7%9A%84%E7%B4%A2%E5%BC%95%E5%8F%8A%E5%85%B6%E5%AE%9E%E7%8E%B0/">
+    <link itemprop="mainEntityOfPage" href="http://huhansi.com/2020/04/16/LeetCode/leetcode-001025.%20%E9%99%A4%E6%95%B0%E5%8D%9A%E5%BC%88/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Han si">
@@ -763,7 +763,7 @@ EurekaEureka是在Java语言上，基
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2020/04/12/MySQL/2020-04-12-MySQL%E4%B8%AD%E7%9A%84%E7%B4%A2%E5%BC%95%E5%8F%8A%E5%85%B6%E5%AE%9E%E7%8E%B0/" itemprop="url">MySQL中的索引及其实现</a></h1>
+                <a class="post-title-link" href="/2020/04/16/LeetCode/leetcode-001025.%20%E9%99%A4%E6%95%B0%E5%8D%9A%E5%BC%88/" itemprop="url">1025. 除数博弈</a></h1>
         
 
         <div class="post-meta">
@@ -775,8 +775,8 @@ EurekaEureka是在Java语言上，基
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-04-12T00:00:00+08:00">
-                2020-04-12
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-04-16T00:00:00+08:00">
+                2020-04-16
               </time>
             
 
@@ -798,8 +798,8 @@ EurekaEureka是在Java语言上，基
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/" itemprop="url" rel="index">
-                    <span itemprop="name">数据库</span>
+                  <a href="/categories/leetcode/" itemprop="url" rel="index">
+                    <span itemprop="name">leetcode</span>
                   </a>
                 </span>
 
@@ -837,12 +837,15 @@ EurekaEureka是在Java语言上，基
       
         
           
-          MySQL中的索引及其实现索引，在MySQL中也叫做键（Key）是存储引擎用于快速找到记录的一种数据结构。在MySQL中，存储引擎用类似的方法使用索引，其现在索引中找到对应值，然后根据匹配的索引记录找到对应的数据行。
-索引可以包含一个或多个列的值。如果索引包含多个列，那么列的顺序也十分重要，因为My
+          题目爱丽丝和鲍勃一起玩游戏，他们轮流行动。爱丽丝先手开局。
+最初，黑板上有一个数字 N 。在每个玩家的回合，玩家需要执行以下操作：
+选出任一 x，满足 0 &lt; x &lt; N 且 N % x == 0 。
+用 N - x 替换黑板上的数字 N 。如果玩家无法执行这些操作，就会输掉游戏。
+只有
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2020/04/12/MySQL/2020-04-12-MySQL%E4%B8%AD%E7%9A%84%E7%B4%A2%E5%BC%95%E5%8F%8A%E5%85%B6%E5%AE%9E%E7%8E%B0/#more" rel="contents">
+            <a class="btn" href="/2020/04/16/LeetCode/leetcode-001025.%20%E9%99%A4%E6%95%B0%E5%8D%9A%E5%BC%88/#more" rel="contents">
               Read more &raquo;
             </a>
           </div>
@@ -893,7 +896,7 @@ EurekaEureka是在Java语言上，基
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://huhansi.com/2020/04/12/MySQL/2020-04-12-%E4%BC%98%E5%8C%96MySQL%E7%B4%A2%E5%BC%95%E7%9A%84N%E7%A7%8D%E6%96%B9%E6%B3%95/">
+    <link itemprop="mainEntityOfPage" href="http://huhansi.com/2020/04/16/LeetCode/leetcode-001207-%E7%8B%AC%E4%B8%80%E6%97%A0%E4%BA%8C%E7%9A%84%E5%87%BA%E7%8E%B0%E6%AC%A1%E6%95%B0/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Han si">
@@ -912,7 +915,7 @@ EurekaEureka是在Java语言上，基
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2020/04/12/MySQL/2020-04-12-%E4%BC%98%E5%8C%96MySQL%E7%B4%A2%E5%BC%95%E7%9A%84N%E7%A7%8D%E6%96%B9%E6%B3%95/" itemprop="url">优化MySQL索引的N种方法</a></h1>
+                <a class="post-title-link" href="/2020/04/16/LeetCode/leetcode-001207-%E7%8B%AC%E4%B8%80%E6%97%A0%E4%BA%8C%E7%9A%84%E5%87%BA%E7%8E%B0%E6%AC%A1%E6%95%B0/" itemprop="url">1207. 独一无二的出现次数</a></h1>
         
 
         <div class="post-meta">
@@ -924,8 +927,8 @@ EurekaEureka是在Java语言上，基
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-04-12T00:00:00+08:00">
-                2020-04-12
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-04-16T00:00:00+08:00">
+                2020-04-16
               </time>
             
 
@@ -947,8 +950,8 @@ EurekaEureka是在Java语言上，基
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/" itemprop="url" rel="index">
-                    <span itemprop="name">数据库</span>
+                  <a href="/categories/leetcode/" itemprop="url" rel="index">
+                    <span itemprop="name">leetcode</span>
                   </a>
                 </span>
 
@@ -986,13 +989,13 @@ EurekaEureka是在Java语言上，基
       
         
           
-          优化MySQL索引的N种方法正确创建和使用索引是实现高性能查询的基础。
-独立的列索引列不能是表达式的一部分， 也不能是函数的参数，必须是独立的列。如果查询中的列不是独立的，则MySQL就不会使用索引。
-前缀索引和索引选择性有时候需要索引很长的字符列，这回让索引变得大且慢。那么，就可以索引开始的部分字
+          题目给你一个整数数组 arr，请你帮忙统计数组中每个数的出现次数。
+如果每个数的出现次数都是独一无二的，就返回 true；否则返回 false。
+示例 1：123输入：arr &#x3D; [1,2,2,1,1,3]输出：true解释：在该数组中，1 出现了 3 次，2 出现了 2 次，3 只出现了
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2020/04/12/MySQL/2020-04-12-%E4%BC%98%E5%8C%96MySQL%E7%B4%A2%E5%BC%95%E7%9A%84N%E7%A7%8D%E6%96%B9%E6%B3%95/#more" rel="contents">
+            <a class="btn" href="/2020/04/16/LeetCode/leetcode-001207-%E7%8B%AC%E4%B8%80%E6%97%A0%E4%BA%8C%E7%9A%84%E5%87%BA%E7%8E%B0%E6%AC%A1%E6%95%B0/#more" rel="contents">
               Read more &raquo;
             </a>
           </div>
@@ -1043,7 +1046,7 @@ EurekaEureka是在Java语言上，基
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://huhansi.com/2020/04/12/MySQL/2020-04-12-MySQL%E5%A6%82%E4%BD%95%E5%AE%9E%E7%8E%B0%E5%88%86%E5%B8%83%E5%BC%8FXA%E4%BA%8B%E5%8A%A1/">
+    <link itemprop="mainEntityOfPage" href="http://huhansi.com/2020/04/16/LeetCode/leetcode-001217.%20%E7%8E%A9%E7%AD%B9%E7%A0%81/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Han si">
@@ -1062,7 +1065,7 @@ EurekaEureka是在Java语言上，基
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2020/04/12/MySQL/2020-04-12-MySQL%E5%A6%82%E4%BD%95%E5%AE%9E%E7%8E%B0%E5%88%86%E5%B8%83%E5%BC%8FXA%E4%BA%8B%E5%8A%A1/" itemprop="url">MySQL中的XA事务</a></h1>
+                <a class="post-title-link" href="/2020/04/16/LeetCode/leetcode-001217.%20%E7%8E%A9%E7%AD%B9%E7%A0%81/" itemprop="url">1217. 玩筹码</a></h1>
         
 
         <div class="post-meta">
@@ -1074,8 +1077,8 @@ EurekaEureka是在Java语言上，基
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-04-12T00:00:00+08:00">
-                2020-04-12
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-04-16T00:00:00+08:00">
+                2020-04-16
               </time>
             
 
@@ -1097,8 +1100,8 @@ EurekaEureka是在Java语言上，基
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/" itemprop="url" rel="index">
-                    <span itemprop="name">数据库</span>
+                  <a href="/categories/leetcode/" itemprop="url" rel="index">
+                    <span itemprop="name">leetcode</span>
                   </a>
                 </span>
 
@@ -1136,12 +1139,17 @@ EurekaEureka是在Java语言上，基
       
         
           
-          MySQL中的XA事务存储引擎的事务特性能够保证在存储引擎级别实现ACID，而分布式事务则让存储引擎级别的ACID可以扩展到数据库层面，甚至可以扩展到多个数据库之间-这需要两阶段提交实现。MySQL5.0和更新的版本的数据库已经开始支持XA事务了。
-XA事务中需要有一个事务协调器来保证所有的事务参与
+          题目数轴上放置了一些筹码，每个筹码的位置存在数组 chips 当中。
+你可以对 任何筹码 执行下面两种操作之一（不限操作次数，0 次也可以）：
+
+将第 i 个筹码向左或者右移动 2 个单位，代价为 0。
+将第 i 个筹码向左或者右移动 1 个单位，代价为 1。
+
+最开始的时候，同一位置上也可能放着两
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2020/04/12/MySQL/2020-04-12-MySQL%E5%A6%82%E4%BD%95%E5%AE%9E%E7%8E%B0%E5%88%86%E5%B8%83%E5%BC%8FXA%E4%BA%8B%E5%8A%A1/#more" rel="contents">
+            <a class="btn" href="/2020/04/16/LeetCode/leetcode-001217.%20%E7%8E%A9%E7%AD%B9%E7%A0%81/#more" rel="contents">
               Read more &raquo;
             </a>
           </div>
@@ -1192,7 +1200,7 @@ XA事务中需要有一个事务协调器来保证所有的事务参与
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://huhansi.com/2020/04/12/%E5%88%86%E5%B8%83%E5%BC%8F/%E5%88%86%E5%B8%83%E5%BC%8FID-%E9%9B%AA%E8%8A%B1%E7%AE%97%E6%B3%95%E5%AE%9E%E7%8E%B0/">
+    <link itemprop="mainEntityOfPage" href="http://huhansi.com/2020/04/16/LeetCode/leetcode-001237.%20%E6%89%BE%E5%87%BA%E7%BB%99%E5%AE%9A%E6%96%B9%E7%A8%8B%E7%9A%84%E6%AD%A3%E6%95%B4%E6%95%B0%E8%A7%A3/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Han si">
@@ -1211,7 +1219,7 @@ XA事务中需要有一个事务协调器来保证所有的事务参与
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2020/04/12/%E5%88%86%E5%B8%83%E5%BC%8F/%E5%88%86%E5%B8%83%E5%BC%8FID-%E9%9B%AA%E8%8A%B1%E7%AE%97%E6%B3%95%E5%AE%9E%E7%8E%B0/" itemprop="url">分布式ID生成-SnowFlake实现</a></h1>
+                <a class="post-title-link" href="/2020/04/16/LeetCode/leetcode-001237.%20%E6%89%BE%E5%87%BA%E7%BB%99%E5%AE%9A%E6%96%B9%E7%A8%8B%E7%9A%84%E6%AD%A3%E6%95%B4%E6%95%B0%E8%A7%A3/" itemprop="url">1237. 找出给定方程的正整数解</a></h1>
         
 
         <div class="post-meta">
@@ -1223,8 +1231,8 @@ XA事务中需要有一个事务协调器来保证所有的事务参与
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-04-12T00:00:00+08:00">
-                2020-04-12
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-04-16T00:00:00+08:00">
+                2020-04-16
               </time>
             
 
@@ -1246,8 +1254,8 @@ XA事务中需要有一个事务协调器来保证所有的事务参与
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E5%88%86%E5%B8%83%E5%BC%8F/" itemprop="url" rel="index">
-                    <span itemprop="name">分布式</span>
+                  <a href="/categories/leetcode/" itemprop="url" rel="index">
+                    <span itemprop="name">leetcode</span>
                   </a>
                 </span>
 
@@ -1285,18 +1293,18 @@ XA事务中需要有一个事务协调器来保证所有的事务参与
       
         
           
-          分布式ID生成-SnowFlake实现SnowFlake原理Twitter的snowflake算法解决了分布式系统生成全局ID的需求，生成64位的Long型数字.
-它是把64位分成各个部分，分别代表：
+          题目给出一个函数  f(x, y) 和一个目标结果 z，请你计算方程 f(x,y) == z 所有可能的正整数 数对 x 和 y。
+给定函数是严格单调的，也就是说：
 
-第一位不使用，预留
-接下来的41位表示毫秒时间
-5位数据中心ID
-5位worker的ID
-最后1
+f(x, y) &lt; f(x + 1, y)
+f(x, y) &lt; f(x, y + 1)
+
+函数接口定义如下：
+inter
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2020/04/12/%E5%88%86%E5%B8%83%E5%BC%8F/%E5%88%86%E5%B8%83%E5%BC%8FID-%E9%9B%AA%E8%8A%B1%E7%AE%97%E6%B3%95%E5%AE%9E%E7%8E%B0/#more" rel="contents">
+            <a class="btn" href="/2020/04/16/LeetCode/leetcode-001237.%20%E6%89%BE%E5%87%BA%E7%BB%99%E5%AE%9A%E6%96%B9%E7%A8%8B%E7%9A%84%E6%AD%A3%E6%95%B4%E6%95%B0%E8%A7%A3/#more" rel="contents">
               Read more &raquo;
             </a>
           </div>
@@ -1347,7 +1355,7 @@ XA事务中需要有一个事务协调器来保证所有的事务参与
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://huhansi.com/2020/04/12/%E5%88%86%E5%B8%83%E5%BC%8F/%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81%E7%9A%84%E5%87%A0%E7%A7%8D%E5%AE%9E%E7%8E%B0/">
+    <link itemprop="mainEntityOfPage" href="http://huhansi.com/2020/04/16/LeetCode/leetcode-001407.%20Top%20Travellers/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Han si">
@@ -1366,7 +1374,7 @@ XA事务中需要有一个事务协调器来保证所有的事务参与
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2020/04/12/%E5%88%86%E5%B8%83%E5%BC%8F/%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81%E7%9A%84%E5%87%A0%E7%A7%8D%E5%AE%9E%E7%8E%B0/" itemprop="url">分布式锁的几种实现方式</a></h1>
+                <a class="post-title-link" href="/2020/04/16/LeetCode/leetcode-001407.%20Top%20Travellers/" itemprop="url">1407. Top Travellers</a></h1>
         
 
         <div class="post-meta">
@@ -1378,8 +1386,8 @@ XA事务中需要有一个事务协调器来保证所有的事务参与
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-04-12T00:00:00+08:00">
-                2020-04-12
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-04-16T00:00:00+08:00">
+                2020-04-16
               </time>
             
 
@@ -1401,8 +1409,8 @@ XA事务中需要有一个事务协调器来保证所有的事务参与
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E5%88%86%E5%B8%83%E5%BC%8F/" itemprop="url" rel="index">
-                    <span itemprop="name">分布式</span>
+                  <a href="/categories/leetcode/" itemprop="url" rel="index">
+                    <span itemprop="name">leetcode</span>
                   </a>
                 </span>
 
@@ -1440,12 +1448,12 @@ XA事务中需要有一个事务协调器来保证所有的事务参与
       
         
           
-          分布式锁的几种实现方式为什么需要分布式锁在许多场景中，有些操作是只能被执行一次的，比如，用户消费之后的通知短信，发送多了，会招致投诉。在单机场景下，可以使用并发API或者锁解决，但是在分布式场景中，就没有那么简单了。
-分布式场景是多进程场景，相同服务的不同实例可能都不知道对方的存在，这个时候要确保只
+          题目Table: Users
+12345678+---------------+---------+| Column Name   | Type    |+---------------+---------+| id            | int     || name          | v
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2020/04/12/%E5%88%86%E5%B8%83%E5%BC%8F/%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81%E7%9A%84%E5%87%A0%E7%A7%8D%E5%AE%9E%E7%8E%B0/#more" rel="contents">
+            <a class="btn" href="/2020/04/16/LeetCode/leetcode-001407.%20Top%20Travellers/#more" rel="contents">
               Read more &raquo;
             </a>
           </div>
@@ -1496,7 +1504,7 @@ XA事务中需要有一个事务协调器来保证所有的事务参与
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://huhansi.com/2020/04/12/%E5%88%86%E5%B8%83%E5%BC%8F/%E5%88%86%E5%B8%83%E5%BC%8F%E4%BA%8B%E5%8A%A1%E5%85%A5%E9%97%A8/">
+    <link itemprop="mainEntityOfPage" href="http://huhansi.com/2020/04/16/LeetCode/leetcode-001394.%20%E6%89%BE%E5%87%BA%E6%95%B0%E7%BB%84%E4%B8%AD%E7%9A%84%E5%B9%B8%E8%BF%90%E6%95%B0/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Han si">
@@ -1515,7 +1523,7 @@ XA事务中需要有一个事务协调器来保证所有的事务参与
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2020/04/12/%E5%88%86%E5%B8%83%E5%BC%8F/%E5%88%86%E5%B8%83%E5%BC%8F%E4%BA%8B%E5%8A%A1%E5%85%A5%E9%97%A8/" itemprop="url">分布式事务入门</a></h1>
+                <a class="post-title-link" href="/2020/04/16/LeetCode/leetcode-001394.%20%E6%89%BE%E5%87%BA%E6%95%B0%E7%BB%84%E4%B8%AD%E7%9A%84%E5%B9%B8%E8%BF%90%E6%95%B0/" itemprop="url">1394. 找出数组中的幸运数</a></h1>
         
 
         <div class="post-meta">
@@ -1527,8 +1535,8 @@ XA事务中需要有一个事务协调器来保证所有的事务参与
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-04-12T00:00:00+08:00">
-                2020-04-12
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-04-16T00:00:00+08:00">
+                2020-04-16
               </time>
             
 
@@ -1550,8 +1558,8 @@ XA事务中需要有一个事务协调器来保证所有的事务参与
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E5%88%86%E5%B8%83%E5%BC%8F/" itemprop="url" rel="index">
-                    <span itemprop="name">分布式</span>
+                  <a href="/categories/leetcode/" itemprop="url" rel="index">
+                    <span itemprop="name">leetcode</span>
                   </a>
                 </span>
 
@@ -1589,12 +1597,17 @@ XA事务中需要有一个事务协调器来保证所有的事务参与
       
         
           
-          分布式事务入门什么是分布式事务要理解分布式事务，先看看什么是事务？
-事务是指是程序中一系列严密的逻辑操作，而且所有操作必须全部成功完成，否则在每个操作中所作的所有更改都会被撤消。可以通俗理解为 （ALL OR NOTHING）：就是把多件事情当做一件事情来处理，好比大家同在一条船上，要活一起活，要完
+          题目在整数数组中，如果一个整数的出现频次和它的数值大小相等，我们就称这个整数为「幸运数」。
+给你一个整数数组 arr，请你从中找出并返回一个幸运数。
+
+如果数组中存在多个幸运数，只需返回 最大 的那个。
+如果数组中不含幸运数，则返回 -1 。
+
+示例 1:123输入：arr &#x3D; [2,2,
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2020/04/12/%E5%88%86%E5%B8%83%E5%BC%8F/%E5%88%86%E5%B8%83%E5%BC%8F%E4%BA%8B%E5%8A%A1%E5%85%A5%E9%97%A8/#more" rel="contents">
+            <a class="btn" href="/2020/04/16/LeetCode/leetcode-001394.%20%E6%89%BE%E5%87%BA%E6%95%B0%E7%BB%84%E4%B8%AD%E7%9A%84%E5%B9%B8%E8%BF%90%E6%95%B0/#more" rel="contents">
               Read more &raquo;
             </a>
           </div>
@@ -1645,7 +1658,7 @@ XA事务中需要有一个事务协调器来保证所有的事务参与
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://huhansi.com/2020/04/11/MySQL/2020-04-11-MySQL%E4%BA%8B%E5%8A%A1%E5%8E%9F%E7%90%86%E4%BB%A5%E5%8F%8A4%E7%A7%8D%E9%9A%94%E7%A6%BB%E7%BA%A7%E5%88%AB/">
+    <link itemprop="mainEntityOfPage" href="http://huhansi.com/2020/04/16/LeetCode/leetcode-%E9%9D%A2%E8%AF%95%E9%A2%98-05.07.%20%E9%85%8D%E5%AF%B9%E4%BA%A4%E6%8D%A2/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Han si">
@@ -1664,7 +1677,7 @@ XA事务中需要有一个事务协调器来保证所有的事务参与
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2020/04/11/MySQL/2020-04-11-MySQL%E4%BA%8B%E5%8A%A1%E5%8E%9F%E7%90%86%E4%BB%A5%E5%8F%8A4%E7%A7%8D%E9%9A%94%E7%A6%BB%E7%BA%A7%E5%88%AB/" itemprop="url">MySQL事务原理以及4种隔离级别</a></h1>
+                <a class="post-title-link" href="/2020/04/16/LeetCode/leetcode-%E9%9D%A2%E8%AF%95%E9%A2%98-05.07.%20%E9%85%8D%E5%AF%B9%E4%BA%A4%E6%8D%A2/" itemprop="url">1217. 玩筹码</a></h1>
         
 
         <div class="post-meta">
@@ -1676,8 +1689,8 @@ XA事务中需要有一个事务协调器来保证所有的事务参与
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-04-11T00:00:00+08:00">
-                2020-04-11
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-04-16T00:00:00+08:00">
+                2020-04-16
               </time>
             
 
@@ -1699,8 +1712,8 @@ XA事务中需要有一个事务协调器来保证所有的事务参与
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/" itemprop="url" rel="index">
-                    <span itemprop="name">数据库</span>
+                  <a href="/categories/leetcode/" itemprop="url" rel="index">
+                    <span itemprop="name">leetcode</span>
                   </a>
                 </span>
 
@@ -1738,13 +1751,17 @@ XA事务中需要有一个事务协调器来保证所有的事务参与
       
         
           
-          MySQL事务原理及4种隔离级别什么是事务事务是关系型数据区区别于其他NoSQL数据库的一个主要方面，是保障数据一致性的重要手段。
-事务会把数据库从一种一致性的状态转移到另外一种一致性的状态。在数据库事务提交的时候，事务可以确保要么所有的修改都已经生效保存，要么所有的修改都不保存。
-拿一个常见的银行
+          题目配对交换。编写程序，交换某个整数的奇数位和偶数位，尽量使用较少的指令（也就是说，位0与位1交换，位2与位3交换，以此类推）。
+示例1：12输入：num &#x3D; 2（或者0b10）输出 1 (或者 0b01)
+
+示例2：12输入：num &#x3D; 3 输出：3
+
+提示：
+num的范围在[
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2020/04/11/MySQL/2020-04-11-MySQL%E4%BA%8B%E5%8A%A1%E5%8E%9F%E7%90%86%E4%BB%A5%E5%8F%8A4%E7%A7%8D%E9%9A%94%E7%A6%BB%E7%BA%A7%E5%88%AB/#more" rel="contents">
+            <a class="btn" href="/2020/04/16/LeetCode/leetcode-%E9%9D%A2%E8%AF%95%E9%A2%98-05.07.%20%E9%85%8D%E5%AF%B9%E4%BA%A4%E6%8D%A2/#more" rel="contents">
               Read more &raquo;
             </a>
           </div>
@@ -1786,7 +1803,7 @@ XA事务中需要有一个事务协调器来保证所有的事务参与
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/10/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/10/">10</a><span class="page-number current">11</span><a class="page-number" href="/page/12/">12</a><span class="space">&hellip;</span><a class="page-number" href="/page/49/">49</a><a class="extend next" rel="next" href="/page/12/"><i class="fa fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" href="/page/10/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/10/">10</a><span class="page-number current">11</span><a class="page-number" href="/page/12/">12</a><span class="space">&hellip;</span><a class="page-number" href="/page/50/">50</a><a class="extend next" rel="next" href="/page/12/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -1832,7 +1849,7 @@ XA事务中需要有一个事务协调器来保证所有的事务参与
               
                 <a href="/archives/%7C%7C%20archive">
               
-                  <span class="site-state-item-count">486</span>
+                  <span class="site-state-item-count">499</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -1843,7 +1860,7 @@ XA事务中需要有一个事务协调器来保证所有的事务参与
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">15</span>
+                  <span class="site-state-item-count">19</span>
                   <span class="site-state-item-name">categories</span>
                 </a>
               </div>
@@ -1854,7 +1871,7 @@ XA事务中需要有一个事务协调器来保证所有的事务参与
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">264</span>
+                  <span class="site-state-item-count">294</span>
                   <span class="site-state-item-name">tags</span>
                 </a>
               </div>
