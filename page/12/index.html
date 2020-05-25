@@ -293,7 +293,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://huhansi.com/2020/04/14/SpringCloud/2020-04-14-001-eukera%E4%BB%8B%E7%BB%8D/">
+    <link itemprop="mainEntityOfPage" href="http://huhansi.com/2020/04/16/LeetCode/leetcode-001407.%20Top%20Travellers/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Han si">
@@ -312,7 +312,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2020/04/14/SpringCloud/2020-04-14-001-eukera%E4%BB%8B%E7%BB%8D/" itemprop="url">Eureka介绍</a></h1>
+                <a class="post-title-link" href="/2020/04/16/LeetCode/leetcode-001407.%20Top%20Travellers/" itemprop="url">1407. Top Travellers</a></h1>
         
 
         <div class="post-meta">
@@ -324,8 +324,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-04-14T00:00:00+08:00">
-                2020-04-14
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-04-16T00:00:00+08:00">
+                2020-04-16
               </time>
             
 
@@ -347,8 +347,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Spring-Cloud/" itemprop="url" rel="index">
-                    <span itemprop="name">Spring Cloud</span>
+                  <a href="/categories/leetcode/" itemprop="url" rel="index">
+                    <span itemprop="name">leetcode</span>
                   </a>
                 </span>
 
@@ -386,16 +386,12 @@
       
         
           
-          Eureka介绍产生的背景一般我们自己的服务之间互相调用的时候，直接就在配置文件中配置被调用的服务地址。然后服务读取配置文件，发起调用。调用关系可以简化为下图：
-
-这样的调用会存在一些不小的问题：
-
-服务B如果挂了的话，服务A即时调用不同
-如果后续再新增了N多服务器的话，服务A每个服务都要维护一个调
+          题目Table: Users
+12345678+---------------+---------+| Column Name   | Type    |+---------------+---------+| id            | int     || name          | v
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2020/04/14/SpringCloud/2020-04-14-001-eukera%E4%BB%8B%E7%BB%8D/#more" rel="contents">
+            <a class="btn" href="/2020/04/16/LeetCode/leetcode-001407.%20Top%20Travellers/#more" rel="contents">
               Read more &raquo;
             </a>
           </div>
@@ -446,7 +442,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://huhansi.com/2020/04/14/SpringCloud/2020-04-14-005-%E7%86%94%E6%96%AD%E3%80%81%E9%99%90%E6%B5%81%E5%92%8C%E9%99%8D%E7%BA%A7%E4%B9%8B%E5%89%8D%E7%9A%84%E5%8C%BA%E5%88%AB/">
+    <link itemprop="mainEntityOfPage" href="http://huhansi.com/2020/04/16/LeetCode/leetcode-%E9%9D%A2%E8%AF%95%E9%A2%98-05.07.%20%E9%85%8D%E5%AF%B9%E4%BA%A4%E6%8D%A2/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Han si">
@@ -465,7 +461,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2020/04/14/SpringCloud/2020-04-14-005-%E7%86%94%E6%96%AD%E3%80%81%E9%99%90%E6%B5%81%E5%92%8C%E9%99%8D%E7%BA%A7%E4%B9%8B%E5%89%8D%E7%9A%84%E5%8C%BA%E5%88%AB/" itemprop="url">熔断、降级和限流之间的区别</a></h1>
+                <a class="post-title-link" href="/2020/04/16/LeetCode/leetcode-%E9%9D%A2%E8%AF%95%E9%A2%98-05.07.%20%E9%85%8D%E5%AF%B9%E4%BA%A4%E6%8D%A2/" itemprop="url">1217. 玩筹码</a></h1>
         
 
         <div class="post-meta">
@@ -477,8 +473,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-04-14T00:00:00+08:00">
-                2020-04-14
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-04-16T00:00:00+08:00">
+                2020-04-16
               </time>
             
 
@@ -500,8 +496,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Spring-Cloud/" itemprop="url" rel="index">
-                    <span itemprop="name">Spring Cloud</span>
+                  <a href="/categories/leetcode/" itemprop="url" rel="index">
+                    <span itemprop="name">leetcode</span>
                   </a>
                 </span>
 
@@ -539,12 +535,17 @@
       
         
           
-          熔断、降级和限流之间的区别当我们的系统整体访问量突然剧增，大量的请求在瞬间涌入，或者某个下游服务突然异常，大量请求调用阻塞又或者在可预见的将来，几天内比如，会有一波流量的高峰（比如双十一）。这个时候，我们要怎么做才能保证系统正常提供功能，或者说，最低要求，如何保证系统核心业务能正常提供功能？
-这种情
+          题目配对交换。编写程序，交换某个整数的奇数位和偶数位，尽量使用较少的指令（也就是说，位0与位1交换，位2与位3交换，以此类推）。
+示例1：12输入：num &#x3D; 2（或者0b10）输出 1 (或者 0b01)
+
+示例2：12输入：num &#x3D; 3 输出：3
+
+提示：
+num的范围在[
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2020/04/14/SpringCloud/2020-04-14-005-%E7%86%94%E6%96%AD%E3%80%81%E9%99%90%E6%B5%81%E5%92%8C%E9%99%8D%E7%BA%A7%E4%B9%8B%E5%89%8D%E7%9A%84%E5%8C%BA%E5%88%AB/#more" rel="contents">
+            <a class="btn" href="/2020/04/16/LeetCode/leetcode-%E9%9D%A2%E8%AF%95%E9%A2%98-05.07.%20%E9%85%8D%E5%AF%B9%E4%BA%A4%E6%8D%A2/#more" rel="contents">
               Read more &raquo;
             </a>
           </div>
@@ -755,6 +756,308 @@ Redis
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://huhansi.com/2020/04/14/SpringCloud/2020-04-14-001-eukera%E4%BB%8B%E7%BB%8D/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Han si">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hansi Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2020/04/14/SpringCloud/2020-04-14-001-eukera%E4%BB%8B%E7%BB%8D/" itemprop="url">Eureka介绍</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-04-14T00:00:00+08:00">
+                2020-04-14
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Spring-Cloud/" itemprop="url" rel="index">
+                    <span itemprop="name">Spring Cloud</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+          Eureka介绍产生的背景一般我们自己的服务之间互相调用的时候，直接就在配置文件中配置被调用的服务地址。然后服务读取配置文件，发起调用。调用关系可以简化为下图：
+
+这样的调用会存在一些不小的问题：
+
+服务B如果挂了的话，服务A即时调用不同
+如果后续再新增了N多服务器的话，服务A每个服务都要维护一个调
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2020/04/14/SpringCloud/2020-04-14-001-eukera%E4%BB%8B%E7%BB%8D/#more" rel="contents">
+              Read more &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://huhansi.com/2020/04/14/SpringCloud/2020-04-14-003-RAFT%E5%8D%8F%E8%AE%AE%E4%BB%8B%E7%BB%8D/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Han si">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hansi Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2020/04/14/SpringCloud/2020-04-14-003-RAFT%E5%8D%8F%E8%AE%AE%E4%BB%8B%E7%BB%8D/" itemprop="url">RAFT协议介绍</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-04-14T00:00:00+08:00">
+                2020-04-14
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Spring-Cloud/" itemprop="url" rel="index">
+                    <span itemprop="name">Spring Cloud</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+          RAFT协议介绍参考资料RAFT协议动图演示
+
+          
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2020/04/14/SpringCloud/2020-04-14-003-RAFT%E5%8D%8F%E8%AE%AE%E4%BB%8B%E7%BB%8D/#more" rel="contents">
+              Read more &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://huhansi.com/2020/04/14/SpringCloud/2020-04-14-002-Consul%E4%BB%8B%E7%BB%8D/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -905,6 +1208,155 @@ Redis
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://huhansi.com/2020/04/14/SpringCloud/2020-04-14-005-%E7%86%94%E6%96%AD%E3%80%81%E9%99%90%E6%B5%81%E5%92%8C%E9%99%8D%E7%BA%A7%E4%B9%8B%E5%89%8D%E7%9A%84%E5%8C%BA%E5%88%AB/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Han si">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hansi Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2020/04/14/SpringCloud/2020-04-14-005-%E7%86%94%E6%96%AD%E3%80%81%E9%99%90%E6%B5%81%E5%92%8C%E9%99%8D%E7%BA%A7%E4%B9%8B%E5%89%8D%E7%9A%84%E5%8C%BA%E5%88%AB/" itemprop="url">熔断、降级和限流之间的区别</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-04-14T00:00:00+08:00">
+                2020-04-14
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Spring-Cloud/" itemprop="url" rel="index">
+                    <span itemprop="name">Spring Cloud</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+          熔断、降级和限流之间的区别当我们的系统整体访问量突然剧增，大量的请求在瞬间涌入，或者某个下游服务突然异常，大量请求调用阻塞又或者在可预见的将来，几天内比如，会有一波流量的高峰（比如双十一）。这个时候，我们要怎么做才能保证系统正常提供功能，或者说，最低要求，如何保证系统核心业务能正常提供功能？
+这种情
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2020/04/14/SpringCloud/2020-04-14-005-%E7%86%94%E6%96%AD%E3%80%81%E9%99%90%E6%B5%81%E5%92%8C%E9%99%8D%E7%BA%A7%E4%B9%8B%E5%89%8D%E7%9A%84%E5%8C%BA%E5%88%AB/#more" rel="contents">
+              Read more &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://huhansi.com/2020/04/14/SpringCloud/2020-04-14-004-%E5%90%84%E7%A7%8D%E6%9C%8D%E5%8A%A1%E5%8F%91%E7%8E%B0%E6%A1%86%E6%9E%B6%E5%AF%B9%E6%AF%94/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1004,155 +1456,6 @@ EurekaEureka是在Java语言上，基
           <!--noindex-->
           <div class="post-button text-center">
             <a class="btn" href="/2020/04/14/SpringCloud/2020-04-14-004-%E5%90%84%E7%A7%8D%E6%9C%8D%E5%8A%A1%E5%8F%91%E7%8E%B0%E6%A1%86%E6%9E%B6%E5%AF%B9%E6%AF%94/#more" rel="contents">
-              Read more &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://huhansi.com/2020/04/14/SpringCloud/2020-04-14-003-RAFT%E5%8D%8F%E8%AE%AE%E4%BB%8B%E7%BB%8D/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Han si">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hansi Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2020/04/14/SpringCloud/2020-04-14-003-RAFT%E5%8D%8F%E8%AE%AE%E4%BB%8B%E7%BB%8D/" itemprop="url">RAFT协议介绍</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-04-14T00:00:00+08:00">
-                2020-04-14
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Spring-Cloud/" itemprop="url" rel="index">
-                    <span itemprop="name">Spring Cloud</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-          RAFT协议介绍参考资料RAFT协议动图演示
-
-          
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2020/04/14/SpringCloud/2020-04-14-003-RAFT%E5%8D%8F%E8%AE%AE%E4%BB%8B%E7%BB%8D/#more" rel="contents">
               Read more &raquo;
             </a>
           </div>
@@ -1356,7 +1659,7 @@ EurekaEureka是在Java语言上，基
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://huhansi.com/2020/04/12/MySQL/2020-04-12-%E4%BC%98%E5%8C%96MySQL%E7%B4%A2%E5%BC%95%E7%9A%84N%E7%A7%8D%E6%96%B9%E6%B3%95/">
+    <link itemprop="mainEntityOfPage" href="http://huhansi.com/2020/04/12/%E5%88%86%E5%B8%83%E5%BC%8F/%E5%88%86%E5%B8%83%E5%BC%8FID-%E9%9B%AA%E8%8A%B1%E7%AE%97%E6%B3%95%E5%AE%9E%E7%8E%B0/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Han si">
@@ -1375,7 +1678,7 @@ EurekaEureka是在Java语言上，基
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2020/04/12/MySQL/2020-04-12-%E4%BC%98%E5%8C%96MySQL%E7%B4%A2%E5%BC%95%E7%9A%84N%E7%A7%8D%E6%96%B9%E6%B3%95/" itemprop="url">优化MySQL索引的N种方法</a></h1>
+                <a class="post-title-link" href="/2020/04/12/%E5%88%86%E5%B8%83%E5%BC%8F/%E5%88%86%E5%B8%83%E5%BC%8FID-%E9%9B%AA%E8%8A%B1%E7%AE%97%E6%B3%95%E5%AE%9E%E7%8E%B0/" itemprop="url">分布式ID生成-SnowFlake实现</a></h1>
         
 
         <div class="post-meta">
@@ -1410,8 +1713,8 @@ EurekaEureka是在Java语言上，基
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/" itemprop="url" rel="index">
-                    <span itemprop="name">数据库</span>
+                  <a href="/categories/%E5%88%86%E5%B8%83%E5%BC%8F/" itemprop="url" rel="index">
+                    <span itemprop="name">分布式</span>
                   </a>
                 </span>
 
@@ -1449,311 +1752,18 @@ EurekaEureka是在Java语言上，基
       
         
           
-          优化MySQL索引的N种方法正确创建和使用索引是实现高性能查询的基础。
-独立的列索引列不能是表达式的一部分， 也不能是函数的参数，必须是独立的列。如果查询中的列不是独立的，则MySQL就不会使用索引。
-前缀索引和索引选择性有时候需要索引很长的字符列，这回让索引变得大且慢。那么，就可以索引开始的部分字
+          分布式ID生成-SnowFlake实现SnowFlake原理Twitter的snowflake算法解决了分布式系统生成全局ID的需求，生成64位的Long型数字.
+它是把64位分成各个部分，分别代表：
+
+第一位不使用，预留
+接下来的41位表示毫秒时间
+5位数据中心ID
+5位worker的ID
+最后1
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2020/04/12/MySQL/2020-04-12-%E4%BC%98%E5%8C%96MySQL%E7%B4%A2%E5%BC%95%E7%9A%84N%E7%A7%8D%E6%96%B9%E6%B3%95/#more" rel="contents">
-              Read more &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://huhansi.com/2020/04/12/MySQL/2020-04-12-MySQL%E4%B8%AD%E7%9A%84%E7%B4%A2%E5%BC%95%E5%8F%8A%E5%85%B6%E5%AE%9E%E7%8E%B0/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Han si">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hansi Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2020/04/12/MySQL/2020-04-12-MySQL%E4%B8%AD%E7%9A%84%E7%B4%A2%E5%BC%95%E5%8F%8A%E5%85%B6%E5%AE%9E%E7%8E%B0/" itemprop="url">MySQL中的索引及其实现</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-04-12T00:00:00+08:00">
-                2020-04-12
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/" itemprop="url" rel="index">
-                    <span itemprop="name">数据库</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-          MySQL中的索引及其实现索引，在MySQL中也叫做键（Key）是存储引擎用于快速找到记录的一种数据结构。在MySQL中，存储引擎用类似的方法使用索引，其现在索引中找到对应值，然后根据匹配的索引记录找到对应的数据行。
-索引可以包含一个或多个列的值。如果索引包含多个列，那么列的顺序也十分重要，因为My
-          ...
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2020/04/12/MySQL/2020-04-12-MySQL%E4%B8%AD%E7%9A%84%E7%B4%A2%E5%BC%95%E5%8F%8A%E5%85%B6%E5%AE%9E%E7%8E%B0/#more" rel="contents">
-              Read more &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://huhansi.com/2020/04/12/MySQL/2020-04-12-MySQL%E5%A6%82%E4%BD%95%E5%AE%9E%E7%8E%B0%E5%88%86%E5%B8%83%E5%BC%8FXA%E4%BA%8B%E5%8A%A1/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Han si">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hansi Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2020/04/12/MySQL/2020-04-12-MySQL%E5%A6%82%E4%BD%95%E5%AE%9E%E7%8E%B0%E5%88%86%E5%B8%83%E5%BC%8FXA%E4%BA%8B%E5%8A%A1/" itemprop="url">MySQL中的XA事务</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-04-12T00:00:00+08:00">
-                2020-04-12
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/" itemprop="url" rel="index">
-                    <span itemprop="name">数据库</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-          MySQL中的XA事务存储引擎的事务特性能够保证在存储引擎级别实现ACID，而分布式事务则让存储引擎级别的ACID可以扩展到数据库层面，甚至可以扩展到多个数据库之间-这需要两阶段提交实现。MySQL5.0和更新的版本的数据库已经开始支持XA事务了。
-XA事务中需要有一个事务协调器来保证所有的事务参与
-          ...
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2020/04/12/MySQL/2020-04-12-MySQL%E5%A6%82%E4%BD%95%E5%AE%9E%E7%8E%B0%E5%88%86%E5%B8%83%E5%BC%8FXA%E4%BA%8B%E5%8A%A1/#more" rel="contents">
+            <a class="btn" href="/2020/04/12/%E5%88%86%E5%B8%83%E5%BC%8F/%E5%88%86%E5%B8%83%E5%BC%8FID-%E9%9B%AA%E8%8A%B1%E7%AE%97%E6%B3%95%E5%AE%9E%E7%8E%B0/#more" rel="contents">
               Read more &raquo;
             </a>
           </div>
@@ -1795,7 +1805,7 @@ XA事务中需要有一个事务协调器来保证所有的事务参与
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/11/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/11/">11</a><span class="page-number current">12</span><a class="page-number" href="/page/13/">13</a><span class="space">&hellip;</span><a class="page-number" href="/page/50/">50</a><a class="extend next" rel="next" href="/page/13/"><i class="fa fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" href="/page/11/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/11/">11</a><span class="page-number current">12</span><a class="page-number" href="/page/13/">13</a><span class="space">&hellip;</span><a class="page-number" href="/page/51/">51</a><a class="extend next" rel="next" href="/page/13/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -1841,7 +1851,7 @@ XA事务中需要有一个事务协调器来保证所有的事务参与
               
                 <a href="/archives/%7C%7C%20archive">
               
-                  <span class="site-state-item-count">499</span>
+                  <span class="site-state-item-count">501</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -1852,7 +1862,7 @@ XA事务中需要有一个事务协调器来保证所有的事务参与
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">19</span>
+                  <span class="site-state-item-count">20</span>
                   <span class="site-state-item-name">categories</span>
                 </a>
               </div>

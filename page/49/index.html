@@ -293,7 +293,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://huhansi.com/2018/08/29/LeetCode/leetcode-000852.%20%E5%B1%B1%E8%84%89%E6%95%B0%E7%BB%84%E7%9A%84%E5%B3%B0%E9%A1%B6%E7%B4%A2%E5%BC%95/">
+    <link itemprop="mainEntityOfPage" href="http://huhansi.com/2018/08/29/LeetCode/leetcode-000832.%20%E7%BF%BB%E8%BD%AC%E5%9B%BE%E5%83%8F/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Han si">
@@ -312,7 +312,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/08/29/LeetCode/leetcode-000852.%20%E5%B1%B1%E8%84%89%E6%95%B0%E7%BB%84%E7%9A%84%E5%B3%B0%E9%A1%B6%E7%B4%A2%E5%BC%95/" itemprop="url">852. 山脉数组的峰顶索引</a></h1>
+                <a class="post-title-link" href="/2018/08/29/LeetCode/leetcode-000832.%20%E7%BF%BB%E8%BD%AC%E5%9B%BE%E5%83%8F/" itemprop="url">832. 翻转图像</a></h1>
         
 
         <div class="post-meta">
@@ -386,15 +386,13 @@
       
         
           
-          题目我们把符合下列属性的数组 A 称作山脉：
-
-A.length &gt;= 3
-
-存在 0 &lt; i &lt; A.length - 1 使得A[0] &lt; A[1] &lt; ... A[i-1] &lt; A[i] &gt; A[i+1] &gt; ... &gt; A[A.lengt
+          题目给定一个二进制矩阵 A，我们想先水平翻转图像，然后反转图像并返回结果。
+水平翻转图片就是将图片的每一行都进行翻转，即逆序。例如，水平翻转 [1, 1, 0] 的结果是 [0, 1, 1]。
+反转图片的意思是图片中的 0 全部被 1 替换， 1 全部被 0 替换。例如，反转 [0, 1, 1] 的
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/08/29/LeetCode/leetcode-000852.%20%E5%B1%B1%E8%84%89%E6%95%B0%E7%BB%84%E7%9A%84%E5%B3%B0%E9%A1%B6%E7%B4%A2%E5%BC%95/#more" rel="contents">
+            <a class="btn" href="/2018/08/29/LeetCode/leetcode-000832.%20%E7%BF%BB%E8%BD%AC%E5%9B%BE%E5%83%8F/#more" rel="contents">
               Read more &raquo;
             </a>
           </div>
@@ -744,6 +742,307 @@ A.length &gt;= 3
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://huhansi.com/2018/08/29/LeetCode/leetcode-000852.%20%E5%B1%B1%E8%84%89%E6%95%B0%E7%BB%84%E7%9A%84%E5%B3%B0%E9%A1%B6%E7%B4%A2%E5%BC%95/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Han si">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hansi Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/08/29/LeetCode/leetcode-000852.%20%E5%B1%B1%E8%84%89%E6%95%B0%E7%BB%84%E7%9A%84%E5%B3%B0%E9%A1%B6%E7%B4%A2%E5%BC%95/" itemprop="url">852. 山脉数组的峰顶索引</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-08-29T00:00:00+08:00">
+                2018-08-29
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/leetcode/" itemprop="url" rel="index">
+                    <span itemprop="name">leetcode</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+          题目我们把符合下列属性的数组 A 称作山脉：
+
+A.length &gt;= 3
+
+存在 0 &lt; i &lt; A.length - 1 使得A[0] &lt; A[1] &lt; ... A[i-1] &lt; A[i] &gt; A[i+1] &gt; ... &gt; A[A.lengt
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/08/29/LeetCode/leetcode-000852.%20%E5%B1%B1%E8%84%89%E6%95%B0%E7%BB%84%E7%9A%84%E5%B3%B0%E9%A1%B6%E7%B4%A2%E5%BC%95/#more" rel="contents">
+              Read more &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://huhansi.com/2018/08/29/LeetCode/leetcode-000788.%20%E6%97%8B%E8%BD%AC%E6%95%B0%E5%AD%97/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Han si">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hansi Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/08/29/LeetCode/leetcode-000788.%20%E6%97%8B%E8%BD%AC%E6%95%B0%E5%AD%97/" itemprop="url">788. 旋转数字</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-08-29T00:00:00+08:00">
+                2018-08-29
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/leetcode/" itemprop="url" rel="index">
+                    <span itemprop="name">leetcode</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+          旋转数字我们称一个数 X 为好数, 如果它的每位数字逐个地被旋转 180 度后，我们仍可以得到一个有效的，且和 X 不同的数。要求每位数字都要被旋转。
+如果一个数的每位数字被旋转以后仍然还是一个数字， 则这个数是有效的。0, 1, 和 8 被旋转后仍然是它们自己；2 和 5 可以互相旋转成对方；6 
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/08/29/LeetCode/leetcode-000788.%20%E6%97%8B%E8%BD%AC%E6%95%B0%E5%AD%97/#more" rel="contents">
+              Read more &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://huhansi.com/2018/08/29/LeetCode/leetcode-%E9%9D%A2%E8%AF%95%E9%A2%98-27-%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E9%95%9C%E5%83%8F/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -846,156 +1145,6 @@ A.length &gt;= 3
           <!--noindex-->
           <div class="post-button text-center">
             <a class="btn" href="/2018/08/29/LeetCode/leetcode-%E9%9D%A2%E8%AF%95%E9%A2%98-27-%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E9%95%9C%E5%83%8F/#more" rel="contents">
-              Read more &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://huhansi.com/2018/08/28/LeetCode/leetcode-000001-%E4%B8%A4%E6%95%B0%E4%B9%8B%E5%92%8C/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Han si">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hansi Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/08/28/LeetCode/leetcode-000001-%E4%B8%A4%E6%95%B0%E4%B9%8B%E5%92%8C/" itemprop="url">1.两数之和</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-08-28T00:00:00+08:00">
-                2018-08-28
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/leetcode/" itemprop="url" rel="index">
-                    <span itemprop="name">leetcode</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-          题目给定一个整数数组和一个目标值，找出数组中和为目标值的两个数。
-你可以假设每个输入只对应一种答案，且同样的元素不能被重复利用。
-示例1：1234给定 nums &#x3D; [2, 7, 11, 15], target &#x3D; 9因为 nums[0] + nums[1] &#x3D; 2 +
-          ...
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2018/08/28/LeetCode/leetcode-000001-%E4%B8%A4%E6%95%B0%E4%B9%8B%E5%92%8C/#more" rel="contents">
               Read more &raquo;
             </a>
           </div>
@@ -1197,7 +1346,7 @@ A.length &gt;= 3
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://huhansi.com/2018/08/28/LeetCode/leetcode-000067.%20%E4%BA%8C%E8%BF%9B%E5%88%B6%E6%B1%82%E5%92%8C/">
+    <link itemprop="mainEntityOfPage" href="http://huhansi.com/2018/08/28/LeetCode/leetcode-000001-%E4%B8%A4%E6%95%B0%E4%B9%8B%E5%92%8C/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Han si">
@@ -1216,7 +1365,7 @@ A.length &gt;= 3
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/08/28/LeetCode/leetcode-000067.%20%E4%BA%8C%E8%BF%9B%E5%88%B6%E6%B1%82%E5%92%8C/" itemprop="url">67.二进制求和</a></h1>
+                <a class="post-title-link" href="/2018/08/28/LeetCode/leetcode-000001-%E4%B8%A4%E6%95%B0%E4%B9%8B%E5%92%8C/" itemprop="url">1.两数之和</a></h1>
         
 
         <div class="post-meta">
@@ -1290,14 +1439,13 @@ A.length &gt;= 3
       
         
           
-          题目给定两个二进制字符串，返回他们的和（用二进制表示）。
-输入为非空字符串且只包含数字 1 和 0。
-示例1：12输入: a &#x3D; &quot;11&quot;, b &#x3D; &quot;1&quot;输出: &quot;100&quot;
-示例2：12输入: a &#x3D; &qu
+          题目给定一个整数数组和一个目标值，找出数组中和为目标值的两个数。
+你可以假设每个输入只对应一种答案，且同样的元素不能被重复利用。
+示例1：1234给定 nums &#x3D; [2, 7, 11, 15], target &#x3D; 9因为 nums[0] + nums[1] &#x3D; 2 +
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/08/28/LeetCode/leetcode-000067.%20%E4%BA%8C%E8%BF%9B%E5%88%B6%E6%B1%82%E5%92%8C/#more" rel="contents">
+            <a class="btn" href="/2018/08/28/LeetCode/leetcode-000001-%E4%B8%A4%E6%95%B0%E4%B9%8B%E5%92%8C/#more" rel="contents">
               Read more &raquo;
             </a>
           </div>
@@ -1500,7 +1648,7 @@ A.length &gt;= 3
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://huhansi.com/2018/08/28/LeetCode/leetcode-000197.%20%E4%B8%8A%E5%8D%87%E7%9A%84%E6%B8%A9%E5%BA%A6/">
+    <link itemprop="mainEntityOfPage" href="http://huhansi.com/2018/08/28/LeetCode/leetcode-000067.%20%E4%BA%8C%E8%BF%9B%E5%88%B6%E6%B1%82%E5%92%8C/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Han si">
@@ -1519,7 +1667,7 @@ A.length &gt;= 3
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/08/28/LeetCode/leetcode-000197.%20%E4%B8%8A%E5%8D%87%E7%9A%84%E6%B8%A9%E5%BA%A6/" itemprop="url">197. 上升的温度</a></h1>
+                <a class="post-title-link" href="/2018/08/28/LeetCode/leetcode-000067.%20%E4%BA%8C%E8%BF%9B%E5%88%B6%E6%B1%82%E5%92%8C/" itemprop="url">67.二进制求和</a></h1>
         
 
         <div class="post-meta">
@@ -1593,161 +1741,14 @@ A.length &gt;= 3
       
         
           
-          题目给定一个 Weather 表，编写一个 SQL 查询，来查找与之前（昨天的）日期相比温度更高的所有日期的 Id。
-12345678+---------+------------------+------------------+| Id(INT) | RecordDate(DATE) | Tem
+          题目给定两个二进制字符串，返回他们的和（用二进制表示）。
+输入为非空字符串且只包含数字 1 和 0。
+示例1：12输入: a &#x3D; &quot;11&quot;, b &#x3D; &quot;1&quot;输出: &quot;100&quot;
+示例2：12输入: a &#x3D; &qu
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/08/28/LeetCode/leetcode-000197.%20%E4%B8%8A%E5%8D%87%E7%9A%84%E6%B8%A9%E5%BA%A6/#more" rel="contents">
-              Read more &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://huhansi.com/2018/08/28/LeetCode/leetcode-000561.%20%E6%95%B0%E7%BB%84%E6%8B%86%E5%88%86%20I/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Han si">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hansi Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/08/28/LeetCode/leetcode-000561.%20%E6%95%B0%E7%BB%84%E6%8B%86%E5%88%86%20I/" itemprop="url">561.数组拆分 I</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-08-28T00:00:00+08:00">
-                2018-08-28
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/leetcode/" itemprop="url" rel="index">
-                    <span itemprop="name">leetcode</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-          题目给定长度为 2n 的数组, 你的任务是将这些数分成 n 对, 例如 (a1, b1), (a2, b2), …, (an, bn) ，使得从1 到 n 的 min(ai, bi) 总和最大。
-示例1：1234输入: [1,4,3,2]输出: 4解释: n 等于 2, 最大总和为 4 &#x3D;
-          ...
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2018/08/28/LeetCode/leetcode-000561.%20%E6%95%B0%E7%BB%84%E6%8B%86%E5%88%86%20I/#more" rel="contents">
+            <a class="btn" href="/2018/08/28/LeetCode/leetcode-000067.%20%E4%BA%8C%E8%BF%9B%E5%88%B6%E6%B1%82%E5%92%8C/#more" rel="contents">
               Read more &raquo;
             </a>
           </div>
@@ -1789,7 +1790,7 @@ A.length &gt;= 3
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/48/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/48/">48</a><span class="page-number current">49</span><a class="page-number" href="/page/50/">50</a><a class="extend next" rel="next" href="/page/50/"><i class="fa fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" href="/page/48/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/48/">48</a><span class="page-number current">49</span><a class="page-number" href="/page/50/">50</a><a class="page-number" href="/page/51/">51</a><a class="extend next" rel="next" href="/page/50/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -1835,7 +1836,7 @@ A.length &gt;= 3
               
                 <a href="/archives/%7C%7C%20archive">
               
-                  <span class="site-state-item-count">499</span>
+                  <span class="site-state-item-count">501</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -1846,7 +1847,7 @@ A.length &gt;= 3
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">19</span>
+                  <span class="site-state-item-count">20</span>
                   <span class="site-state-item-name">categories</span>
                 </a>
               </div>
