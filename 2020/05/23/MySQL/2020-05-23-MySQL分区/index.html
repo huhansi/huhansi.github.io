@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="分区," />
 
 
 
@@ -79,12 +79,17 @@
 
 
 
-<meta property="og:type" content="website">
-<meta property="og:title" content="Hansi Blog">
-<meta property="og:url" content="http://huhansi.com/tags/MySQL/index.html">
+<meta name="description" content="MySQL分区MySQL在创建表时使用PARTITION BY子句定义每个分区存放的数据。在执行查询的时候，优化器会根据分区定义过滤那些没有我们需要数据的分区，这样只需要查找包含需要数据的分区就可以了。 分区的一个主要目的就是将数据按照一个较粗的粒度分在不同的表中，这样做可以将相关的数据存放在一起。另外，如果想一次批量删除整个分区的数据也会变得很方便。 对用户来说，分区表是一个独立的逻辑表，但是底">
+<meta property="og:type" content="article">
+<meta property="og:title" content="MySQL分区">
+<meta property="og:url" content="http://huhansi.com/2020/05/23/MySQL/2020-05-23-MySQL%E5%88%86%E5%8C%BA/index.html">
 <meta property="og:site_name" content="Hansi Blog">
+<meta property="og:description" content="MySQL分区MySQL在创建表时使用PARTITION BY子句定义每个分区存放的数据。在执行查询的时候，优化器会根据分区定义过滤那些没有我们需要数据的分区，这样只需要查找包含需要数据的分区就可以了。 分区的一个主要目的就是将数据按照一个较粗的粒度分在不同的表中，这样做可以将相关的数据存放在一起。另外，如果想一次批量删除整个分区的数据也会变得很方便。 对用户来说，分区表是一个独立的逻辑表，但是底">
 <meta property="og:locale" content="Zh_CN">
+<meta property="article:published_time" content="2020-05-22T16:00:00.000Z">
+<meta property="article:modified_time" content="2020-05-24T11:40:26.366Z">
 <meta property="article:author" content="Han si">
+<meta property="article:tag" content="分区">
 <meta name="twitter:card" content="summary">
 
 
@@ -115,13 +120,13 @@
 
 
 
-  <link rel="canonical" href="http://huhansi.com/tags/MySQL/"/>
+  <link rel="canonical" href="http://huhansi.com/2020/05/23/MySQL/2020-05-23-MySQL分区/"/>
 
 
 
 
 
-  <title>Tag: MySQL | Hansi Blog</title>
+  <title>MySQL分区 | Hansi Blog</title>
   
 
 
@@ -140,7 +145,7 @@
     
   
 
-  <div class="container sidebar-position-left ">
+  <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -278,166 +283,207 @@
           <div id="content" class="content">
             
 
+  <div id="posts" class="posts-expand">
+    
+
+  
+
   
   
   
-  <div class="post-block tag">
-
-    <div id="posts" class="posts-collapse">
-      <div class="collection-title">
-        <h1>MySQL<small>Tag</small>
-        </h1>
-      </div>
-
-      
-        
 
   <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://huhansi.com/2020/05/23/MySQL/2020-05-23-MySQL%E5%88%86%E5%8C%BA/">
 
-      <h2 class="post-title">
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Han si">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hansi Blog">
+    </span>
+
+    
+      <header class="post-header">
+
         
-            <a class="post-title-link" href="/2020/04/12/MySQL/2020-04-12-%E4%BC%98%E5%8C%96MySQL%E7%B4%A2%E5%BC%95%E7%9A%84N%E7%A7%8D%E6%96%B9%E6%B3%95/" itemprop="url">
-              
-                <span itemprop="name">优化MySQL索引的N种方法</span>
-              
-            </a>
         
-      </h2>
+          <h1 class="post-title" itemprop="name headline">MySQL分区</h1>
+        
 
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2020-04-12T00:00:00+08:00"
-              content="2020-04-12" >
-          04-12
-        </time>
-      </div>
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-05-23T00:00:00+08:00">
+                2020-05-23
+              </time>
+            
 
-    </header>
-  </article>
+            
 
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/MySQL/" itemprop="url" rel="index">
+                    <span itemprop="name">MySQL</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
 
       
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2020/04/12/MySQL/2020-04-12-MySQL%E4%B8%AD%E7%9A%84%E7%B4%A2%E5%BC%95%E5%8F%8A%E5%85%B6%E5%AE%9E%E7%8E%B0/" itemprop="url">
-              
-                <span itemprop="name">MySQL中的索引及其实现</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2020-04-12T00:00:00+08:00"
-              content="2020-04-12" >
-          04-12
-        </time>
-      </div>
-
-    </header>
-  </article>
-
+      
 
       
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2020/04/12/MySQL/2020-04-12-MySQL%E5%A6%82%E4%BD%95%E5%AE%9E%E7%8E%B0%E5%88%86%E5%B8%83%E5%BC%8FXA%E4%BA%8B%E5%8A%A1/" itemprop="url">
-              
-                <span itemprop="name">MySQL中的XA事务</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2020-04-12T00:00:00+08:00"
-              content="2020-04-12" >
-          04-12
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-      
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2020/04/11/MySQL/2020-04-11-MySQL%E4%B8%AD%E7%9A%84%E5%90%84%E7%A7%8D%E9%94%81/" itemprop="url">
-              
-                <span itemprop="name">MySQL中的各种锁</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2020-04-11T00:00:00+08:00"
-              content="2020-04-11" >
-          04-11
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-      
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2020/04/11/MySQL/2020-04-11-MySQL%E4%BA%8B%E5%8A%A1%E5%8E%9F%E7%90%86%E4%BB%A5%E5%8F%8A4%E7%A7%8D%E9%9A%94%E7%A6%BB%E7%BA%A7%E5%88%AB/" itemprop="url">
-              
-                <span itemprop="name">MySQL事务原理以及4种隔离级别</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2020-04-11T00:00:00+08:00"
-              content="2020-04-11" >
-          04-11
-        </time>
-      </div>
-
-    </header>
-  </article>
-
+        <h1 id="MySQL分区"><a href="#MySQL分区" class="headerlink" title="MySQL分区"></a>MySQL分区</h1><p>MySQL在创建表时使用PARTITION BY子句定义每个分区存放的数据。在执行查询的时候，优化器会根据分区定义过滤那些没有我们需要数据的分区，这样只需要查找包含需要数据的分区就可以了。</p>
+<p>分区的一个主要目的就是将数据按照一个较粗的粒度分在不同的表中，这样做可以将相关的数据存放在一起。另外，如果想一次批量删除整个分区的数据也会变得很方便。</p>
+<p>对用户来说，分区表是一个独立的逻辑表，但是底层由多个物理子表组成。实现分区的代码实际上是对一组底层表的句柄对象（Handler Object）的封装，对分区表的请求，都会通过句柄对象转化为对存储引擎的接口调用，所以分区对于SQL层来说是一个完全封装底层实现的黑盒子，对应用是透明的，但是从底层的文件系统来看就很容易防线，每一个分区表都有一个使用<code>#</code>分隔命名的表文件。这意味着索引也是按照分区的字表定义的，而没有全局索引。</p>
+<h2 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h2><p>分区表由多个相关的底层表实现，这些底层表也是由句柄对象表示，所以我们也可以直接访问各个分区。存储引擎管理分区的各个底层表和管理普通表一样（所有底层表都必须使用相同的存储引擎），分区表的索引只是在各个底层表上各自加上一个完全相同的索引。从存储引擎的角度上看，底层表和一个普通表没有任何不同，存储引擎也无须知道这是一个普通表还是一个分区表的一部分。</p>
+<p>分区表上的操作按照下面的操作逻辑进行：</p>
+<h3 id="SELECT查询"><a href="#SELECT查询" class="headerlink" title="SELECT查询"></a>SELECT查询</h3><p>当查询一个分区表的时候，分区层先打开并锁住所有的底层表，优化器先判断是否可以过滤部分分区，然后再调用对应的存储迎亲接口访问各个分区的数据。</p>
+<h3 id="INSERT操作"><a href="#INSERT操作" class="headerlink" title="INSERT操作"></a>INSERT操作</h3><p>当写入一条记录时，分区层先打开并锁住所有的底层表。然后确定哪个分区接受这条记录，再将记录写入对应底层表。</p>
+<h3 id="DELETE操作"><a href="#DELETE操作" class="headerlink" title="DELETE操作"></a>DELETE操作</h3><p>当删除一条记录时，分区层先打开并锁住所有的底层表，然后确定数据对应的分区，最后对相应底层表进行删除操作。</p>
+<h4 id="UPDATE操作"><a href="#UPDATE操作" class="headerlink" title="UPDATE操作"></a>UPDATE操作</h4><p>当更新一条记录时，分区层先打开并锁住所有的底层表，MySQL先确定需要更新的记录在哪个分区，然后取出数据并更新，并判断更新后的数据应该放在哪个分区，最后对底层表进行写入操作，并对元数据所在的底层表进行删除操作。</p>
+<p>虽然每个操作都会“先打开并锁住所有的底层表”，但这并不是说分区表在处理过程中是锁住全表的。如果存储引擎能够自己实现行级锁，例如InnoDB，则会在分区层释放对应表锁。</p>
+<h2 id="类型"><a href="#类型" class="headerlink" title="类型"></a>类型</h2><p>MySQL支持多种分区表。<strong>范围、键值、哈希和列表分区</strong></p>
+<h2 id="限制"><a href="#限制" class="headerlink" title="限制"></a>限制</h2><ul>
+<li>一个表最多只能由1024个分区</li>
+<li>在MySQL5.1中，分区表达式必须是整数，或者是返回整数的表达式。在MySQL5.5中，某些场景中可以直接使用列来进行分区</li>
+<li>如果分区字段中有主见或者唯一索引的列，那么所有主键列和唯一索引列都必须包含进来</li>
+<li>分区表中无法使用外键约束</li>
+<li>所有的分区必须使用相同的存储引擎</li>
+<li>分区函数中可以使用的函数和表达式也有一些限制</li>
+<li>某些存储引擎不支持分区</li>
+<li>对于MyISAM的分区表，不能再使用LOAD INDEX INTO CACHE操作</li>
+<li>对于MyISAM表，使用分区表时需要打开更多的文件描述符。虽然看起来是一个表，起始背后有很多独立的分区，每一个分区对于存储引擎来书都是一个独立的表。这样即使分区表只占用一个表缓存条目，文件描述符还是需要多个。因此，即使已经配置了合适的表缓存，以确保不会超过操作系统的单个进程可以打开的文件描述符的个数，对于分区表而言，还是会出现超过文件描述符限制的问题。</li>
+</ul>
+<h2 id="如何使用"><a href="#如何使用" class="headerlink" title="如何使用"></a>如何使用</h2><h3 id="全量扫描数据，不要使用任何索引"><a href="#全量扫描数据，不要使用任何索引" class="headerlink" title="全量扫描数据，不要使用任何索引"></a>全量扫描数据，不要使用任何索引</h3><p>可以使用简单的分区方式存放表，不要任何索引，根据分区的规则大致定位需要的数据位置。只要能够使用WHERE条件，将需要的数据限制在少数分区中，则效率是很高的。当然，也需要做一些简单的运算保证查询的响应时间能够满足需求。使用该策略假设不用将数据完全放入到内存中，同时还假设需要的额数据全部在磁盘上，因为内存相对很小，数据很快会被挤出内存，所以缓存起不了任何作用。这个策略适用于以正常的方式访问大量数据的时候。</p>
+<p><strong>但必须将查询需要扫描的分区个数限制在一个很小的数量。</strong></p>
+<h3 id="索引数据，并分离热点"><a href="#索引数据，并分离热点" class="headerlink" title="索引数据，并分离热点"></a>索引数据，并分离热点</h3><p>如果数据有明显的“热点”，而且除了这部分数据，其他数据很少被放文档，那么可以将这部分热点数据单独放在一个分区中，让这个分区的数据能够有机会都缓存在内存中。这样查询就可以只访问一个很小的分区表，能够使用索引，也能够有效地使用缓存。</p>
+<h2 id="可能会出现哪些问题"><a href="#可能会出现哪些问题" class="headerlink" title="可能会出现哪些问题"></a>可能会出现哪些问题</h2><h3 id="NULL值会使分区过滤无效"><a href="#NULL值会使分区过滤无效" class="headerlink" title="NULL值会使分区过滤无效"></a>NULL值会使分区过滤无效</h3><p>分区表达式的值可以是NULL：第一个分区是一个特殊分区。假设按照PARTITION BY RANGE YEAR（order_date）分区，那么所有order_date为NULL或者为非法制的时候，记录都会被放到第一个分区。因此，如果查询2020年分区的记录，MySQL实际会扫描2个分区，而不是仅仅2020这个分区。检查第一个分区是因为YEAR函数在接受非法值的时候可能会返回NULL值，那么这个访问的值可能会返回NULL而被存放到第一个分区了。</p>
+<p>为了避免这种情况，可以创建一个“无用”的第一个分区，例如，上面的例子中可以使用PARTITION p_nulls VALUES LESS THAN (0)来创建第一个分区。如果插入表中的数据都是有效的，那么第一个分区就是空的，这样即使需要检测第一个分区，代价也会非常小。</p>
+<h3 id="分区列和索引列不匹配"><a href="#分区列和索引列不匹配" class="headerlink" title="分区列和索引列不匹配"></a>分区列和索引列不匹配</h3><p>如果定义的索引列和分区列不匹配，会导致查询无法进行分区过滤。假设在列a上定义了索引，而在列b上进行分区。因为每个分区都有其独立的索引，所以扫描列b上的索引就需要扫描每一个分区内对应的索引。如果每个分区内对应索引的非叶子节点都在内存中，那么扫描速度还可以解说，但如果能跳过某些分区索引当然会更好，要避免这个问题，应该避免建立和分区列不匹配的索引，除非查询中还同时包含了可以过滤分区的条件。</p>
+<h3 id="选择分区的成本可能很高"><a href="#选择分区的成本可能很高" class="headerlink" title="选择分区的成本可能很高"></a>选择分区的成本可能很高</h3><p>对于范围分区，回答“这一行属于哪个分区”、“这些符合查询条件的行在那些分区”这样的问题的成本可能会非常高，因为服务器需要扫描所有的分区定义的列表来找到正确的答案。类似这样的线性搜索的效率并不高，所以随着分区数的增长，成本会越来越高。</p>
+<p><strong>根据实践经验，对大多数系统来说，100个左右的分区是没有问题的。</strong></p>
+<p><strong>其他类型的分区，比如键分区和哈希分区，则没有这样的问题。</strong></p>
+<h3 id="打开并锁住所有底层表的成本可能很高"><a href="#打开并锁住所有底层表的成本可能很高" class="headerlink" title="打开并锁住所有底层表的成本可能很高"></a>打开并锁住所有底层表的成本可能很高</h3><p>当查询访问分区表的时候，MySQL需要打开并锁住所有的底层表，这时分区表的另一个开销。这个操作在分区过滤之前发生，所以无法通过分区过滤降低次开销，并且该开销也和分区类型无关，会影响所有的查询。这一点对一些本身操作非常快的查询，比如根据主键查找单行，会带来明显的额外开销。可以用批量操作的方式来降低单个操作的此类开销，例如使用批量插入或者LOAD DATA INFILE、一次删除多行数据等等。当然同时还是需要限制分区的个数。</p>
+<h3 id="维护分区的成本可能很高"><a href="#维护分区的成本可能很高" class="headerlink" title="维护分区的成本可能很高"></a>维护分区的成本可能很高</h3><p>某些分区维护操作的速度会非常快，例如新增或者删除分区（当删除一个大分区可能会很慢，不过这是另一回事）。而有些操作，例如重组分区或者类似ALTER语句的操作：这类操作需要复制数据。重组分区的原理和ALTER类似，县创建一个临时的分区，然后将数据复制到其中，最后在删除原分区。</p>
+<h2 id="查询优化"><a href="#查询优化" class="headerlink" title="查询优化"></a>查询优化</h2><p>对于访问分区表来说，很重要的一点是要在WHERE条件中带入分区列，有时候即使看似多余也要带上，这样就可以让优化器能够过滤到无需访问的分区，如果没有这些条件，MySQL就需要让对应存储引擎访问这个表的所有分区，如果表非常大的话，就可能会非常慢。</p>
+<h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><p><a href>高性能MySQL</a></p>
 
       
     </div>
+    
+    
+    
 
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/%E5%88%86%E5%8C%BA/" rel="tag"># 分区</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2020/05/10/Linux/Linux%E7%9A%84N%E7%A7%8DIO%E6%A8%A1%E5%9E%8B/" rel="next" title="Linux的N种IO模型">
+                <i class="fa fa-chevron-left"></i> Linux的N种IO模型
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2020/05/24/MySQL/2020-05-24-MySQL%E6%9F%A5%E8%AF%A2%E4%BC%98%E5%8C%96/" rel="prev" title="MySQL查询优化">
+                MySQL查询优化 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
   </div>
   
   
   
+  </article>
 
-  
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
 
           </div>
@@ -445,6 +491,10 @@
 
 
           
+
+  
+
+
 
         </div>
         
@@ -465,8 +515,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -481,7 +540,7 @@
               
                 <a href="/archives/%7C%7C%20archive">
               
-                  <span class="site-state-item-count">499</span>
+                  <span class="site-state-item-count">501</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -492,7 +551,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">19</span>
+                  <span class="site-state-item-count">20</span>
                   <span class="site-state-item-name">categories</span>
                 </a>
               </div>
@@ -536,6 +595,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#MySQL分区"><span class="nav-number">1.</span> <span class="nav-text">MySQL分区</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#原理"><span class="nav-number">1.1.</span> <span class="nav-text">原理</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#SELECT查询"><span class="nav-number">1.1.1.</span> <span class="nav-text">SELECT查询</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#INSERT操作"><span class="nav-number">1.1.2.</span> <span class="nav-text">INSERT操作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#DELETE操作"><span class="nav-number">1.1.3.</span> <span class="nav-text">DELETE操作</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#UPDATE操作"><span class="nav-number">1.1.3.1.</span> <span class="nav-text">UPDATE操作</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#类型"><span class="nav-number">1.2.</span> <span class="nav-text">类型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#限制"><span class="nav-number">1.3.</span> <span class="nav-text">限制</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#如何使用"><span class="nav-number">1.4.</span> <span class="nav-text">如何使用</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#全量扫描数据，不要使用任何索引"><span class="nav-number">1.4.1.</span> <span class="nav-text">全量扫描数据，不要使用任何索引</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#索引数据，并分离热点"><span class="nav-number">1.4.2.</span> <span class="nav-text">索引数据，并分离热点</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#可能会出现哪些问题"><span class="nav-number">1.5.</span> <span class="nav-text">可能会出现哪些问题</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#NULL值会使分区过滤无效"><span class="nav-number">1.5.1.</span> <span class="nav-text">NULL值会使分区过滤无效</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#分区列和索引列不匹配"><span class="nav-number">1.5.2.</span> <span class="nav-text">分区列和索引列不匹配</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#选择分区的成本可能很高"><span class="nav-number">1.5.3.</span> <span class="nav-text">选择分区的成本可能很高</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#打开并锁住所有底层表的成本可能很高"><span class="nav-number">1.5.4.</span> <span class="nav-text">打开并锁住所有底层表的成本可能很高</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#维护分区的成本可能很高"><span class="nav-number">1.5.5.</span> <span class="nav-text">维护分区的成本可能很高</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#查询优化"><span class="nav-number">1.6.</span> <span class="nav-text">查询优化</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考资料"><span class="nav-number">1.7.</span> <span class="nav-text">参考资料</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
@@ -669,6 +744,10 @@
   
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
 
   
 
