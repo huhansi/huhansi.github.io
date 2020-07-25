@@ -293,7 +293,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://huhansi.com/2020/03/10/Java/%E5%A4%9A%E7%BA%BF%E7%A8%8B/2020-03-12-%E5%A4%9A%E7%BA%BF%E7%A8%8B-06-ReentrantReadWriteLock%E8%A7%A3%E6%9E%90/">
+    <link itemprop="mainEntityOfPage" href="http://huhansi.com/2020/03/10/Java/%E5%A4%9A%E7%BA%BF%E7%A8%8B/2020-03-10-%E5%A4%9A%E7%BA%BF%E7%A8%8B-02-synchronized%E5%85%B3%E9%94%AE%E5%AD%97%E8%A7%A3%E6%9E%90/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Han si">
@@ -312,7 +312,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2020/03/10/Java/%E5%A4%9A%E7%BA%BF%E7%A8%8B/2020-03-12-%E5%A4%9A%E7%BA%BF%E7%A8%8B-06-ReentrantReadWriteLock%E8%A7%A3%E6%9E%90/" itemprop="url">ReentrantReadWriteLock解析</a></h1>
+                <a class="post-title-link" href="/2020/03/10/Java/%E5%A4%9A%E7%BA%BF%E7%A8%8B/2020-03-10-%E5%A4%9A%E7%BA%BF%E7%A8%8B-02-synchronized%E5%85%B3%E9%94%AE%E5%AD%97%E8%A7%A3%E6%9E%90/" itemprop="url">synchronized关键字解析</a></h1>
         
 
         <div class="post-meta">
@@ -386,12 +386,14 @@
       
         
           
-          ReentrantReadWriteLock解析前文提到的synchronized关键和和ReentrantLock，它们都是独占式锁，排他锁。在同一时刻只能有一个线程获取多。这个就非常不适合那种读多写少的场景。
-如果有多个线程需要读取共享数据，极少数甚至只有一个线程写共享数据的话，就非常不划算了。
+          synchronized关键字解析synchronized关键字的作用synchronized是Java在语言层面提供的一个用于线程并发同步的关键字。它可以应用在三个方面。
+
+修饰实例方法：作用于当前实例对象，对当前实例对象加锁，进入同步代码前需要获取当前实例的锁。
+修饰静态方法：作用于当前类对象（
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2020/03/10/Java/%E5%A4%9A%E7%BA%BF%E7%A8%8B/2020-03-12-%E5%A4%9A%E7%BA%BF%E7%A8%8B-06-ReentrantReadWriteLock%E8%A7%A3%E6%9E%90/#more" rel="contents">
+            <a class="btn" href="/2020/03/10/Java/%E5%A4%9A%E7%BA%BF%E7%A8%8B/2020-03-10-%E5%A4%9A%E7%BA%BF%E7%A8%8B-02-synchronized%E5%85%B3%E9%94%AE%E5%AD%97%E8%A7%A3%E6%9E%90/#more" rel="contents">
               Read more &raquo;
             </a>
           </div>
