@@ -87,7 +87,7 @@
 <meta property="og:description" content="MySQL事务原理及4种隔离级别什么是事务事务是关系型数据区区别于其他NoSQL数据库的一个主要方面，是保障数据一致性的重要手段。 事务会把数据库从一种一致性的状态转移到另外一种一致性的状态。在数据库事务提交的时候，事务可以确保要么所有的修改都已经生效保存，要么所有的修改都不保存。 拿一个常见的银行转账作为例子：A账户给B账户转账1000块买东西。在这个交易的过程中，有几个问题需要思考：  如何同">
 <meta property="og:locale" content="Zh_CN">
 <meta property="article:published_time" content="2020-04-10T16:00:00.000Z">
-<meta property="article:modified_time" content="2020-05-23T14:36:15.752Z">
+<meta property="article:modified_time" content="2020-06-23T02:58:19.960Z">
 <meta property="article:author" content="Han si">
 <meta property="article:tag" content="事务">
 <meta property="article:tag" content="ACID">
@@ -409,7 +409,7 @@
 <li>一致性（<strong>C</strong>onsistency）：数据库总是从一个一致性的状态转换到另一个一致性的状态。</li>
 </ul>
 <h2 id="事务的实现原理"><a href="#事务的实现原理" class="headerlink" title="事务的实现原理"></a>事务的实现原理</h2><p>事务的最终目的是为了保证数据的一致性，因此，ACID中的AID就是为了实现C而做的铺垫。下面就分别看看原子性（A）、隔离性（I）、持久性（D）的实现原理。</p>
-<h3 id="原子性实现原理（MySQL）"><a href="#原子性实现原理（MySQL）" class="headerlink" title="原子性实现原理（MySQL）"></a>原子性实现原理（MySQL）</h3><p>Undo Log是MySQL实现事务原子性的基础。当事务对数据库进行修改时，InnoDB会生成对应的Undo Log；如果事务实行失败或者调用了roolback，导致事务需要回滚，便可以利用Undo Log中的信息将数据回滚到修改之前的样子。</p>
+<h3 id="原子性实现原理（MySQL）"><a href="#原子性实现原理（MySQL）" class="headerlink" title="原子性实现原理（MySQL）"></a>原子性实现原理（MySQL）</h3><p>Undo Log是MySQL实现事务原子性的基础。当事务对数据库进行修改时，InnoDB会生成对应的Undo Log；如果事务实行失败或者调用了rollback，导致事务需要回滚，便可以利用Undo Log中的信息将数据回滚到修改之前的样子。</p>
 <p>Undo Log属于逻辑日志，它记录的是sql执行的相关信息。当发生回滚时，InnoDB会根据Undo Log的内容做与之前相反的工作：对于每个Insert，回滚时会delete；每个delete，回滚时会insert；每个update就做一个相反的update，改回原数据。</p>
 <p>拿上文A转账给B账户的例子来说</p>
 <p>假设初始时候，A账户有10000，B账号有4000</p>
@@ -489,14 +489,14 @@
 <li>表级锁：开销小，加锁快；不会出现死锁；锁定粒度大，发生锁冲突的概率最高，并发度最低。支持引擎-MyISAM、MEMORY、InnoDB</li>
 <li>行级锁：开销大，加锁慢；会出现死锁；锁定粒度小，发生锁冲突的概率最低，并发度也最高。支持引擎-InnoDB</li>
 <li>页面锁：开销和加锁时间介于表锁和行锁之间；会出现死锁；锁定粒度介于表锁和行锁之间，并发度一般。支持引擎-BDB</li>
-<li>全局所：对整个数据库实例加锁</li>
+<li>全局锁：对整个数据库实例加锁</li>
 </ul>
 <h4 id="MVCC"><a href="#MVCC" class="headerlink" title="MVCC"></a>MVCC</h4><p>MVCC全称是多版本并发控制（MultiVersion Concurrency Control）。InnoDB的MVCC是通过在每行记录的后面保存两个隐藏的列来实现的。这两个列，一个保存了行的创建时间，一个保存行的过期时间（或删除时间）。当然存储的并不是实际的时间值，而是系统版本号。每开始一个新的事物，系统版本号都会自动递增。事物开始时刻的系统版本号会作为事务的版本号，用来和查询到的每行记录的版本号作比较。</p>
 <h3 id="持久性实现原理（MySQL）"><a href="#持久性实现原理（MySQL）" class="headerlink" title="持久性实现原理（MySQL）"></a>持久性实现原理（MySQL）</h3><p>持久性原理是通过Redo Log实现的。</p>
 <p>数据库的数据是存放到磁盘中的，但如果每次读写数据都进行磁盘ID，效率无疑会很低下。因此，InnoDB引入了Buffer pool。Buffer pool包含了部分数据页的映射，作为缓冲。数据先从Buffer Pool中读取，如果没有，从磁盘读取后再放入Buffer Pool；同理，写入的话，也是先写入到Buffer Pool中，然后定期刷回磁盘。</p>
-<p>Buffer Pool的使用大大提高了读写数据的效率，但也产生了新的问题：如果在Buffer Pool中的新数据还没有刷新到磁盘之前数据库就宕机了，就会导致数据丢失，误报保证事务的持久性。</p>
+<p>Buffer Pool的使用大大提高了读写数据的效率，但也产生了新的问题：如果在Buffer Pool中的新数据还没有刷新到磁盘之前数据库就宕机了，就会导致数据丢失，无法保证事务的持久性。</p>
 <p>于是Redo Log被引入来解决这个问题：当数据修改时，除了修改Buffer Pool中的数据，还会在Redo Log中记录这次操作；当事务提交时，会调用fsync接口对Redo Log进行刷盘。如果MySQL宕机，重启的时候可以读取Redo Log中的数据，对数据库进行恢复。</p>
-<p>Redo Log采用的是WAL（Write-Ahead Loggin，预写式日志），所有修改先写入日志，再更新到Buffer Pool，保证了数据不会因为MySQL宕机二小时，从而满足了持久性要求。</p>
+<p>Redo Log采用的是WAL（Write-Ahead Loggin，预写式日志），所有修改先写入日志，再更新到Buffer Pool，保证了数据不会因为MySQL宕机二而消失，从而满足了持久性要求。</p>
 <h2 id="事务的隔离级别"><a href="#事务的隔离级别" class="headerlink" title="事务的隔离级别"></a>事务的隔离级别</h2><p>SQL标准中定义了四种隔离级别。级别越低的可以执行越高的并发， 但同时实现复杂度以及开销也越大。</p>
 <p>MySQL中隔离级别有以下四种（级别由低到高）：</p>
 <ul>
@@ -718,8 +718,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2020/04/12/MySQL/2020-04-12-MySQL%E4%B8%AD%E7%9A%84%E7%B4%A2%E5%BC%95%E5%8F%8A%E5%85%B6%E5%AE%9E%E7%8E%B0/" rel="prev" title="MySQL中的索引及其实现">
-                MySQL中的索引及其实现 <i class="fa fa-chevron-right"></i>
+              <a href="/2020/04/12/%E5%88%86%E5%B8%83%E5%BC%8F/%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81%E7%9A%84%E5%87%A0%E7%A7%8D%E5%AE%9E%E7%8E%B0/" rel="prev" title="分布式锁的几种实现方式">
+                分布式锁的几种实现方式 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -797,7 +797,7 @@
               
                 <a href="/archives/%7C%7C%20archive">
               
-                  <span class="site-state-item-count">501</span>
+                  <span class="site-state-item-count">517</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -808,7 +808,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">20</span>
+                  <span class="site-state-item-count">22</span>
                   <span class="site-state-item-name">categories</span>
                 </a>
               </div>
@@ -819,7 +819,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">294</span>
+                  <span class="site-state-item-count">310</span>
                   <span class="site-state-item-name">tags</span>
                 </a>
               </div>
