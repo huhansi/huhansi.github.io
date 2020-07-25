@@ -1,0 +1,1232 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="Zh_cn">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Java,多线程,AtomicLongArray," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="AtomicLongArray源码解析顾名思义，AtomicLongArray就是JDK提供的提供原子操作能力的长整型数组。之所以提供这个类是因为长整型数组在多线程环境下是线程不安全的。 1234567891011121314151617181920212223242526272829public class UseLongArrayUnsafe implements Runnable &amp;#123">
+<meta property="og:type" content="article">
+<meta property="og:title" content="AtomicLongArray源码解析">
+<meta property="og:url" content="http://huhansi.com/2020/07/17/Java/%E5%A4%9A%E7%BA%BF%E7%A8%8B/2020-07-17-AtomicLongArray%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90/index.html">
+<meta property="og:site_name" content="Hansi Blog">
+<meta property="og:description" content="AtomicLongArray源码解析顾名思义，AtomicLongArray就是JDK提供的提供原子操作能力的长整型数组。之所以提供这个类是因为长整型数组在多线程环境下是线程不安全的。 1234567891011121314151617181920212223242526272829public class UseLongArrayUnsafe implements Runnable &amp;#123">
+<meta property="og:locale" content="Zh_CN">
+<meta property="og:image" content="https://huhansi.github.io/images/2020-07-19-atomic5.png">
+<meta property="og:image" content="https://huhansi.github.io/images/2020-07-19-atomic6.png">
+<meta property="og:image" content="https://huhansi.github.io/images/2020-07-19-atomic7.png">
+<meta property="og:image" content="https://huhansi.github.io/images/2020-07-19-atomic8.png">
+<meta property="og:image" content="https://huhansi.github.io/images/2020-07-19-atomic9.png">
+<meta property="article:published_time" content="2020-07-16T16:00:00.000Z">
+<meta property="article:modified_time" content="2020-07-22T16:34:33.165Z">
+<meta property="article:author" content="Han si">
+<meta property="article:tag" content="Java">
+<meta property="article:tag" content="多线程">
+<meta property="article:tag" content="AtomicLongArray">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://huhansi.github.io/images/2020-07-19-atomic5.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://huhansi.com/2020/07/17/Java/多线程/2020-07-17-AtomicLongArray源码解析/"/>
+
+
+
+
+
+  <title>AtomicLongArray源码解析 | Hansi Blog</title>
+  
+
+
+
+
+
+
+
+
+<meta name="generator" content="Hexo 4.2.0"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="Zh_cn">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Hansi Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Know something of everything, know everything of something</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            About
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            Search
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="Searching..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://huhansi.com/2020/07/17/Java/%E5%A4%9A%E7%BA%BF%E7%A8%8B/2020-07-17-AtomicLongArray%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Han si">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hansi Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">AtomicLongArray源码解析</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-07-17T00:00:00+08:00">
+                2020-07-17
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%BA%90%E7%A0%81/" itemprop="url" rel="index">
+                    <span itemprop="name">源码</span>
+                  </a>
+                </span>
+
+                
+                
+                  , 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%BA%90%E7%A0%81/%E5%A4%9A%E7%BA%BF%E7%A8%8B/" itemprop="url" rel="index">
+                    <span itemprop="name">多线程</span>
+                  </a>
+                </span>
+
+                
+                
+                  , 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%BA%90%E7%A0%81/%E5%A4%9A%E7%BA%BF%E7%A8%8B/CAS/" itemprop="url" rel="index">
+                    <span itemprop="name">CAS</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="AtomicLongArray源码解析"><a href="#AtomicLongArray源码解析" class="headerlink" title="AtomicLongArray源码解析"></a>AtomicLongArray源码解析</h1><p>顾名思义，AtomicLongArray就是JDK提供的提供原子操作能力的长整型数组。之所以提供这个类是因为长整型数组在多线程环境下是线程不安全的。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">UseLongArrayUnsafe</span> <span class="keyword">implements</span> <span class="title">Runnable</span> </span>&#123;</span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">long</span>[] value = <span class="keyword">new</span> <span class="keyword">long</span>[<span class="number">2</span>];</span><br><span class="line"></span><br><span class="line">	<span class="meta">@Override</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>;i &lt; <span class="number">10000</span>;i++) &#123;</span><br><span class="line">			value[<span class="number">0</span>]++;</span><br><span class="line">			value[<span class="number">1</span>]++;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">		UseLongArrayUnsafe unsafe = <span class="keyword">new</span> UseLongArrayUnsafe();</span><br><span class="line">		</span><br><span class="line">		<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>;i &lt; <span class="number">10</span>;i++) &#123;</span><br><span class="line">			Thread thread = <span class="keyword">new</span> Thread(unsafe);</span><br><span class="line">			thread.start();</span><br><span class="line">		&#125;</span><br><span class="line">		</span><br><span class="line">		<span class="keyword">try</span> &#123;</span><br><span class="line">			Thread.sleep(<span class="number">3000</span>);</span><br><span class="line">		&#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">			e.printStackTrace();</span><br><span class="line">		&#125;</span><br><span class="line">		</span><br><span class="line">		System.out.println(value[<span class="number">0</span>]);</span><br><span class="line">		System.out.println(value[<span class="number">1</span>]);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>上述类UseLongArrayUnsafe，实现了Runnable接口，在其实现的run方法中，对私有数组变量的两个值分别自增1.</p>
+<p>而后在main方法中，起了10个线程，分别执行。</p>
+<p><img src="https://huhansi.github.io/images/2020-07-19-atomic5.png" alt="运行结果1"></p>
+<p><img src="https://huhansi.github.io/images/2020-07-19-atomic6.png" alt="运行结果2"></p>
+<p><img src="https://huhansi.github.io/images/2020-07-19-atomic7.png" alt="运行结果3"></p>
+<h2 id="AtomicLongArray类介绍"><a href="#AtomicLongArray类介绍" class="headerlink" title="AtomicLongArray类介绍"></a>AtomicLongArray类介绍</h2><p>JDK提供了AtomicLongArray类用于原子的更新long类型的数组。不同于其他的Atomic×××，AtomicLongArray并没有使用CAS+Volatile关键字来实现原子操作。</p>
+<h2 id="类图"><a href="#类图" class="headerlink" title="类图"></a>类图</h2><p><img src="https://huhansi.github.io/images/2020-07-19-atomic8.png" alt="AtomicLongArray类图"></p>
+<h2 id="主要属性"><a href="#主要属性" class="headerlink" title="主要属性"></a>主要属性</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> Unsafe unsafe = Unsafe.getUnsafe();</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> base = unsafe.arrayBaseOffset(<span class="keyword">long</span>[]<span class="class">.<span class="keyword">class</span>)</span>;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> shift;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> <span class="keyword">long</span>[] array;</span><br></pre></td></tr></table></figure>
+
+<p>AtomicLongArray主要有上面4个属性：</p>
+<p><strong>unsafe</strong>：Sun提供的CAS算法的相关操作，AtomicLongArray底层就是通过它来完成值的修改的；</p>
+<p><strong>base</strong>：数组中第一个元素的内存地址</p>
+<p><strong>shift</strong>：左移偏移量。基于对象的数组，shift是根据不同对象来决定不同值的用来计算，数组中的元素在整个AtomicLongArray对象中的偏移量。数组中第i个元素的地址就是 i  &lt;&lt; shift + base.</p>
+<p><strong>array</strong>：数组对象，保存数值</p>
+<h2 id="主要方法"><a href="#主要方法" class="headerlink" title="主要方法"></a>主要方法</h2><h3 id="初始化"><a href="#初始化" class="headerlink" title="初始化"></a>初始化</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">static</span> &#123;</span><br><span class="line">        <span class="keyword">int</span> scale = unsafe.arrayIndexScale(<span class="keyword">long</span>[]<span class="class">.<span class="keyword">class</span>)</span>;</span><br><span class="line">        <span class="keyword">if</span> ((scale &amp; (scale - <span class="number">1</span>)) != <span class="number">0</span>)</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> Error(<span class="string">"data type scale not a power of two"</span>);</span><br><span class="line">        shift = <span class="number">31</span> - Integer.numberOfLeadingZeros(scale);</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<p>首先看下这个静态代码块，在这个代码块中，首先定义一个int变量scale，然后赋值为int[].class占用的字节数。</p>
+<p>如果占用的字节数不是2的幂次，抛出异常。</p>
+<p>最后再通过scale计算出来左移的偏移量。</p>
+<p>例如，int一般占用4个字节，那么scale就等于4，而shift就等于31减去4变为二进制之后的前导0的个数，也就是2.</p>
+<p>那么，数组第一个位置的元素就是base + 0 &lt;&lt; 2, A[base]，第二个就是base + 1 &lt;&lt; 2.即A[base + 4],第三个就是A[base + 8]</p>
+<h3 id="checkedByteOffset-int"><a href="#checkedByteOffset-int" class="headerlink" title="checkedByteOffset(int)"></a>checkedByteOffset(int)</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">long</span> <span class="title">checkedByteOffset</span><span class="params">(<span class="keyword">int</span> i)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (i &lt; <span class="number">0</span> || i &gt;= array.length)</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> IndexOutOfBoundsException(<span class="string">"index "</span> + i);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> byteOffset(i);</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<p>校验索引i是否越界，越界抛出异常，否则调用byteOffset方法计算出偏移量返回。</p>
+<h3 id="byteOffset-int"><a href="#byteOffset-int" class="headerlink" title="byteOffset(int)"></a>byteOffset(int)</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">long</span> <span class="title">byteOffset</span><span class="params">(<span class="keyword">int</span> i)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> ((<span class="keyword">long</span>) i &lt;&lt; shift) + base;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<p>将索引i左移shift位，加上base返回目标位置的内存地址</p>
+<h3 id="AtomicLongArray-int"><a href="#AtomicLongArray-int" class="headerlink" title="AtomicLongArray(int)"></a>AtomicLongArray(int)</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">     * Creates a new AtomicLongArray of the given length, with all</span></span><br><span class="line"><span class="comment">     * elements initially zero.</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> length the length of the array</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">AtomicLongArray</span><span class="params">(<span class="keyword">int</span> length)</span> </span>&#123;</span><br><span class="line">        array = <span class="keyword">new</span> <span class="keyword">long</span>[length];</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<p>创建一个指定数组长度的AtomicLongArray对象</p>
+<h3 id="AtomicLongArray-int-1"><a href="#AtomicLongArray-int-1" class="headerlink" title="AtomicLongArray(int[])"></a>AtomicLongArray(int[])</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">     * Creates a new AtomicLongArray with the same length as, and</span></span><br><span class="line"><span class="comment">     * all elements copied from, the given array.</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> array the array to copy elements from</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@throws</span> NullPointerException if array is null</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">AtomicLongArray</span><span class="params">(<span class="keyword">long</span>[] array)</span> </span>&#123;</span><br><span class="line">        <span class="comment">// Visibility guaranteed by final field guarantees</span></span><br><span class="line">        <span class="keyword">this</span>.array = array.clone();</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<p>根据指定的数组，创建一个AtomicLongArray对象</p>
+<h3 id="length"><a href="#length" class="headerlink" title="length()"></a>length()</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">     * Returns the length of the array.</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> the length of the array</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">int</span> <span class="title">length</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> array.length;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<p>返回数组的长度</p>
+<h3 id="get-int"><a href="#get-int" class="headerlink" title="get(int)"></a>get(int)</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">     * Gets the current value at position &#123;<span class="doctag">@code</span> i&#125;.</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> i the index</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> the current value</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">long</span> <span class="title">get</span><span class="params">(<span class="keyword">int</span> i)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> getRaw(checkedByteOffset(i));</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<p>获取数组指定位置的值。调用checkedByteOffset检查越界情况，并在方法内部调用byteOffset计算出位置i的内存偏移量。传给getRaw方法，获取值</p>
+<h3 id="getRaw-long-offset"><a href="#getRaw-long-offset" class="headerlink" title="getRaw(long offset)"></a>getRaw(long offset)</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">long</span> <span class="title">getRaw</span><span class="params">(<span class="keyword">long</span> offset)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> unsafe.getLongVolatile(array, offset);</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<p>直接调用unsafe的方法，获取对应内存偏移量上的值</p>
+<h3 id="set-int-long"><a href="#set-int-long" class="headerlink" title="set(int , long)"></a>set(int , long)</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">     * Sets the element at position &#123;<span class="doctag">@code</span> i&#125; to the given value.</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> i the index</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> newValue the new value</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">void</span> <span class="title">set</span><span class="params">(<span class="keyword">int</span> i, <span class="keyword">long</span> newValue)</span> </span>&#123;</span><br><span class="line">        unsafe.putLongVolatile(array, checkedByteOffset(i), newValue);</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<p>调用unsafe的方法直接将位置i上的值设置为给定的新值</p>
+<h3 id="lazySet-int-long"><a href="#lazySet-int-long" class="headerlink" title="lazySet(int, long)"></a>lazySet(int, long)</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">     * Eventually sets the element at position &#123;<span class="doctag">@code</span> i&#125; to the given value.</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> i the index</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> newValue the new value</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@since</span> 1.6</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">void</span> <span class="title">lazySet</span><span class="params">(<span class="keyword">int</span> i, <span class="keyword">long</span> newValue)</span> </span>&#123;</span><br><span class="line">        unsafe.putOrderedLong(array, checkedByteOffset(i), newValue);</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<p>调用unsafe的方法直接将位置i上的值设置为给定的新值。但是这个方法有别于上面的set方法，它在一段时间内是有可能让其他线程查到原来的旧值，而不是立马查到新值。因此，它可以算是一个“最终一致性”的方法</p>
+<h3 id="getAndSet-int-long"><a href="#getAndSet-int-long" class="headerlink" title="getAndSet(int, long)"></a>getAndSet(int, long)</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">     * Atomically sets the element at position &#123;<span class="doctag">@code</span> i&#125; to the given value</span></span><br><span class="line"><span class="comment">     * and returns the old value.</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> i the index</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> newValue the new value</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> the previous value</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">long</span> <span class="title">getAndSet</span><span class="params">(<span class="keyword">int</span> i, <span class="keyword">long</span> newValue)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> unsafe.getAndSetLong(array, checkedByteOffset(i), newValue);</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<p>返回位置i上的旧值，并将新值赋值给位置i</p>
+<h3 id="compareAndSet-int-long-long"><a href="#compareAndSet-int-long-long" class="headerlink" title="compareAndSet(int, long, long)"></a>compareAndSet(int, long, long)</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">     * Atomically sets the element at position &#123;<span class="doctag">@code</span> i&#125; to the given</span></span><br><span class="line"><span class="comment">     * updated value if the current value &#123;<span class="doctag">@code</span> ==&#125; the expected value.</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> i the index</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> expect the expected value</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> update the new value</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> &#123;<span class="doctag">@code</span> true&#125; if successful. False return indicates that</span></span><br><span class="line"><span class="comment">     * the actual value was not equal to the expected value.</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">boolean</span> <span class="title">compareAndSet</span><span class="params">(<span class="keyword">int</span> i, <span class="keyword">long</span> expect, <span class="keyword">long</span> update)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> compareAndSetRaw(checkedByteOffset(i), expect, update);</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<p>如果位置i上的旧值等于期望值expect，那么就将位置i上的值赋值为update，并返回true，否则返回false</p>
+<h3 id="compareAndSetRaw-long-long-long"><a href="#compareAndSetRaw-long-long-long" class="headerlink" title="compareAndSetRaw(long, long, long)"></a>compareAndSetRaw(long, long, long)</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">boolean</span> <span class="title">compareAndSetRaw</span><span class="params">(<span class="keyword">long</span> offset, <span class="keyword">long</span> expect, <span class="keyword">long</span> update)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> unsafe.compareAndSwapLong(array, offset, expect, update);</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<p>compareAndSet方法实际调用的方法，直接调用unsafe设置对应偏移位置上的值</p>
+<h3 id="weakCompareAndSet-int-long-long"><a href="#weakCompareAndSet-int-long-long" class="headerlink" title="weakCompareAndSet(int, long, long)"></a>weakCompareAndSet(int, long, long)</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">     * Atomically sets the element at position &#123;<span class="doctag">@code</span> i&#125; to the given</span></span><br><span class="line"><span class="comment">     * updated value if the current value &#123;<span class="doctag">@code</span> ==&#125; the expected value.</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * &lt;p&gt;&lt;a href="package-summary.html#weakCompareAndSet"&gt;May fail</span></span><br><span class="line"><span class="comment">     * spuriously and does not provide ordering guarantees&lt;/a&gt;, so is</span></span><br><span class="line"><span class="comment">     * only rarely an appropriate alternative to &#123;<span class="doctag">@code</span> compareAndSet&#125;.</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> i the index</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> expect the expected value</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> update the new value</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> &#123;<span class="doctag">@code</span> true&#125; if successful</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">boolean</span> <span class="title">weakCompareAndSet</span><span class="params">(<span class="keyword">int</span> i, <span class="keyword">long</span> expect, <span class="keyword">long</span> update)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> compareAndSet(i, expect, update);</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<p>这个方法的本意是，调用weakCompareAndSet方法时不能保证指令重排的发生，因此，这个方法有时候会毫无理由地失败。</p>
+<p>但是从实现上来看，这个方法还是和compareAndSet一模一样的。不过建议在使用的时候，谨慎对待，保不定什么时候，方法实现就修改了。</p>
+<h3 id="getAndIncrement-int"><a href="#getAndIncrement-int" class="headerlink" title="getAndIncrement(int)"></a>getAndIncrement(int)</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">     * Atomically increments by one the element at index &#123;<span class="doctag">@code</span> i&#125;.</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> i the index</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> the previous value</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">long</span> <span class="title">getAndIncrement</span><span class="params">(<span class="keyword">int</span> i)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> getAndAdd(i, <span class="number">1</span>);</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<p>获取位置i上的值返回，并对该值自增.</p>
+<h3 id="getAndDecrement-int"><a href="#getAndDecrement-int" class="headerlink" title="getAndDecrement(int)"></a>getAndDecrement(int)</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">     * Atomically decrements by one the element at index &#123;<span class="doctag">@code</span> i&#125;.</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> i the index</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> the previous value</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">long</span> <span class="title">getAndDecrement</span><span class="params">(<span class="keyword">int</span> i)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> getAndAdd(i, -<span class="number">1</span>);</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<p>获取位置i上的值返回，并对该值自减.</p>
+<h3 id="getAndAdd-int-long"><a href="#getAndAdd-int-long" class="headerlink" title="getAndAdd(int, long)"></a>getAndAdd(int, long)</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">     * Atomically adds the given value to the element at index &#123;<span class="doctag">@code</span> i&#125;.</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> i the index</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> delta the value to add</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> the previous value</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">long</span> <span class="title">getAndAdd</span><span class="params">(<span class="keyword">int</span> i, <span class="keyword">long</span> delta)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> unsafe.getAndAddLong(array, checkedByteOffset(i), delta);</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<p>返回位置i上对应的值，并加上delta</p>
+<h3 id="incrementAndGet-int"><a href="#incrementAndGet-int" class="headerlink" title="incrementAndGet(int)"></a>incrementAndGet(int)</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">     * Atomically increments by one the element at index &#123;<span class="doctag">@code </span>i&#125;.</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param </span>i the index</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return </span>the updated value</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    public final long incrementAndGet(int i) &#123;</span><br><span class="line">        <span class="keyword">return</span> getAndAdd(i, <span class="number">1</span>) + <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<p>对位置i上的值增1，并返回</p>
+<h3 id="decrementAndGet-int"><a href="#decrementAndGet-int" class="headerlink" title="decrementAndGet(int)"></a>decrementAndGet(int)</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">     * Atomically decrements by one the element at index &#123;<span class="doctag">@code</span> i&#125;.</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> i the index</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> the updated value</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">long</span> <span class="title">decrementAndGet</span><span class="params">(<span class="keyword">int</span> i)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> getAndAdd(i, -<span class="number">1</span>) - <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<p>对位置i上的值减1，并返回</p>
+<h3 id="addAndGet-int-long"><a href="#addAndGet-int-long" class="headerlink" title="addAndGet(int, long)"></a>addAndGet(int, long)</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">     * Atomically adds the given value to the element at index &#123;<span class="doctag">@code</span> i&#125;.</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> i the index</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> delta the value to add</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> the updated value</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">long</span> <span class="title">addAndGet</span><span class="params">(<span class="keyword">int</span> i, <span class="keyword">long</span> delta)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> getAndAdd(i, delta) + delta;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<p>对位置i上的值加上delta，并返回最新的值</p>
+<h3 id="getAndUpdate-int-LongUnaryOperator"><a href="#getAndUpdate-int-LongUnaryOperator" class="headerlink" title="getAndUpdate(int, LongUnaryOperator)"></a>getAndUpdate(int, LongUnaryOperator)</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">     * Atomically updates the element at index &#123;<span class="doctag">@code</span> i&#125; with the results</span></span><br><span class="line"><span class="comment">     * of applying the given function, returning the previous value. The</span></span><br><span class="line"><span class="comment">     * function should be side-effect-free, since it may be re-applied</span></span><br><span class="line"><span class="comment">     * when attempted updates fail due to contention among threads.</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> i the index</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> updateFunction a side-effect-free function</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> the previous value</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@since</span> 1.8</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">long</span> <span class="title">getAndUpdate</span><span class="params">(<span class="keyword">int</span> i, LongUnaryOperator updateFunction)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">long</span> offset = checkedByteOffset(i);</span><br><span class="line">        <span class="keyword">long</span> prev, next;</span><br><span class="line">        <span class="keyword">do</span> &#123;</span><br><span class="line">            prev = getRaw(offset);</span><br><span class="line">            next = updateFunction.applyAsLong(prev);</span><br><span class="line">        &#125; <span class="keyword">while</span> (!compareAndSetRaw(offset, prev, next));</span><br><span class="line">        <span class="keyword">return</span> prev;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<p>返回位置i上的值，并对位置i上的值应用单元函数updateFunction，更新位置i上的值。这里要求函数updateFunction是幂等的，即，多次执行结果是一致的，因为CAS操作可能失败。</p>
+<h3 id="updateAndGet-int-LongUnaryOperator"><a href="#updateAndGet-int-LongUnaryOperator" class="headerlink" title="updateAndGet(int, LongUnaryOperator)"></a>updateAndGet(int, LongUnaryOperator)</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">     * Atomically updates the element at index &#123;<span class="doctag">@code</span> i&#125; with the results</span></span><br><span class="line"><span class="comment">     * of applying the given function, returning the updated value. The</span></span><br><span class="line"><span class="comment">     * function should be side-effect-free, since it may be re-applied</span></span><br><span class="line"><span class="comment">     * when attempted updates fail due to contention among threads.</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> i the index</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> updateFunction a side-effect-free function</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> the updated value</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@since</span> 1.8</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">long</span> <span class="title">updateAndGet</span><span class="params">(<span class="keyword">int</span> i, LongUnaryOperator updateFunction)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">long</span> offset = checkedByteOffset(i);</span><br><span class="line">        <span class="keyword">long</span> prev, next;</span><br><span class="line">        <span class="keyword">do</span> &#123;</span><br><span class="line">            prev = getRaw(offset);</span><br><span class="line">            next = updateFunction.applyAsLong(prev);</span><br><span class="line">        &#125; <span class="keyword">while</span> (!compareAndSetRaw(offset, prev, next));</span><br><span class="line">        <span class="keyword">return</span> next;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<p>对位置i上的值应用单元函数updateFunction，并将应用后的值更新到位置i。要求单元函数是幂等的，因为CAS操作可能失败</p>
+<h3 id="getAndAccumulate-int-long-LongBinaryOperator"><a href="#getAndAccumulate-int-long-LongBinaryOperator" class="headerlink" title="getAndAccumulate(int, long, LongBinaryOperator)"></a>getAndAccumulate(int, long, LongBinaryOperator)</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">     * Atomically updates the element at index &#123;<span class="doctag">@code</span> i&#125; with the</span></span><br><span class="line"><span class="comment">     * results of applying the given function to the current and</span></span><br><span class="line"><span class="comment">     * given values, returning the previous value. The function should</span></span><br><span class="line"><span class="comment">     * be side-effect-free, since it may be re-applied when attempted</span></span><br><span class="line"><span class="comment">     * updates fail due to contention among threads.  The function is</span></span><br><span class="line"><span class="comment">     * applied with the current value at index &#123;<span class="doctag">@code</span> i&#125; as its first</span></span><br><span class="line"><span class="comment">     * argument, and the given update as the second argument.</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> i the index</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> x the update value</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> accumulatorFunction a side-effect-free function of two arguments</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> the previous value</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@since</span> 1.8</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">long</span> <span class="title">getAndAccumulate</span><span class="params">(<span class="keyword">int</span> i, <span class="keyword">long</span> x,</span></span></span><br><span class="line"><span class="function"><span class="params">                                      LongBinaryOperator accumulatorFunction)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">long</span> offset = checkedByteOffset(i);</span><br><span class="line">        <span class="keyword">long</span> prev, next;</span><br><span class="line">        <span class="keyword">do</span> &#123;</span><br><span class="line">            prev = getRaw(offset);</span><br><span class="line">            next = accumulatorFunction.applyAsLong(prev, x);</span><br><span class="line">        &#125; <span class="keyword">while</span> (!compareAndSetRaw(offset, prev, next));</span><br><span class="line">        <span class="keyword">return</span> prev;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<p>返回位置i上的值，并对位置i上的值应用二元函数accumulatorFunction，设置在位置i上。这里同样要求二元函数具有幂等性，因为CAS操作可能会失败。</p>
+<h3 id="accumulateAndGet-int-long-LongBinaryOperator"><a href="#accumulateAndGet-int-long-LongBinaryOperator" class="headerlink" title="accumulateAndGet(int, long, LongBinaryOperator)"></a>accumulateAndGet(int, long, LongBinaryOperator)</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">     * Atomically updates the element at index &#123;<span class="doctag">@code</span> i&#125; with the</span></span><br><span class="line"><span class="comment">     * results of applying the given function to the current and</span></span><br><span class="line"><span class="comment">     * given values, returning the updated value. The function should</span></span><br><span class="line"><span class="comment">     * be side-effect-free, since it may be re-applied when attempted</span></span><br><span class="line"><span class="comment">     * updates fail due to contention among threads.  The function is</span></span><br><span class="line"><span class="comment">     * applied with the current value at index &#123;<span class="doctag">@code</span> i&#125; as its first</span></span><br><span class="line"><span class="comment">     * argument, and the given update as the second argument.</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> i the index</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> x the update value</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> accumulatorFunction a side-effect-free function of two arguments</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> the updated value</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@since</span> 1.8</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">long</span> <span class="title">accumulateAndGet</span><span class="params">(<span class="keyword">int</span> i, <span class="keyword">long</span> x,</span></span></span><br><span class="line"><span class="function"><span class="params">                                      LongBinaryOperator accumulatorFunction)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">long</span> offset = checkedByteOffset(i);</span><br><span class="line">        <span class="keyword">long</span> prev, next;</span><br><span class="line">        <span class="keyword">do</span> &#123;</span><br><span class="line">            prev = getRaw(offset);</span><br><span class="line">            next = accumulatorFunction.applyAsLong(prev, x);</span><br><span class="line">        &#125; <span class="keyword">while</span> (!compareAndSetRaw(offset, prev, next));</span><br><span class="line">        <span class="keyword">return</span> next;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<p>对位置i上的值应用二元函数accumulatorFunction，设置在位置i上，然后返回位置i上的值。这里同样要求二元函数具有幂等性，因为CAS操作可能会失败。</p>
+<h3 id="toString-NaN"><a href="#toString-NaN" class="headerlink" title="toString()"></a>toString()</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">     * Returns the String representation of the current values of array.</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> the String representation of the current values of array</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">toString</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> iMax = array.length - <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">if</span> (iMax == -<span class="number">1</span>)</span><br><span class="line">            <span class="keyword">return</span> <span class="string">"[]"</span>;</span><br><span class="line"></span><br><span class="line">        StringBuilder b = <span class="keyword">new</span> StringBuilder();</span><br><span class="line">        b.append(<span class="string">'['</span>);</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; ; i++) &#123;</span><br><span class="line">            b.append(getRaw(byteOffset(i)));</span><br><span class="line">            <span class="keyword">if</span> (i == iMax)</span><br><span class="line">                <span class="keyword">return</span> b.append(<span class="string">']'</span>).toString();</span><br><span class="line">            b.append(<span class="string">','</span>).append(<span class="string">' '</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<p>返回<strong>[value, value,value]</strong>，这样的字符串。</p>
+<h2 id="应用"><a href="#应用" class="headerlink" title="应用"></a>应用</h2><p>下面就是用AtomicLongArray修改在多线程环境下存在问题的代码。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">UseAtomicLongArray</span> <span class="keyword">implements</span> <span class="title">Runnable</span> </span>&#123;</span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">static</span> AtomicLongArray longArray = <span class="keyword">new</span> AtomicLongArray(<span class="number">2</span>);</span><br><span class="line"></span><br><span class="line">	<span class="meta">@Override</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>;i &lt; <span class="number">10000</span>;i++) &#123;</span><br><span class="line">			longArray.addAndGet(<span class="number">0</span>, <span class="number">1</span>);</span><br><span class="line">			longArray.addAndGet(<span class="number">1</span>, <span class="number">1</span>);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">		UseAtomicLongArray unsafe = <span class="keyword">new</span> UseAtomicLongArray();</span><br><span class="line">		</span><br><span class="line">		<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>;i &lt; <span class="number">10</span>;i++) &#123;</span><br><span class="line">			Thread thread = <span class="keyword">new</span> Thread(unsafe);</span><br><span class="line">			thread.start();</span><br><span class="line">		&#125;</span><br><span class="line">		</span><br><span class="line">		<span class="keyword">try</span> &#123;</span><br><span class="line">			Thread.sleep(<span class="number">3000</span>);</span><br><span class="line">		&#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">			e.printStackTrace();</span><br><span class="line">		&#125;</span><br><span class="line">		</span><br><span class="line">		System.out.println(longArray.get(<span class="number">0</span>));</span><br><span class="line">		System.out.println(longArray.get(<span class="number">1</span>));</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>再执行多少次都不会影响结果了。</p>
+<p><img src="https://huhansi.github.io/images/2020-07-19-atomic9.png" alt></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Java/" rel="tag"># Java</a>
+          
+            <a href="/tags/%E5%A4%9A%E7%BA%BF%E7%A8%8B/" rel="tag"># 多线程</a>
+          
+            <a href="/tags/AtomicLongArray/" rel="tag"># AtomicLongArray</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2020/05/24/MySQL/2020-05-24-MySQL%E6%9F%A5%E8%AF%A2%E4%BC%98%E5%8C%96/" rel="next" title="MySQL查询优化">
+                <i class="fa fa-chevron-left"></i> MySQL查询优化
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2020/07/17/Java/%E5%A4%9A%E7%BA%BF%E7%A8%8B/2020-07-17-AtomicLongFieldUpdater%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90/" rel="prev" title="AtomicLongFieldUpdater源码解析">
+                AtomicLongFieldUpdater源码解析 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Han si</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/%7C%7C%20archive">
+              
+                  <span class="site-state-item-count">517</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">22</span>
+                  <span class="site-state-item-name">categories</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">310</span>
+                  <span class="site-state-item-name">tags</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:kw120943839@gmail.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#AtomicLongArray源码解析"><span class="nav-number">1.</span> <span class="nav-text">AtomicLongArray源码解析</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#AtomicLongArray类介绍"><span class="nav-number">1.1.</span> <span class="nav-text">AtomicLongArray类介绍</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#类图"><span class="nav-number">1.2.</span> <span class="nav-text">类图</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#主要属性"><span class="nav-number">1.3.</span> <span class="nav-text">主要属性</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#主要方法"><span class="nav-number">1.4.</span> <span class="nav-text">主要方法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#初始化"><span class="nav-number">1.4.1.</span> <span class="nav-text">初始化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#checkedByteOffset-int"><span class="nav-number">1.4.2.</span> <span class="nav-text">checkedByteOffset(int)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#byteOffset-int"><span class="nav-number">1.4.3.</span> <span class="nav-text">byteOffset(int)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#AtomicLongArray-int"><span class="nav-number">1.4.4.</span> <span class="nav-text">AtomicLongArray(int)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#AtomicLongArray-int-1"><span class="nav-number">1.4.5.</span> <span class="nav-text">AtomicLongArray(int[])</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#length"><span class="nav-number">1.4.6.</span> <span class="nav-text">length()</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#get-int"><span class="nav-number">1.4.7.</span> <span class="nav-text">get(int)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#getRaw-long-offset"><span class="nav-number">1.4.8.</span> <span class="nav-text">getRaw(long offset)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#set-int-long"><span class="nav-number">1.4.9.</span> <span class="nav-text">set(int , long)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#lazySet-int-long"><span class="nav-number">1.4.10.</span> <span class="nav-text">lazySet(int, long)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#getAndSet-int-long"><span class="nav-number">1.4.11.</span> <span class="nav-text">getAndSet(int, long)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#compareAndSet-int-long-long"><span class="nav-number">1.4.12.</span> <span class="nav-text">compareAndSet(int, long, long)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#compareAndSetRaw-long-long-long"><span class="nav-number">1.4.13.</span> <span class="nav-text">compareAndSetRaw(long, long, long)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#weakCompareAndSet-int-long-long"><span class="nav-number">1.4.14.</span> <span class="nav-text">weakCompareAndSet(int, long, long)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#getAndIncrement-int"><span class="nav-number">1.4.15.</span> <span class="nav-text">getAndIncrement(int)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#getAndDecrement-int"><span class="nav-number">1.4.16.</span> <span class="nav-text">getAndDecrement(int)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#getAndAdd-int-long"><span class="nav-number">1.4.17.</span> <span class="nav-text">getAndAdd(int, long)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#incrementAndGet-int"><span class="nav-number">1.4.18.</span> <span class="nav-text">incrementAndGet(int)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#decrementAndGet-int"><span class="nav-number">1.4.19.</span> <span class="nav-text">decrementAndGet(int)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#addAndGet-int-long"><span class="nav-number">1.4.20.</span> <span class="nav-text">addAndGet(int, long)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#getAndUpdate-int-LongUnaryOperator"><span class="nav-number">1.4.21.</span> <span class="nav-text">getAndUpdate(int, LongUnaryOperator)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#updateAndGet-int-LongUnaryOperator"><span class="nav-number">1.4.22.</span> <span class="nav-text">updateAndGet(int, LongUnaryOperator)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#getAndAccumulate-int-long-LongBinaryOperator"><span class="nav-number">1.4.23.</span> <span class="nav-text">getAndAccumulate(int, long, LongBinaryOperator)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#accumulateAndGet-int-long-LongBinaryOperator"><span class="nav-number">1.4.24.</span> <span class="nav-text">accumulateAndGet(int, long, LongBinaryOperator)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#toString-NaN"><span class="nav-number">1.4.25.</span> <span class="nav-text">toString()</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#应用"><span class="nav-number">1.5.</span> <span class="nav-text">应用</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Han si</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('-1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

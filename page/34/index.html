@@ -293,7 +293,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://huhansi.com/2020/03/12/Java/%E5%A4%9A%E7%BA%BF%E7%A8%8B/2020-03-12-%E5%A4%9A%E7%BA%BF%E7%A8%8B-07-ConcurrentHashMap%E5%9C%A8Java1.7%E5%92%8C1.8%E4%B8%AD%E7%9A%84%E5%8C%BA%E5%88%AB/">
+    <link itemprop="mainEntityOfPage" href="http://huhansi.com/2020/03/24/LeetCode/leetcode-000152.-Maximum-Product-Subarray/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Han si">
@@ -312,7 +312,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2020/03/12/Java/%E5%A4%9A%E7%BA%BF%E7%A8%8B/2020-03-12-%E5%A4%9A%E7%BA%BF%E7%A8%8B-07-ConcurrentHashMap%E5%9C%A8Java1.7%E5%92%8C1.8%E4%B8%AD%E7%9A%84%E5%8C%BA%E5%88%AB/" itemprop="url">ConcurrentHashMap在Java1.7和1.8中的区别</a></h1>
+                <a class="post-title-link" href="/2020/03/24/LeetCode/leetcode-000152.-Maximum-Product-Subarray/" itemprop="url">152. Maximum Product Subarray</a></h1>
         
 
         <div class="post-meta">
@@ -324,763 +324,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-03-12T00:00:00+08:00">
-                2020-03-12
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Java/" itemprop="url" rel="index">
-                    <span itemprop="name">Java</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-          ConcurrentHashMap在Java 7和Java 8中的区别ConcurrentHashMap在Java中一直是一个多线程的大杀器。在多线程环境下，使用它就可以免去使用HashMap造成的线程不安全的问题。鉴于Java 8已经出来N久了，在各个方面和Java 7都有所不同。下面我们就从源码
-          ...
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2020/03/12/Java/%E5%A4%9A%E7%BA%BF%E7%A8%8B/2020-03-12-%E5%A4%9A%E7%BA%BF%E7%A8%8B-07-ConcurrentHashMap%E5%9C%A8Java1.7%E5%92%8C1.8%E4%B8%AD%E7%9A%84%E5%8C%BA%E5%88%AB/#more" rel="contents">
-              Read more &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://huhansi.com/2020/03/12/Java/%E5%A4%9A%E7%BA%BF%E7%A8%8B/2020-03-12-%E5%A4%9A%E7%BA%BF%E7%A8%8B-05-Java-CAS-%E8%A7%A3%E6%9E%90/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Han si">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hansi Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2020/03/12/Java/%E5%A4%9A%E7%BA%BF%E7%A8%8B/2020-03-12-%E5%A4%9A%E7%BA%BF%E7%A8%8B-05-Java-CAS-%E8%A7%A3%E6%9E%90/" itemprop="url">CAS算法解析</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-03-12T00:00:00+08:00">
-                2020-03-12
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Java/" itemprop="url" rel="index">
-                    <span itemprop="name">Java</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-          CAS算法CAS（比较与交换，Compare and swap） 是一种有名的无锁算法。无锁编程，即不使用锁的情况下实现多线程之间的变量同步，也就是在没有线程被阻塞的情况下实现变量的同步，所以也叫非阻塞同步（Non-blocking Synchronization）。实现非阻塞同步的方案称为“无锁编
-          ...
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2020/03/12/Java/%E5%A4%9A%E7%BA%BF%E7%A8%8B/2020-03-12-%E5%A4%9A%E7%BA%BF%E7%A8%8B-05-Java-CAS-%E8%A7%A3%E6%9E%90/#more" rel="contents">
-              Read more &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://huhansi.com/2020/03/10/Java/%E5%A4%9A%E7%BA%BF%E7%A8%8B/2020-03-10-%E5%A4%9A%E7%BA%BF%E7%A8%8B-01-Java%E4%B8%AD%E7%9A%84%E9%94%81/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Han si">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hansi Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2020/03/10/Java/%E5%A4%9A%E7%BA%BF%E7%A8%8B/2020-03-10-%E5%A4%9A%E7%BA%BF%E7%A8%8B-01-Java%E4%B8%AD%E7%9A%84%E9%94%81/" itemprop="url">Java中的锁</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-03-10T00:00:00+08:00">
-                2020-03-10
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Java/" itemprop="url" rel="index">
-                    <span itemprop="name">Java</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-          Java中的锁Java中的锁分类在Java中，锁大致可以分为这些：
-
-公平锁/非公平锁
-可重入锁/非可重入锁
-排他锁（独享锁）/共享锁
-乐观锁/悲观锁
-分段锁
-无锁/偏向锁/轻量级锁/重量级锁
-自旋锁/适应性自旋锁
-
-这里并不是指的锁的状态，有些针对的是锁的特性。
-公平锁/非公平锁公平锁公平锁是指多
-          ...
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2020/03/10/Java/%E5%A4%9A%E7%BA%BF%E7%A8%8B/2020-03-10-%E5%A4%9A%E7%BA%BF%E7%A8%8B-01-Java%E4%B8%AD%E7%9A%84%E9%94%81/#more" rel="contents">
-              Read more &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://huhansi.com/2020/03/10/Java/%E5%A4%9A%E7%BA%BF%E7%A8%8B/2020-03-10-%E5%A4%9A%E7%BA%BF%E7%A8%8B-02-synchronized%E5%85%B3%E9%94%AE%E5%AD%97%E8%A7%A3%E6%9E%90/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Han si">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hansi Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2020/03/10/Java/%E5%A4%9A%E7%BA%BF%E7%A8%8B/2020-03-10-%E5%A4%9A%E7%BA%BF%E7%A8%8B-02-synchronized%E5%85%B3%E9%94%AE%E5%AD%97%E8%A7%A3%E6%9E%90/" itemprop="url">synchronized关键字解析</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-03-10T00:00:00+08:00">
-                2020-03-10
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Java/" itemprop="url" rel="index">
-                    <span itemprop="name">Java</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-          synchronized关键字解析synchronized关键字的作用synchronized是Java在语言层面提供的一个用于线程并发同步的关键字。它可以应用在三个方面。
-
-修饰实例方法：作用于当前实例对象，对当前实例对象加锁，进入同步代码前需要获取当前实例的锁。
-修饰静态方法：作用于当前类对象（
-          ...
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2020/03/10/Java/%E5%A4%9A%E7%BA%BF%E7%A8%8B/2020-03-10-%E5%A4%9A%E7%BA%BF%E7%A8%8B-02-synchronized%E5%85%B3%E9%94%AE%E5%AD%97%E8%A7%A3%E6%9E%90/#more" rel="contents">
-              Read more &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://huhansi.com/2020/03/10/Java/%E5%A4%9A%E7%BA%BF%E7%A8%8B/2020-03-12-%E5%A4%9A%E7%BA%BF%E7%A8%8B-06-ReentrantReadWriteLock%E8%A7%A3%E6%9E%90/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Han si">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hansi Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2020/03/10/Java/%E5%A4%9A%E7%BA%BF%E7%A8%8B/2020-03-12-%E5%A4%9A%E7%BA%BF%E7%A8%8B-06-ReentrantReadWriteLock%E8%A7%A3%E6%9E%90/" itemprop="url">ReentrantReadWriteLock解析</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-03-10T00:00:00+08:00">
-                2020-03-10
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Java/" itemprop="url" rel="index">
-                    <span itemprop="name">Java</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-          ReentrantReadWriteLock解析前文提到的synchronized关键和和ReentrantLock，它们都是独占式锁，排他锁。在同一时刻只能有一个线程获取多。这个就非常不适合那种读多写少的场景。
-如果有多个线程需要读取共享数据，极少数甚至只有一个线程写共享数据的话，就非常不划算了。
-          ...
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2020/03/10/Java/%E5%A4%9A%E7%BA%BF%E7%A8%8B/2020-03-12-%E5%A4%9A%E7%BA%BF%E7%A8%8B-06-ReentrantReadWriteLock%E8%A7%A3%E6%9E%90/#more" rel="contents">
-              Read more &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://huhansi.com/2020/03/03/LeetCode/leetcode-001281.%20Subtract%20the%20Product%20and%20Sum%20of%20Digits%20of%20an%20Integer/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Han si">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hansi Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2020/03/03/LeetCode/leetcode-001281.%20Subtract%20the%20Product%20and%20Sum%20of%20Digits%20of%20an%20Integer/" itemprop="url">1281. Subtract the Product and Sum of Digits of an Integer</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-03-03T00:00:00+08:00">
-                2020-03-03
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-03-24T00:00:00+08:00">
+                2020-03-24
               </time>
             
 
@@ -1141,12 +386,12 @@
       
         
           
-          题目Given an integer number n, return the difference between the product of its digits and the sum of its digits.
-Example 1:123456Input: n &#x3D; 234Out
+          题目Given an integer array nums, find the contiguous subarray within an array (containing at least one number) which has the largest product.
+Example 1:
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2020/03/03/LeetCode/leetcode-001281.%20Subtract%20the%20Product%20and%20Sum%20of%20Digits%20of%20an%20Integer/#more" rel="contents">
+            <a class="btn" href="/2020/03/24/LeetCode/leetcode-000152.-Maximum-Product-Subarray/#more" rel="contents">
               Read more &raquo;
             </a>
           </div>
@@ -1197,7 +442,7 @@ Example 1:123456Input: n &#x3D; 234Out
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://huhansi.com/2020/03/02/LeetCode/leetcode-001365.-How-Many-Numbers-Are-Smaller-Than-the-Current-Number/">
+    <link itemprop="mainEntityOfPage" href="http://huhansi.com/2020/03/24/LeetCode/leetcode-000154.-Find%20Minimum%20in%20Rotated%20Sorted%20Array%20II/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Han si">
@@ -1216,7 +461,7 @@ Example 1:123456Input: n &#x3D; 234Out
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2020/03/02/LeetCode/leetcode-001365.-How-Many-Numbers-Are-Smaller-Than-the-Current-Number/" itemprop="url">1365. How Many Numbers Are Smaller Than the Current Number</a></h1>
+                <a class="post-title-link" href="/2020/03/24/LeetCode/leetcode-000154.-Find%20Minimum%20in%20Rotated%20Sorted%20Array%20II/" itemprop="url">153. Find Minimum in Rotated Sorted Array II</a></h1>
         
 
         <div class="post-meta">
@@ -1228,8 +473,8 @@ Example 1:123456Input: n &#x3D; 234Out
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-03-02T00:00:00+08:00">
-                2020-03-02
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-03-24T00:00:00+08:00">
+                2020-03-24
               </time>
             
 
@@ -1290,11 +535,12 @@ Example 1:123456Input: n &#x3D; 234Out
       
         
           
-          题目Given the array nums, for each nums[i] find out how many numbers in the array are smaller than it. That is, for each nums[i] you have to count the n
+          题目Suppose an array sorted in ascending order is rotated at some pivot unknown to you beforehand.
+(i.e.,  [0,1,2,4,5,6,7] might become  [4,5,6,7,0,1,2]
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2020/03/02/LeetCode/leetcode-001365.-How-Many-Numbers-Are-Smaller-Than-the-Current-Number/#more" rel="contents">
+            <a class="btn" href="/2020/03/24/LeetCode/leetcode-000154.-Find%20Minimum%20in%20Rotated%20Sorted%20Array%20II/#more" rel="contents">
               Read more &raquo;
             </a>
           </div>
@@ -1345,7 +591,7 @@ Example 1:123456Input: n &#x3D; 234Out
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://huhansi.com/2019/04/02/%E5%AE%89%E5%85%A8/Web%E5%AE%89%E5%85%A8/6-XSS%E6%94%BB%E5%87%BB/">
+    <link itemprop="mainEntityOfPage" href="http://huhansi.com/2020/03/24/LeetCode/leetcode-000162.%20Find%20Peak%20Element/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Han si">
@@ -1364,7 +610,7 @@ Example 1:123456Input: n &#x3D; 234Out
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/04/02/%E5%AE%89%E5%85%A8/Web%E5%AE%89%E5%85%A8/6-XSS%E6%94%BB%E5%87%BB/" itemprop="url">XSS攻击</a></h1>
+                <a class="post-title-link" href="/2020/03/24/LeetCode/leetcode-000162.%20Find%20Peak%20Element/" itemprop="url">162. Find Peak Element</a></h1>
         
 
         <div class="post-meta">
@@ -1376,8 +622,8 @@ Example 1:123456Input: n &#x3D; 234Out
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-04-02T00:00:00+08:00">
-                2019-04-02
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-03-24T00:00:00+08:00">
+                2020-03-24
               </time>
             
 
@@ -1399,8 +645,8 @@ Example 1:123456Input: n &#x3D; 234Out
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Web%E5%AE%89%E5%85%A8/" itemprop="url" rel="index">
-                    <span itemprop="name">Web安全</span>
+                  <a href="/categories/leetcode/" itemprop="url" rel="index">
+                    <span itemprop="name">leetcode</span>
                   </a>
                 </span>
 
@@ -1438,11 +684,15 @@ Example 1:123456Input: n &#x3D; 234Out
       
         
           
-          XSS攻击跨站点脚本（XSS）是Web应用程序中发现的最为普遍的漏洞，困扰着现在绝大多数的应用程序，包括因特网上一些最为注重安全的应用程序。XSS漏洞表现为各种形式，并且可分为3种类型：反射型、保存型和基于DOM的XSS漏洞。虽然这些漏洞具有一些相同的特点，但在如何确定及利用这些漏洞方面，仍然存在一
+          题目峰值元素是指其值大于左右相邻值的元素。
+给定一个输入数组 nums，其中 nums[i] ≠ nums[i+1]，找到峰值元素并返回其索引。
+数组可能包含多个峰值，在这种情况下，返回任何一个峰值所在位置即可。
+你可以假设 nums[-1] = nums[n] = -∞。
+示例 1:123Inpu
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2019/04/02/%E5%AE%89%E5%85%A8/Web%E5%AE%89%E5%85%A8/6-XSS%E6%94%BB%E5%87%BB/#more" rel="contents">
+            <a class="btn" href="/2020/03/24/LeetCode/leetcode-000162.%20Find%20Peak%20Element/#more" rel="contents">
               Read more &raquo;
             </a>
           </div>
@@ -1493,7 +743,7 @@ Example 1:123456Input: n &#x3D; 234Out
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://huhansi.com/2019/04/01/%E5%AE%89%E5%85%A8/Web%E5%AE%89%E5%85%A8/5-5-%E6%B3%A8%E5%85%A5email/">
+    <link itemprop="mainEntityOfPage" href="http://huhansi.com/2020/03/24/LeetCode/leetcode-001046.%20Last%20Stone%20Weight/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Han si">
@@ -1512,7 +762,7 @@ Example 1:123456Input: n &#x3D; 234Out
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/04/01/%E5%AE%89%E5%85%A8/Web%E5%AE%89%E5%85%A8/5-5-%E6%B3%A8%E5%85%A5email/" itemprop="url">注入电子邮件</a></h1>
+                <a class="post-title-link" href="/2020/03/24/LeetCode/leetcode-001046.%20Last%20Stone%20Weight/" itemprop="url">1046. Last Stone Weight</a></h1>
         
 
         <div class="post-meta">
@@ -1524,8 +774,8 @@ Example 1:123456Input: n &#x3D; 234Out
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-04-01T00:00:00+08:00">
-                2019-04-01
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-03-24T00:00:00+08:00">
+                2020-03-24
               </time>
             
 
@@ -1547,8 +797,8 @@ Example 1:123456Input: n &#x3D; 234Out
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Web%E5%AE%89%E5%85%A8/" itemprop="url" rel="index">
-                    <span itemprop="name">Web安全</span>
+                  <a href="/categories/leetcode/" itemprop="url" rel="index">
+                    <span itemprop="name">leetcode</span>
                   </a>
                 </span>
 
@@ -1586,11 +836,12 @@ Example 1:123456Input: n &#x3D; 234Out
       
         
           
-          注入电子邮件许多应用程序拥有一项允许用户通过应用程序提交消息的功能。例如，向支持人员报告问题或提供关于Web点反馈。这项功能一般通过邮件（或SMTP）服务器执行。通常，用户提交的输入被插入到邮件服务器处理的SMTP会话中。如果攻击者能够提交未被过滤或净化的专门设计的输入，就可以在这个会话中注入任意S
+          题目We have a collection of rocks, each rock has a positive integer weight.
+Each turn, we choose the two heaviest rocks and smash them together. Suppose
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2019/04/01/%E5%AE%89%E5%85%A8/Web%E5%AE%89%E5%85%A8/5-5-%E6%B3%A8%E5%85%A5email/#more" rel="contents">
+            <a class="btn" href="/2020/03/24/LeetCode/leetcode-001046.%20Last%20Stone%20Weight/#more" rel="contents">
               Read more &raquo;
             </a>
           </div>
@@ -1641,7 +892,7 @@ Example 1:123456Input: n &#x3D; 234Out
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://huhansi.com/2019/03/29/%E5%AE%89%E5%85%A8/Web%E5%AE%89%E5%85%A8/5-3-%E6%B3%A8%E5%85%A5XML%E8%A7%A3%E9%87%8A%E5%99%A8/">
+    <link itemprop="mainEntityOfPage" href="http://huhansi.com/2020/03/24/LeetCode/leetcode-001213-%E4%B8%89%E4%B8%AA%E6%9C%89%E5%BA%8F%E6%95%B0%E7%BB%84%E7%9A%84%E4%BA%A4%E9%9B%86/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Han si">
@@ -1660,7 +911,7 @@ Example 1:123456Input: n &#x3D; 234Out
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/03/29/%E5%AE%89%E5%85%A8/Web%E5%AE%89%E5%85%A8/5-3-%E6%B3%A8%E5%85%A5XML%E8%A7%A3%E9%87%8A%E5%99%A8/" itemprop="url">注入XML解释器</a></h1>
+                <a class="post-title-link" href="/2020/03/24/LeetCode/leetcode-001213-%E4%B8%89%E4%B8%AA%E6%9C%89%E5%BA%8F%E6%95%B0%E7%BB%84%E7%9A%84%E4%BA%A4%E9%9B%86/" itemprop="url">1389. Create Target Array in the Given Order</a></h1>
         
 
         <div class="post-meta">
@@ -1672,8 +923,8 @@ Example 1:123456Input: n &#x3D; 234Out
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-03-29T00:00:00+08:00">
-                2019-03-29
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-03-24T00:00:00+08:00">
+                2020-03-24
               </time>
             
 
@@ -1695,8 +946,8 @@ Example 1:123456Input: n &#x3D; 234Out
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Web%E5%AE%89%E5%85%A8/" itemprop="url" rel="index">
-                    <span itemprop="name">Web安全</span>
+                  <a href="/categories/leetcode/" itemprop="url" rel="index">
+                    <span itemprop="name">leetcode</span>
                   </a>
                 </span>
 
@@ -1734,12 +985,761 @@ Example 1:123456Input: n &#x3D; 234Out
       
         
           
-          注入XML解释器今天的Web应用程序大量使用XML，在浏览器与前端应用程序服务器之间传送的请求和响应，以及在后端应用程序组件（如SOAP服务）之间传送的消息中都可以找到XML。如果使用专门设计的输入破坏应用程序的运行并执行某些未授权的操作，这些位置就易于受到各种攻击。
-注入XML外部实体在今天的We
+          题目给出三个均为 严格递增排列 的整数数组 arr1，arr2 和 arr3。
+返回一个由 仅 在这三个数组中 同时出现 的整数所构成的有序数组。
+示例1：123输入: arr1 &#x3D; [1,2,3,4,5], arr2 &#x3D; [1,2,5,7,9], arr3 &#x3D; [1,
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2019/03/29/%E5%AE%89%E5%85%A8/Web%E5%AE%89%E5%85%A8/5-3-%E6%B3%A8%E5%85%A5XML%E8%A7%A3%E9%87%8A%E5%99%A8/#more" rel="contents">
+            <a class="btn" href="/2020/03/24/LeetCode/leetcode-001213-%E4%B8%89%E4%B8%AA%E6%9C%89%E5%BA%8F%E6%95%B0%E7%BB%84%E7%9A%84%E4%BA%A4%E9%9B%86/#more" rel="contents">
+              Read more &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://huhansi.com/2020/03/24/LeetCode/leetcode-001389.%20Create%20Target%20Array%20in%20the%20Given%20Order/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Han si">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hansi Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2020/03/24/LeetCode/leetcode-001389.%20Create%20Target%20Array%20in%20the%20Given%20Order/" itemprop="url">1389. Create Target Array in the Given Order</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-03-24T00:00:00+08:00">
+                2020-03-24
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/leetcode/" itemprop="url" rel="index">
+                    <span itemprop="name">leetcode</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+          题目Given two arrays of integers nums and index. Your task is to create target array under the following rules:
+
+Initially target array is empty.
+From l
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2020/03/24/LeetCode/leetcode-001389.%20Create%20Target%20Array%20in%20the%20Given%20Order/#more" rel="contents">
+              Read more &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://huhansi.com/2020/03/24/LeetCode/leetcode-1188.-%E8%AE%BE%E8%AE%A1%E6%9C%89%E9%99%90%E9%98%BB%E5%A1%9E%E9%98%9F%E5%88%97/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Han si">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hansi Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2020/03/24/LeetCode/leetcode-1188.-%E8%AE%BE%E8%AE%A1%E6%9C%89%E9%99%90%E9%98%BB%E5%A1%9E%E9%98%9F%E5%88%97/" itemprop="url">1188. 设计有限阻塞队列</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-03-24T00:00:00+08:00">
+                2020-03-24
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/leetcode/" itemprop="url" rel="index">
+                    <span itemprop="name">leetcode</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+          题目实现一个拥有如下方法的线程安全有限阻塞队列：
+BoundedBlockingQueue(int capacity) 构造方法初始化队列，其中capacity代表队列长度上限。
+void enqueue(int element) 在队首增加一个element. 如果队列满，调用线程被阻塞直到队列非
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2020/03/24/LeetCode/leetcode-1188.-%E8%AE%BE%E8%AE%A1%E6%9C%89%E9%99%90%E9%98%BB%E5%A1%9E%E9%98%9F%E5%88%97/#more" rel="contents">
+              Read more &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://huhansi.com/2020/03/20/Java/%E5%A4%9A%E7%BA%BF%E7%A8%8B/2020-03-20-Lock%E5%92%8CCondition%E7%9A%84%E5%BA%94%E7%94%A8/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Han si">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hansi Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2020/03/20/Java/%E5%A4%9A%E7%BA%BF%E7%A8%8B/2020-03-20-Lock%E5%92%8CCondition%E7%9A%84%E5%BA%94%E7%94%A8/" itemprop="url">Lock和Condition的应用</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-03-20T00:00:00+08:00">
+                2020-03-20
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Java/" itemprop="url" rel="index">
+                    <span itemprop="name">Java</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+          Condition对象Java提供了Condition对象来实现等待/通知。
+Object对象提供了wait、waitAll、notify、notifyAll的方法用来实现线程的同步、等待和唤醒。Condition类提供了比wait/notify更丰富的功能，Condition对象由lock对象所创
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2020/03/20/Java/%E5%A4%9A%E7%BA%BF%E7%A8%8B/2020-03-20-Lock%E5%92%8CCondition%E7%9A%84%E5%BA%94%E7%94%A8/#more" rel="contents">
+              Read more &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://huhansi.com/2020/03/18/LeetCode/leetcode-000905.Sort%20Array%20By%20Parity/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Han si">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hansi Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2020/03/18/LeetCode/leetcode-000905.Sort%20Array%20By%20Parity/" itemprop="url">905. Sort Array By Parity</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-03-18T00:00:00+08:00">
+                2020-03-18
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/leetcode/" itemprop="url" rel="index">
+                    <span itemprop="name">leetcode</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+          题目Given an array A of non-negative integers, return an array consisting of all the even elements of A, followed by all the odd elements of A.
+You may 
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2020/03/18/LeetCode/leetcode-000905.Sort%20Array%20By%20Parity/#more" rel="contents">
+              Read more &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://huhansi.com/2020/03/18/LeetCode/leetcode-001108.%20Defanging%20an%20IP%20Address/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Han si">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hansi Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2020/03/18/LeetCode/leetcode-001108.%20Defanging%20an%20IP%20Address/" itemprop="url">1108. Defanging an IP Address</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-03-18T00:00:00+08:00">
+                2020-03-18
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/leetcode/" itemprop="url" rel="index">
+                    <span itemprop="name">leetcode</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+          题目Given a valid (IPv4) IP address, return a defanged version of that IP address.
+A defanged IP address replaces every period &quot;.&quot; with &quot;
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2020/03/18/LeetCode/leetcode-001108.%20Defanging%20an%20IP%20Address/#more" rel="contents">
               Read more &raquo;
             </a>
           </div>
@@ -1781,7 +1781,7 @@ Example 1:123456Input: n &#x3D; 234Out
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/33/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/33/">33</a><span class="page-number current">34</span><a class="page-number" href="/page/35/">35</a><span class="space">&hellip;</span><a class="page-number" href="/page/51/">51</a><a class="extend next" rel="next" href="/page/35/"><i class="fa fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" href="/page/33/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/33/">33</a><span class="page-number current">34</span><a class="page-number" href="/page/35/">35</a><span class="space">&hellip;</span><a class="page-number" href="/page/52/">52</a><a class="extend next" rel="next" href="/page/35/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -1827,7 +1827,7 @@ Example 1:123456Input: n &#x3D; 234Out
               
                 <a href="/archives/%7C%7C%20archive">
               
-                  <span class="site-state-item-count">501</span>
+                  <span class="site-state-item-count">517</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -1838,7 +1838,7 @@ Example 1:123456Input: n &#x3D; 234Out
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">20</span>
+                  <span class="site-state-item-count">22</span>
                   <span class="site-state-item-name">categories</span>
                 </a>
               </div>
@@ -1849,7 +1849,7 @@ Example 1:123456Input: n &#x3D; 234Out
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">294</span>
+                  <span class="site-state-item-count">310</span>
                   <span class="site-state-item-name">tags</span>
                 </a>
               </div>

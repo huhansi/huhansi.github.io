@@ -293,7 +293,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://huhansi.com/2020/05/05/Java/Java%E5%9F%BA%E7%A1%80/2020-05-05-ArrayBlockingQueue%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90/">
+    <link itemprop="mainEntityOfPage" href="http://huhansi.com/2020/07/17/Java/%E5%A4%9A%E7%BA%BF%E7%A8%8B/2020-07-17-AtomicMarkableReference%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Han si">
@@ -312,7 +312,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2020/05/05/Java/Java%E5%9F%BA%E7%A1%80/2020-05-05-ArrayBlockingQueue%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90/" itemprop="url">ArrayBlockingQueue源码解析</a></h1>
+                <a class="post-title-link" href="/2020/07/17/Java/%E5%A4%9A%E7%BA%BF%E7%A8%8B/2020-07-17-AtomicMarkableReference%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90/" itemprop="url">AtomicMarkableReference源码解析</a></h1>
         
 
         <div class="post-meta">
@@ -324,8 +324,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-05-05T00:00:00+08:00">
-                2020-05-05
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-07-17T00:00:00+08:00">
+                2020-07-17
               </time>
             
 
@@ -354,6 +354,28 @@
 
                 
                 
+                  , 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%BA%90%E7%A0%81/%E5%A4%9A%E7%BA%BF%E7%A8%8B/" itemprop="url" rel="index">
+                    <span itemprop="name">多线程</span>
+                  </a>
+                </span>
+
+                
+                
+                  , 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%BA%90%E7%A0%81/%E5%A4%9A%E7%BA%BF%E7%A8%8B/CAS/" itemprop="url" rel="index">
+                    <span itemprop="name">CAS</span>
+                  </a>
+                </span>
+
+                
+                
               
             </span>
           
@@ -386,14 +408,12 @@
       
         
           
-          ArrayBlockingQueue源码解析ArrayBlockingQueue是一个用数组实现的有界阻塞队列，内部按先进先出的原则对元素进行排序。
-类图ArrayBlockingQueue的类图如下所示：
-
-ArrayBlockingQueue实现了BlockingQueue接口和继承了Abstr
+          AtomicMarkableReference源码解析AtomicMarkableReference类介绍AtomicMarkableReference类是JDK提供的可以原子操作引用的类。而它为了解决“ABA”问题，又引入了一个mark变量。简单地标记下当前引用是否被修改过。
+“ABA”问题就是说
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2020/05/05/Java/Java%E5%9F%BA%E7%A1%80/2020-05-05-ArrayBlockingQueue%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90/#more" rel="contents">
+            <a class="btn" href="/2020/07/17/Java/%E5%A4%9A%E7%BA%BF%E7%A8%8B/2020-07-17-AtomicMarkableReference%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90/#more" rel="contents">
               Read more &raquo;
             </a>
           </div>
@@ -444,7 +464,7 @@ ArrayBlockingQueue实现了BlockingQueue接口和继承了Abstr
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://huhansi.com/2020/05/05/Java/Java%E5%9F%BA%E7%A1%80/2020-05-05-ConcurrentLinkerQueue%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90/">
+    <link itemprop="mainEntityOfPage" href="http://huhansi.com/2020/07/17/Java/%E5%A4%9A%E7%BA%BF%E7%A8%8B/2020-07-17-LongAccumulator%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Han si">
@@ -463,7 +483,7 @@ ArrayBlockingQueue实现了BlockingQueue接口和继承了Abstr
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2020/05/05/Java/Java%E5%9F%BA%E7%A1%80/2020-05-05-ConcurrentLinkerQueue%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90/" itemprop="url">ConcurrentLinkedQueue源码解析</a></h1>
+                <a class="post-title-link" href="/2020/07/17/Java/%E5%A4%9A%E7%BA%BF%E7%A8%8B/2020-07-17-LongAccumulator%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90/" itemprop="url">LongAccumulator源码解析</a></h1>
         
 
         <div class="post-meta">
@@ -475,8 +495,8 @@ ArrayBlockingQueue实现了BlockingQueue接口和继承了Abstr
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-05-05T00:00:00+08:00">
-                2020-05-05
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-07-17T00:00:00+08:00">
+                2020-07-17
               </time>
             
 
@@ -505,6 +525,28 @@ ArrayBlockingQueue实现了BlockingQueue接口和继承了Abstr
 
                 
                 
+                  , 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%BA%90%E7%A0%81/%E5%A4%9A%E7%BA%BF%E7%A8%8B/" itemprop="url" rel="index">
+                    <span itemprop="name">多线程</span>
+                  </a>
+                </span>
+
+                
+                
+                  , 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%BA%90%E7%A0%81/%E5%A4%9A%E7%BA%BF%E7%A8%8B/CAS/" itemprop="url" rel="index">
+                    <span itemprop="name">CAS</span>
+                  </a>
+                </span>
+
+                
+                
               
             </span>
           
@@ -537,12 +579,13 @@ ArrayBlockingQueue实现了BlockingQueue接口和继承了Abstr
       
         
           
-          ConcurrentLinkedQueue源码解析ConcurrentLinkedQueue是一个基于链表节点Node的无界线程安全队列。它是一个先进先出队列，头结点是在这个队列中最久的节点，尾节点是在这个队列中最新的节点。每次插入新节点都从尾部插入，获取节点就从头部插入。
-ConcurrentLi
+          LongAccumulator源码解析LongAccumulator类介绍LongAccumulator也是JDK提供的基于Striped64实现的线程安全的long累加器。
+类图
+主要属性12private final LongBinaryOperator function;private fin
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2020/05/05/Java/Java%E5%9F%BA%E7%A1%80/2020-05-05-ConcurrentLinkerQueue%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90/#more" rel="contents">
+            <a class="btn" href="/2020/07/17/Java/%E5%A4%9A%E7%BA%BF%E7%A8%8B/2020-07-17-LongAccumulator%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90/#more" rel="contents">
               Read more &raquo;
             </a>
           </div>
@@ -593,7 +636,7 @@ ConcurrentLi
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://huhansi.com/2020/05/05/Java/Java%E5%9F%BA%E7%A1%80/2020-05-05-PriotityBlockingQueue%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90/">
+    <link itemprop="mainEntityOfPage" href="http://huhansi.com/2020/07/17/Java/%E5%A4%9A%E7%BA%BF%E7%A8%8B/2020-07-17-Striped64%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Han si">
@@ -612,7 +655,7 @@ ConcurrentLi
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2020/05/05/Java/Java%E5%9F%BA%E7%A1%80/2020-05-05-PriotityBlockingQueue%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90/" itemprop="url">PriotityBlockingQueue源码解析</a></h1>
+                <a class="post-title-link" href="/2020/07/17/Java/%E5%A4%9A%E7%BA%BF%E7%A8%8B/2020-07-17-Striped64%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90/" itemprop="url">Striped64源码解析</a></h1>
         
 
         <div class="post-meta">
@@ -624,8 +667,8 @@ ConcurrentLi
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-05-05T00:00:00+08:00">
-                2020-05-05
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-07-17T00:00:00+08:00">
+                2020-07-17
               </time>
             
 
@@ -654,6 +697,28 @@ ConcurrentLi
 
                 
                 
+                  , 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%BA%90%E7%A0%81/%E5%A4%9A%E7%BA%BF%E7%A8%8B/" itemprop="url" rel="index">
+                    <span itemprop="name">多线程</span>
+                  </a>
+                </span>
+
+                
+                
+                  , 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%BA%90%E7%A0%81/%E5%A4%9A%E7%BA%BF%E7%A8%8B/CAS/" itemprop="url" rel="index">
+                    <span itemprop="name">CAS</span>
+                  </a>
+                </span>
+
+                
+                
               
             </span>
           
@@ -686,11 +751,11 @@ ConcurrentLi
       
         
           
-          PriotityBlockingQueue源码解析PriotityBlockingQueue是待优先级的无界阻塞队列，每次出队都返回优先级最高或者最低的元素。其内部是使用平衡二叉树堆实现的，所以直接遍历队列元素不保证有序。默认使用对象的compareTo方法提供比较规则，如果需要自定义比较规则，可以
+          Striped64源码解析Striped64类介绍Striped64是Java8中新增用来支持累加器的并发组件。它可以在并发环境下做一个安全的计数器。它的设计思路，借鉴了JAVA7中的ConcurrentHashmap的分段思想，在竞争的时候，尽量分散竞争。从实现上来看，Striped64维护了一个
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2020/05/05/Java/Java%E5%9F%BA%E7%A1%80/2020-05-05-PriotityBlockingQueue%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90/#more" rel="contents">
+            <a class="btn" href="/2020/07/17/Java/%E5%A4%9A%E7%BA%BF%E7%A8%8B/2020-07-17-Striped64%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90/#more" rel="contents">
               Read more &raquo;
             </a>
           </div>
@@ -741,7 +806,7 @@ ConcurrentLi
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://huhansi.com/2020/05/05/Java/Java%E5%9F%BA%E7%A1%80/2020-05-05-LinkedBlockingQueue%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90/">
+    <link itemprop="mainEntityOfPage" href="http://huhansi.com/2020/07/17/Java/%E5%A4%9A%E7%BA%BF%E7%A8%8B/2020-07-17-DoubleAccumulator%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Han si">
@@ -760,7 +825,7 @@ ConcurrentLi
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2020/05/05/Java/Java%E5%9F%BA%E7%A1%80/2020-05-05-LinkedBlockingQueue%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90/" itemprop="url">LinkedBlockingQueue源码解析</a></h1>
+                <a class="post-title-link" href="/2020/07/17/Java/%E5%A4%9A%E7%BA%BF%E7%A8%8B/2020-07-17-DoubleAccumulator%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90/" itemprop="url">DoubleAccumulator源码解析</a></h1>
         
 
         <div class="post-meta">
@@ -772,8 +837,8 @@ ConcurrentLi
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-05-05T00:00:00+08:00">
-                2020-05-05
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-07-17T00:00:00+08:00">
+                2020-07-17
               </time>
             
 
@@ -802,149 +867,23 @@ ConcurrentLi
 
                 
                 
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-          LinkedBlockingQueue源码解析ConcurrentLinkedQueue是通过CAS实现的一个队列，下面我们研究下通过ReentrantLock实现的队列-LinkedBlockingQueue。LinkedBlockingQueue也是使用单向链表实现的，它也有两个Node，分别为
-          ...
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2020/05/05/Java/Java%E5%9F%BA%E7%A1%80/2020-05-05-LinkedBlockingQueue%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90/#more" rel="contents">
-              Read more &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://huhansi.com/2020/05/05/Java/%E5%A4%9A%E7%BA%BF%E7%A8%8B/2020-05-05-StampedLock/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Han si">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hansi Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
+                  , 
                 
-                <a class="post-title-link" href="/2020/05/05/Java/%E5%A4%9A%E7%BA%BF%E7%A8%8B/2020-05-05-StampedLock/" itemprop="url">StampedLock解析</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-05-05T00:00:00+08:00">
-                2020-05-05
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Java/" itemprop="url" rel="index">
-                    <span itemprop="name">Java</span>
+                  <a href="/categories/%E6%BA%90%E7%A0%81/%E5%A4%9A%E7%BA%BF%E7%A8%8B/" itemprop="url" rel="index">
+                    <span itemprop="name">多线程</span>
+                  </a>
+                </span>
+
+                
+                
+                  , 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%BA%90%E7%A0%81/%E5%A4%9A%E7%BA%BF%E7%A8%8B/CAS/" itemprop="url" rel="index">
+                    <span itemprop="name">CAS</span>
                   </a>
                 </span>
 
@@ -982,12 +921,13 @@ ConcurrentLi
       
         
           
-          StampedLock解析在Java中，有一个可重入的读写锁ReentrantReadWriteLock，它是一种读写分离的锁，在读或者写的时候，会把写或者读操作先阻塞。但是在读操作和读操作之前却不加锁。即，读操作和写操作是互斥的，但是读操作和读操作之间不是。
-这样会存在一个问题，在读操作远大于写操
+          DoubleAccumulator源码解析DoubleAccumulator类介绍DoubleAccumulator也是JDK提供的基于Striped64实现的线程安全的double累加器。
+类图
+主要属性12private final DoubleBinaryOperator function;p
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2020/05/05/Java/%E5%A4%9A%E7%BA%BF%E7%A8%8B/2020-05-05-StampedLock/#more" rel="contents">
+            <a class="btn" href="/2020/07/17/Java/%E5%A4%9A%E7%BA%BF%E7%A8%8B/2020-07-17-DoubleAccumulator%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90/#more" rel="contents">
               Read more &raquo;
             </a>
           </div>
@@ -1038,7 +978,7 @@ ConcurrentLi
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://huhansi.com/2020/05/04/Java/Java%E5%9F%BA%E7%A1%80/2020-05-04-LockSupport%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90/">
+    <link itemprop="mainEntityOfPage" href="http://huhansi.com/2020/07/17/Java/%E5%A4%9A%E7%BA%BF%E7%A8%8B/2020-07-17-AtomicLongFieldUpdater%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Han si">
@@ -1057,7 +997,7 @@ ConcurrentLi
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2020/05/04/Java/Java%E5%9F%BA%E7%A1%80/2020-05-04-LockSupport%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90/" itemprop="url">LockSupport源码解析</a></h1>
+                <a class="post-title-link" href="/2020/07/17/Java/%E5%A4%9A%E7%BA%BF%E7%A8%8B/2020-07-17-AtomicLongFieldUpdater%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90/" itemprop="url">AtomicLongFieldUpdater源码解析</a></h1>
         
 
         <div class="post-meta">
@@ -1069,8 +1009,8 @@ ConcurrentLi
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-05-04T00:00:00+08:00">
-                2020-05-04
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-07-17T00:00:00+08:00">
+                2020-07-17
               </time>
             
 
@@ -1099,6 +1039,28 @@ ConcurrentLi
 
                 
                 
+                  , 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%BA%90%E7%A0%81/%E5%A4%9A%E7%BA%BF%E7%A8%8B/" itemprop="url" rel="index">
+                    <span itemprop="name">多线程</span>
+                  </a>
+                </span>
+
+                
+                
+                  , 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%BA%90%E7%A0%81/%E5%A4%9A%E7%BA%BF%E7%A8%8B/CAS/" itemprop="url" rel="index">
+                    <span itemprop="name">CAS</span>
+                  </a>
+                </span>
+
+                
+                
               
             </span>
           
@@ -1131,14 +1093,12 @@ ConcurrentLi
       
         
           
-          LockSupport源码解析LockSupport是JDK在rt包里面提供的一个工具类，它的主要作用是挂起和唤醒线程。LockSupport是创建锁和其他同步类的基础。
-LockSupport类与每个使用它的线程都会关联一个许可（permit），permit的值只有0或1，默认是0.
-
-当前用un
+          AtomicLongFieldUpdater源码解析AtomicLongFieldUpdater类介绍AtomicLongFieldUpdater类是JDK提供的volatile long封装器。可以通过它来原子更新某些对象的volatile修饰的long字段。
+看下面这个例子，假设NotUseAt
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2020/05/04/Java/Java%E5%9F%BA%E7%A1%80/2020-05-04-LockSupport%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90/#more" rel="contents">
+            <a class="btn" href="/2020/07/17/Java/%E5%A4%9A%E7%BA%BF%E7%A8%8B/2020-07-17-AtomicLongFieldUpdater%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90/#more" rel="contents">
               Read more &raquo;
             </a>
           </div>
@@ -1189,7 +1149,7 @@ LockSupport类与每个使用它的线程都会关联一个许可（permit），
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://huhansi.com/2020/05/03/Java/Java%E5%9F%BA%E7%A1%80/2020-05-03-LongAdder%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90/">
+    <link itemprop="mainEntityOfPage" href="http://huhansi.com/2020/07/17/Java/%E5%A4%9A%E7%BA%BF%E7%A8%8B/2020-07-17-AtomicLongArray%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Han si">
@@ -1208,7 +1168,7 @@ LockSupport类与每个使用它的线程都会关联一个许可（permit），
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2020/05/03/Java/Java%E5%9F%BA%E7%A1%80/2020-05-03-LongAdder%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90/" itemprop="url">LongAdder源码解析</a></h1>
+                <a class="post-title-link" href="/2020/07/17/Java/%E5%A4%9A%E7%BA%BF%E7%A8%8B/2020-07-17-AtomicLongArray%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90/" itemprop="url">AtomicLongArray源码解析</a></h1>
         
 
         <div class="post-meta">
@@ -1220,8 +1180,8 @@ LockSupport类与每个使用它的线程都会关联一个许可（permit），
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-05-03T00:00:00+08:00">
-                2020-05-03
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-07-17T00:00:00+08:00">
+                2020-07-17
               </time>
             
 
@@ -1250,6 +1210,28 @@ LockSupport类与每个使用它的线程都会关联一个许可（permit），
 
                 
                 
+                  , 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%BA%90%E7%A0%81/%E5%A4%9A%E7%BA%BF%E7%A8%8B/" itemprop="url" rel="index">
+                    <span itemprop="name">多线程</span>
+                  </a>
+                </span>
+
+                
+                
+                  , 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%BA%90%E7%A0%81/%E5%A4%9A%E7%BA%BF%E7%A8%8B/CAS/" itemprop="url" rel="index">
+                    <span itemprop="name">CAS</span>
+                  </a>
+                </span>
+
+                
+                
               
             </span>
           
@@ -1282,11 +1264,12 @@ LockSupport类与每个使用它的线程都会关联一个许可（permit），
       
         
           
-          LongAdder源码解析AtomicLong类通过CAS提供了非阻塞的原子性操作，相比使用synchronized来说，性能已经有了很大的提升。但是，在高并发的场景下，大量线程同时使用AtomicLong时，只能有一个线程能成功，其他线程只能通过自旋获取新的值，再后续更新自己的值。这期间就浪费了大
+          AtomicLongArray源码解析顾名思义，AtomicLongArray就是JDK提供的提供原子操作能力的长整型数组。之所以提供这个类是因为长整型数组在多线程环境下是线程不安全的。
+1234567891011121314151617181920212223242526272829public 
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2020/05/03/Java/Java%E5%9F%BA%E7%A1%80/2020-05-03-LongAdder%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90/#more" rel="contents">
+            <a class="btn" href="/2020/07/17/Java/%E5%A4%9A%E7%BA%BF%E7%A8%8B/2020-07-17-AtomicLongArray%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90/#more" rel="contents">
               Read more &raquo;
             </a>
           </div>
@@ -1337,7 +1320,7 @@ LockSupport类与每个使用它的线程都会关联一个许可（permit），
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://huhansi.com/2020/05/03/Java/Java%E5%9F%BA%E7%A1%80/2020-05-03-ThreadLocalRandom%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90/">
+    <link itemprop="mainEntityOfPage" href="http://huhansi.com/2020/05/24/MySQL/2020-05-24-MySQL%E6%9F%A5%E8%AF%A2%E4%BC%98%E5%8C%96/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Han si">
@@ -1356,7 +1339,7 @@ LockSupport类与每个使用它的线程都会关联一个许可（permit），
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2020/05/03/Java/Java%E5%9F%BA%E7%A1%80/2020-05-03-ThreadLocalRandom%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90/" itemprop="url">ThreadLocalRandom源码解析</a></h1>
+                <a class="post-title-link" href="/2020/05/24/MySQL/2020-05-24-MySQL%E6%9F%A5%E8%AF%A2%E4%BC%98%E5%8C%96/" itemprop="url">MySQL查询优化</a></h1>
         
 
         <div class="post-meta">
@@ -1368,8 +1351,8 @@ LockSupport类与每个使用它的线程都会关联一个许可（permit），
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-05-03T00:00:00+08:00">
-                2020-05-03
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-05-24T00:00:00+08:00">
+                2020-05-24
               </time>
             
 
@@ -1391,8 +1374,8 @@ LockSupport类与每个使用它的线程都会关联一个许可（permit），
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%BA%90%E7%A0%81/" itemprop="url" rel="index">
-                    <span itemprop="name">源码</span>
+                  <a href="/categories/MySQL/" itemprop="url" rel="index">
+                    <span itemprop="name">MySQL</span>
                   </a>
                 </span>
 
@@ -1430,12 +1413,13 @@ LockSupport类与每个使用它的线程都会关联一个许可（permit），
       
         
           
-          ThreadLocalRandom源码解析Random类通过以下逻辑获取下一个随机数，以获取下一个整数为例：
-12345678910111213141516171819public int nextInt(int bound) &#123;        // 参数检查        if (bou
+          MySQL查询优化优化数据访问查询性能低下最基本的原因是访问的数据太多。某些查询可能不可避免地需要筛选大量数据，但这并不常见。大部分性能低下的查询都可以通过减少访问的数据量的方式进行优化，对于低效的查询，通过以下两个步骤来分析总是很有效：
+
+确认应用程序是否在检索大量超过需要的数据，这通常意味着访问
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2020/05/03/Java/Java%E5%9F%BA%E7%A1%80/2020-05-03-ThreadLocalRandom%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90/#more" rel="contents">
+            <a class="btn" href="/2020/05/24/MySQL/2020-05-24-MySQL%E6%9F%A5%E8%AF%A2%E4%BC%98%E5%8C%96/#more" rel="contents">
               Read more &raquo;
             </a>
           </div>
@@ -1486,7 +1470,7 @@ LockSupport类与每个使用它的线程都会关联一个许可（permit），
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://huhansi.com/2020/05/02/Java/Java%E5%9F%BA%E7%A1%80/2020-05-02-ThreadLocal%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90/">
+    <link itemprop="mainEntityOfPage" href="http://huhansi.com/2020/05/23/MySQL/2020-05-23-MySQL%E5%88%86%E5%8C%BA/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Han si">
@@ -1505,7 +1489,7 @@ LockSupport类与每个使用它的线程都会关联一个许可（permit），
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2020/05/02/Java/Java%E5%9F%BA%E7%A1%80/2020-05-02-ThreadLocal%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90/" itemprop="url">ThreadLocal源码解析</a></h1>
+                <a class="post-title-link" href="/2020/05/23/MySQL/2020-05-23-MySQL%E5%88%86%E5%8C%BA/" itemprop="url">MySQL分区</a></h1>
         
 
         <div class="post-meta">
@@ -1517,8 +1501,8 @@ LockSupport类与每个使用它的线程都会关联一个许可（permit），
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-05-02T00:00:00+08:00">
-                2020-05-02
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-05-23T00:00:00+08:00">
+                2020-05-23
               </time>
             
 
@@ -1540,8 +1524,8 @@ LockSupport类与每个使用它的线程都会关联一个许可（permit），
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%BA%90%E7%A0%81/" itemprop="url" rel="index">
-                    <span itemprop="name">源码</span>
+                  <a href="/categories/MySQL/" itemprop="url" rel="index">
+                    <span itemprop="name">MySQL</span>
                   </a>
                 </span>
 
@@ -1579,12 +1563,12 @@ LockSupport类与每个使用它的线程都会关联一个许可（permit），
       
         
           
-          ThreadLocal源码解析多线程访问同一个共享变量时特别容易出现并发问题，特别是在多个线程需要对一个共享变量进行写入时。为了保证线程安全，一般使用者在访问共享变量时需要进行适当的同步。同步的措施一般是加锁，这就需要使用者对锁有一定的了解，这显然加重了使用者的负担。
-JDK包提供了ThreadLo
+          MySQL分区MySQL在创建表时使用PARTITION BY子句定义每个分区存放的数据。在执行查询的时候，优化器会根据分区定义过滤那些没有我们需要数据的分区，这样只需要查找包含需要数据的分区就可以了。
+分区的一个主要目的就是将数据按照一个较粗的粒度分在不同的表中，这样做可以将相关的数据存放在一起。
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2020/05/02/Java/Java%E5%9F%BA%E7%A1%80/2020-05-02-ThreadLocal%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90/#more" rel="contents">
+            <a class="btn" href="/2020/05/23/MySQL/2020-05-23-MySQL%E5%88%86%E5%8C%BA/#more" rel="contents">
               Read more &raquo;
             </a>
           </div>
@@ -1635,7 +1619,7 @@ JDK包提供了ThreadLo
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://huhansi.com/2020/04/29/LeetCode/leetcode-000172.%20%E9%98%B6%E4%B9%98%E5%90%8E%E7%9A%84%E9%9B%B6/">
+    <link itemprop="mainEntityOfPage" href="http://huhansi.com/2020/05/10/Linux/Linux%E7%9A%84N%E7%A7%8DIO%E6%A8%A1%E5%9E%8B/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Han si">
@@ -1654,7 +1638,7 @@ JDK包提供了ThreadLo
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2020/04/29/LeetCode/leetcode-000172.%20%E9%98%B6%E4%B9%98%E5%90%8E%E7%9A%84%E9%9B%B6/" itemprop="url">172. 阶乘后的零</a></h1>
+                <a class="post-title-link" href="/2020/05/10/Linux/Linux%E7%9A%84N%E7%A7%8DIO%E6%A8%A1%E5%9E%8B/" itemprop="url">Linux的N种IO模型</a></h1>
         
 
         <div class="post-meta">
@@ -1666,8 +1650,8 @@ JDK包提供了ThreadLo
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-04-29T00:00:00+08:00">
-                2020-04-29
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-05-10T00:00:00+08:00">
+                2020-05-10
               </time>
             
 
@@ -1689,8 +1673,8 @@ JDK包提供了ThreadLo
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/leetcode/" itemprop="url" rel="index">
-                    <span itemprop="name">leetcode</span>
+                  <a href="/categories/linux/" itemprop="url" rel="index">
+                    <span itemprop="name">linux</span>
                   </a>
                 </span>
 
@@ -1728,19 +1712,167 @@ JDK包提供了ThreadLo
       
         
           
-          题目给定一个整数 n，返回 n! 结果尾数中零的数量。
-示例1：123输入: 3输出: 0解释: 3! &#x3D; 6, 尾数中没有零。
+          Linux的N种IO模型Linux下主要的IO模型可以分为以下五种：
 
-示例2：123输入: 5输出: 1解释: 5! &#x3D; 120, 尾数中有 1 个零.
+阻塞式IO（Blocking IO）
+非阻塞式IO（Non-Blocking IO）
+IO复用（Multiplexing IO）
+信号驱动式IO（Signal-Driven IO）
+异步IO（Asynchronous IO）
 
-提示：
-你算法的时间复杂度应为 O(log n) 。
 
-解法解
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2020/04/29/LeetCode/leetcode-000172.%20%E9%98%B6%E4%B9%98%E5%90%8E%E7%9A%84%E9%9B%B6/#more" rel="contents">
+            <a class="btn" href="/2020/05/10/Linux/Linux%E7%9A%84N%E7%A7%8DIO%E6%A8%A1%E5%9E%8B/#more" rel="contents">
+              Read more &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://huhansi.com/2020/05/09/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/Redis%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%AE%9E%E7%8E%B0/2020-05-09-Redis-%E4%BA%8B%E5%8A%A1/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Han si">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hansi Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2020/05/09/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/Redis%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%AE%9E%E7%8E%B0/2020-05-09-Redis-%E4%BA%8B%E5%8A%A1/" itemprop="url">Redis事务简介</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-05-09T00:00:00+08:00">
+                2020-05-09
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/redis/" itemprop="url" rel="index">
+                    <span itemprop="name">redis</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+          Redis事务简介Redis通过multi、exec、watch等命令来实现事务功能。事务提供了一种将多个命令请求打包，然后一次性、按顺序地执行多个命令的机制，并且在事务执行的期间，服务器不会中断事务而改去执行其他客户端命令的请求，它会将事务中的所有命令都执行完毕，然后才去处理其他客户端的命令请求。
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2020/05/09/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/Redis%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%AE%9E%E7%8E%B0/2020-05-09-Redis-%E4%BA%8B%E5%8A%A1/#more" rel="contents">
               Read more &raquo;
             </a>
           </div>
@@ -1782,7 +1914,7 @@ JDK包提供了ThreadLo
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/51/">51</a><a class="extend next" rel="next" href="/page/3/"><i class="fa fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" href="/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/52/">52</a><a class="extend next" rel="next" href="/page/3/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -1828,7 +1960,7 @@ JDK包提供了ThreadLo
               
                 <a href="/archives/%7C%7C%20archive">
               
-                  <span class="site-state-item-count">501</span>
+                  <span class="site-state-item-count">517</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -1839,7 +1971,7 @@ JDK包提供了ThreadLo
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">20</span>
+                  <span class="site-state-item-count">22</span>
                   <span class="site-state-item-name">categories</span>
                 </a>
               </div>
@@ -1850,7 +1982,7 @@ JDK包提供了ThreadLo
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">294</span>
+                  <span class="site-state-item-count">310</span>
                   <span class="site-state-item-name">tags</span>
                 </a>
               </div>

@@ -293,7 +293,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://huhansi.com/2020/04/17/Java/Java%E5%9F%BA%E7%A1%80/2020-04-17-HashMap%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90/">
+    <link itemprop="mainEntityOfPage" href="http://huhansi.com/2020/04/17/LeetCode/leetcode-000682.%20%E6%A3%92%E7%90%83%E6%AF%94%E8%B5%9B/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Han si">
@@ -312,7 +312,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2020/04/17/Java/Java%E5%9F%BA%E7%A1%80/2020-04-17-HashMap%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90/" itemprop="url">HashMap源码解析</a></h1>
+                <a class="post-title-link" href="/2020/04/17/LeetCode/leetcode-000682.%20%E6%A3%92%E7%90%83%E6%AF%94%E8%B5%9B/" itemprop="url">682. 棒球比赛</a></h1>
         
 
         <div class="post-meta">
@@ -347,8 +347,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Java/" itemprop="url" rel="index">
-                    <span itemprop="name">Java</span>
+                  <a href="/categories/leetcode/" itemprop="url" rel="index">
+                    <span itemprop="name">leetcode</span>
                   </a>
                 </span>
 
@@ -386,12 +386,11 @@
       
         
           
-          HashMap源码解析简介HashMap是一个根据键值（Key）而直接访问在内存存储位置的数据结构。也就是说，它通过计算一个关于键值的函数，将所需查询的数据映射到表中的一个位置来访问记录，这加快了查找速度。这个映射函数称作散列函数，存放记录的数组称作散列表。
-HashMap继承了AbstractMa
+          题目你现在是棒球比赛记录员。给定一个字符串列表，每个字符串可以是以下四种类型之一：1.整数（一轮的得分）：直接表示您在本轮中获得的积分数。2. “+”（一轮的得分）：表示本轮获得的得分是前两轮有效 回合得分的总和。3. “D”（一轮的得分）：表示本轮获得的得分是前一轮有效 回合得分的两倍。4. “C
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2020/04/17/Java/Java%E5%9F%BA%E7%A1%80/2020-04-17-HashMap%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90/#more" rel="contents">
+            <a class="btn" href="/2020/04/17/LeetCode/leetcode-000682.%20%E6%A3%92%E7%90%83%E6%AF%94%E8%B5%9B/#more" rel="contents">
               Read more &raquo;
             </a>
           </div>
@@ -442,7 +441,7 @@ HashMap继承了AbstractMa
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://huhansi.com/2020/04/17/Java/Java%E5%9F%BA%E7%A1%80/2020-04-17-ConcurrentHashMap%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90/">
+    <link itemprop="mainEntityOfPage" href="http://huhansi.com/2020/04/17/LeetCode/leetcode-000893.%20%E7%89%B9%E6%AE%8A%E7%AD%89%E4%BB%B7%E5%AD%97%E7%AC%A6%E4%B8%B2%E7%BB%84/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Han si">
@@ -461,7 +460,7 @@ HashMap继承了AbstractMa
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2020/04/17/Java/Java%E5%9F%BA%E7%A1%80/2020-04-17-ConcurrentHashMap%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90/" itemprop="url">ConcurrentHashMap源码解析</a></h1>
+                <a class="post-title-link" href="/2020/04/17/LeetCode/leetcode-000893.%20%E7%89%B9%E6%AE%8A%E7%AD%89%E4%BB%B7%E5%AD%97%E7%AC%A6%E4%B8%B2%E7%BB%84/" itemprop="url">893. 特殊等价字符串组</a></h1>
         
 
         <div class="post-meta">
@@ -496,8 +495,8 @@ HashMap继承了AbstractMa
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Java/" itemprop="url" rel="index">
-                    <span itemprop="name">Java</span>
+                  <a href="/categories/leetcode/" itemprop="url" rel="index">
+                    <span itemprop="name">leetcode</span>
                   </a>
                 </span>
 
@@ -535,13 +534,14 @@ HashMap继承了AbstractMa
       
         
           
-          ConcurrentHashMap源码解析简介ConcurrentHashMap是Java SDK提供的线程安全的HashMap类。在多线程并发的场景下，用它做添加、删除是不会出现线程安全问题的。
-它实现了ConcurrentMap和Serializable接口。
-实现逻辑ConcurrentHas
+          题目你将得到一个字符串数组 A。
+如果经过任意次数的移动，S == T，那么两个字符串 S 和 T 是特殊等价的。
+一次移动包括选择两个索引 i 和 j，且 i ％ 2 == j ％ 2，交换 S[j] 和 S [i]。
+现在规定，A 中的特殊等价字符串组是 A 的非空子集 S，这样不在 S 中的任
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2020/04/17/Java/Java%E5%9F%BA%E7%A1%80/2020-04-17-ConcurrentHashMap%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90/#more" rel="contents">
+            <a class="btn" href="/2020/04/17/LeetCode/leetcode-000893.%20%E7%89%B9%E6%AE%8A%E7%AD%89%E4%BB%B7%E5%AD%97%E7%AC%A6%E4%B8%B2%E7%BB%84/#more" rel="contents">
               Read more &raquo;
             </a>
           </div>
@@ -592,7 +592,7 @@ HashMap继承了AbstractMa
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://huhansi.com/2020/04/17/Java/Java%E5%9F%BA%E7%A1%80/2020-04-17-%E7%BA%BF%E7%A8%8B%E6%B1%A0%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90/">
+    <link itemprop="mainEntityOfPage" href="http://huhansi.com/2020/04/17/LeetCode/leetcode-000897.%20%E9%80%92%E5%A2%9E%E9%A1%BA%E5%BA%8F%E6%9F%A5%E6%89%BE%E6%A0%91/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Han si">
@@ -611,7 +611,7 @@ HashMap继承了AbstractMa
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2020/04/17/Java/Java%E5%9F%BA%E7%A1%80/2020-04-17-%E7%BA%BF%E7%A8%8B%E6%B1%A0%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90/" itemprop="url">ThreadPoolExecutor源码解析</a></h1>
+                <a class="post-title-link" href="/2020/04/17/LeetCode/leetcode-000897.%20%E9%80%92%E5%A2%9E%E9%A1%BA%E5%BA%8F%E6%9F%A5%E6%89%BE%E6%A0%91/" itemprop="url">897. 递增顺序查找树</a></h1>
         
 
         <div class="post-meta">
@@ -646,8 +646,8 @@ HashMap继承了AbstractMa
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Java/" itemprop="url" rel="index">
-                    <span itemprop="name">Java</span>
+                  <a href="/categories/leetcode/" itemprop="url" rel="index">
+                    <span itemprop="name">leetcode</span>
                   </a>
                 </span>
 
@@ -685,12 +685,12 @@ HashMap继承了AbstractMa
       
         
           
-          ThreadPoolExecutor源码解析简介线程池作用就是限制系统中执行线程的数量。
-根据系统的环境情况，可以自动或手动设置线程数量，达到运行的最佳效果；如果线程少了会浪费系统资源，多了又会造成系统拥挤效率不高。用线程池控制线程数量，使得其他线程排队等候。一个任务执行完毕，再从队列的中取最前面的
+          题目给你一个树，请你 按中序遍历 重新排列树，使树中最左边的结点现在是树的根，并且每个结点没有左子结点，只有一个右子结点。
+示例 1:1234567891011121314151617181920212223242526272829输入：[5,3,6,2,4,null,8,1,null,null,n
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2020/04/17/Java/Java%E5%9F%BA%E7%A1%80/2020-04-17-%E7%BA%BF%E7%A8%8B%E6%B1%A0%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90/#more" rel="contents">
+            <a class="btn" href="/2020/04/17/LeetCode/leetcode-000897.%20%E9%80%92%E5%A2%9E%E9%A1%BA%E5%BA%8F%E6%9F%A5%E6%89%BE%E6%A0%91/#more" rel="contents">
               Read more &raquo;
             </a>
           </div>
@@ -741,7 +741,7 @@ HashMap继承了AbstractMa
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://huhansi.com/2020/04/16/LeetCode/leetcode-000603.%20%E8%BF%9E%E7%BB%AD%E7%A9%BA%E4%BD%99%E5%BA%A7%E4%BD%8D/">
+    <link itemprop="mainEntityOfPage" href="http://huhansi.com/2020/04/17/LeetCode/leetcode-000922.%20%E6%8C%89%E5%A5%87%E5%81%B6%E6%8E%92%E5%BA%8F%E6%95%B0%E7%BB%84%20II/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Han si">
@@ -760,7 +760,7 @@ HashMap继承了AbstractMa
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2020/04/16/LeetCode/leetcode-000603.%20%E8%BF%9E%E7%BB%AD%E7%A9%BA%E4%BD%99%E5%BA%A7%E4%BD%8D/" itemprop="url">908. 最小差值 I</a></h1>
+                <a class="post-title-link" href="/2020/04/17/LeetCode/leetcode-000922.%20%E6%8C%89%E5%A5%87%E5%81%B6%E6%8E%92%E5%BA%8F%E6%95%B0%E7%BB%84%20II/" itemprop="url">922. 按奇偶排序数组 II</a></h1>
         
 
         <div class="post-meta">
@@ -772,8 +772,8 @@ HashMap继承了AbstractMa
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-04-16T00:00:00+08:00">
-                2020-04-16
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-04-17T00:00:00+08:00">
+                2020-04-17
               </time>
             
 
@@ -834,13 +834,14 @@ HashMap继承了AbstractMa
       
         
           
-          题目几个朋友来到电影院的售票处，准备预约连续空余座位。
-你能利用表 cinema ，帮他们写一个查询语句，获取所有空余座位，并将它们按照 seat_id 排序后返回吗？
-1234567| seat_id | free ||---------|------|| 1       | 1    || 2 
+          题目给定一个非负整数数组 A， A 中一半整数是奇数，一半整数是偶数。
+对数组进行排序，以便当 A[i] 为奇数时，i 也是奇数；当 A[i] 为偶数时， i 也是偶数。
+你可以返回任何满足上述条件的数组作为答案。
+示例 1:123输入：[4,2,5,7]输出：[4,5,2,7]解释：[4,7,2,
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2020/04/16/LeetCode/leetcode-000603.%20%E8%BF%9E%E7%BB%AD%E7%A9%BA%E4%BD%99%E5%BA%A7%E4%BD%8D/#more" rel="contents">
+            <a class="btn" href="/2020/04/17/LeetCode/leetcode-000922.%20%E6%8C%89%E5%A5%87%E5%81%B6%E6%8E%92%E5%BA%8F%E6%95%B0%E7%BB%84%20II/#more" rel="contents">
               Read more &raquo;
             </a>
           </div>
@@ -891,7 +892,7 @@ HashMap继承了AbstractMa
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://huhansi.com/2020/04/16/LeetCode/leetcode-000908.%20%E6%9C%80%E5%B0%8F%E5%B7%AE%E5%80%BC%20I/">
+    <link itemprop="mainEntityOfPage" href="http://huhansi.com/2020/04/17/LeetCode/leetcode-000944.%20%E5%88%A0%E5%88%97%E9%80%A0%E5%BA%8F/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Han si">
@@ -910,7 +911,7 @@ HashMap继承了AbstractMa
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2020/04/16/LeetCode/leetcode-000908.%20%E6%9C%80%E5%B0%8F%E5%B7%AE%E5%80%BC%20I/" itemprop="url">908. 最小差值 I</a></h1>
+                <a class="post-title-link" href="/2020/04/17/LeetCode/leetcode-000944.%20%E5%88%A0%E5%88%97%E9%80%A0%E5%BA%8F/" itemprop="url">944. 删列造序</a></h1>
         
 
         <div class="post-meta">
@@ -922,8 +923,8 @@ HashMap继承了AbstractMa
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-04-16T00:00:00+08:00">
-                2020-04-16
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-04-17T00:00:00+08:00">
+                2020-04-17
               </time>
             
 
@@ -984,14 +985,13 @@ HashMap继承了AbstractMa
       
         
           
-          题目给你一个整数数组 A，对于每个整数 A[i]，我们可以选择处于区间 [-K, K] 中的任意数 x ，将 x 与 A[i] 相加，结果存入 A[i] 。
-在此过程之后，我们得到一些数组 B。
-返回 B 的最大值和 B 的最小值之间可能存在的最小差值。
-示例1：123输入：A &#x3D; [1]
+          题目给定由 N 个小写字母字符串组成的数组 A，其中每个字符串长度相等。
+删除 操作的定义是：选出一组要删掉的列，删去 A 中对应列中的所有字符，形式上，第 n 列为 [A[0][n], A[1][n], …, A[A.length-1][n]]）。
+比如，有 A = [“abcdef”, “uvw
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2020/04/16/LeetCode/leetcode-000908.%20%E6%9C%80%E5%B0%8F%E5%B7%AE%E5%80%BC%20I/#more" rel="contents">
+            <a class="btn" href="/2020/04/17/LeetCode/leetcode-000944.%20%E5%88%A0%E5%88%97%E9%80%A0%E5%BA%8F/#more" rel="contents">
               Read more &raquo;
             </a>
           </div>
@@ -1042,7 +1042,7 @@ HashMap继承了AbstractMa
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://huhansi.com/2020/04/16/LeetCode/leetcode-001025.%20%E9%99%A4%E6%95%B0%E5%8D%9A%E5%BC%88/">
+    <link itemprop="mainEntityOfPage" href="http://huhansi.com/2020/04/17/LeetCode/leetcode-000961.%20%E9%87%8D%E5%A4%8D%20N%20%E6%AC%A1%E7%9A%84%E5%85%83%E7%B4%A0/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Han si">
@@ -1061,7 +1061,7 @@ HashMap继承了AbstractMa
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2020/04/16/LeetCode/leetcode-001025.%20%E9%99%A4%E6%95%B0%E5%8D%9A%E5%BC%88/" itemprop="url">1025. 除数博弈</a></h1>
+                <a class="post-title-link" href="/2020/04/17/LeetCode/leetcode-000961.%20%E9%87%8D%E5%A4%8D%20N%20%E6%AC%A1%E7%9A%84%E5%85%83%E7%B4%A0/" itemprop="url">961. 重复 N 次的元素</a></h1>
         
 
         <div class="post-meta">
@@ -1073,8 +1073,8 @@ HashMap继承了AbstractMa
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-04-16T00:00:00+08:00">
-                2020-04-16
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-04-17T00:00:00+08:00">
+                2020-04-17
               </time>
             
 
@@ -1135,15 +1135,20 @@ HashMap继承了AbstractMa
       
         
           
-          题目爱丽丝和鲍勃一起玩游戏，他们轮流行动。爱丽丝先手开局。
-最初，黑板上有一个数字 N 。在每个玩家的回合，玩家需要执行以下操作：
-选出任一 x，满足 0 &lt; x &lt; N 且 N % x == 0 。
-用 N - x 替换黑板上的数字 N 。如果玩家无法执行这些操作，就会输掉游戏。
-只有
+          题目在大小为 2N 的数组 A 中有 N+1 个不同的元素，其中有一个元素重复了 N 次。
+返回重复了 N 次的那个元素。
+示例1：12输入：[1,2,3,3]输出：3
+
+示例2：12输入：[2,1,2,5,3,2]输出：2
+
+示例3：12输入：[5,1,5,2,5,3,5,4]输出：5
+
+提示：
+
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2020/04/16/LeetCode/leetcode-001025.%20%E9%99%A4%E6%95%B0%E5%8D%9A%E5%BC%88/#more" rel="contents">
+            <a class="btn" href="/2020/04/17/LeetCode/leetcode-000961.%20%E9%87%8D%E5%A4%8D%20N%20%E6%AC%A1%E7%9A%84%E5%85%83%E7%B4%A0/#more" rel="contents">
               Read more &raquo;
             </a>
           </div>
@@ -1194,7 +1199,7 @@ HashMap继承了AbstractMa
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://huhansi.com/2020/04/16/LeetCode/leetcode-001217.%20%E7%8E%A9%E7%AD%B9%E7%A0%81/">
+    <link itemprop="mainEntityOfPage" href="http://huhansi.com/2020/04/17/LeetCode/leetcode-001002.%20%E6%9F%A5%E6%89%BE%E5%B8%B8%E7%94%A8%E5%AD%97%E7%AC%A6/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Han si">
@@ -1213,7 +1218,7 @@ HashMap继承了AbstractMa
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2020/04/16/LeetCode/leetcode-001217.%20%E7%8E%A9%E7%AD%B9%E7%A0%81/" itemprop="url">1217. 玩筹码</a></h1>
+                <a class="post-title-link" href="/2020/04/17/LeetCode/leetcode-001002.%20%E6%9F%A5%E6%89%BE%E5%B8%B8%E7%94%A8%E5%AD%97%E7%AC%A6/" itemprop="url">1002. 查找常用字符</a></h1>
         
 
         <div class="post-meta">
@@ -1225,8 +1230,8 @@ HashMap继承了AbstractMa
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-04-16T00:00:00+08:00">
-                2020-04-16
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-04-17T00:00:00+08:00">
+                2020-04-17
               </time>
             
 
@@ -1287,17 +1292,13 @@ HashMap继承了AbstractMa
       
         
           
-          题目数轴上放置了一些筹码，每个筹码的位置存在数组 chips 当中。
-你可以对 任何筹码 执行下面两种操作之一（不限操作次数，0 次也可以）：
-
-将第 i 个筹码向左或者右移动 2 个单位，代价为 0。
-将第 i 个筹码向左或者右移动 1 个单位，代价为 1。
-
-最开始的时候，同一位置上也可能放着两
+          题目给定仅有小写字母组成的字符串数组 A，返回列表中的每个字符串中都显示的全部字符（包括重复字符）组成的列表。例如，如果一个字符在每个字符串中出现 3 次，但不是 4 次，则需要在最终答案中包含该字符 3 次。
+你可以按任意顺序返回答案。
+示例1：12输入：[&quot;bella&quot;,&q
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2020/04/16/LeetCode/leetcode-001217.%20%E7%8E%A9%E7%AD%B9%E7%A0%81/#more" rel="contents">
+            <a class="btn" href="/2020/04/17/LeetCode/leetcode-001002.%20%E6%9F%A5%E6%89%BE%E5%B8%B8%E7%94%A8%E5%AD%97%E7%AC%A6/#more" rel="contents">
               Read more &raquo;
             </a>
           </div>
@@ -1348,7 +1349,7 @@ HashMap继承了AbstractMa
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://huhansi.com/2020/04/16/LeetCode/leetcode-001237.%20%E6%89%BE%E5%87%BA%E7%BB%99%E5%AE%9A%E6%96%B9%E7%A8%8B%E7%9A%84%E6%AD%A3%E6%95%B4%E6%95%B0%E8%A7%A3/">
+    <link itemprop="mainEntityOfPage" href="http://huhansi.com/2020/04/17/LeetCode/leetcode-001047.%20%E5%88%A0%E9%99%A4%E5%AD%97%E7%AC%A6%E4%B8%B2%E4%B8%AD%E7%9A%84%E6%89%80%E6%9C%89%E7%9B%B8%E9%82%BB%E9%87%8D%E5%A4%8D%E9%A1%B9/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Han si">
@@ -1367,7 +1368,7 @@ HashMap继承了AbstractMa
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2020/04/16/LeetCode/leetcode-001237.%20%E6%89%BE%E5%87%BA%E7%BB%99%E5%AE%9A%E6%96%B9%E7%A8%8B%E7%9A%84%E6%AD%A3%E6%95%B4%E6%95%B0%E8%A7%A3/" itemprop="url">1237. 找出给定方程的正整数解</a></h1>
+                <a class="post-title-link" href="/2020/04/17/LeetCode/leetcode-001047.%20%E5%88%A0%E9%99%A4%E5%AD%97%E7%AC%A6%E4%B8%B2%E4%B8%AD%E7%9A%84%E6%89%80%E6%9C%89%E7%9B%B8%E9%82%BB%E9%87%8D%E5%A4%8D%E9%A1%B9/" itemprop="url">1047. 删除字符串中的所有相邻重复项</a></h1>
         
 
         <div class="post-meta">
@@ -1379,8 +1380,8 @@ HashMap继承了AbstractMa
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-04-16T00:00:00+08:00">
-                2020-04-16
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-04-17T00:00:00+08:00">
+                2020-04-17
               </time>
             
 
@@ -1441,18 +1442,14 @@ HashMap继承了AbstractMa
       
         
           
-          题目给出一个函数  f(x, y) 和一个目标结果 z，请你计算方程 f(x,y) == z 所有可能的正整数 数对 x 和 y。
-给定函数是严格单调的，也就是说：
-
-f(x, y) &lt; f(x + 1, y)
-f(x, y) &lt; f(x, y + 1)
-
-函数接口定义如下：
-inter
+          题目给出由小写字母组成的字符串 S，重复项删除操作会选择两个相邻且相同的字母，并删除它们。
+在 S 上反复执行重复项删除操作，直到无法继续删除。
+在完成所有重复项删除操作后返回最终的字符串。答案保证唯一。
+示例 1:1234输入：&quot;abbaca&quot;输出：&quot;ca&quot;
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2020/04/16/LeetCode/leetcode-001237.%20%E6%89%BE%E5%87%BA%E7%BB%99%E5%AE%9A%E6%96%B9%E7%A8%8B%E7%9A%84%E6%AD%A3%E6%95%B4%E6%95%B0%E8%A7%A3/#more" rel="contents">
+            <a class="btn" href="/2020/04/17/LeetCode/leetcode-001047.%20%E5%88%A0%E9%99%A4%E5%AD%97%E7%AC%A6%E4%B8%B2%E4%B8%AD%E7%9A%84%E6%89%80%E6%9C%89%E7%9B%B8%E9%82%BB%E9%87%8D%E5%A4%8D%E9%A1%B9/#more" rel="contents">
               Read more &raquo;
             </a>
           </div>
@@ -1503,7 +1500,7 @@ inter
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://huhansi.com/2020/04/16/LeetCode/leetcode-001207-%E7%8B%AC%E4%B8%80%E6%97%A0%E4%BA%8C%E7%9A%84%E5%87%BA%E7%8E%B0%E6%AC%A1%E6%95%B0/">
+    <link itemprop="mainEntityOfPage" href="http://huhansi.com/2020/04/17/LeetCode/leetcode-001356.%20%E6%A0%B9%E6%8D%AE%E6%95%B0%E5%AD%97%E4%BA%8C%E8%BF%9B%E5%88%B6%E4%B8%8B%201%20%E7%9A%84%E6%95%B0%E7%9B%AE%E6%8E%92%E5%BA%8F/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Han si">
@@ -1522,7 +1519,7 @@ inter
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2020/04/16/LeetCode/leetcode-001207-%E7%8B%AC%E4%B8%80%E6%97%A0%E4%BA%8C%E7%9A%84%E5%87%BA%E7%8E%B0%E6%AC%A1%E6%95%B0/" itemprop="url">1207. 独一无二的出现次数</a></h1>
+                <a class="post-title-link" href="/2020/04/17/LeetCode/leetcode-001356.%20%E6%A0%B9%E6%8D%AE%E6%95%B0%E5%AD%97%E4%BA%8C%E8%BF%9B%E5%88%B6%E4%B8%8B%201%20%E7%9A%84%E6%95%B0%E7%9B%AE%E6%8E%92%E5%BA%8F/" itemprop="url">1356. 根据数字二进制下 1 的数目排序</a></h1>
         
 
         <div class="post-meta">
@@ -1534,8 +1531,8 @@ inter
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-04-16T00:00:00+08:00">
-                2020-04-16
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-04-17T00:00:00+08:00">
+                2020-04-17
               </time>
             
 
@@ -1596,13 +1593,14 @@ inter
       
         
           
-          题目给你一个整数数组 arr，请你帮忙统计数组中每个数的出现次数。
-如果每个数的出现次数都是独一无二的，就返回 true；否则返回 false。
-示例 1：123输入：arr &#x3D; [1,2,2,1,1,3]输出：true解释：在该数组中，1 出现了 3 次，2 出现了 2 次，3 只出现了
+          题目给你一个整数数组 arr 。请你将数组中的元素按照其二进制表示中数字 1 的数目升序排序。
+如果存在多个数字二进制中 1 的数目相同，则必须将它们按照数值大小升序排列。
+请你返回排序后的数组。
+示例1：1234567输入：arr &#x3D; [0,1,2,3,4,5,6,7,8]输出：[0,1
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2020/04/16/LeetCode/leetcode-001207-%E7%8B%AC%E4%B8%80%E6%97%A0%E4%BA%8C%E7%9A%84%E5%87%BA%E7%8E%B0%E6%AC%A1%E6%95%B0/#more" rel="contents">
+            <a class="btn" href="/2020/04/17/LeetCode/leetcode-001356.%20%E6%A0%B9%E6%8D%AE%E6%95%B0%E5%AD%97%E4%BA%8C%E8%BF%9B%E5%88%B6%E4%B8%8B%201%20%E7%9A%84%E6%95%B0%E7%9B%AE%E6%8E%92%E5%BA%8F/#more" rel="contents">
               Read more &raquo;
             </a>
           </div>
@@ -1653,7 +1651,7 @@ inter
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://huhansi.com/2020/04/16/LeetCode/leetcode-001394.%20%E6%89%BE%E5%87%BA%E6%95%B0%E7%BB%84%E4%B8%AD%E7%9A%84%E5%B9%B8%E8%BF%90%E6%95%B0/">
+    <link itemprop="mainEntityOfPage" href="http://huhansi.com/2020/04/17/LeetCode/leetcode-235-%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91%E7%9A%84%E6%9C%80%E8%BF%91%E5%85%AC%E5%85%B1%E7%A5%96%E5%85%88/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Han si">
@@ -1672,7 +1670,7 @@ inter
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2020/04/16/LeetCode/leetcode-001394.%20%E6%89%BE%E5%87%BA%E6%95%B0%E7%BB%84%E4%B8%AD%E7%9A%84%E5%B9%B8%E8%BF%90%E6%95%B0/" itemprop="url">1394. 找出数组中的幸运数</a></h1>
+                <a class="post-title-link" href="/2020/04/17/LeetCode/leetcode-235-%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91%E7%9A%84%E6%9C%80%E8%BF%91%E5%85%AC%E5%85%B1%E7%A5%96%E5%85%88/" itemprop="url">235. 二叉搜索树的最近公共祖先</a></h1>
         
 
         <div class="post-meta">
@@ -1684,8 +1682,8 @@ inter
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-04-16T00:00:00+08:00">
-                2020-04-16
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-04-17T00:00:00+08:00">
+                2020-04-17
               </time>
             
 
@@ -1746,17 +1744,13 @@ inter
       
         
           
-          题目在整数数组中，如果一个整数的出现频次和它的数值大小相等，我们就称这个整数为「幸运数」。
-给你一个整数数组 arr，请你从中找出并返回一个幸运数。
-
-如果数组中存在多个幸运数，只需返回 最大 的那个。
-如果数组中不含幸运数，则返回 -1 。
-
-示例 1:123输入：arr &#x3D; [2,2,
+          题目给定一个二叉搜索树, 找到该树中两个指定节点的最近公共祖先。
+百度百科中最近公共祖先的定义为：“对于有根树 T 的两个结点 p、q，最近公共祖先表示为一个结点 x，满足 x 是 p、q 的祖先且 x 的深度尽可能大（一个节点也可以是它自己的祖先）。”
+例如，给定如下二叉搜索树:  root = 
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2020/04/16/LeetCode/leetcode-001394.%20%E6%89%BE%E5%87%BA%E6%95%B0%E7%BB%84%E4%B8%AD%E7%9A%84%E5%B9%B8%E8%BF%90%E6%95%B0/#more" rel="contents">
+            <a class="btn" href="/2020/04/17/LeetCode/leetcode-235-%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91%E7%9A%84%E6%9C%80%E8%BF%91%E5%85%AC%E5%85%B1%E7%A5%96%E5%85%88/#more" rel="contents">
               Read more &raquo;
             </a>
           </div>
@@ -1798,7 +1792,7 @@ inter
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/10/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/10/">10</a><span class="page-number current">11</span><a class="page-number" href="/page/12/">12</a><span class="space">&hellip;</span><a class="page-number" href="/page/51/">51</a><a class="extend next" rel="next" href="/page/12/"><i class="fa fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" href="/page/10/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/10/">10</a><span class="page-number current">11</span><a class="page-number" href="/page/12/">12</a><span class="space">&hellip;</span><a class="page-number" href="/page/52/">52</a><a class="extend next" rel="next" href="/page/12/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -1844,7 +1838,7 @@ inter
               
                 <a href="/archives/%7C%7C%20archive">
               
-                  <span class="site-state-item-count">501</span>
+                  <span class="site-state-item-count">517</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -1855,7 +1849,7 @@ inter
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">20</span>
+                  <span class="site-state-item-count">22</span>
                   <span class="site-state-item-name">categories</span>
                 </a>
               </div>
@@ -1866,7 +1860,7 @@ inter
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">294</span>
+                  <span class="site-state-item-count">310</span>
                   <span class="site-state-item-name">tags</span>
                 </a>
               </div>
