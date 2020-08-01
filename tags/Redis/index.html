@@ -81,7 +81,7 @@
 
 <meta property="og:type" content="website">
 <meta property="og:title" content="Hansi Blog">
-<meta property="og:url" content="http://huhansi.com/tags/redis/index.html">
+<meta property="og:url" content="http://huhansi.com/tags/Redis/index.html">
 <meta property="og:site_name" content="Hansi Blog">
 <meta property="og:locale" content="Zh_CN">
 <meta property="article:author" content="Han si">
@@ -115,13 +115,13 @@
 
 
 
-  <link rel="canonical" href="http://huhansi.com/tags/redis/"/>
+  <link rel="canonical" href="http://huhansi.com/tags/Redis/"/>
 
 
 
 
 
-  <title>Tag: redis | Hansi Blog</title>
+  <title>Tag: Redis | Hansi Blog</title>
   
 
 
@@ -285,7 +285,7 @@
 
     <div id="posts" class="posts-collapse">
       <div class="collection-title">
-        <h1>redis<small>Tag</small>
+        <h1>Redis<small>Tag</small>
         </h1>
       </div>
 
@@ -297,9 +297,9 @@
 
       <h2 class="post-title">
         
-            <a class="post-title-link" href="/2020/05/09/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/Redis%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%AE%9E%E7%8E%B0/2020-05-09-Redis-%E4%BA%8B%E5%8A%A1/" itemprop="url">
+            <a class="post-title-link" href="/2020/05/08/Redis/2020-05-08-redis%E5%9F%BA%E6%9C%AC%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/" itemprop="url">
               
-                <span itemprop="name">Redis事务简介</span>
+                <span itemprop="name">Redis基本数据类型</span>
               
             </a>
         
@@ -307,9 +307,65 @@
 
       <div class="post-meta">
         <time class="post-time" itemprop="dateCreated"
-              datetime="2020-05-09T00:00:00+08:00"
-              content="2020-05-09" >
-          05-09
+              datetime="2020-05-08T00:00:00+08:00"
+              content="2020-05-08" >
+          05-08
+        </time>
+      </div>
+
+    </header>
+  </article>
+
+
+      
+        
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+
+      <h2 class="post-title">
+        
+            <a class="post-title-link" href="/2020/04/13/Redis/Redis%E7%9A%84%E5%87%A0%E7%A7%8D%E9%83%A8%E7%BD%B2%E6%9E%B6%E6%9E%84/" itemprop="url">
+              
+                <span itemprop="name">Redis的几种部署架构</span>
+              
+            </a>
+        
+      </h2>
+
+      <div class="post-meta">
+        <time class="post-time" itemprop="dateCreated"
+              datetime="2020-04-13T00:00:00+08:00"
+              content="2020-04-13" >
+          04-13
+        </time>
+      </div>
+
+    </header>
+  </article>
+
+
+      
+        
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+
+      <h2 class="post-title">
+        
+            <a class="post-title-link" href="/2020/04/12/%E5%88%86%E5%B8%83%E5%BC%8F/%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81%E7%9A%84%E5%87%A0%E7%A7%8D%E5%AE%9E%E7%8E%B0/" itemprop="url">
+              
+                <span itemprop="name">分布式锁的几种实现方式</span>
+              
+            </a>
+        
+      </h2>
+
+      <div class="post-meta">
+        <time class="post-time" itemprop="dateCreated"
+              datetime="2020-04-12T00:00:00+08:00"
+              content="2020-04-12" >
+          04-12
         </time>
       </div>
 
@@ -369,7 +425,7 @@
               
                 <a href="/archives/%7C%7C%20archive">
               
-                  <span class="site-state-item-count">517</span>
+                  <span class="site-state-item-count">523</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -380,7 +436,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">22</span>
+                  <span class="site-state-item-count">23</span>
                   <span class="site-state-item-name">categories</span>
                 </a>
               </div>
@@ -391,7 +447,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">310</span>
+                  <span class="site-state-item-count">312</span>
                   <span class="site-state-item-name">tags</span>
                 </a>
               </div>
@@ -867,78 +923,6 @@
               });
               var searchResultList = '<ul class=\"search-result-list\">';
               resultItems.forEach(function (result) {
-                searchResultList += result.item;
-              })
-              searchResultList += "</ul>";
-              resultContent.innerHTML = searchResultList;
-            }
-          }
-
-          if ('auto' === 'auto') {
-            input.addEventListener('input', inputEventFunction);
-          } else {
-            $('.search-icon').click(inputEventFunction);
-            input.addEventListener('keypress', function (event) {
-              if (event.keyCode === 13) {
-                inputEventFunction();
-              }
-            });
-          }
-
-          // remove loading animation
-          $(".local-search-pop-overlay").remove();
-          $('body').css('overflow', '');
-
-          proceedsearch();
-        }
-      });
-    }
-
-    // handle and trigger popup window;
-    $('.popup-trigger').click(function(e) {
-      e.stopPropagation();
-      if (isfetched === false) {
-        searchFunc(path, 'local-search-input', 'local-search-result');
-      } else {
-        proceedsearch();
-      };
-    });
-
-    $('.popup-btn-close').click(onPopupClose);
-    $('.popup').click(function(e){
-      e.stopPropagation();
-    });
-    $(document).on('keyup', function (event) {
-      var shouldDismissSearchPopup = event.which === 27 &&
-        $('.search-popup').is(':visible');
-      if (shouldDismissSearchPopup) {
-        onPopupClose();
-      }
-    });
-  </script>
-
-
-
-
-
-  
-
-  
-
-  
-
-  
-  
-
-  
-
-  
-
-  
-
-</body>
-</html>
-result) {
                 searchResultList += result.item;
               })
               searchResultList += "</ul>";
