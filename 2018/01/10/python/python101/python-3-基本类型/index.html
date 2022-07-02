@@ -1,91 +1,18 @@
 <!DOCTYPE html>
-
-
-
-  
-
-
-<html class="theme-next mist use-motion" lang="Zh_cn">
+<html>
 <head>
-  <meta charset="UTF-8"/>
-<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
-<meta name="theme-color" content="#222">
-
-
-
-
-
-
-
-
-
-<meta http-equiv="Cache-Control" content="no-transform" />
-<meta http-equiv="Cache-Control" content="no-siteapp" />
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+  <meta charset="utf-8">
   
   
-  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
-
-
-
-
-
-
-
-<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
-
-<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
-
-
-  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
-
-
-  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
-
-
-  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
-
-
-  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
-
-
-
-
-
-  <meta name="keywords" content="python," />
-
-
-
-
-
-
-
-
-
-
-<meta name="description" content="Python提供的基本数据类型主要有：空类型、布尔类型、整型、浮点型、字符串、列表、元组、集合、字典。 整型（Int）整型，一般就是表示整数。在Python中，没有特别区分长整型和整型。一般超过32位之后，就自动当做长整型来处理。长整型在python中几乎没有范围限制。    浮点数（Float）也就是C语言中的double，java中的float和double。在运算中，整数和浮点数的运算结果也">
+  <title>python基本类型 | HanSi&#39;s Blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="Python提供的基本数据类型主要有：空类型、布尔类型、整型、浮点型、字符串、列表、元组、集合、字典。 整型（Int）整型，一般就是表示整数。在Python中，没有特别区分长整型和整型。一般超过32位之后，就自动当做长整型来处理。长整型在python中几乎没有范围限制。    浮点数（Float）也就是C语言中的double，java中的float和double。在运算中，整数和浮点数的运算结果也">
 <meta property="og:type" content="article">
 <meta property="og:title" content="python基本类型">
 <meta property="og:url" content="http://huhansi.com/2018/01/10/python/python101/python-3-%E5%9F%BA%E6%9C%AC%E7%B1%BB%E5%9E%8B/index.html">
-<meta property="og:site_name" content="Hansi Blog">
+<meta property="og:site_name" content="HanSi&#39;s Blog">
 <meta property="og:description" content="Python提供的基本数据类型主要有：空类型、布尔类型、整型、浮点型、字符串、列表、元组、集合、字典。 整型（Int）整型，一般就是表示整数。在Python中，没有特别区分长整型和整型。一般超过32位之后，就自动当做长整型来处理。长整型在python中几乎没有范围限制。    浮点数（Float）也就是C语言中的double，java中的float和double。在运算中，整数和浮点数的运算结果也">
-<meta property="og:locale" content="Zh_CN">
+<meta property="og:locale">
 <meta property="og:image" content="https://huhansi.github.io/images/2%E7%9A%8410000%E6%AC%A1%E6%96%B9.PNG">
 <meta property="og:image" content="https://huhansi.github.io/images/3%E9%99%A4%E4%BB%A52.PNG">
 <meta property="og:image" content="https://huhansi.github.io/images/%E5%8F%96%E6%95%B4.PNG">
@@ -124,305 +51,92 @@
 <meta property="og:image" content="https://huhansi.github.io/images/%E5%88%A0%E9%99%A4%E9%9B%86%E5%90%88.PNG">
 <meta property="og:image" content="https://huhansi.github.io/images/None.PNG">
 <meta property="article:published_time" content="2018-01-09T16:00:00.000Z">
-<meta property="article:modified_time" content="2020-03-20T07:27:15.977Z">
-<meta property="article:author" content="Han si">
+<meta property="article:modified_time" content="2022-06-19T05:01:29.916Z">
+<meta property="article:author" content="HanSi">
 <meta property="article:tag" content="python">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://huhansi.github.io/images/2%E7%9A%8410000%E6%AC%A1%E6%96%B9.PNG">
-
-
-
-<script type="text/javascript" id="hexo.configurations">
-  var NexT = window.NexT || {};
-  var CONFIG = {
-    root: '/',
-    scheme: 'Mist',
-    version: '5.1.4',
-    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
-    fancybox: true,
-    tabs: true,
-    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
-    duoshuo: {
-      userId: '0',
-      author: 'Author'
-    },
-    algolia: {
-      applicationID: '',
-      apiKey: '',
-      indexName: '',
-      hits: {"per_page":10},
-      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
-    }
-  };
-</script>
-
-
-
-  <link rel="canonical" href="http://huhansi.com/2018/01/10/python/python101/python-3-基本类型/"/>
-
-
-
-
-
-  <title>python基本类型 | Hansi Blog</title>
   
-
-
-
-
-
-
-
-
-<meta name="generator" content="Hexo 4.2.0"></head>
-
-<body itemscope itemtype="http://schema.org/WebPage" lang="Zh_cn">
-
+    <link rel="alternate" href="/atom.xml" title="HanSi's Blog" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
   
   
     
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
   
+  
+<link rel="stylesheet" href="/css/style.css">
 
-  <div class="container sidebar-position-left page-post-detail">
-    <div class="headband"></div>
-
-    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
-      <div class="header-inner"><div class="site-brand-wrapper">
-  <div class="site-meta ">
+  
     
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
 
-    <div class="custom-logo-site-title">
-      <a href="/"  class="brand" rel="start">
-        <span class="logo-line-before"><i></i></span>
-        <span class="site-title">Hansi Blog</span>
-        <span class="logo-line-after"><i></i></span>
-      </a>
+  
+<meta name="generator" content="Hexo 6.2.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">HanSi&#39;s Blog</a>
+      </h1>
+      
     </div>
-      
-        <p class="site-subtitle">Know something of everything, know everything of something</p>
-      
-  </div>
-
-  <div class="site-nav-toggle">
-    <button>
-      <span class="btn-bar"></span>
-      <span class="btn-bar"></span>
-      <span class="btn-bar"></span>
-    </button>
-  </div>
-</div>
-
-<nav class="site-nav">
-  
-
-  
-    <ul id="menu" class="menu">
-      
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
         
-        <li class="menu-item menu-item-home">
-          <a href="/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
-            
-            Home
-          </a>
-        </li>
-      
+          <a class="main-nav-link" href="/">Home</a>
         
-        <li class="menu-item menu-item-about">
-          <a href="/about/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
-            
-            About
-          </a>
-        </li>
-      
+          <a class="main-nav-link" href="/archives">Archives</a>
         
-        <li class="menu-item menu-item-tags">
-          <a href="/tags/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
-            
-            Tags
-          </a>
-        </li>
-      
+      </nav>
+      <nav id="sub-nav">
         
-        <li class="menu-item menu-item-categories">
-          <a href="/categories/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
-            
-            Categories
-          </a>
-        </li>
-      
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
         
-        <li class="menu-item menu-item-archives">
-          <a href="/archives/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
-            
-            Archives
-          </a>
-        </li>
-      
-
-      
-        <li class="menu-item menu-item-search">
-          
-            <a href="javascript:;" class="popup-trigger">
-          
-            
-              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
-            
-            Search
-          </a>
-        </li>
-      
-    </ul>
-  
-
-  
-    <div class="site-search">
-      
-  <div class="popup search-popup local-search-popup">
-  <div class="local-search-header clearfix">
-    <span class="search-icon">
-      <i class="fa fa-search"></i>
-    </span>
-    <span class="popup-btn-close">
-      <i class="fa fa-times-circle"></i>
-    </span>
-    <div class="local-search-input-wrapper">
-      <input autocomplete="off"
-             placeholder="Searching..." spellcheck="false"
-             type="text" id="local-search-input">
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://huhansi.com"></form>
+      </div>
     </div>
   </div>
-  <div id="local-search-result"></div>
-</div>
+</header>
 
-
-
-    </div>
-  
-</nav>
-
-
-
- </div>
-    </header>
-
-    <main id="main" class="main">
-      <div class="main-inner">
-        <div class="content-wrap">
-          <div id="content" class="content">
-            
-
-  <div id="posts" class="posts-expand">
+      <div class="outer">
+        <section id="main"><article id="post-python/python101/python-3-基本类型" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2018/01/10/python/python101/python-3-%E5%9F%BA%E6%9C%AC%E7%B1%BB%E5%9E%8B/" class="article-date">
+  <time class="dt-published" datetime="2018-01-09T16:00:00.000Z" itemprop="datePublished">2018-01-10</time>
+</a>
     
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/python%E5%AD%A6%E4%B9%A0/">python学习</a>
+  </div>
 
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://huhansi.com/2018/01/10/python/python101/python-3-%E5%9F%BA%E6%9C%AC%E7%B1%BB%E5%9E%8B/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Han si">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hansi Blog">
-    </span>
-
+  </div>
+  <div class="article-inner">
     
-      <header class="post-header">
-
+    
+      <header class="article-header">
         
-        
-          <h1 class="post-title" itemprop="name headline">python基本类型</h1>
-        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      python基本类型
+    </h1>
+  
 
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-01-10T00:00:00+08:00">
-                2018-01-10
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/python%E5%AD%A6%E4%B9%A0/" itemprop="url" rel="index">
-                    <span itemprop="name">python学习</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
       </header>
     
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
+    <div class="e-content article-entry" itemprop="articleBody">
       
         <p>Python提供的基本数据类型主要有：空类型、布尔类型、整型、浮点型、字符串、列表、元组、集合、字典。</p>
 <h2 id="整型（Int）"><a href="#整型（Int）" class="headerlink" title="整型（Int）"></a>整型（Int）</h2><p>整型，一般就是表示整数。在Python中，没有特别区分长整型和整型。一般超过32位之后，就自动当做长整型来处理。长整型在python中几乎没有范围限制。  </p>
@@ -446,784 +160,231 @@
 <h2 id="列表"><a href="#列表" class="headerlink" title="列表"></a>列表</h2><p>列表是python的基本数据结构之一，也是最常用的数据结构。和CPP、Java等语言不同，python的列表数据项不需要具有相同的类型。列表中的每个元素都分配一个数字-它的位置，或者索引，第一个索引是0，第二个索引是1，依次类推。</p>
 <h3 id="创建列表"><a href="#创建列表" class="headerlink" title="创建列表"></a>创建列表</h3><p><code>foods = []    #创建空列表</code><br><code>foods = [1, 2, 3, 4, 5]    # 创建整型列表</code><br><code>foods = [&#39;a&#39;, &#39;b&#39;, &#39;c&#39;, &#39;d&#39;, &#39;e&#39;]  # 创建字符型列表</code><br><code>foods = [1, 2, 3, &#39;d&#39;, 1.2]    # 创建混合列表</code></p>
 <p>还可以使用列表生成式来生成列表</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">foods &#x3D; [x * x for x in range(5)]</span><br><span class="line">foods &#x3D; [x ** x for x in range(10) if x % 2 &#x3D;&#x3D; 0]</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">foods = [x * x for x in range(5)]</span><br><span class="line">foods = [x ** x for x in range(10) if x % 2 == 0]</span><br></pre></td></tr></table></figure>
 <p><img src="https://huhansi.github.io/images/%E5%88%97%E8%A1%A8%E7%94%9F%E6%88%90%E5%BC%8F%E7%94%9F%E6%88%90%E5%88%97%E8%A1%A8.PNG" alt="列表生成式示例"></p>
 <h3 id="访问列表"><a href="#访问列表" class="headerlink" title="访问列表"></a>访问列表</h3><p>使用for…in…迭代列表</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">foods &#x3D; [1, 2, 3, 4, 5]</span><br><span class="line">for food in foods:</span><br><span class="line">    print(food)</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">foods = [1, 2, 3, 4, 5]</span><br><span class="line">for food in foods:</span><br><span class="line">    print(food)</span><br></pre></td></tr></table></figure>
 <p><img src="https://huhansi.github.io/images/%E8%BF%AD%E4%BB%A3%E5%88%97%E8%A1%A8.PNG" alt="使用for...in...迭代列表"><br>使用索引取列表指定位置元素</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">foods &#x3D; [1, 2, 3, 4, 5]</span><br><span class="line">print(foods[0])</span><br><span class="line">print(foods[5])</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">foods = [1, 2, 3, 4, 5]</span><br><span class="line">print(foods[0])</span><br><span class="line">print(foods[5])</span><br></pre></td></tr></table></figure>
 <p><img src="https://huhansi.github.io/images/%E7%B4%A2%E5%BC%95%E5%8F%96%E5%80%BC.PNG" alt="索引从0开始，到list.length - 1 结束"></p>
 <h3 id="更新列表"><a href="#更新列表" class="headerlink" title="更新列表"></a>更新列表</h3><p>可以对列表的数据项进行修改或者更新，也可以对列表进行增删。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">foods &#x3D; []    # 生成一个空列表</span><br><span class="line">foods.append(1)    # 向列表追加 1</span><br><span class="line">foods.append(2)    # 向列表追加 2</span><br><span class="line">foods[1] &#x3D; 3    # 将列表第二个元素值修改为 3</span><br><span class="line">fruits &#x3D; []    # 生成另一个空列表</span><br><span class="line">fruits.extend(food)    # 用foods列表来扩展fruits列表</span><br><span class="line">fruits.append(&#39;apple&#39;)    # 在fruits列表末追加 apple 项</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">foods = []    # 生成一个空列表</span><br><span class="line">foods.append(1)    # 向列表追加 1</span><br><span class="line">foods.append(2)    # 向列表追加 2</span><br><span class="line">foods[1] = 3    # 将列表第二个元素值修改为 3</span><br><span class="line">fruits = []    # 生成另一个空列表</span><br><span class="line">fruits.extend(food)    # 用foods列表来扩展fruits列表</span><br><span class="line">fruits.append(&#x27;apple&#x27;)    # 在fruits列表末追加 apple 项</span><br></pre></td></tr></table></figure>
 <p><img src="https://huhansi.github.io/images/%E6%9B%B4%E6%96%B0%E5%88%97%E8%A1%A8.PNG" alt="列表的增加，修改操作"></p>
 <h3 id="删除列表"><a href="#删除列表" class="headerlink" title="删除列表"></a>删除列表</h3><p>使用<code>del</code>关键字删除列表元素</p>
 <p><img src="https://huhansi.github.io/images/%E5%88%A0%E9%99%A4%E5%88%97%E8%A1%A8%E5%85%83%E7%B4%A0.PNG" alt="使用del删除列表元素"></p>
 <h3 id="列表分片"><a href="#列表分片" class="headerlink" title="列表分片"></a>列表分片</h3><p>python中使用索引来取列表中特定位置的值。分片操作就是用来取一定范围内的值，它通过在方括号内用冒号隔开两个索引来实现，第一个索引是开始点，包括在结果之中，第二个索引的元素是结束点，不包括在结果之中。即，它取的是一个前闭后开的区间。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">string &#x3D; &#39;www.python.org&#39;    # 字符串也是一个列表</span><br><span class="line">string[4:10]    #取列表索引为4，到索引为10的，前闭后开区间中的字符串</span><br><span class="line">string[4:-4]    # 取列表索引为4，到从后往前第4个区间中的字符串</span><br><span class="line">string[:-1]    # 取索引为0，到最后一个字符为止，区间中的字符串</span><br><span class="line">string[::-1]    # -1 表示步长，即从末尾到首部，依次输出字符</span><br><span class="line">string[-1]    # 取最后一个字符</span><br><span class="line">string[-3]    # 取最后第3个字符</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">string = &#x27;www.python.org&#x27;    # 字符串也是一个列表</span><br><span class="line">string[4:10]    #取列表索引为4，到索引为10的，前闭后开区间中的字符串</span><br><span class="line">string[4:-4]    # 取列表索引为4，到从后往前第4个区间中的字符串</span><br><span class="line">string[:-1]    # 取索引为0，到最后一个字符为止，区间中的字符串</span><br><span class="line">string[::-1]    # -1 表示步长，即从末尾到首部，依次输出字符</span><br><span class="line">string[-1]    # 取最后一个字符</span><br><span class="line">string[-3]    # 取最后第3个字符</span><br></pre></td></tr></table></figure>
 <p><img src="https://huhansi.github.io/images/%E5%88%97%E8%A1%A8%E5%88%86%E7%89%87.PNG" alt="列表分片"><br>分片可以接受3个参数l[x:y:z]，其中x表示起始索引，如果留空，默认为列表的头部，同理，y留空，默认为列表的尾部，z表示步长，默认为1。</p>
 <p><img src="https://huhansi.github.io/images/%E5%88%86%E7%89%87%E5%8F%82%E6%95%B0.PNG" alt="分片参数"></p>
-<h3 id="其他操作"><a href="#其他操作" class="headerlink" title="其他操作"></a>其他操作</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">foods &#x3D; [x for x in range(5)]    # 生成一个列表，[1, 2, 3, 4, 5]</span><br><span class="line">print(len(foods))    # 计算列表长度</span><br><span class="line">[1, 2, 3] + [4, 5]    # 拼接两个列表</span><br><span class="line">[1] * 5    # 复制列表元素</span><br><span class="line">3 in [1] * 5    # false 3 是否在列表 [1] * 5 中</span><br></pre></td></tr></table></figure>
+<h3 id="其他操作"><a href="#其他操作" class="headerlink" title="其他操作"></a>其他操作</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">foods = [x for x in range(5)]    # 生成一个列表，[1, 2, 3, 4, 5]</span><br><span class="line">print(len(foods))    # 计算列表长度</span><br><span class="line">[1, 2, 3] + [4, 5]    # 拼接两个列表</span><br><span class="line">[1] * 5    # 复制列表元素</span><br><span class="line">3 in [1] * 5    # false 3 是否在列表 [1] * 5 中</span><br></pre></td></tr></table></figure>
 <p><img src="https://huhansi.github.io/images/%E5%85%B6%E4%BB%96%E6%93%8D%E4%BD%9C.PNG" alt="其他操作"></p>
 <h2 id="字典"><a href="#字典" class="headerlink" title="字典"></a>字典</h2><p>字典是另一种可变容器模型，且可存储任意类型对象。</p>
-<p>字典的每个键值 key=&gt;value 对用冒号 : 分割，每个键值对之间用逗号 , 分割，整个字典包括在花括号 {} 中 ,格式如下所示：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">d &#x3D; &#123;key1 : value1, key2 : value2 &#125;</span><br></pre></td></tr></table></figure>
+<p>字典的每个键值 key&#x3D;&gt;value 对用冒号 : 分割，每个键值对之间用逗号 , 分割，整个字典包括在花括号 {} 中 ,格式如下所示：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">d = &#123;key1 : value1, key2 : value2 &#125;</span><br></pre></td></tr></table></figure>
 <p>键一般是唯一的，如果重复最后的一个键值对会替换前面的，值不需要唯一。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">d &#x3D; &#123;&#125;    # 生成空字典</span><br><span class="line">d</span><br><span class="line">d &#x3D; &#123;&#39;a&#39;: 1, &#39;b&#39;: 2, &#39;b&#39;: &#39;3&#39;&#125;</span><br><span class="line">d[&#39;b&#39;]    # 从字典取键为b的值</span><br><span class="line">d</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">d = &#123;&#125;    # 生成空字典</span><br><span class="line">d</span><br><span class="line">d = &#123;&#x27;a&#x27;: 1, &#x27;b&#x27;: 2, &#x27;b&#x27;: &#x27;3&#x27;&#125;</span><br><span class="line">d[&#x27;b&#x27;]    # 从字典取键为b的值</span><br><span class="line">d</span><br></pre></td></tr></table></figure>
 <p><img src="https://huhansi.github.io/images/%E7%94%9F%E6%88%90%E5%AD%97%E5%85%B8.PNG" alt="生成字典"><br>值可以取任何数据类型，但键必须是不可变的，如字符串，数字或元组。</p>
 <p>一个简单的字典实例：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">dict &#x3D; &#123;&#39;Alice&#39;: &#39;2341&#39;, &#39;Beth&#39;: &#39;9102&#39;, &#39;Cecil&#39;: &#39;3258&#39;&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">dict = &#123;&#x27;Alice&#x27;: &#x27;2341&#x27;, &#x27;Beth&#x27;: &#x27;9102&#x27;, &#x27;Cecil&#x27;: &#x27;3258&#x27;&#125;</span><br></pre></td></tr></table></figure>
 <p><img src="https://huhansi.github.io/images/%E7%94%9F%E6%88%90%E5%AD%97%E5%85%B82.PNG" alt="生成字典"><br>也可如此创建字典：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">dict1 &#x3D; &#123; &#39;abc&#39;: 456 &#125;</span><br><span class="line">dict2 &#x3D; &#123; &#39;abc&#39;: 123, 98.6: 37 &#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">dict1 = &#123; &#x27;abc&#x27;: 456 &#125;</span><br><span class="line">dict2 = &#123; &#x27;abc&#x27;: 123, 98.6: 37 &#125;</span><br></pre></td></tr></table></figure>
 <p><img src="https://huhansi.github.io/images/%E4%B8%8D%E5%8F%AF%E5%8F%98%E9%94%AE.PNG" alt="不可变键"></p>
 <h3 id="添加元素"><a href="#添加元素" class="headerlink" title="添加元素"></a>添加元素</h3><p>字典可以使用任意不变的对象作为键值，字符串、整型、元组等。列表是不可作为键值的，因为它是可变对象。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">d &#x3D; &#123;&#125;</span><br><span class="line">d[&#39;name&#39;] &#x3D; &#39;huhansan&#39;</span><br><span class="line">d[&#39;huhansan&#39;] &#x3D; &quot;name&quot; </span><br><span class="line">d[(1, 2, 3)] &#x3D; &#39;tuple&#39;    # 使用元组做键值</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">d = &#123;&#125;</span><br><span class="line">d[&#x27;name&#x27;] = &#x27;huhansan&#x27;</span><br><span class="line">d[&#x27;huhansan&#x27;] = &quot;name&quot; </span><br><span class="line">d[(1, 2, 3)] = &#x27;tuple&#x27;    # 使用元组做键值</span><br></pre></td></tr></table></figure>
 <p><img src="https://huhansi.github.io/images/%E5%88%97%E8%A1%A8%E6%B7%BB%E5%8A%A0%E5%85%83%E7%B4%A0.PNG" alt="列表添加元素"></p>
 <h3 id="访问和遍历元素"><a href="#访问和遍历元素" class="headerlink" title="访问和遍历元素"></a>访问和遍历元素</h3><p>可以直接使用键值key取字典中对应的值，也可以只用dict.keys()和dict.item()来遍历获取字典中所有键值对。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">d &#x3D; &#123;&#125;</span><br><span class="line">d[&#39;name&#39;] &#x3D; &#39;huhansan&#39;</span><br><span class="line">d[&#39;huhansan&#39;] &#x3D; &quot;name&quot; </span><br><span class="line">d[(1, 2, 3)] &#x3D; &#39;tuple&#39;</span><br><span class="line">print(d[&#39;name&#39;])</span><br><span class="line">for key in d.keys():    # 调用keys 遍历字典</span><br><span class="line">    print(d[key])</span><br><span class="line"></span><br><span class="line">for key, value in d.items():    # 调用items 获取键值对</span><br><span class="line">	print(key, value)</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">d = &#123;&#125;</span><br><span class="line">d[&#x27;name&#x27;] = &#x27;huhansan&#x27;</span><br><span class="line">d[&#x27;huhansan&#x27;] = &quot;name&quot; </span><br><span class="line">d[(1, 2, 3)] = &#x27;tuple&#x27;</span><br><span class="line">print(d[&#x27;name&#x27;])</span><br><span class="line">for key in d.keys():    # 调用keys 遍历字典</span><br><span class="line">    print(d[key])</span><br><span class="line"></span><br><span class="line">for key, value in d.items():    # 调用items 获取键值对</span><br><span class="line">	print(key, value)</span><br></pre></td></tr></table></figure>
 <p><img src="https://huhansi.github.io/images/%E8%AE%BF%E9%97%AE%E5%92%8C%E9%81%8D%E5%8E%86%E5%85%83%E7%B4%A0.PNG" alt="访问和遍历元素"><br>如果访问一个不在字典中的键值对，则会抛出一个异常。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">d &#x3D; &#123;&#125;</span><br><span class="line">d[&#39;name&#39;] &#x3D; &#39;huhansan&#39;</span><br><span class="line">d[&#39;huhansan&#39;] &#x3D; &quot;name&quot; </span><br><span class="line">d[(1, 2, 3)] &#x3D; &#39;tuple&#39;</span><br><span class="line">d[222]    # 获取不存在的元素，此处会抛出一个异常</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">d = &#123;&#125;</span><br><span class="line">d[&#x27;name&#x27;] = &#x27;huhansan&#x27;</span><br><span class="line">d[&#x27;huhansan&#x27;] = &quot;name&quot; </span><br><span class="line">d[(1, 2, 3)] = &#x27;tuple&#x27;</span><br><span class="line">d[222]    # 获取不存在的元素，此处会抛出一个异常</span><br></pre></td></tr></table></figure>
 <p><img src="https://huhansi.github.io/images/%E8%8E%B7%E5%8F%96%E4%B8%8D%E5%AD%98%E5%9C%A8%E5%85%83%E7%B4%A0.PNG" alt="获取不存在元素"></p>
 <h3 id="删除元素"><a href="#删除元素" class="headerlink" title="删除元素"></a>删除元素</h3><p>使用python内置关键字<code>del</code>删除字典内元素；也可以调用字典内置函数clear() 清空字典元素。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">d &#x3D; &#123;&#125;</span><br><span class="line">d[&#39;name&#39;] &#x3D; &#39;huhansan&#39;</span><br><span class="line">d[&#39;huhansan&#39;] &#x3D; &quot;name&quot; </span><br><span class="line">d[(1, 2, 3)] &#x3D; &#39;tuple&#39;</span><br><span class="line">del d[&#39;name&#39;]    # 删除键为name的值</span><br><span class="line">del d    # 删除字典 d</span><br><span class="line">d    #    删除字典后，再访问，此处会抛出一个异常</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">d = &#123;&#125;</span><br><span class="line">d[&#x27;name&#x27;] = &#x27;huhansan&#x27;</span><br><span class="line">d[&#x27;huhansan&#x27;] = &quot;name&quot; </span><br><span class="line">d[(1, 2, 3)] = &#x27;tuple&#x27;</span><br><span class="line">del d[&#x27;name&#x27;]    # 删除键为name的值</span><br><span class="line">del d    # 删除字典 d</span><br><span class="line">d    #    删除字典后，再访问，此处会抛出一个异常</span><br></pre></td></tr></table></figure>
 <p><img src="https://huhansi.github.io/images/%E5%88%A0%E9%99%A4%E5%85%83%E7%B4%A0.PNG" alt="删除元素"></p>
 <h3 id="修改元素"><a href="#修改元素" class="headerlink" title="修改元素"></a>修改元素</h3><p>向字典中重复添加相同元素的键值对，后添加的键值对值会覆盖前添加的键值对的值。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">d &#x3D; &#123;&#125;</span><br><span class="line">d[&quot;name&quot;] &#x3D; &quot;huhansi&quot;</span><br><span class="line">d[&quot;name&quot;] &#x3D; &quot;huhansan&quot;</span><br><span class="line">print(d[&quot;name&quot;])</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">d = &#123;&#125;</span><br><span class="line">d[&quot;name&quot;] = &quot;huhansi&quot;</span><br><span class="line">d[&quot;name&quot;] = &quot;huhansan&quot;</span><br><span class="line">print(d[&quot;name&quot;])</span><br></pre></td></tr></table></figure>
 <p><img src="https://huhansi.github.io/images/%E6%9B%B4%E6%96%B0%E5%85%83%E7%B4%A0.PNG" alt="更新元素"></p>
 <h3 id="其他操作-1"><a href="#其他操作-1" class="headerlink" title="其他操作"></a>其他操作</h3><h2 id="元组"><a href="#元组" class="headerlink" title="元组"></a>元组</h2><p>在Python中，元组（Tuple）和列表类似，两者之间的区别在于：元组不能更改，列表可以。也就是说，一旦被分配，就不能从元组中添加、更改或者删除元素。</p>
 <h3 id="元素的优势"><a href="#元素的优势" class="headerlink" title="元素的优势"></a>元素的优势</h3><p>· 通常将元组用于不同的数据类型，将列表用于相同（或相似）的数据类型<br>· 由于元组不可变，所以遍历元组比列表要快（较小的性能提升）<br>· 元组可以用做字典的key，而列表不行。因为字典的key必须是不可变的，元组本身就是不可变的<br>· 如果数据不需要修改，可将其作为元组来实现，可以确保“写保护”<br>· 元组可以被用在字符串格式化中</p>
 <h3 id="创建元组"><a href="#创建元组" class="headerlink" title="创建元组"></a>创建元组</h3><p>在Python中，元组的内置tuple类型定义。<br>要创建元组，需要将所有项（元素）放在括号（<code>()</code>）内，以逗号（<code>,</code>）分隔。括号是可选的，但是建议写上。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">t &#x3D; 1, 2, 3, 4, 5    # 创建元组，不使用括号</span><br><span class="line">t &#x3D; ()    # 空元组</span><br><span class="line">t &#x3D; (&#39;p&#39;, &#39;y&#39;, &#39;t&#39;, &#39;h&#39;, &#39;o&#39;, &#39;n&#39;)    # 字符型元组</span><br><span class="line">t &#x3D; (1, 1.2, &quot;1.3&quot;)    # 混合型元组</span><br><span class="line">t &#x3D; (1, 2, (3, 4, 5))    # 嵌套型元组</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">t = 1, 2, 3, 4, 5    # 创建元组，不使用括号</span><br><span class="line">t = ()    # 空元组</span><br><span class="line">t = (&#x27;p&#x27;, &#x27;y&#x27;, &#x27;t&#x27;, &#x27;h&#x27;, &#x27;o&#x27;, &#x27;n&#x27;)    # 字符型元组</span><br><span class="line">t = (1, 1.2, &quot;1.3&quot;)    # 混合型元组</span><br><span class="line">t = (1, 2, (3, 4, 5))    # 嵌套型元组</span><br></pre></td></tr></table></figure>
 <p><img src="https://huhansi.github.io/images/%E5%88%9B%E5%BB%BA%E5%85%83%E7%BB%84.PNG" alt="创建元组"><br>另外，如果要声明一个元组的元组，在括号中单申明一个元素是不够的，要在该元组后面添加一个逗号。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">t &#x3D; (&quot;python&quot;)    # 此语法无法声明一个单元素元组，只会申明一个字符串</span><br><span class="line">type(t)</span><br><span class="line">t &#x3D; (&quot;python&quot;,)    # 此语法才可声明一个单元素元组</span><br><span class="line">type(t)</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">t = (&quot;python&quot;)    # 此语法无法声明一个单元素元组，只会申明一个字符串</span><br><span class="line">type(t)</span><br><span class="line">t = (&quot;python&quot;,)    # 此语法才可声明一个单元素元组</span><br><span class="line">type(t)</span><br></pre></td></tr></table></figure>
 <p><img src="https://huhansi.github.io/images/%E5%8D%95%E4%B8%AA%E5%85%83%E7%BB%84.PNG" alt="单个元组"></p>
 <h3 id="元组分片"><a href="#元组分片" class="headerlink" title="元组分片"></a>元组分片</h3><p>元组和列表都属于序列，因此，他们的基本操作是一样的。可以使用索引操作符<code>[]</code>来访问元组中的每一个元素，使用切片操作符<code>：</code>来访问元组中的一系列元素。</p>
 <p><img src="https://huhansi.github.io/images/%E5%88%86%E7%89%87%E7%A4%BA%E6%84%8F%E5%9B%BE.PNG" alt="分片示意图"></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">t &#x3D; (1, 2, 3, 4, 5, 6, 7, 8)</span><br><span class="line">t[1]    # 取元组第一个元素</span><br><span class="line">t[-2]    # 取元组第七个元素</span><br><span class="line">t &#x3D; (1, 2, 3, (4, 5, 6))    # 元组嵌套</span><br><span class="line">t[3][2]    # 取元素第四个元素元组中的第三个元素</span><br><span class="line">t &#x3D; (1, 2, 3, [7, 8, 9])    # 元组嵌套列表</span><br><span class="line">t[3][2]    # 取元素第四个元组列表中的第三个元素</span><br><span class="line">t[1:3]    # 取元组第二个到第三个元素</span><br><span class="line">t[1:]    # 取元组第二个到元组末尾的序列</span><br><span class="line">t[:4]    # 取元组头开始到元素第四个元素的序列</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">t = (1, 2, 3, 4, 5, 6, 7, 8)</span><br><span class="line">t[1]    # 取元组第一个元素</span><br><span class="line">t[-2]    # 取元组第七个元素</span><br><span class="line">t = (1, 2, 3, (4, 5, 6))    # 元组嵌套</span><br><span class="line">t[3][2]    # 取元素第四个元素元组中的第三个元素</span><br><span class="line">t = (1, 2, 3, [7, 8, 9])    # 元组嵌套列表</span><br><span class="line">t[3][2]    # 取元素第四个元组列表中的第三个元素</span><br><span class="line">t[1:3]    # 取元组第二个到第三个元素</span><br><span class="line">t[1:]    # 取元组第二个到元组末尾的序列</span><br><span class="line">t[:4]    # 取元组头开始到元素第四个元素的序列</span><br></pre></td></tr></table></figure>
 <p><img src="https://huhansi.github.io/images/%E5%85%83%E7%BB%84%E5%88%86%E7%89%87.PNG" alt="元组分片"></p>
 <h3 id="更改元组"><a href="#更改元组" class="headerlink" title="更改元组"></a>更改元组</h3><p>元组是不可变的，也就是说，元组中的元组在被赋值后不能改变。<br>但是，如果元素本身是一个可变数据类型的列表，那么其嵌套项可以被改变。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">t &#x3D; (1, 2, 3, [4, 5, 6])</span><br><span class="line">t[0] &#x3D; 7</span><br><span class="line">t[3][0] &#x3D; 8</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">t = (1, 2, 3, [4, 5, 6])</span><br><span class="line">t[0] = 7</span><br><span class="line">t[3][0] = 8</span><br></pre></td></tr></table></figure>
 <p><img src="https://huhansi.github.io/images/%E4%BF%AE%E6%94%B9%E5%85%83%E7%BB%84.PNG" alt="修改元组"></p>
 <h3 id="删除元组"><a href="#删除元组" class="headerlink" title="删除元组"></a>删除元组</h3><p>元组元素不能修改，那么元组中的元素也是不能删除的，但是可以删除整个元组。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">t &#x3D; (1, 2, 3, 4, 5, 6, 7, 9)</span><br><span class="line">del t[1]</span><br><span class="line">del t</span><br><span class="line">t</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">t = (1, 2, 3, 4, 5, 6, 7, 9)</span><br><span class="line">del t[1]</span><br><span class="line">del t</span><br><span class="line">t</span><br></pre></td></tr></table></figure>
 <p><img src="https://huhansi.github.io/images/%E5%88%A0%E9%99%A4%E5%85%83%E7%BB%84.PNG" alt="删除元祖"></p>
 <h3 id="元组和列表互换"><a href="#元组和列表互换" class="headerlink" title="元组和列表互换"></a>元组和列表互换</h3><p>元和和列表可以互相转换，分别使用list()和tuple()方法实现。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">t &#x3D; (1, 2, 3, 4, 5, 6)</span><br><span class="line">listt &#x3D; list(t)    # 将元组转换为列表</span><br><span class="line">t &#x3D; tuple(listt)    # 将列表转换为元组</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">t = (1, 2, 3, 4, 5, 6)</span><br><span class="line">listt = list(t)    # 将元组转换为列表</span><br><span class="line">t = tuple(listt)    # 将列表转换为元组</span><br></pre></td></tr></table></figure>
 <p><img src="https://huhansi.github.io/images/%E5%88%97%E8%A1%A8%E5%85%83%E7%BB%84%E4%BA%92%E7%9B%B8%E8%BD%AC%E6%8D%A2.PNG" alt="列表元组互相转换"></p>
 <h2 id="集合"><a href="#集合" class="headerlink" title="集合"></a>集合</h2><p>集合（Set）也是标准的Python数据类型，它也可以用于存储值。它和列表或者元组之间的区别是，集合中的每一个元素不能出现多次，并且元素之间是无序存储的。<br>由于集合中的元素不能出现多次，这使得集合在很大程度上能够高效地从列表或者元组中删除重复值，并执行取并集、交集等常见的数学操作。</p>
-<h3 id="创建集合"><a href="#创建集合" class="headerlink" title="创建集合"></a>创建集合</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">s &#x3D; set()    # 声明空集合</span><br><span class="line">s &#x3D; set(&quot;python&quot;)    # 以字符列表，字符串形式声明集合</span><br><span class="line">s &#x3D; set([1, 2, 3, 4])    # 以列表形式声明集合</span><br><span class="line">s &#x3D; &#123;1, 2, 3, 4&#125;    # 以花括号形式声明集合</span><br><span class="line">s &#x3D; &#123;1, 1, 2, 3&#125;    # 如果集合中有重复元素，那么重复元素只会出现一次，即，此时，s &#x3D; &#123;1, 2, 3&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="创建集合"><a href="#创建集合" class="headerlink" title="创建集合"></a>创建集合</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">s = set()    # 声明空集合</span><br><span class="line">s = set(&quot;python&quot;)    # 以字符列表，字符串形式声明集合</span><br><span class="line">s = set([1, 2, 3, 4])    # 以列表形式声明集合</span><br><span class="line">s = &#123;1, 2, 3, 4&#125;    # 以花括号形式声明集合</span><br><span class="line">s = &#123;1, 1, 2, 3&#125;    # 如果集合中有重复元素，那么重复元素只会出现一次，即，此时，s = &#123;1, 2, 3&#125;</span><br></pre></td></tr></table></figure>
 <p><img src="https://huhansi.github.io/images/%E5%88%9B%E5%BB%BA%E9%9B%86%E5%90%88.PNG" alt="创建集合"></p>
-<h3 id="查询和遍历集合"><a href="#查询和遍历集合" class="headerlink" title="查询和遍历集合"></a>查询和遍历集合</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">s &#x3D; set([1, 2, 3, 4])</span><br><span class="line">print(4 in s)</span><br><span class="line">for value in s:</span><br><span class="line">    print(value)</span><br></pre></td></tr></table></figure>
+<h3 id="查询和遍历集合"><a href="#查询和遍历集合" class="headerlink" title="查询和遍历集合"></a>查询和遍历集合</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">s = set([1, 2, 3, 4])</span><br><span class="line">print(4 in s)</span><br><span class="line">for value in s:</span><br><span class="line">    print(value)</span><br></pre></td></tr></table></figure>
 <p><img src="https://huhansi.github.io/images/%E9%81%8D%E5%8E%86%E9%9B%86%E5%90%88.PNG" alt="遍历集合"></p>
-<h3 id="删除集合"><a href="#删除集合" class="headerlink" title="删除集合"></a>删除集合</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">s &#x3D; set([1, 2, 3, 4, 5, 6])</span><br><span class="line">s.remove(1)    # 移除元素1</span><br><span class="line">s.add(7)</span><br><span class="line">del s</span><br><span class="line">s</span><br></pre></td></tr></table></figure>
+<h3 id="删除集合"><a href="#删除集合" class="headerlink" title="删除集合"></a>删除集合</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">s = set([1, 2, 3, 4, 5, 6])</span><br><span class="line">s.remove(1)    # 移除元素1</span><br><span class="line">s.add(7)</span><br><span class="line">del s</span><br><span class="line">s</span><br></pre></td></tr></table></figure>
 <p><img src="https://huhansi.github.io/images/%E5%88%A0%E9%99%A4%E9%9B%86%E5%90%88.PNG" alt="删除集合"></p>
 <h2 id="空类型（None）"><a href="#空类型（None）" class="headerlink" title="空类型（None）"></a>空类型（None）</h2><p>表示该值是一个空值，且对其没有特别的操作。空值是Python里的一个特殊的值，用None表示。空值不能理解为0，因为0是有意义的，而None是一个特殊的空值。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">None &#x3D;&#x3D; 0</span><br><span class="line">None &#x3D;&#x3D; &#39;&#39;</span><br><span class="line">type(None)</span><br><span class="line">None &#x3D;&#x3D; None</span><br><span class="line">None is None</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">None == 0</span><br><span class="line">None == &#x27;&#x27;</span><br><span class="line">type(None)</span><br><span class="line">None == None</span><br><span class="line">None is None</span><br></pre></td></tr></table></figure>
 <p><img src="https://huhansi.github.io/images/None.PNG" alt="None"></p>
 
       
     </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-        <div class="post-tags">
-          
-            <a href="/tags/python/" rel="tag"># python</a>
-          
-        </div>
-      
-
+    <footer class="article-footer">
+      <a data-url="http://huhansi.com/2018/01/10/python/python101/python-3-%E5%9F%BA%E6%9C%AC%E7%B1%BB%E5%9E%8B/" data-id="cl541fthn026t5srw4p5m2oba" data-title="python基本类型" class="article-share-link">Share</a>
       
       
       
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/python/" rel="tag">python</a></li></ul>
 
-      
-        <div class="post-nav">
-          <div class="post-nav-next post-nav-item">
-            
-              <a href="/2018/01/09/python/python101/python-1-introduction/" rel="next" title="python简介">
-                <i class="fa fa-chevron-left"></i> python简介
-              </a>
-            
-          </div>
-
-          <span class="post-nav-divider"></span>
-
-          <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2018/01/10/python/python101/python-2-%E8%BF%90%E8%A1%8C/" rel="prev" title="运行python">
-                运行python <i class="fa fa-chevron-right"></i>
-              </a>
-            
-          </div>
-        </div>
-      
-
-      
-      
     </footer>
   </div>
   
-  
-  
-  </article>
-
-
-
-    <div class="post-spread">
-      
-    </div>
-  </div>
-
-
-          </div>
-          
-
-
-          
-
-  
-
-
-
-        </div>
-        
-          
-  
-  <div class="sidebar-toggle">
-    <div class="sidebar-toggle-line-wrap">
-      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
-      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
-      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
-    </div>
-  </div>
-
-  <aside id="sidebar" class="sidebar">
     
-    <div class="sidebar-inner">
+<nav id="article-nav">
+  
+    <a href="/2018/01/10/python/python101/python-2-%E8%BF%90%E8%A1%8C/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          运行python
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2018/01/09/python/python101/python-1-introduction/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">python简介</div>
+    </a>
+  
+</nav>
 
-      
+  
+</article>
 
-      
-        <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
-            Table of Contents
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/CAS/">CAS</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Dubbo/">Dubbo</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Guava/">Guava</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/JVM/">JVM</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Java/">Java</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/MySQL/">MySQL</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Redis/">Redis</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Spring-Cloud/">Spring Cloud</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Spring-Cloud-Gateway/">Spring Cloud Gateway</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Web%E5%AE%89%E5%85%A8/">Web安全</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/java-NIO/">java NIO</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/java%E5%A4%9A%E7%BA%BF%E7%A8%8B%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/">java多线程设计模式</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/leetcode/">leetcode</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/linux/">linux</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/python%E5%AD%A6%E4%B9%A0/">python学习</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/python%E7%88%AC%E8%99%AB/">python爬虫</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/redis/">redis</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%88%86%E5%B8%83%E5%BC%8F/">分布式</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%A4%9A%E7%BA%BF%E7%A8%8B/">多线程</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%AE%89%E5%85%A8/">安全</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%AE%98%E6%96%B9%E6%96%87%E6%A1%A3%E7%BF%BB%E8%AF%91/">官方文档翻译</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%BA%90%E7%A0%81/">源码</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%BA%90%E7%A0%81/%E5%A4%9A%E7%BA%BF%E7%A8%8B/">多线程</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%BA%90%E7%A0%81/%E5%A4%9A%E7%BA%BF%E7%A8%8B/CAS/">CAS</a></li></ul></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%AE%97%E6%B3%95/">算法</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/">设计模式</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/ACID/" rel="tag">ACID</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/AJAX/" rel="tag">AJAX</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/AQS/" rel="tag">AQS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/AbstractQueuedSynchronizer/" rel="tag">AbstractQueuedSynchronizer</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Abuse-case/" rel="tag">Abuse case</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Access-Control/" rel="tag">Access Control</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Active-Object%E6%A8%A1%E5%BC%8F/" rel="tag">Active Object模式</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ArrayBlockingQueue/" rel="tag">ArrayBlockingQueue</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ArrayList/" rel="tag">ArrayList</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Arrays/" rel="tag">Arrays</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Arrrays/" rel="tag">Arrrays</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Arthas/" rel="tag">Arthas</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/AtomicBoolean/" rel="tag">AtomicBoolean</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/AtomicInteger/" rel="tag">AtomicInteger</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/AtomicIntegerArray/" rel="tag">AtomicIntegerArray</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/AtomicIntegerFieldUpdater/" rel="tag">AtomicIntegerFieldUpdater</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/AtomicLong/" rel="tag">AtomicLong</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/AtomicLongArray/" rel="tag">AtomicLongArray</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/AtomicLongFieldUpdater/" rel="tag">AtomicLongFieldUpdater</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/AtomicMarkableReference/" rel="tag">AtomicMarkableReference</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/AtomicReference/" rel="tag">AtomicReference</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/AtomicReferenceArray/" rel="tag">AtomicReferenceArray</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/AtomicReferenceFieldUpdater/" rel="tag">AtomicReferenceFieldUpdater</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/AtomicStampedReference/" rel="tag">AtomicStampedReference</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/B-Tree/" rel="tag">B-Tree</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/BASE/" rel="tag">BASE</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Balking-%E6%A8%A1%E5%BC%8F/" rel="tag">Balking 模式</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Bash/" rel="tag">Bash</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/BlockingQueue/" rel="tag">BlockingQueue</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CAP/" rel="tag">CAP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CAS/" rel="tag">CAS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CMS/" rel="tag">CMS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/COW/" rel="tag">COW</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Callable/" rel="tag">Callable</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CharMatcher/" rel="tag">CharMatcher</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ClassLoader/" rel="tag">ClassLoader</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CompletableFuture/" rel="tag">CompletableFuture</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Concurrent-Mark-Sweep/" rel="tag">Concurrent Mark Sweep</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ConcurrentHashMap/" rel="tag">ConcurrentHashMap</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ConcurrentLinkedQueue/" rel="tag">ConcurrentLinkedQueue</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Condition/" rel="tag">Condition</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Consul/" rel="tag">Consul</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CopyOnWriteArrayList/" rel="tag">CopyOnWriteArrayList</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CopyOnWriteArraySet/" rel="tag">CopyOnWriteArraySet</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CountDownLatch/" rel="tag">CountDownLatch</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CyclicBarrier/" rel="tag">CyclicBarrier</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DTS/" rel="tag">DTS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DelayQueue/" rel="tag">DelayQueue</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DoubleAccumulator/" rel="tag">DoubleAccumulator</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DoubleAdder/" rel="tag">DoubleAdder</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Etcd/" rel="tag">Etcd</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Eureka/" rel="tag">Eureka</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Feign/" rel="tag">Feign</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Fibonacci/" rel="tag">Fibonacci</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/FullGC/" rel="tag">FullGC</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Future/" rel="tag">Future</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/FutureTask/" rel="tag">FutureTask</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Future%E6%A8%A1%E5%BC%8F/" rel="tag">Future模式</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/G1/" rel="tag">G1</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Garbage-First/" rel="tag">Garbage First</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Gossip/" rel="tag">Gossip</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Guarded-Suspension-%E6%A8%A1%E5%BC%8F/" rel="tag">Guarded Suspension 模式</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Guava/" rel="tag">Guava</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HTTP/" rel="tag">HTTP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HTTP%E8%AF%B7%E6%B1%82/" rel="tag">HTTP请求</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hash/" rel="tag">Hash</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HashMap/" rel="tag">HashMap</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HashSet/" rel="tag">HashSet</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hystrix/" rel="tag">Hystrix</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/IO%E5%A4%8D%E7%94%A8/" rel="tag">IO复用</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Immutable-%E6%A8%A1%E5%BC%8F/" rel="tag">Immutable 模式</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JVM/" rel="tag">JVM</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java/" rel="tag">Java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Joiner/" rel="tag">Joiner</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Kafka/" rel="tag">Kafka</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/LDAP/" rel="tag">LDAP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/LinkedBlockingQueue/" rel="tag">LinkedBlockingQueue</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/LinkedList/" rel="tag">LinkedList</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/List/" rel="tag">List</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Lock/" rel="tag">Lock</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/LockSupport/" rel="tag">LockSupport</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/LongAccumulator/" rel="tag">LongAccumulator</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/LongAdder/" rel="tag">LongAdder</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MQ%E4%BA%8B%E5%8A%A1/" rel="tag">MQ事务</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Math/" rel="tag">Math</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Maven/" rel="tag">Maven</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MySQL/" rel="tag">MySQL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/NIO/" rel="tag">NIO</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/NoSql/" rel="tag">NoSql</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/N%E5%8F%89%E6%A0%91/" rel="tag">N叉树</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/PriotityBlockingQueue/" rel="tag">PriotityBlockingQueue</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Producer-Consumer-%E6%A8%A1%E5%BC%8F/" rel="tag">Producer-Consumer 模式</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/PutLock/" rel="tag">PutLock</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Queue/" rel="tag">Queue</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RAFT/" rel="tag">RAFT</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RPC/" rel="tag">RPC</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RabbitMQ/" rel="tag">RabbitMQ</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Random/" rel="tag">Random</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Read-Write-Lock-%E6%A8%A1%E5%BC%8F/" rel="tag">Read-Write Lock 模式</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RedLock/" rel="tag">RedLock</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Redis/" rel="tag">Redis</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Redission/" rel="tag">Redission</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ReentrantLock/" rel="tag">ReentrantLock</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ReentrantReadWriteLock/" rel="tag">ReentrantReadWriteLock</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SQL/" rel="tag">SQL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Saga%E4%BA%8B%E5%8A%A1/" rel="tag">Saga事务</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Semaphore/" rel="tag">Semaphore</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Set/" rel="tag">Set</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Single-Threaded-Execution%E6%A8%A1%E5%BC%8F/" rel="tag">Single Threaded Execution模式</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SnowFlake/" rel="tag">SnowFlake</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Sorted-Set/" rel="tag">Sorted Set</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Spliter/" rel="tag">Spliter</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Spring/" rel="tag">Spring</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Spring-Cloud/" rel="tag">Spring Cloud</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Spring-Cloud-Gateway/" rel="tag">Spring Cloud Gateway</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Spring-Cloud-Stream/" rel="tag">Spring Cloud Stream</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Stack/" rel="tag">Stack</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/StampedLock/" rel="tag">StampedLock</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Stream/" rel="tag">Stream</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/String/" rel="tag">String</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Strings/" rel="tag">Strings</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Striped64/" rel="tag">Striped64</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SynchronousQueue/" rel="tag">SynchronousQueue</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/TCC/" rel="tag">TCC</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/TakeLock/" rel="tag">TakeLock</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Thread-Per-Message-%E6%A8%A1%E5%BC%8F/" rel="tag">Thread-Per-Message 模式</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Thread-Specific-Storage%E6%A8%A1%E5%BC%8F/" rel="tag">Thread-Specific-Storage模式</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ThreadLocal/" rel="tag">ThreadLocal</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ThreadLocalRandom/" rel="tag">ThreadLocalRandom</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ThreadPoolExecutor/" rel="tag">ThreadPoolExecutor</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Tree/" rel="tag">Tree</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Two-Phase-Termination%E6%A8%A1%E5%BC%8F/" rel="tag">Two-Phase-Termination模式</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/UnSave/" rel="tag">UnSave</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Web/" rel="tag">Web</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Worker-Thread-%E6%A8%A1%E5%BC%8F/" rel="tag">Worker Thread 模式</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/XA/" rel="tag">XA</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/XML/" rel="tag">XML</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/XPath/" rel="tag">XPath</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/XSS%E6%94%BB%E5%87%BB/" rel="tag">XSS攻击</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Zookeeper/" rel="tag">Zookeeper</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/cglib/" rel="tag">cglib</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/cross-join/" rel="tag">cross join</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/dfs/" rel="tag">dfs</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/dubbo/" rel="tag">dubbo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/epoll/" rel="tag">epoll</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/equals/" rel="tag">equals</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/full-outter-join/" rel="tag">full outter join</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hashCode/" rel="tag">hashCode</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/inner-join/" rel="tag">inner join</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/java/" rel="tag">java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/jmap/" rel="tag">jmap</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/join/" rel="tag">join</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/jps/" rel="tag">jps</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/jstack/" rel="tag">jstack</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/jstat/" rel="tag">jstat</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/leetcode/" rel="tag">leetcode</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/left-join/" rel="tag">left join</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux/" rel="tag">linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/list/" rel="tag">list</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/math/" rel="tag">math</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mathng/" rel="tag">mathng</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/paxos/" rel="tag">paxos</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/poll/" rel="tag">poll</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python/" rel="tag">python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python3-%E8%AF%AD%E6%B3%95/" rel="tag">python3 语法</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/redis/" rel="tag">redis</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/right-join/" rel="tag">right join</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/select/" rel="tag">select</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/self-join/" rel="tag">self join</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/set/" rel="tag">set</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/synchronized/" rel="tag">synchronized</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/transaction/" rel="tag">transaction</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/union/" rel="tag">union</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/union-all/" rel="tag">union all</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/zuul/" rel="tag">zuul</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%B8%89%E9%98%B6%E6%AE%B5%E6%8F%90%E4%BA%A4/" rel="tag">三阶段提交</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%B8%A4%E9%98%B6%E6%AE%B5%E6%8F%90%E4%BA%A4/" rel="tag">两阶段提交</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%B8%AD%E4%BB%8B%E8%80%85%E6%A8%A1%E5%BC%8F/" rel="tag">中介者模式</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%B8%AD%E4%BD%8D%E6%95%B0/" rel="tag">中位数</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%B8%AD%E5%BA%8F%E9%81%8D%E5%8E%86/" rel="tag">中序遍历</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%B8%B2%E8%A1%8C%E5%8C%96/" rel="tag">串行化</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%B8%BB%E4%BB%8E/" rel="tag">主从</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%BA%8B%E5%8A%A1/" rel="tag">事务</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%BA%8C%E5%88%86%E6%90%9C%E7%B4%A2/" rel="tag">二分搜索</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE/" rel="tag">二分查找</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91/" rel="tag">二叉搜索树</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%BA%8C%E5%8F%89%E6%A0%91/" rel="tag">二叉树</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%BA%8C%E8%BF%9B%E5%88%B6/" rel="tag">二进制</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%BA%AB%E5%85%83%E6%A8%A1%E5%BC%8F/" rel="tag">享元模式</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%BB%A3%E7%90%86/" rel="tag">代理</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%BB%A3%E7%90%86%E6%A8%A1%E5%BC%8F/" rel="tag">代理模式</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%BC%97%E6%95%B0/" rel="tag">众数</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%BC%9A%E8%AF%9D/" rel="tag">会话</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%BD%8D%E8%BF%90%E7%AE%97/" rel="tag">位运算</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%BE%9D%E8%B5%96%E4%BC%A0%E9%80%92/" rel="tag">依赖传递</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%85%83%E7%BB%84/" rel="tag">元组</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%85%A5%E9%97%A8/" rel="tag">入门</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%85%A8%E6%96%87%E7%B4%A2%E5%BC%95/" rel="tag">全文索引</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%86%85%E5%AD%98%E5%8C%BA%E5%9F%9F/" rel="tag">内存区域</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%86%85%E5%AD%98%E6%A8%A1%E5%9E%8B/" rel="tag">内存模型</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%86%99%E6%97%B6%E5%A4%8D%E5%88%B6/" rel="tag">写时复制</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%88%86%E4%BB%A3%E6%94%B6%E9%9B%86/" rel="tag">分代收集</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%88%86%E5%8C%BA/" rel="tag">分区</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%88%86%E5%B8%83%E5%BC%8FID/" rel="tag">分布式ID</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%88%86%E5%B8%83%E5%BC%8F%E4%BA%8B%E5%8A%A1/" rel="tag">分布式事务</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%88%86%E5%B8%83%E5%BC%8F%E7%BC%93%E5%AD%98/" rel="tag">分布式缓存</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81/" rel="tag">分布式锁</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%88%86%E5%BC%8F%E5%8C%96%E7%AE%80/" rel="tag">分式化简</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%89%8D%E5%BA%8F%E9%81%8D%E5%8E%86/" rel="tag">前序遍历</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%89%8D%E7%BC%80%E7%B4%A2%E5%BC%95/" rel="tag">前缀索引</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8A%A0%E6%B3%95/" rel="tag">加法</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8A%A8%E6%80%81%E4%BB%A3%E7%90%86/" rel="tag">动态代理</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/" rel="tag">动态规划</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8C%85%E5%86%B2%E7%AA%81/" rel="tag">包冲突</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F/" rel="tag">单例模式</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8E%8B%E7%BC%A9/" rel="tag">压缩</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8E%9F%E5%9E%8B%E6%A8%A1%E5%BC%8F/" rel="tag">原型模式</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8F%8C%E4%BA%B2%E5%A7%94%E6%B4%BE/" rel="tag">双亲委派</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8F%8C%E6%8C%87%E9%92%88/" rel="tag">双指针</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8F%8D%E5%B0%84/" rel="tag">反射</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8F%AF%E9%87%8D%E5%A4%8D%E8%AF%BB/" rel="tag">可重复读</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%90%88%E5%B9%B6/" rel="tag">合并</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%90%8C%E6%AD%A5/" rel="tag">同步</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%90%8E%E5%BA%8F%E9%81%8D%E5%8E%86/" rel="tag">后序遍历</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%91%BD%E4%BB%A4%E6%A8%A1%E5%BC%8F/" rel="tag">命令模式</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%93%88%E5%B8%8C/" rel="tag">哈希</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%93%88%E5%B8%8C%E7%B4%A2%E5%BC%95/" rel="tag">哈希索引</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%93%88%E5%B8%8C%E8%A1%A8/" rel="tag">哈希表</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%93%A8%E5%85%B5/" rel="tag">哨兵</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%9B%9E%E6%94%B6/" rel="tag">回收</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%9B%9E%E6%96%87/" rel="tag">回文</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6%E5%99%A8/" rel="tag">垃圾回收器</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6%E7%AE%97%E6%B3%95/" rel="tag">垃圾回收算法</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%A0%86/" rel="tag">堆</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%A0%86%E6%8E%92%E5%BA%8F/" rel="tag">堆排序</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%A4%87%E5%BF%98%E5%BD%95%E6%A8%A1%E5%BC%8F/" rel="tag">备忘录模式</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%A4%96%E8%A7%82%E6%A8%A1%E5%BC%8F/" rel="tag">外观模式</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%A4%9A%E7%BA%BF%E7%A8%8B/" rel="tag">多线程</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%AD%90%E5%AD%97%E7%AC%A6%E4%B8%B2/" rel="tag">子字符串</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%AD%90%E5%BA%8F%E5%88%97/" rel="tag">子序列</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%AD%90%E6%95%B0%E7%BB%84/" rel="tag">子数组</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%AD%90%E9%9B%86/" rel="tag">子集</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%AD%97%E5%85%B8/" rel="tag">字典</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2/" rel="tag">字符串</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2%E7%BF%BB%E8%BD%AC/" rel="tag">字符串翻转</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%AE%89%E5%85%A8/" rel="tag">安全</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%AE%98%E6%96%B9%E6%96%87%E6%A1%A3/" rel="tag">官方文档</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%AE%B9%E9%94%99/" rel="tag">容错</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%B1%82%E6%AC%A1%E9%81%8D%E5%8E%86/" rel="tag">层次遍历</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%B7%A5%E5%8E%82%E6%A8%A1%E5%BC%8F/" rel="tag">工厂模式</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%B8%83%E9%9A%86%E8%BF%87%E6%BB%A4%E5%99%A8/" rel="tag">布隆过滤器</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%B9%B3%E8%A1%A1%E4%BA%8C%E5%8F%89%E6%A0%91/" rel="tag">平衡二叉树</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%B9%B6%E5%8F%91/" rel="tag">并发</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%BB%BA%E9%80%A0%E8%80%85%E6%A8%A1%E5%BC%8F/" rel="tag">建造者模式</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%BC%82%E6%AD%A5/" rel="tag">异步</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%BC%95%E7%94%A8/" rel="tag">引用</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%BE%AA%E7%8E%AF%E9%98%9F%E5%88%97/" rel="tag">循环队列</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%BE%AE%E6%9C%8D%E5%8A%A1/" rel="tag">微服务</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84/" rel="tag">微服务架构</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%BF%AB%E4%B9%90%E6%95%B0/" rel="tag">快乐数</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%BF%AB%E9%80%9F%E6%8E%92%E5%BA%8F/" rel="tag">快速排序</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%8A%BD%E8%B1%A1%E5%B7%A5%E5%8E%82%E6%A8%A1%E5%BC%8F/" rel="tag">抽象工厂模式</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%8E%92%E5%88%97/" rel="tag">排列</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%8E%92%E5%BA%8F/" rel="tag">排序</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%90%9C%E7%B4%A2/" rel="tag">搜索</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%91%A9%E5%B0%94%E6%8A%95%E7%A5%A8/" rel="tag">摩尔投票</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E5%91%BD%E4%BB%A4/" rel="tag">操作系统命令</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%95%B0%E6%8D%AE%E5%AD%98%E5%82%A8/" rel="tag">数据存储</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" rel="tag">数据结构</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%95%B0%E7%8B%AC/" rel="tag">数独</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%95%B0%E7%BB%84/" rel="tag">数组</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%96%87%E4%BB%B6%E8%B7%AF%E5%BE%84/" rel="tag">文件路径</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%96%90%E6%B3%A2%E9%82%A3%E5%A5%91/" rel="tag">斐波那契</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%96%90%E6%B3%A2%E9%82%A3%E5%A5%91%E6%95%B0/" rel="tag">斐波那契数</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%97%A5%E6%9C%9F/" rel="tag">日期</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%9C%80%E5%B7%A6%E5%89%8D%E7%BC%80/" rel="tag">最左前缀</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%9C%80%E9%95%BF%E5%85%AC%E5%85%B1%E5%89%8D%E7%BC%80/" rel="tag">最长公共前缀</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%9C%89%E5%BA%8F/" rel="tag">有序</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%9C%8D%E5%8A%A1%E4%B8%B2%E8%81%94%E6%A8%A1%E5%BC%8F/" rel="tag">服务串联模式</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%9C%8D%E5%8A%A1%E4%BB%A3%E7%90%86%E6%A8%A1%E5%BC%8F/" rel="tag">服务代理模式</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%9C%8D%E5%8A%A1%E5%85%B1%E4%BA%AB%E6%95%B0%E6%8D%AE%E6%A8%A1%E5%BC%8F/" rel="tag">服务共享数据模式</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%9C%8D%E5%8A%A1%E5%88%86%E6%94%AF%E6%A8%A1%E5%BC%8F/" rel="tag">服务分支模式</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%9C%8D%E5%8A%A1%E5%8F%91%E7%8E%B0/" rel="tag">服务发现</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%9C%8D%E5%8A%A1%E5%BC%82%E6%AD%A5%E6%B6%88%E6%81%AF%E6%A8%A1%E5%BC%8F/" rel="tag">服务异步消息模式</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%9C%8D%E5%8A%A1%E6%B2%BB%E7%90%86/" rel="tag">服务治理</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%9C%8D%E5%8A%A1%E8%81%9A%E5%90%88%E6%A8%A1%E5%BC%8F/" rel="tag">服务聚合模式</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%9C%AC%E5%9C%B0%E6%B6%88%E6%81%AF%E8%A1%A8/" rel="tag">本地消息表</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%9D%A8%E8%BE%89%E4%B8%89%E8%A7%92/" rel="tag">杨辉三角</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%9E%B6%E6%9E%84/" rel="tag">架构</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%A0%87%E8%AE%B0-%E5%A4%8D%E5%88%B6/" rel="tag">标记-复制</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%A0%87%E8%AE%B0-%E6%95%B4%E7%90%86/" rel="tag">标记-整理</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%A0%87%E8%AE%B0-%E6%B8%85%E9%99%A4/" rel="tag">标记-清除</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%A0%88/" rel="tag">栈</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%A0%91/" rel="tag">树</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%A1%A5%E6%8E%A5%E6%A8%A1%E5%BC%8F/" rel="tag">桥接模式</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%A1%B6%E6%8E%92%E5%BA%8F/" rel="tag">桶排序</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%A8%A1%E6%9D%BF%E6%A8%A1%E5%BC%8F/" rel="tag">模板模式</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%AD%BB%E9%94%81/" rel="tag">死锁</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%B1%89%E8%AF%BA%E5%A1%94/" rel="tag">汉诺塔</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%B3%A8%E5%85%A5/" rel="tag">注入</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%B3%A8%E8%A7%A3/" rel="tag">注解</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%B7%B1%E5%BA%A6%E4%BC%98%E5%85%88%E6%90%9C%E7%B4%A2/" rel="tag">深度优先搜索</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%BA%90%E7%A0%81/" rel="tag">源码</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%BB%91%E5%8A%A8%E7%AA%97%E5%8F%A3/" rel="tag">滑动窗口</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%86%94%E6%96%AD/" rel="tag">熔断</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%88%AC%E8%99%AB/" rel="tag">爬虫</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%89%9B%E9%A1%BF%E8%BF%AD%E4%BB%A3%E6%B3%95/" rel="tag">牛顿迭代法</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%8A%B6%E6%80%81%E6%A8%A1%E5%BC%8F/" rel="tag">状态模式</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%8E%AF%E5%BD%A2/" rel="tag">环形</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%94%B5%E5%AD%90%E9%82%AE%E4%BB%B6/" rel="tag">电子邮件</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%9F%A9%E9%98%B5/" rel="tag">矩阵</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%AD%96%E7%95%A5%E6%A8%A1%E5%BC%8F/" rel="tag">策略模式</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%AE%97%E6%B3%95/" rel="tag">算法</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%AE%97%E6%B3%95%E9%A2%98/" rel="tag">算法题</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%B1%BB%E5%8A%A0%E8%BD%BD%E6%A8%A1%E5%9E%8B/" rel="tag">类加载模型</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%B4%A2%E5%BC%95/" rel="tag">索引</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%B4%A2%E5%BC%95%E4%BC%98%E5%8C%96/" rel="tag">索引优化</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%BA%BF%E7%A8%8B/" rel="tag">线程</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%BA%BF%E7%A8%8B%E6%B1%A0/" rel="tag">线程池</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%BB%84%E5%90%88%E6%A8%A1%E5%BC%8F/" rel="tag">组合模式</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%BC%93%E5%AD%98%E7%A9%BF%E9%80%8F/" rel="tag">缓存穿透</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%BC%93%E5%AD%98%E9%9B%AA%E5%B4%A9/" rel="tag">缓存雪崩</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%BC%93%E5%AD%98%E9%A2%84%E7%83%AD/" rel="tag">缓存预热</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%BF%BB%E8%AF%91/" rel="tag">翻译</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%BF%BB%E8%BD%AC/" rel="tag">翻转</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%81%9A%E7%B0%87%E7%B4%A2%E5%BC%95/" rel="tag">聚簇索引</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%8A%82%E7%82%B9/" rel="tag">节点</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%99%9A%E6%8B%9F%E6%9C%BA/" rel="tag">虚拟机</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%A3%85%E9%A5%B0%E5%99%A8%E6%A8%A1%E5%BC%8F/" rel="tag">装饰器模式</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%A7%82%E5%AF%9F%E8%80%85%E6%A8%A1%E5%BC%8F/" rel="tag">观察者模式</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%A7%A3%E9%87%8A%E5%99%A8%E6%A8%A1%E5%BC%8F/" rel="tag">解释器模式</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%A7%A3%E9%87%8A%E6%80%A7%E8%AF%AD%E8%A8%80/" rel="tag">解释性语言</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%AE%BE%E8%AE%A1/" rel="tag">设计</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" rel="tag">设计模式</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%AE%BF%E9%97%AE%E6%8E%A7%E5%88%B6/" rel="tag">访问控制</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%AE%BF%E9%97%AE%E8%80%85%E6%A8%A1%E5%BC%8F/" rel="tag">访问者模式</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%AF%BB%E6%8F%90%E4%BA%A4/" rel="tag">读提交</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%AF%BB%E6%9C%AA%E6%8F%90%E4%BA%A4/" rel="tag">读未提交</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%B4%A3%E4%BB%BB%E9%93%BE%E6%A8%A1%E5%BC%8F/" rel="tag">责任链模式</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%B4%AA%E5%BF%83/" rel="tag">贪心</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%BF%AD%E4%BB%A3/" rel="tag">迭代</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%BF%AD%E4%BB%A3%E5%99%A8%E6%A8%A1%E5%BC%8F/" rel="tag">迭代器模式</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%80%82%E9%85%8D%E5%99%A8%E6%A8%A1%E5%BC%8F/" rel="tag">适配器模式</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%80%92%E5%BD%92/" rel="tag">递归</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%80%BB%E8%BE%91/" rel="tag">逻辑</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%80%BB%E8%BE%91%E8%BF%90%E7%AE%97/" rel="tag">逻辑运算</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%93%BE%E8%A1%A8/" rel="tag">链表</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%94%81/" rel="tag">锁</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%98%9F%E5%88%97/" rel="tag">队列</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%98%B6%E4%B9%98/" rel="tag">阶乘</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%98%BB%E5%A1%9E/" rel="tag">阻塞</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%99%8D%E7%BA%A7/" rel="tag">降级</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%99%90%E6%B5%81/" rel="tag">限流</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%9A%94%E7%A6%BB%E7%BA%A7%E5%88%AB/" rel="tag">隔离级别</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%9B%86%E5%90%88/" rel="tag">集合</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%9B%86%E7%BE%A4/" rel="tag">集群</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%9D%99%E6%80%81%E4%BB%A3%E7%90%86/" rel="tag">静态代理</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%9D%9E%E9%98%BB%E5%A1%9E/" rel="tag">非阻塞</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%AA%8C%E8%AF%81/" rel="tag">验证</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/ACID/" style="font-size: 10.32px;">ACID</a> <a href="/tags/AJAX/" style="font-size: 10px;">AJAX</a> <a href="/tags/AQS/" style="font-size: 10px;">AQS</a> <a href="/tags/AbstractQueuedSynchronizer/" style="font-size: 10px;">AbstractQueuedSynchronizer</a> <a href="/tags/Abuse-case/" style="font-size: 10px;">Abuse case</a> <a href="/tags/Access-Control/" style="font-size: 10px;">Access Control</a> <a href="/tags/Active-Object%E6%A8%A1%E5%BC%8F/" style="font-size: 10px;">Active Object模式</a> <a href="/tags/ArrayBlockingQueue/" style="font-size: 10px;">ArrayBlockingQueue</a> <a href="/tags/ArrayList/" style="font-size: 10px;">ArrayList</a> <a href="/tags/Arrays/" style="font-size: 12.26px;">Arrays</a> <a href="/tags/Arrrays/" style="font-size: 10.32px;">Arrrays</a> <a href="/tags/Arthas/" style="font-size: 10px;">Arthas</a> <a href="/tags/AtomicBoolean/" style="font-size: 10.97px;">AtomicBoolean</a> <a href="/tags/AtomicInteger/" style="font-size: 10px;">AtomicInteger</a> <a href="/tags/AtomicIntegerArray/" style="font-size: 10.32px;">AtomicIntegerArray</a> <a href="/tags/AtomicIntegerFieldUpdater/" style="font-size: 10px;">AtomicIntegerFieldUpdater</a> <a href="/tags/AtomicLong/" style="font-size: 10px;">AtomicLong</a> <a href="/tags/AtomicLongArray/" style="font-size: 10px;">AtomicLongArray</a> <a href="/tags/AtomicLongFieldUpdater/" style="font-size: 10.32px;">AtomicLongFieldUpdater</a> <a href="/tags/AtomicMarkableReference/" style="font-size: 10px;">AtomicMarkableReference</a> <a href="/tags/AtomicReference/" style="font-size: 10px;">AtomicReference</a> <a href="/tags/AtomicReferenceArray/" style="font-size: 10px;">AtomicReferenceArray</a> <a href="/tags/AtomicReferenceFieldUpdater/" style="font-size: 10px;">AtomicReferenceFieldUpdater</a> <a href="/tags/AtomicStampedReference/" style="font-size: 10px;">AtomicStampedReference</a> <a href="/tags/B-Tree/" style="font-size: 10.32px;">B-Tree</a> <a href="/tags/BASE/" style="font-size: 10px;">BASE</a> <a href="/tags/Balking-%E6%A8%A1%E5%BC%8F/" style="font-size: 10px;">Balking 模式</a> <a href="/tags/Bash/" style="font-size: 10.32px;">Bash</a> <a href="/tags/BlockingQueue/" style="font-size: 10px;">BlockingQueue</a> <a href="/tags/CAP/" style="font-size: 10px;">CAP</a> <a href="/tags/CAS/" style="font-size: 10.32px;">CAS</a> <a href="/tags/CMS/" style="font-size: 10px;">CMS</a> <a href="/tags/COW/" style="font-size: 10px;">COW</a> <a href="/tags/Callable/" style="font-size: 10px;">Callable</a> <a href="/tags/CharMatcher/" style="font-size: 10px;">CharMatcher</a> <a href="/tags/ClassLoader/" style="font-size: 10px;">ClassLoader</a> <a href="/tags/CompletableFuture/" style="font-size: 10px;">CompletableFuture</a> <a href="/tags/Concurrent-Mark-Sweep/" style="font-size: 10px;">Concurrent Mark Sweep</a> <a href="/tags/ConcurrentHashMap/" style="font-size: 10.32px;">ConcurrentHashMap</a> <a href="/tags/ConcurrentLinkedQueue/" style="font-size: 10px;">ConcurrentLinkedQueue</a> <a href="/tags/Condition/" style="font-size: 10.97px;">Condition</a> <a href="/tags/Consul/" style="font-size: 10.32px;">Consul</a> <a href="/tags/CopyOnWriteArrayList/" style="font-size: 10px;">CopyOnWriteArrayList</a> <a href="/tags/CopyOnWriteArraySet/" style="font-size: 10px;">CopyOnWriteArraySet</a> <a href="/tags/CountDownLatch/" style="font-size: 10px;">CountDownLatch</a> <a href="/tags/CyclicBarrier/" style="font-size: 10px;">CyclicBarrier</a> <a href="/tags/DTS/" style="font-size: 10px;">DTS</a> <a href="/tags/DelayQueue/" style="font-size: 10px;">DelayQueue</a> <a href="/tags/DoubleAccumulator/" style="font-size: 10px;">DoubleAccumulator</a> <a href="/tags/DoubleAdder/" style="font-size: 10px;">DoubleAdder</a> <a href="/tags/Etcd/" style="font-size: 10px;">Etcd</a> <a href="/tags/Eureka/" style="font-size: 11.61px;">Eureka</a> <a href="/tags/Feign/" style="font-size: 10.97px;">Feign</a> <a href="/tags/Fibonacci/" style="font-size: 10px;">Fibonacci</a> <a href="/tags/FullGC/" style="font-size: 10px;">FullGC</a> <a href="/tags/Future/" style="font-size: 10px;">Future</a> <a href="/tags/FutureTask/" style="font-size: 10.32px;">FutureTask</a> <a href="/tags/Future%E6%A8%A1%E5%BC%8F/" style="font-size: 10px;">Future模式</a> <a href="/tags/G1/" style="font-size: 10px;">G1</a> <a href="/tags/Garbage-First/" style="font-size: 10px;">Garbage First</a> <a href="/tags/Gossip/" style="font-size: 10px;">Gossip</a> <a href="/tags/Guarded-Suspension-%E6%A8%A1%E5%BC%8F/" style="font-size: 10px;">Guarded Suspension 模式</a> <a href="/tags/Guava/" style="font-size: 11.29px;">Guava</a> <a href="/tags/HTTP/" style="font-size: 10px;">HTTP</a> <a href="/tags/HTTP%E8%AF%B7%E6%B1%82/" style="font-size: 10px;">HTTP请求</a> <a href="/tags/Hash/" style="font-size: 10px;">Hash</a> <a href="/tags/HashMap/" style="font-size: 12.26px;">HashMap</a> <a href="/tags/HashSet/" style="font-size: 10px;">HashSet</a> <a href="/tags/Hystrix/" style="font-size: 10.97px;">Hystrix</a> <a href="/tags/IO%E5%A4%8D%E7%94%A8/" style="font-size: 10px;">IO复用</a> <a href="/tags/Immutable-%E6%A8%A1%E5%BC%8F/" style="font-size: 10px;">Immutable 模式</a> <a href="/tags/JVM/" style="font-size: 13.87px;">JVM</a> <a href="/tags/Java/" style="font-size: 19.03px;">Java</a> <a href="/tags/Joiner/" style="font-size: 10px;">Joiner</a> <a href="/tags/Kafka/" style="font-size: 10.32px;">Kafka</a> <a href="/tags/LDAP/" style="font-size: 10px;">LDAP</a> <a href="/tags/LinkedBlockingQueue/" style="font-size: 10px;">LinkedBlockingQueue</a> <a href="/tags/LinkedList/" style="font-size: 11.29px;">LinkedList</a> <a href="/tags/List/" style="font-size: 10px;">List</a> <a href="/tags/Lock/" style="font-size: 10px;">Lock</a> <a href="/tags/LockSupport/" style="font-size: 10px;">LockSupport</a> <a href="/tags/LongAccumulator/" style="font-size: 10px;">LongAccumulator</a> <a href="/tags/LongAdder/" style="font-size: 10.32px;">LongAdder</a> <a href="/tags/MQ%E4%BA%8B%E5%8A%A1/" style="font-size: 10px;">MQ事务</a> <a href="/tags/Math/" style="font-size: 18.39px;">Math</a> <a href="/tags/Maven/" style="font-size: 10px;">Maven</a> <a href="/tags/MySQL/" style="font-size: 12.26px;">MySQL</a> <a href="/tags/NIO/" style="font-size: 10px;">NIO</a> <a href="/tags/NoSql/" style="font-size: 10px;">NoSql</a> <a href="/tags/N%E5%8F%89%E6%A0%91/" style="font-size: 10.65px;">N叉树</a> <a href="/tags/PriotityBlockingQueue/" style="font-size: 10px;">PriotityBlockingQueue</a> <a href="/tags/Producer-Consumer-%E6%A8%A1%E5%BC%8F/" style="font-size: 10px;">Producer-Consumer 模式</a> <a href="/tags/PutLock/" style="font-size: 10px;">PutLock</a> <a href="/tags/Queue/" style="font-size: 11.94px;">Queue</a> <a href="/tags/RAFT/" style="font-size: 10.32px;">RAFT</a> <a href="/tags/RPC/" style="font-size: 10px;">RPC</a> <a href="/tags/RabbitMQ/" style="font-size: 10.32px;">RabbitMQ</a> <a href="/tags/Random/" style="font-size: 10px;">Random</a> <a href="/tags/Read-Write-Lock-%E6%A8%A1%E5%BC%8F/" style="font-size: 10px;">Read-Write Lock 模式</a> <a href="/tags/RedLock/" style="font-size: 10px;">RedLock</a> <a href="/tags/Redis/" style="font-size: 10.65px;">Redis</a> <a href="/tags/Redission/" style="font-size: 10px;">Redission</a> <a href="/tags/ReentrantLock/" style="font-size: 12.58px;">ReentrantLock</a> <a href="/tags/ReentrantReadWriteLock/" style="font-size: 10px;">ReentrantReadWriteLock</a> <a href="/tags/SQL/" style="font-size: 18.06px;">SQL</a> <a href="/tags/Saga%E4%BA%8B%E5%8A%A1/" style="font-size: 10px;">Saga事务</a> <a href="/tags/Semaphore/" style="font-size: 10.65px;">Semaphore</a> <a href="/tags/Set/" style="font-size: 10px;">Set</a> <a href="/tags/Single-Threaded-Execution%E6%A8%A1%E5%BC%8F/" style="font-size: 10px;">Single Threaded Execution模式</a> <a href="/tags/SnowFlake/" style="font-size: 10px;">SnowFlake</a> <a href="/tags/Sorted-Set/" style="font-size: 10px;">Sorted Set</a> <a href="/tags/Spliter/" style="font-size: 10px;">Spliter</a> <a href="/tags/Spring/" style="font-size: 14.84px;">Spring</a> <a href="/tags/Spring-Cloud/" style="font-size: 10.97px;">Spring Cloud</a> <a href="/tags/Spring-Cloud-Gateway/" style="font-size: 10.32px;">Spring Cloud Gateway</a> <a href="/tags/Spring-Cloud-Stream/" style="font-size: 10.32px;">Spring Cloud Stream</a> <a href="/tags/Stack/" style="font-size: 10.32px;">Stack</a> <a href="/tags/StampedLock/" style="font-size: 10px;">StampedLock</a> <a href="/tags/Stream/" style="font-size: 10px;">Stream</a> <a href="/tags/String/" style="font-size: 11.94px;">String</a> <a href="/tags/Strings/" style="font-size: 10px;">Strings</a> <a href="/tags/Striped64/" style="font-size: 10px;">Striped64</a> <a href="/tags/SynchronousQueue/" style="font-size: 10px;">SynchronousQueue</a> <a href="/tags/TCC/" style="font-size: 10px;">TCC</a> <a href="/tags/TakeLock/" style="font-size: 10px;">TakeLock</a> <a href="/tags/Thread-Per-Message-%E6%A8%A1%E5%BC%8F/" style="font-size: 10px;">Thread-Per-Message 模式</a> <a href="/tags/Thread-Specific-Storage%E6%A8%A1%E5%BC%8F/" style="font-size: 10px;">Thread-Specific-Storage模式</a> <a href="/tags/ThreadLocal/" style="font-size: 10px;">ThreadLocal</a> <a href="/tags/ThreadLocalRandom/" style="font-size: 10px;">ThreadLocalRandom</a> <a href="/tags/ThreadPoolExecutor/" style="font-size: 10px;">ThreadPoolExecutor</a> <a href="/tags/Tree/" style="font-size: 10.65px;">Tree</a> <a href="/tags/Two-Phase-Termination%E6%A8%A1%E5%BC%8F/" style="font-size: 10px;">Two-Phase-Termination模式</a> <a href="/tags/UnSave/" style="font-size: 10px;">UnSave</a> <a href="/tags/Web/" style="font-size: 15.16px;">Web</a> <a href="/tags/Worker-Thread-%E6%A8%A1%E5%BC%8F/" style="font-size: 10px;">Worker Thread 模式</a> <a href="/tags/XA/" style="font-size: 10.32px;">XA</a> <a href="/tags/XML/" style="font-size: 10px;">XML</a> <a href="/tags/XPath/" style="font-size: 10px;">XPath</a> <a href="/tags/XSS%E6%94%BB%E5%87%BB/" style="font-size: 10px;">XSS攻击</a> <a href="/tags/Zookeeper/" style="font-size: 10.32px;">Zookeeper</a> <a href="/tags/cglib/" style="font-size: 10px;">cglib</a> <a href="/tags/cross-join/" style="font-size: 10px;">cross join</a> <a href="/tags/dfs/" style="font-size: 10px;">dfs</a> <a href="/tags/dubbo/" style="font-size: 10px;">dubbo</a> <a href="/tags/epoll/" style="font-size: 10px;">epoll</a> <a href="/tags/equals/" style="font-size: 10px;">equals</a> <a href="/tags/full-outter-join/" style="font-size: 10px;">full outter join</a> <a href="/tags/hashCode/" style="font-size: 10px;">hashCode</a> <a href="/tags/inner-join/" style="font-size: 10px;">inner join</a> <a href="/tags/java/" style="font-size: 14.19px;">java</a> <a href="/tags/jmap/" style="font-size: 10px;">jmap</a> <a href="/tags/join/" style="font-size: 10px;">join</a> <a href="/tags/jps/" style="font-size: 10px;">jps</a> <a href="/tags/jstack/" style="font-size: 10px;">jstack</a> <a href="/tags/jstat/" style="font-size: 10px;">jstat</a> <a href="/tags/leetcode/" style="font-size: 17.42px;">leetcode</a> <a href="/tags/left-join/" style="font-size: 10px;">left join</a> <a href="/tags/linux/" style="font-size: 10px;">linux</a> <a href="/tags/list/" style="font-size: 10px;">list</a> <a href="/tags/math/" style="font-size: 20px;">math</a> <a href="/tags/mathng/" style="font-size: 10px;">mathng</a> <a href="/tags/paxos/" style="font-size: 10px;">paxos</a> <a href="/tags/poll/" style="font-size: 10px;">poll</a> <a href="/tags/python/" style="font-size: 10.97px;">python</a> <a href="/tags/python3-%E8%AF%AD%E6%B3%95/" style="font-size: 10px;">python3 语法</a> <a href="/tags/redis/" style="font-size: 10px;">redis</a> <a href="/tags/right-join/" style="font-size: 10px;">right join</a> <a href="/tags/select/" style="font-size: 10px;">select</a> <a href="/tags/self-join/" style="font-size: 10px;">self join</a> <a href="/tags/set/" style="font-size: 10px;">set</a> <a href="/tags/synchronized/" style="font-size: 10px;">synchronized</a> <a href="/tags/transaction/" style="font-size: 10px;">transaction</a> <a href="/tags/union/" style="font-size: 10px;">union</a> <a href="/tags/union-all/" style="font-size: 10px;">union all</a> <a href="/tags/zuul/" style="font-size: 10.97px;">zuul</a> <a href="/tags/%E4%B8%89%E9%98%B6%E6%AE%B5%E6%8F%90%E4%BA%A4/" style="font-size: 10px;">三阶段提交</a> <a href="/tags/%E4%B8%A4%E9%98%B6%E6%AE%B5%E6%8F%90%E4%BA%A4/" style="font-size: 10px;">两阶段提交</a> <a href="/tags/%E4%B8%AD%E4%BB%8B%E8%80%85%E6%A8%A1%E5%BC%8F/" style="font-size: 10px;">中介者模式</a> <a href="/tags/%E4%B8%AD%E4%BD%8D%E6%95%B0/" style="font-size: 10px;">中位数</a> <a href="/tags/%E4%B8%AD%E5%BA%8F%E9%81%8D%E5%8E%86/" style="font-size: 10px;">中序遍历</a> <a href="/tags/%E4%B8%B2%E8%A1%8C%E5%8C%96/" style="font-size: 10.32px;">串行化</a> <a href="/tags/%E4%B8%BB%E4%BB%8E/" style="font-size: 10px;">主从</a> <a href="/tags/%E4%BA%8B%E5%8A%A1/" style="font-size: 10.65px;">事务</a> <a href="/tags/%E4%BA%8C%E5%88%86%E6%90%9C%E7%B4%A2/" style="font-size: 10px;">二分搜索</a> <a href="/tags/%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE/" style="font-size: 13.23px;">二分查找</a> <a href="/tags/%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91/" style="font-size: 12.58px;">二叉搜索树</a> <a href="/tags/%E4%BA%8C%E5%8F%89%E6%A0%91/" style="font-size: 17.74px;">二叉树</a> <a href="/tags/%E4%BA%8C%E8%BF%9B%E5%88%B6/" style="font-size: 10.32px;">二进制</a> <a href="/tags/%E4%BA%AB%E5%85%83%E6%A8%A1%E5%BC%8F/" style="font-size: 10px;">享元模式</a> <a href="/tags/%E4%BB%A3%E7%90%86/" style="font-size: 10px;">代理</a> <a href="/tags/%E4%BB%A3%E7%90%86%E6%A8%A1%E5%BC%8F/" style="font-size: 10px;">代理模式</a> <a href="/tags/%E4%BC%97%E6%95%B0/" style="font-size: 10px;">众数</a> <a href="/tags/%E4%BC%9A%E8%AF%9D/" style="font-size: 10px;">会话</a> <a href="/tags/%E4%BD%8D%E8%BF%90%E7%AE%97/" style="font-size: 10.32px;">位运算</a> <a href="/tags/%E4%BE%9D%E8%B5%96%E4%BC%A0%E9%80%92/" style="font-size: 10px;">依赖传递</a> <a href="/tags/%E5%85%83%E7%BB%84/" style="font-size: 10px;">元组</a> <a href="/tags/%E5%85%A5%E9%97%A8/" style="font-size: 10px;">入门</a> <a href="/tags/%E5%85%A8%E6%96%87%E7%B4%A2%E5%BC%95/" style="font-size: 10.32px;">全文索引</a> <a href="/tags/%E5%86%85%E5%AD%98%E5%8C%BA%E5%9F%9F/" style="font-size: 10.32px;">内存区域</a> <a href="/tags/%E5%86%85%E5%AD%98%E6%A8%A1%E5%9E%8B/" style="font-size: 10px;">内存模型</a> <a href="/tags/%E5%86%99%E6%97%B6%E5%A4%8D%E5%88%B6/" style="font-size: 10px;">写时复制</a> <a href="/tags/%E5%88%86%E4%BB%A3%E6%94%B6%E9%9B%86/" style="font-size: 10px;">分代收集</a> <a href="/tags/%E5%88%86%E5%8C%BA/" style="font-size: 10.32px;">分区</a> <a href="/tags/%E5%88%86%E5%B8%83%E5%BC%8FID/" style="font-size: 10px;">分布式ID</a> <a href="/tags/%E5%88%86%E5%B8%83%E5%BC%8F%E4%BA%8B%E5%8A%A1/" style="font-size: 10.65px;">分布式事务</a> <a href="/tags/%E5%88%86%E5%B8%83%E5%BC%8F%E7%BC%93%E5%AD%98/" style="font-size: 10px;">分布式缓存</a> <a href="/tags/%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81/" style="font-size: 10px;">分布式锁</a> <a href="/tags/%E5%88%86%E5%BC%8F%E5%8C%96%E7%AE%80/" style="font-size: 10px;">分式化简</a> <a href="/tags/%E5%89%8D%E5%BA%8F%E9%81%8D%E5%8E%86/" style="font-size: 10px;">前序遍历</a> <a href="/tags/%E5%89%8D%E7%BC%80%E7%B4%A2%E5%BC%95/" style="font-size: 10.32px;">前缀索引</a> <a href="/tags/%E5%8A%A0%E6%B3%95/" style="font-size: 10.65px;">加法</a> <a href="/tags/%E5%8A%A8%E6%80%81%E4%BB%A3%E7%90%86/" style="font-size: 10.32px;">动态代理</a> <a href="/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/" style="font-size: 11.94px;">动态规划</a> <a href="/tags/%E5%8C%85%E5%86%B2%E7%AA%81/" style="font-size: 10px;">包冲突</a> <a href="/tags/%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F/" style="font-size: 10px;">单例模式</a> <a href="/tags/%E5%8E%8B%E7%BC%A9/" style="font-size: 10px;">压缩</a> <a href="/tags/%E5%8E%9F%E5%9E%8B%E6%A8%A1%E5%BC%8F/" style="font-size: 10px;">原型模式</a> <a href="/tags/%E5%8F%8C%E4%BA%B2%E5%A7%94%E6%B4%BE/" style="font-size: 10px;">双亲委派</a> <a href="/tags/%E5%8F%8C%E6%8C%87%E9%92%88/" style="font-size: 11.94px;">双指针</a> <a href="/tags/%E5%8F%8D%E5%B0%84/" style="font-size: 10px;">反射</a> <a href="/tags/%E5%8F%AF%E9%87%8D%E5%A4%8D%E8%AF%BB/" style="font-size: 10.32px;">可重复读</a> <a href="/tags/%E5%90%88%E5%B9%B6/" style="font-size: 10px;">合并</a> <a href="/tags/%E5%90%8C%E6%AD%A5/" style="font-size: 10px;">同步</a> <a href="/tags/%E5%90%8E%E5%BA%8F%E9%81%8D%E5%8E%86/" style="font-size: 10px;">后序遍历</a> <a href="/tags/%E5%91%BD%E4%BB%A4%E6%A8%A1%E5%BC%8F/" style="font-size: 10px;">命令模式</a> <a href="/tags/%E5%93%88%E5%B8%8C/" style="font-size: 10px;">哈希</a> <a href="/tags/%E5%93%88%E5%B8%8C%E7%B4%A2%E5%BC%95/" style="font-size: 10.32px;">哈希索引</a> <a href="/tags/%E5%93%88%E5%B8%8C%E8%A1%A8/" style="font-size: 12.9px;">哈希表</a> <a href="/tags/%E5%93%A8%E5%85%B5/" style="font-size: 10px;">哨兵</a> <a href="/tags/%E5%9B%9E%E6%94%B6/" style="font-size: 10px;">回收</a> <a href="/tags/%E5%9B%9E%E6%96%87/" style="font-size: 13.55px;">回文</a> <a href="/tags/%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6%E5%99%A8/" style="font-size: 10px;">垃圾回收器</a> <a href="/tags/%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6%E7%AE%97%E6%B3%95/" style="font-size: 10px;">垃圾回收算法</a> <a href="/tags/%E5%A0%86/" style="font-size: 10.65px;">堆</a> <a href="/tags/%E5%A0%86%E6%8E%92%E5%BA%8F/" style="font-size: 11.61px;">堆排序</a> <a href="/tags/%E5%A4%87%E5%BF%98%E5%BD%95%E6%A8%A1%E5%BC%8F/" style="font-size: 10px;">备忘录模式</a> <a href="/tags/%E5%A4%96%E8%A7%82%E6%A8%A1%E5%BC%8F/" style="font-size: 10px;">外观模式</a> <a href="/tags/%E5%A4%9A%E7%BA%BF%E7%A8%8B/" style="font-size: 18.71px;">多线程</a> <a href="/tags/%E5%AD%90%E5%AD%97%E7%AC%A6%E4%B8%B2/" style="font-size: 12.58px;">子字符串</a> <a href="/tags/%E5%AD%90%E5%BA%8F%E5%88%97/" style="font-size: 10.32px;">子序列</a> <a href="/tags/%E5%AD%90%E6%95%B0%E7%BB%84/" style="font-size: 10.65px;">子数组</a> <a href="/tags/%E5%AD%90%E9%9B%86/" style="font-size: 10px;">子集</a> <a href="/tags/%E5%AD%97%E5%85%B8/" style="font-size: 10px;">字典</a> <a href="/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2/" style="font-size: 10px;">字符串</a> <a href="/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2%E7%BF%BB%E8%BD%AC/" style="font-size: 10px;">字符串翻转</a> <a href="/tags/%E5%AE%89%E5%85%A8/" style="font-size: 15.81px;">安全</a> <a href="/tags/%E5%AE%98%E6%96%B9%E6%96%87%E6%A1%A3/" style="font-size: 10px;">官方文档</a> <a href="/tags/%E5%AE%B9%E9%94%99/" style="font-size: 10px;">容错</a> <a href="/tags/%E5%B1%82%E6%AC%A1%E9%81%8D%E5%8E%86/" style="font-size: 10.32px;">层次遍历</a> <a href="/tags/%E5%B7%A5%E5%8E%82%E6%A8%A1%E5%BC%8F/" style="font-size: 10px;">工厂模式</a> <a href="/tags/%E5%B8%83%E9%9A%86%E8%BF%87%E6%BB%A4%E5%99%A8/" style="font-size: 10px;">布隆过滤器</a> <a href="/tags/%E5%B9%B3%E8%A1%A1%E4%BA%8C%E5%8F%89%E6%A0%91/" style="font-size: 10px;">平衡二叉树</a> <a href="/tags/%E5%B9%B6%E5%8F%91/" style="font-size: 12.58px;">并发</a> <a href="/tags/%E5%BB%BA%E9%80%A0%E8%80%85%E6%A8%A1%E5%BC%8F/" style="font-size: 10px;">建造者模式</a> <a href="/tags/%E5%BC%82%E6%AD%A5/" style="font-size: 10px;">异步</a> <a href="/tags/%E5%BC%95%E7%94%A8/" style="font-size: 10px;">引用</a> <a href="/tags/%E5%BE%AA%E7%8E%AF%E9%98%9F%E5%88%97/" style="font-size: 10.32px;">循环队列</a> <a href="/tags/%E5%BE%AE%E6%9C%8D%E5%8A%A1/" style="font-size: 10px;">微服务</a> <a href="/tags/%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84/" style="font-size: 10px;">微服务架构</a> <a href="/tags/%E5%BF%AB%E4%B9%90%E6%95%B0/" style="font-size: 10px;">快乐数</a> <a href="/tags/%E5%BF%AB%E9%80%9F%E6%8E%92%E5%BA%8F/" style="font-size: 10px;">快速排序</a> <a href="/tags/%E6%8A%BD%E8%B1%A1%E5%B7%A5%E5%8E%82%E6%A8%A1%E5%BC%8F/" style="font-size: 10px;">抽象工厂模式</a> <a href="/tags/%E6%8E%92%E5%88%97/" style="font-size: 10px;">排列</a> <a href="/tags/%E6%8E%92%E5%BA%8F/" style="font-size: 13.55px;">排序</a> <a href="/tags/%E6%90%9C%E7%B4%A2/" style="font-size: 10px;">搜索</a> <a href="/tags/%E6%91%A9%E5%B0%94%E6%8A%95%E7%A5%A8/" style="font-size: 10px;">摩尔投票</a> <a href="/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E5%91%BD%E4%BB%A4/" style="font-size: 10px;">操作系统命令</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E5%AD%98%E5%82%A8/" style="font-size: 10px;">数据存储</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" style="font-size: 10px;">数据结构</a> <a href="/tags/%E6%95%B0%E7%8B%AC/" style="font-size: 10px;">数独</a> <a href="/tags/%E6%95%B0%E7%BB%84/" style="font-size: 19.68px;">数组</a> <a href="/tags/%E6%96%87%E4%BB%B6%E8%B7%AF%E5%BE%84/" style="font-size: 10.32px;">文件路径</a> <a href="/tags/%E6%96%90%E6%B3%A2%E9%82%A3%E5%A5%91/" style="font-size: 10.32px;">斐波那契</a> <a href="/tags/%E6%96%90%E6%B3%A2%E9%82%A3%E5%A5%91%E6%95%B0/" style="font-size: 10px;">斐波那契数</a> <a href="/tags/%E6%97%A5%E6%9C%9F/" style="font-size: 10px;">日期</a> <a href="/tags/%E6%9C%80%E5%B7%A6%E5%89%8D%E7%BC%80/" style="font-size: 10.32px;">最左前缀</a> <a href="/tags/%E6%9C%80%E9%95%BF%E5%85%AC%E5%85%B1%E5%89%8D%E7%BC%80/" style="font-size: 10px;">最长公共前缀</a> <a href="/tags/%E6%9C%89%E5%BA%8F/" style="font-size: 10px;">有序</a> <a href="/tags/%E6%9C%8D%E5%8A%A1%E4%B8%B2%E8%81%94%E6%A8%A1%E5%BC%8F/" style="font-size: 10px;">服务串联模式</a> <a href="/tags/%E6%9C%8D%E5%8A%A1%E4%BB%A3%E7%90%86%E6%A8%A1%E5%BC%8F/" style="font-size: 10px;">服务代理模式</a> <a href="/tags/%E6%9C%8D%E5%8A%A1%E5%85%B1%E4%BA%AB%E6%95%B0%E6%8D%AE%E6%A8%A1%E5%BC%8F/" style="font-size: 10px;">服务共享数据模式</a> <a href="/tags/%E6%9C%8D%E5%8A%A1%E5%88%86%E6%94%AF%E6%A8%A1%E5%BC%8F/" style="font-size: 10px;">服务分支模式</a> <a href="/tags/%E6%9C%8D%E5%8A%A1%E5%8F%91%E7%8E%B0/" style="font-size: 10.65px;">服务发现</a> <a href="/tags/%E6%9C%8D%E5%8A%A1%E5%BC%82%E6%AD%A5%E6%B6%88%E6%81%AF%E6%A8%A1%E5%BC%8F/" style="font-size: 10px;">服务异步消息模式</a> <a href="/tags/%E6%9C%8D%E5%8A%A1%E6%B2%BB%E7%90%86/" style="font-size: 10.32px;">服务治理</a> <a href="/tags/%E6%9C%8D%E5%8A%A1%E8%81%9A%E5%90%88%E6%A8%A1%E5%BC%8F/" style="font-size: 10px;">服务聚合模式</a> <a href="/tags/%E6%9C%AC%E5%9C%B0%E6%B6%88%E6%81%AF%E8%A1%A8/" style="font-size: 10px;">本地消息表</a> <a href="/tags/%E6%9D%A8%E8%BE%89%E4%B8%89%E8%A7%92/" style="font-size: 10.32px;">杨辉三角</a> <a href="/tags/%E6%9E%B6%E6%9E%84/" style="font-size: 10px;">架构</a> <a href="/tags/%E6%A0%87%E8%AE%B0-%E5%A4%8D%E5%88%B6/" style="font-size: 10px;">标记-复制</a> <a href="/tags/%E6%A0%87%E8%AE%B0-%E6%95%B4%E7%90%86/" style="font-size: 10px;">标记-整理</a> <a href="/tags/%E6%A0%87%E8%AE%B0-%E6%B8%85%E9%99%A4/" style="font-size: 10px;">标记-清除</a> <a href="/tags/%E6%A0%88/" style="font-size: 13.87px;">栈</a> <a href="/tags/%E6%A0%91/" style="font-size: 10px;">树</a> <a href="/tags/%E6%A1%A5%E6%8E%A5%E6%A8%A1%E5%BC%8F/" style="font-size: 10px;">桥接模式</a> <a href="/tags/%E6%A1%B6%E6%8E%92%E5%BA%8F/" style="font-size: 10px;">桶排序</a> <a href="/tags/%E6%A8%A1%E6%9D%BF%E6%A8%A1%E5%BC%8F/" style="font-size: 10px;">模板模式</a> <a href="/tags/%E6%AD%BB%E9%94%81/" style="font-size: 10.97px;">死锁</a> <a href="/tags/%E6%B1%89%E8%AF%BA%E5%A1%94/" style="font-size: 10px;">汉诺塔</a> <a href="/tags/%E6%B3%A8%E5%85%A5/" style="font-size: 13.23px;">注入</a> <a href="/tags/%E6%B3%A8%E8%A7%A3/" style="font-size: 10.32px;">注解</a> <a href="/tags/%E6%B7%B1%E5%BA%A6%E4%BC%98%E5%85%88%E6%90%9C%E7%B4%A2/" style="font-size: 10px;">深度优先搜索</a> <a href="/tags/%E6%BA%90%E7%A0%81/" style="font-size: 12.58px;">源码</a> <a href="/tags/%E6%BB%91%E5%8A%A8%E7%AA%97%E5%8F%A3/" style="font-size: 10px;">滑动窗口</a> <a href="/tags/%E7%86%94%E6%96%AD/" style="font-size: 10px;">熔断</a> <a href="/tags/%E7%88%AC%E8%99%AB/" style="font-size: 10px;">爬虫</a> <a href="/tags/%E7%89%9B%E9%A1%BF%E8%BF%AD%E4%BB%A3%E6%B3%95/" style="font-size: 10px;">牛顿迭代法</a> <a href="/tags/%E7%8A%B6%E6%80%81%E6%A8%A1%E5%BC%8F/" style="font-size: 10px;">状态模式</a> <a href="/tags/%E7%8E%AF%E5%BD%A2/" style="font-size: 10px;">环形</a> <a href="/tags/%E7%94%B5%E5%AD%90%E9%82%AE%E4%BB%B6/" style="font-size: 10px;">电子邮件</a> <a href="/tags/%E7%9F%A9%E9%98%B5/" style="font-size: 16.13px;">矩阵</a> <a href="/tags/%E7%AD%96%E7%95%A5%E6%A8%A1%E5%BC%8F/" style="font-size: 10px;">策略模式</a> <a href="/tags/%E7%AE%97%E6%B3%95/" style="font-size: 19.35px;">算法</a> <a href="/tags/%E7%AE%97%E6%B3%95%E9%A2%98/" style="font-size: 10px;">算法题</a> <a href="/tags/%E7%B1%BB%E5%8A%A0%E8%BD%BD%E6%A8%A1%E5%9E%8B/" style="font-size: 10px;">类加载模型</a> <a href="/tags/%E7%B4%A2%E5%BC%95/" style="font-size: 10.97px;">索引</a> <a href="/tags/%E7%B4%A2%E5%BC%95%E4%BC%98%E5%8C%96/" style="font-size: 10.32px;">索引优化</a> <a href="/tags/%E7%BA%BF%E7%A8%8B/" style="font-size: 10.65px;">线程</a> <a href="/tags/%E7%BA%BF%E7%A8%8B%E6%B1%A0/" style="font-size: 10px;">线程池</a> <a href="/tags/%E7%BB%84%E5%90%88%E6%A8%A1%E5%BC%8F/" style="font-size: 10px;">组合模式</a> <a href="/tags/%E7%BC%93%E5%AD%98%E7%A9%BF%E9%80%8F/" style="font-size: 10px;">缓存穿透</a> <a href="/tags/%E7%BC%93%E5%AD%98%E9%9B%AA%E5%B4%A9/" style="font-size: 10px;">缓存雪崩</a> <a href="/tags/%E7%BC%93%E5%AD%98%E9%A2%84%E7%83%AD/" style="font-size: 10px;">缓存预热</a> <a href="/tags/%E7%BF%BB%E8%AF%91/" style="font-size: 10px;">翻译</a> <a href="/tags/%E7%BF%BB%E8%BD%AC/" style="font-size: 12.26px;">翻转</a> <a href="/tags/%E8%81%9A%E7%B0%87%E7%B4%A2%E5%BC%95/" style="font-size: 10.32px;">聚簇索引</a> <a href="/tags/%E8%8A%82%E7%82%B9/" style="font-size: 10px;">节点</a> <a href="/tags/%E8%99%9A%E6%8B%9F%E6%9C%BA/" style="font-size: 10px;">虚拟机</a> <a href="/tags/%E8%A3%85%E9%A5%B0%E5%99%A8%E6%A8%A1%E5%BC%8F/" style="font-size: 10px;">装饰器模式</a> <a href="/tags/%E8%A7%82%E5%AF%9F%E8%80%85%E6%A8%A1%E5%BC%8F/" style="font-size: 10px;">观察者模式</a> <a href="/tags/%E8%A7%A3%E9%87%8A%E5%99%A8%E6%A8%A1%E5%BC%8F/" style="font-size: 10px;">解释器模式</a> <a href="/tags/%E8%A7%A3%E9%87%8A%E6%80%A7%E8%AF%AD%E8%A8%80/" style="font-size: 10px;">解释性语言</a> <a href="/tags/%E8%AE%BE%E8%AE%A1/" style="font-size: 15.48px;">设计</a> <a href="/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" style="font-size: 17.1px;">设计模式</a> <a href="/tags/%E8%AE%BF%E9%97%AE%E6%8E%A7%E5%88%B6/" style="font-size: 10px;">访问控制</a> <a href="/tags/%E8%AE%BF%E9%97%AE%E8%80%85%E6%A8%A1%E5%BC%8F/" style="font-size: 10px;">访问者模式</a> <a href="/tags/%E8%AF%BB%E6%8F%90%E4%BA%A4/" style="font-size: 10.32px;">读提交</a> <a href="/tags/%E8%AF%BB%E6%9C%AA%E6%8F%90%E4%BA%A4/" style="font-size: 10.32px;">读未提交</a> <a href="/tags/%E8%B4%A3%E4%BB%BB%E9%93%BE%E6%A8%A1%E5%BC%8F/" style="font-size: 10px;">责任链模式</a> <a href="/tags/%E8%B4%AA%E5%BF%83/" style="font-size: 10.97px;">贪心</a> <a href="/tags/%E8%BF%AD%E4%BB%A3/" style="font-size: 11.94px;">迭代</a> <a href="/tags/%E8%BF%AD%E4%BB%A3%E5%99%A8%E6%A8%A1%E5%BC%8F/" style="font-size: 10px;">迭代器模式</a> <a href="/tags/%E9%80%82%E9%85%8D%E5%99%A8%E6%A8%A1%E5%BC%8F/" style="font-size: 10px;">适配器模式</a> <a href="/tags/%E9%80%92%E5%BD%92/" style="font-size: 16.77px;">递归</a> <a href="/tags/%E9%80%BB%E8%BE%91/" style="font-size: 10.65px;">逻辑</a> <a href="/tags/%E9%80%BB%E8%BE%91%E8%BF%90%E7%AE%97/" style="font-size: 10px;">逻辑运算</a> <a href="/tags/%E9%93%BE%E8%A1%A8/" style="font-size: 16.45px;">链表</a> <a href="/tags/%E9%94%81/" style="font-size: 14.52px;">锁</a> <a href="/tags/%E9%98%9F%E5%88%97/" style="font-size: 11.29px;">队列</a> <a href="/tags/%E9%98%B6%E4%B9%98/" style="font-size: 10px;">阶乘</a> <a href="/tags/%E9%98%BB%E5%A1%9E/" style="font-size: 10px;">阻塞</a> <a href="/tags/%E9%99%8D%E7%BA%A7/" style="font-size: 10px;">降级</a> <a href="/tags/%E9%99%90%E6%B5%81/" style="font-size: 10px;">限流</a> <a href="/tags/%E9%9A%94%E7%A6%BB%E7%BA%A7%E5%88%AB/" style="font-size: 10.32px;">隔离级别</a> <a href="/tags/%E9%9B%86%E5%90%88/" style="font-size: 10.32px;">集合</a> <a href="/tags/%E9%9B%86%E7%BE%A4/" style="font-size: 10px;">集群</a> <a href="/tags/%E9%9D%99%E6%80%81%E4%BB%A3%E7%90%86/" style="font-size: 10px;">静态代理</a> <a href="/tags/%E9%9D%9E%E9%98%BB%E5%A1%9E/" style="font-size: 10px;">非阻塞</a> <a href="/tags/%E9%AA%8C%E8%AF%81/" style="font-size: 10px;">验证</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/07/">July 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/06/">June 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/05/">May 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/05/">May 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/11/">November 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/08/">August 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/07/">July 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/05/">May 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/04/">April 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/03/">March 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">April 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">March 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">December 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">November 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">October 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">September 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/08/">August 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/01/">January 2018</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2022/07/02/LeetCode/offer/%E5%89%91%E6%8C%87%20Offer%2003.%20%E6%95%B0%E7%BB%84%E4%B8%AD%E9%87%8D%E5%A4%8D%E7%9A%84%E6%95%B0%E5%AD%97/">剑指 Offer 03. 数组中重复的数字</a>
           </li>
-          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
-            Overview
+        
+          <li>
+            <a href="/2022/07/02/LeetCode/offer/%E5%89%91%E6%8C%87%20Offer%2005.%20%E6%9B%BF%E6%8D%A2%E7%A9%BA%E6%A0%BC/">剑指 Offer 05. 替换空格</a>
           </li>
-        </ul>
-      
-
-      <section class="site-overview-wrap sidebar-panel">
-        <div class="site-overview">
-          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
-            
-              <p class="site-author-name" itemprop="name">Han si</p>
-              <p class="site-description motion-element" itemprop="description"></p>
-          </div>
-
-          <nav class="site-state motion-element">
-
-            
-              <div class="site-state-item site-state-posts">
-              
-                <a href="/archives/%7C%7C%20archive">
-              
-                  <span class="site-state-item-count">523</span>
-                  <span class="site-state-item-name">posts</span>
-                </a>
-              </div>
-            
-
-            
-              
-              
-              <div class="site-state-item site-state-categories">
-                <a href="/categories/index.html">
-                  <span class="site-state-item-count">23</span>
-                  <span class="site-state-item-name">categories</span>
-                </a>
-              </div>
-            
-
-            
-              
-              
-              <div class="site-state-item site-state-tags">
-                <a href="/tags/index.html">
-                  <span class="site-state-item-count">312</span>
-                  <span class="site-state-item-name">tags</span>
-                </a>
-              </div>
-            
-
-          </nav>
-
-          
-
-          
-            <div class="links-of-author motion-element">
-                
-                  <span class="links-of-author-item">
-                    <a href="mailto:kw120943839@gmail.com" target="_blank" title="E-Mail">
-                      
-                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
-                  </span>
-                
-            </div>
-          
-
-          
-          
-
-          
-          
-
-          
-
-        </div>
-      </section>
-
-      
-      <!--noindex-->
-        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
-          <div class="post-toc">
-
-            
-              
-            
-
-            
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#整型（Int）"><span class="nav-number">1.</span> <span class="nav-text">整型（Int）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#浮点数（Float）"><span class="nav-number">2.</span> <span class="nav-text">浮点数（Float）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#字符串"><span class="nav-number">3.</span> <span class="nav-text">字符串</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#字符串运算"><span class="nav-number">3.1.</span> <span class="nav-text">字符串运算</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#列表"><span class="nav-number">4.</span> <span class="nav-text">列表</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#创建列表"><span class="nav-number">4.1.</span> <span class="nav-text">创建列表</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#访问列表"><span class="nav-number">4.2.</span> <span class="nav-text">访问列表</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#更新列表"><span class="nav-number">4.3.</span> <span class="nav-text">更新列表</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#删除列表"><span class="nav-number">4.4.</span> <span class="nav-text">删除列表</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#列表分片"><span class="nav-number">4.5.</span> <span class="nav-text">列表分片</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#其他操作"><span class="nav-number">4.6.</span> <span class="nav-text">其他操作</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#字典"><span class="nav-number">5.</span> <span class="nav-text">字典</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#添加元素"><span class="nav-number">5.1.</span> <span class="nav-text">添加元素</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#访问和遍历元素"><span class="nav-number">5.2.</span> <span class="nav-text">访问和遍历元素</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#删除元素"><span class="nav-number">5.3.</span> <span class="nav-text">删除元素</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#修改元素"><span class="nav-number">5.4.</span> <span class="nav-text">修改元素</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#其他操作-1"><span class="nav-number">5.5.</span> <span class="nav-text">其他操作</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#元组"><span class="nav-number">6.</span> <span class="nav-text">元组</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#元素的优势"><span class="nav-number">6.1.</span> <span class="nav-text">元素的优势</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#创建元组"><span class="nav-number">6.2.</span> <span class="nav-text">创建元组</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#元组分片"><span class="nav-number">6.3.</span> <span class="nav-text">元组分片</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#更改元组"><span class="nav-number">6.4.</span> <span class="nav-text">更改元组</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#删除元组"><span class="nav-number">6.5.</span> <span class="nav-text">删除元组</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#元组和列表互换"><span class="nav-number">6.6.</span> <span class="nav-text">元组和列表互换</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#集合"><span class="nav-number">7.</span> <span class="nav-text">集合</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#创建集合"><span class="nav-number">7.1.</span> <span class="nav-text">创建集合</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#查询和遍历集合"><span class="nav-number">7.2.</span> <span class="nav-text">查询和遍历集合</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#删除集合"><span class="nav-number">7.3.</span> <span class="nav-text">删除集合</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#空类型（None）"><span class="nav-number">8.</span> <span class="nav-text">空类型（None）</span></a></li></ol></div>
-            
-
-          </div>
-        </section>
-      <!--/noindex-->
-      
-
-      
-
+        
+          <li>
+            <a href="/2022/07/02/LeetCode/offer/%E5%89%91%E6%8C%87%20Offer%2006.%20%E4%BB%8E%E5%B0%BE%E5%88%B0%E5%A4%B4%E6%89%93%E5%8D%B0%E9%93%BE%E8%A1%A8/">剑指 Offer 06. 从尾到头打印链表</a>
+          </li>
+        
+          <li>
+            <a href="/2022/07/02/LeetCode/offer/%E5%89%91%E6%8C%87%20Offer%2009.%20%E7%94%A8%E4%B8%A4%E4%B8%AA%E6%A0%88%E5%AE%9E%E7%8E%B0%E9%98%9F%E5%88%97/">剑指 Offer 09. 用两个栈实现队列</a>
+          </li>
+        
+          <li>
+            <a href="/2022/07/02/LeetCode/offer/%E5%89%91%E6%8C%87%20Offer%2010-%20I.%20%E6%96%90%E6%B3%A2%E9%82%A3%E5%A5%91%E6%95%B0%E5%88%97/">剑指 Offer 10- I. 斐波那契数列</a>
+          </li>
+        
+      </ul>
     </div>
-  </aside>
-
-
-        
-      </div>
-    </main>
-
-    <footer id="footer" class="footer">
-      <div class="footer-inner">
-        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
-  <span class="with-love">
-    <i class="fa fa-user"></i>
-  </span>
-  <span class="author" itemprop="copyrightHolder">Han si</span>
-
-  
-</div>
-
-
-  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
-
-
-
-  <span class="post-meta-divider">|</span>
-
-
-
-  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a> v5.1.4</div>
-
-
-
-
-        
-
-
-
-
-
-
-
-        
-      </div>
-    </footer>
-
-    
-      <div class="back-to-top">
-        <i class="fa fa-arrow-up"></i>
-        
-      </div>
-    
-
-    
-
   </div>
 
   
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2022 HanSi<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
 
-<script type="text/javascript">
-  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
-    window.Promise = null;
-  }
-</script>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
 
 
-
-
-
-
+<script src="/js/jquery-3.4.1.min.js"></script>
 
 
 
   
+<script src="/fancybox/jquery.fancybox.min.js"></script>
 
 
 
 
+<script src="/js/script.js"></script>
 
 
 
 
 
-
-
-
-  
-  
-    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
-  
-
-
-  
-
-
-  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
-
-  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
-
-
-
-  
-  
-
-  
-  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
-<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
-
-
-
-  
-
-
-  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
-
-
-
-  
-
-
-  
-
-
-
-
-	
-
-
-
-
-
-  
-
-
-
-
-
-  
-
-
-
-
-
-
-
-
-
-
-
-
-  
-
-  <script type="text/javascript">
-    // Popup Window;
-    var isfetched = false;
-    var isXml = true;
-    // Search DB path;
-    var search_path = "search.xml";
-    if (search_path.length === 0) {
-      search_path = "search.xml";
-    } else if (/json$/i.test(search_path)) {
-      isXml = false;
-    }
-    var path = "/" + search_path;
-    // monitor main search box;
-
-    var onPopupClose = function (e) {
-      $('.popup').hide();
-      $('#local-search-input').val('');
-      $('.search-result-list').remove();
-      $('#no-result').remove();
-      $(".local-search-pop-overlay").remove();
-      $('body').css('overflow', '');
-    }
-
-    function proceedsearch() {
-      $("body")
-        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
-        .css('overflow', 'hidden');
-      $('.search-popup-overlay').click(onPopupClose);
-      $('.popup').toggle();
-      var $localSearchInput = $('#local-search-input');
-      $localSearchInput.attr("autocapitalize", "none");
-      $localSearchInput.attr("autocorrect", "off");
-      $localSearchInput.focus();
-    }
-
-    // search function;
-    var searchFunc = function(path, search_id, content_id) {
-      'use strict';
-
-      // start loading animation
-      $("body")
-        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
-          '<div id="search-loading-icon">' +
-          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
-          '</div>' +
-          '</div>')
-        .css('overflow', 'hidden');
-      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
-
-      $.ajax({
-        url: path,
-        dataType: isXml ? "xml" : "json",
-        async: true,
-        success: function(res) {
-          // get the contents from search data
-          isfetched = true;
-          $('.popup').detach().appendTo('.header-inner');
-          var datas = isXml ? $("entry", res).map(function() {
-            return {
-              title: $("title", this).text(),
-              content: $("content",this).text(),
-              url: $("url" , this).text()
-            };
-          }).get() : res;
-          var input = document.getElementById(search_id);
-          var resultContent = document.getElementById(content_id);
-          var inputEventFunction = function() {
-            var searchText = input.value.trim().toLowerCase();
-            var keywords = searchText.split(/[\s\-]+/);
-            if (keywords.length > 1) {
-              keywords.push(searchText);
-            }
-            var resultItems = [];
-            if (searchText.length > 0) {
-              // perform local searching
-              datas.forEach(function(data) {
-                var isMatch = false;
-                var hitCount = 0;
-                var searchTextCount = 0;
-                var title = data.title.trim();
-                var titleInLowerCase = title.toLowerCase();
-                var content = data.content.trim().replace(/<[^>]+>/g,"");
-                var contentInLowerCase = content.toLowerCase();
-                var articleUrl = decodeURIComponent(data.url);
-                var indexOfTitle = [];
-                var indexOfContent = [];
-                // only match articles with not empty titles
-                if(title != '') {
-                  keywords.forEach(function(keyword) {
-                    function getIndexByWord(word, text, caseSensitive) {
-                      var wordLen = word.length;
-                      if (wordLen === 0) {
-                        return [];
-                      }
-                      var startPosition = 0, position = [], index = [];
-                      if (!caseSensitive) {
-                        text = text.toLowerCase();
-                        word = word.toLowerCase();
-                      }
-                      while ((position = text.indexOf(word, startPosition)) > -1) {
-                        index.push({position: position, word: word});
-                        startPosition = position + wordLen;
-                      }
-                      return index;
-                    }
-
-                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
-                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
-                  });
-                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
-                    isMatch = true;
-                    hitCount = indexOfTitle.length + indexOfContent.length;
-                  }
-                }
-
-                // show search results
-
-                if (isMatch) {
-                  // sort index by position of keyword
-
-                  [indexOfTitle, indexOfContent].forEach(function (index) {
-                    index.sort(function (itemLeft, itemRight) {
-                      if (itemRight.position !== itemLeft.position) {
-                        return itemRight.position - itemLeft.position;
-                      } else {
-                        return itemLeft.word.length - itemRight.word.length;
-                      }
-                    });
-                  });
-
-                  // merge hits into slices
-
-                  function mergeIntoSlice(text, start, end, index) {
-                    var item = index[index.length - 1];
-                    var position = item.position;
-                    var word = item.word;
-                    var hits = [];
-                    var searchTextCountInSlice = 0;
-                    while (position + word.length <= end && index.length != 0) {
-                      if (word === searchText) {
-                        searchTextCountInSlice++;
-                      }
-                      hits.push({position: position, length: word.length});
-                      var wordEnd = position + word.length;
-
-                      // move to next position of hit
-
-                      index.pop();
-                      while (index.length != 0) {
-                        item = index[index.length - 1];
-                        position = item.position;
-                        word = item.word;
-                        if (wordEnd > position) {
-                          index.pop();
-                        } else {
-                          break;
-                        }
-                      }
-                    }
-                    searchTextCount += searchTextCountInSlice;
-                    return {
-                      hits: hits,
-                      start: start,
-                      end: end,
-                      searchTextCount: searchTextCountInSlice
-                    };
-                  }
-
-                  var slicesOfTitle = [];
-                  if (indexOfTitle.length != 0) {
-                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
-                  }
-
-                  var slicesOfContent = [];
-                  while (indexOfContent.length != 0) {
-                    var item = indexOfContent[indexOfContent.length - 1];
-                    var position = item.position;
-                    var word = item.word;
-                    // cut out 100 characters
-                    var start = position - 20;
-                    var end = position + 80;
-                    if(start < 0){
-                      start = 0;
-                    }
-                    if (end < position + word.length) {
-                      end = position + word.length;
-                    }
-                    if(end > content.length){
-                      end = content.length;
-                    }
-                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
-                  }
-
-                  // sort slices in content by search text's count and hits' count
-
-                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
-                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
-                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
-                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
-                      return sliceRight.hits.length - sliceLeft.hits.length;
-                    } else {
-                      return sliceLeft.start - sliceRight.start;
-                    }
-                  });
-
-                  // select top N slices in content
-
-                  var upperBound = parseInt('-1');
-                  if (upperBound >= 0) {
-                    slicesOfContent = slicesOfContent.slice(0, upperBound);
-                  }
-
-                  // highlight title and content
-
-                  function highlightKeyword(text, slice) {
-                    var result = '';
-                    var prevEnd = slice.start;
-                    slice.hits.forEach(function (hit) {
-                      result += text.substring(prevEnd, hit.position);
-                      var end = hit.position + hit.length;
-                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
-                      prevEnd = end;
-                    });
-                    result += text.substring(prevEnd, slice.end);
-                    return result;
-                  }
-
-                  var resultItem = '';
-
-                  if (slicesOfTitle.length != 0) {
-                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
-                  } else {
-                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
-                  }
-
-                  slicesOfContent.forEach(function (slice) {
-                    resultItem += "<a href='" + articleUrl + "'>" +
-                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
-                      "...</p>" + "</a>";
-                  });
-
-                  resultItem += "</li>";
-                  resultItems.push({
-                    item: resultItem,
-                    searchTextCount: searchTextCount,
-                    hitCount: hitCount,
-                    id: resultItems.length
-                  });
-                }
-              })
-            };
-            if (keywords.length === 1 && keywords[0] === "") {
-              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
-            } else if (resultItems.length === 0) {
-              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
-            } else {
-              resultItems.sort(function (resultLeft, resultRight) {
-                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
-                  return resultRight.searchTextCount - resultLeft.searchTextCount;
-                } else if (resultLeft.hitCount !== resultRight.hitCount) {
-                  return resultRight.hitCount - resultLeft.hitCount;
-                } else {
-                  return resultRight.id - resultLeft.id;
-                }
-              });
-              var searchResultList = '<ul class=\"search-result-list\">';
-              resultItems.forEach(function (result) {
-                searchResultList += result.item;
-              })
-              searchResultList += "</ul>";
-              resultContent.innerHTML = searchResultList;
-            }
-          }
-
-          if ('auto' === 'auto') {
-            input.addEventListener('input', inputEventFunction);
-          } else {
-            $('.search-icon').click(inputEventFunction);
-            input.addEventListener('keypress', function (event) {
-              if (event.keyCode === 13) {
-                inputEventFunction();
-              }
-            });
-          }
-
-          // remove loading animation
-          $(".local-search-pop-overlay").remove();
-          $('body').css('overflow', '');
-
-          proceedsearch();
-        }
-      });
-    }
-
-    // handle and trigger popup window;
-    $('.popup-trigger').click(function(e) {
-      e.stopPropagation();
-      if (isfetched === false) {
-        searchFunc(path, 'local-search-input', 'local-search-result');
-      } else {
-        proceedsearch();
-      };
-    });
-
-    $('.popup-btn-close').click(onPopupClose);
-    $('.popup').click(function(e){
-      e.stopPropagation();
-    });
-    $(document).on('keyup', function (event) {
-      var shouldDismissSearchPopup = event.which === 27 &&
-        $('.search-popup').is(':visible');
-      if (shouldDismissSearchPopup) {
-        onPopupClose();
-      }
-    });
-  </script>
-
-
-
-
-
-  
-
-  
-
-  
-
-  
-  
-
-  
-
-  
-
-  
-
+  </div>
 </body>
 </html>
