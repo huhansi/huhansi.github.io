@@ -1,0 +1,758 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>HanSi&#39;s Blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta property="og:type" content="website">
+<meta property="og:title" content="HanSi&#39;s Blog">
+<meta property="og:url" content="http://huhansi.com/page/87/index.html">
+<meta property="og:site_name" content="HanSi&#39;s Blog">
+<meta property="og:locale">
+<meta property="article:author" content="HanSi">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="HanSi's Blog" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+<meta name="generator" content="Hexo 6.2.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">HanSi&#39;s Blog</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://huhansi.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main">
+  
+    <article id="post-LeetCode/medium/leetcode-000167-两数之和 II 输入有序数组" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2018/08/29/LeetCode/medium/leetcode-000167-%E4%B8%A4%E6%95%B0%E4%B9%8B%E5%92%8C%20II%20%E8%BE%93%E5%85%A5%E6%9C%89%E5%BA%8F%E6%95%B0%E7%BB%84/" class="article-date">
+  <time class="dt-published" datetime="2018-08-28T16:00:00.000Z" itemprop="datePublished">2018-08-29</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/leetcode/">leetcode</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2018/08/29/LeetCode/medium/leetcode-000167-%E4%B8%A4%E6%95%B0%E4%B9%8B%E5%92%8C%20II%20%E8%BE%93%E5%85%A5%E6%9C%89%E5%BA%8F%E6%95%B0%E7%BB%84/">167. 两数之和 II 输入有序数组</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h2 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h2><p>给定一个已按照升序排列 的有序数组，找到两个数使得它们相加之和等于目标数。</p>
+<p>函数应该返回这两个下标值 index1 和 index2，其中 index1 必须小于 index2。</p>
+<h2 id="示例1："><a href="#示例1：" class="headerlink" title="示例1："></a>示例1：</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">输入: numbers = [2, 7, 11, 15], target = 9</span><br><span class="line">输出: [1,2]</span><br><span class="line">解释: 2 与 7 之和等于目标数 9 。因此 index1 = 1, index2 = 2 。</span><br></pre></td></tr></table></figure>
+
+<h2 id="解法"><a href="#解法" class="headerlink" title="解法"></a>解法</h2><h3 id="解法一："><a href="#解法一：" class="headerlink" title="解法一："></a>解法一：</h3><p>双指针。一个指向begin，一个指向end，如果nums[begin] + nums[end] &#x3D;&#x3D; target,返回</p>
+<p>如果nums[begin] + nums[end] &lt; target, 说明和太小，begin自增</p>
+<p>如果nums[begin] + nums[end] &gt; target,说明和太大，end自减</p>
+<h4 id="Java"><a href="#Java" class="headerlink" title="Java"></a>Java</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="type">int</span>[] twoSum(<span class="type">int</span>[] numbers, <span class="type">int</span> target) &#123;</span><br><span class="line">        <span class="type">int</span> <span class="variable">begin</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line">        <span class="type">int</span> <span class="variable">end</span> <span class="operator">=</span> numbers.length - <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">while</span> (begin &lt;= end) &#123;</span><br><span class="line">        	<span class="keyword">if</span> (numbers[begin] + numbers[end] == target) &#123;</span><br><span class="line">        		<span class="keyword">break</span>;</span><br><span class="line">        	&#125; <span class="keyword">else</span> <span class="keyword">if</span> (numbers[begin] + numbers[end] &gt; target) &#123;</span><br><span class="line">        		end--;</span><br><span class="line">         	&#125; <span class="keyword">else</span> <span class="keyword">if</span> (numbers[begin] + numbers[end] &lt; target) &#123;</span><br><span class="line">         		begin++;</span><br><span class="line">         	&#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">int</span>[] &#123;begin + <span class="number">1</span>, end + <span class="number">1</span>&#125;;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://huhansi.com/2018/08/29/LeetCode/medium/leetcode-000167-%E4%B8%A4%E6%95%B0%E4%B9%8B%E5%92%8C%20II%20%E8%BE%93%E5%85%A5%E6%9C%89%E5%BA%8F%E6%95%B0%E7%BB%84/" data-id="cl541fs6000g65srw65nw3tth" data-title="167. 两数之和 II 输入有序数组" class="article-share-link">Share</a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%95%B0%E7%BB%84/" rel="tag">数组</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-LeetCode/medium/leetcode-000371. 两整数之和" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2018/08/29/LeetCode/medium/leetcode-000371.%20%E4%B8%A4%E6%95%B4%E6%95%B0%E4%B9%8B%E5%92%8C/" class="article-date">
+  <time class="dt-published" datetime="2018-08-28T16:00:00.000Z" itemprop="datePublished">2018-08-29</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/leetcode/">leetcode</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2018/08/29/LeetCode/medium/leetcode-000371.%20%E4%B8%A4%E6%95%B4%E6%95%B0%E4%B9%8B%E5%92%8C/">371. 两整数之和</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h2 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h2><p>不使用运算符 <code>+</code> 和<code>-</code>，计算两整数<code>a</code> 、<code>b</code>之和。</p>
+<h2 id="示例1："><a href="#示例1：" class="headerlink" title="示例1："></a>示例1：</h2><p>若 a &#x3D; 1 ，b &#x3D; 2，返回 3。</p>
+<h2 id="解法"><a href="#解法" class="headerlink" title="解法"></a>解法</h2><h3 id="解法一："><a href="#解法一：" class="headerlink" title="解法一："></a>解法一：</h3><p>使用位运算</p>
+<h4 id="Java"><a href="#Java" class="headerlink" title="Java"></a>Java</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">getSum</span><span class="params">(<span class="type">int</span> a, <span class="type">int</span> b)</span> &#123;</span><br><span class="line">    	<span class="keyword">if</span>(a == <span class="number">0</span>) &#123;</span><br><span class="line">    		<span class="keyword">return</span> b;</span><br><span class="line">    	&#125;</span><br><span class="line">    	</span><br><span class="line">        <span class="keyword">if</span>(b == <span class="number">0</span>) &#123;</span><br><span class="line">        	<span class="keyword">return</span> a;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        <span class="type">int</span> <span class="variable">x</span> <span class="operator">=</span> a ^ b;</span><br><span class="line">        <span class="type">int</span> <span class="variable">y</span> <span class="operator">=</span> (a &amp; b) &lt;&lt; <span class="number">1</span>;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">return</span> getSum(x, y);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://huhansi.com/2018/08/29/LeetCode/medium/leetcode-000371.%20%E4%B8%A4%E6%95%B4%E6%95%B0%E4%B9%8B%E5%92%8C/" data-id="cl541fs7200hx5srwenkadxoa" data-title="371. 两整数之和" class="article-share-link">Share</a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/math/" rel="tag">math</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E9%80%BB%E8%BE%91%E8%BF%90%E7%AE%97/" rel="tag">逻辑运算</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-LeetCode/medium/leetcode-000788. 旋转数字" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2018/08/29/LeetCode/medium/leetcode-000788.%20%E6%97%8B%E8%BD%AC%E6%95%B0%E5%AD%97/" class="article-date">
+  <time class="dt-published" datetime="2018-08-28T16:00:00.000Z" itemprop="datePublished">2018-08-29</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/leetcode/">leetcode</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2018/08/29/LeetCode/medium/leetcode-000788.%20%E6%97%8B%E8%BD%AC%E6%95%B0%E5%AD%97/">788. 旋转数字</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h2 id="旋转数字"><a href="#旋转数字" class="headerlink" title="旋转数字"></a>旋转数字</h2><p>我们称一个数 X 为好数, 如果它的每位数字逐个地被旋转 180 度后，我们仍可以得到一个有效的，且和 X 不同的数。要求每位数字都要被旋转。</p>
+<p>如果一个数的每位数字被旋转以后仍然还是一个数字， 则这个数是有效的。0, 1, 和 8 被旋转后仍然是它们自己；2 和 5 可以互相旋转成对方；6 和 9 同理，除了这些以外其他的数字旋转以后都不再是有效的数字。</p>
+<p>现在我们有一个正整数 <code>N</code>, 计算从 <code>1</code> 到 <code>N</code> 中有多少个数 X 是好数？</p>
+<h2 id="示例1："><a href="#示例1：" class="headerlink" title="示例1："></a>示例1：</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">输入: <span class="number">10</span></span><br><span class="line">输出: <span class="number">4</span></span><br><span class="line">解释: </span><br><span class="line">在[<span class="number">1</span>, <span class="number">10</span>]中有四个好数： <span class="number">2</span>, <span class="number">5</span>, <span class="number">6</span>, <span class="number">9</span>。</span><br><span class="line">注意 <span class="number">1</span> 和 <span class="number">10</span> 不是好数, 因为他们在旋转之后不变。</span><br></pre></td></tr></table></figure>
+
+<h2 id="注意："><a href="#注意：" class="headerlink" title="注意："></a>注意：</h2><ul>
+<li>N 的取值范围是 [1, 10000]。</li>
+</ul>
+<h2 id="解法"><a href="#解法" class="headerlink" title="解法"></a>解法</h2><h3 id="解法一："><a href="#解法一：" class="headerlink" title="解法一："></a>解法一：</h3><p>根据题目所术，如果一个数字中包含3或4或7，那么它就不是一个好数，如果它仅仅包含0或1或8也不是一个好数，那就是说，如果该数字不包含3或4或7，并且包含2或5或6或9任意中的一个的话，那么它就是一个好数。<br>N从1开始迭代，到N，将数字转换为字符串，然后判断是否满足条件即可。</p>
+<h4 id="Java"><a href="#Java" class="headerlink" title="Java"></a>Java</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">rotatedDigits</span><span class="params">(<span class="type">int</span> N)</span> &#123;</span><br><span class="line">		<span class="type">int</span> <span class="variable">sum</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line">		<span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt;= N; i++) &#123;</span><br><span class="line">			<span class="type">String</span> <span class="variable">num</span> <span class="operator">=</span> String.valueOf(i);</span><br><span class="line">			<span class="keyword">if</span> ((num.contains(<span class="string">&quot;2&quot;</span>) || num.contains(<span class="string">&quot;5&quot;</span>) || num.contains(<span class="string">&quot;6&quot;</span>) || num.contains(<span class="string">&quot;9&quot;</span>))</span><br><span class="line">					&amp;&amp; (!num.contains(<span class="string">&quot;3&quot;</span>) &amp;&amp; !num.contains(<span class="string">&quot;4&quot;</span>) &amp;&amp; !num.contains(<span class="string">&quot;7&quot;</span>))) &#123;</span><br><span class="line">				sum++;</span><br><span class="line">			&#125;</span><br><span class="line"></span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">return</span> sum;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://huhansi.com/2018/08/29/LeetCode/medium/leetcode-000788.%20%E6%97%8B%E8%BD%AC%E6%95%B0%E5%AD%97/" data-id="cl541fs7q00iy5srw3wjy8i32" data-title="788. 旋转数字" class="article-share-link">Share</a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/math/" rel="tag">math</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-LeetCode/medium/leetcode-000811. 子域名访问计数" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2018/08/29/LeetCode/medium/leetcode-000811.%20%E5%AD%90%E5%9F%9F%E5%90%8D%E8%AE%BF%E9%97%AE%E8%AE%A1%E6%95%B0/" class="article-date">
+  <time class="dt-published" datetime="2018-08-28T16:00:00.000Z" itemprop="datePublished">2018-08-29</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/leetcode/">leetcode</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2018/08/29/LeetCode/medium/leetcode-000811.%20%E5%AD%90%E5%9F%9F%E5%90%8D%E8%AE%BF%E9%97%AE%E8%AE%A1%E6%95%B0/">811. 子域名访问计数</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h2 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h2><p>一个网站域名，如”discuss.leetcode.com”，包含了多个子域名。作为顶级域名，常用的有”com”，下一级则有”leetcode.com”，最低的一级为”discuss.leetcode.com”。当我们访问域名”discuss.leetcode.com”时，也同时访问了其父域名”leetcode.com”以及顶级域名 “com”。</p>
+<p>给定一个带访问次数和域名的组合，要求分别计算每个域名被访问的次数。其格式为访问次数+空格+地址，例如：”9001 discuss.leetcode.com”。</p>
+<p>接下来会给出一组访问次数和域名组合的列表<code>cpdomains</code> 。要求解析出所有域名的访问次数，输出格式和输入格式相同，不限定先后顺序。</p>
+<h2 id="示例1："><a href="#示例1：" class="headerlink" title="示例1："></a>示例1：</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">输入: </span><br><span class="line">[&quot;9001 discuss.leetcode.com&quot;]</span><br><span class="line">输出: </span><br><span class="line">[&quot;9001 discuss.leetcode.com&quot;, &quot;9001 leetcode.com&quot;, &quot;9001 com&quot;]</span><br><span class="line">说明: </span><br><span class="line">例子中仅包含一个网站域名：&quot;discuss.leetcode.com&quot;。按照前文假设，子域名&quot;leetcode.com&quot;和&quot;com&quot;都会被访问，所以它们都被访问了9001次。</span><br></pre></td></tr></table></figure>
+<h2 id="示例2："><a href="#示例2：" class="headerlink" title="示例2："></a>示例2：</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">输入: </span><br><span class="line">[&quot;900 google.mail.com&quot;, &quot;50 yahoo.com&quot;, &quot;1 intel.mail.com&quot;, &quot;5 wiki.org&quot;]</span><br><span class="line">输出: </span><br><span class="line">[&quot;901 mail.com&quot;,&quot;50 yahoo.com&quot;,&quot;900 google.mail.com&quot;,&quot;5 wiki.org&quot;,&quot;5 org&quot;,&quot;1 intel.mail.com&quot;,&quot;951 com&quot;]</span><br><span class="line">说明: </span><br><span class="line">按照假设，会访问&quot;google.mail.com&quot; 900次，&quot;yahoo.com&quot; 50次，&quot;intel.mail.com&quot; 1次，&quot;wiki.org&quot; 5次。</span><br><span class="line">而对于父域名，会访问&quot;mail.com&quot; 900+1 = 901次，&quot;com&quot; 900 + 50 + 1 = 951次，和 &quot;org&quot; 5 次。</span><br></pre></td></tr></table></figure>
+<h2 id="注意："><a href="#注意：" class="headerlink" title="注意："></a>注意：</h2><ul>
+<li><code>cpdomains</code> 的长度小于 <code>100</code>。</li>
+<li>每个域名的长度小于<code>100</code>。</li>
+<li>每个域名地址包含一个或两个”.”符号。</li>
+<li>输入中任意一个域名的访问次数都小于<code>10000</code>。</li>
+</ul>
+<h2 id="解法"><a href="#解法" class="headerlink" title="解法"></a>解法</h2><h3 id="解法一："><a href="#解法一：" class="headerlink" title="解法一："></a>解法一：</h3><p>按照. 分割域名，分别进行统计</p>
+<h4 id="Java"><a href="#Java" class="headerlink" title="Java"></a>Java</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> List&lt;String&gt; <span class="title function_">subdomainVisits</span><span class="params">(String[] cpdomains)</span> &#123;</span><br><span class="line">		Map&lt;String, Integer&gt; domainAndTime = <span class="keyword">new</span> <span class="title class_">HashMap</span>&lt;&gt;(); </span><br><span class="line">        <span class="keyword">for</span> (String s : cpdomains) &#123;</span><br><span class="line">        	dealWithIt(s, domainAndTime);</span><br><span class="line">        &#125;</span><br><span class="line">        List&lt;String&gt; result = <span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;&gt;(domainAndTime.size());</span><br><span class="line">        <span class="keyword">for</span> (String key : domainAndTime.keySet()) &#123;</span><br><span class="line">        	result.add(domainAndTime.get(key) + <span class="string">&quot; &quot;</span> + key);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> result;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">void</span> <span class="title function_">dealWithIt</span><span class="params">(String s, Map&lt;String, Integer&gt; domainAndTime)</span> &#123;</span><br><span class="line">		String[] ss = s.split(<span class="string">&quot; &quot;</span>);</span><br><span class="line">		<span class="type">int</span> <span class="variable">time</span> <span class="operator">=</span> Integer.valueOf(ss[<span class="number">0</span>]);</span><br><span class="line">		<span class="type">String</span> <span class="variable">domain</span> <span class="operator">=</span> ss[<span class="number">1</span>];</span><br><span class="line">		<span class="keyword">if</span> (domainAndTime.containsKey(domain)) &#123;</span><br><span class="line">			domainAndTime.put(domain, domainAndTime.get(domain) + time);</span><br><span class="line">		&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">			domainAndTime.put(domain, time);</span><br><span class="line">		&#125;</span><br><span class="line">		</span><br><span class="line">		<span class="type">int</span> <span class="variable">index</span> <span class="operator">=</span> domain.indexOf(<span class="string">&quot;.&quot;</span>);</span><br><span class="line">		<span class="keyword">while</span> (-<span class="number">1</span> != index) &#123;</span><br><span class="line">			domain = domain.substring(index + <span class="number">1</span>, domain.length());</span><br><span class="line">			<span class="keyword">if</span> (domainAndTime.containsKey(domain)) &#123;</span><br><span class="line">				domainAndTime.put(domain, domainAndTime.get(domain) + time);</span><br><span class="line">			&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">				domainAndTime.put(domain, time);</span><br><span class="line">			&#125;</span><br><span class="line">			index = domain.indexOf(<span class="string">&quot;.&quot;</span>);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://huhansi.com/2018/08/29/LeetCode/medium/leetcode-000811.%20%E5%AD%90%E5%9F%9F%E5%90%8D%E8%AE%BF%E9%97%AE%E8%AE%A1%E6%95%B0/" data-id="cl541fs7r00j15srw2z3y73ew" data-title="811. 子域名访问计数" class="article-share-link">Share</a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/math/" rel="tag">math</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-LeetCode/easy/leetcode-000104. 二叉树的最大深度" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2018/08/29/LeetCode/easy/leetcode-000104.%20%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E6%9C%80%E5%A4%A7%E6%B7%B1%E5%BA%A6/" class="article-date">
+  <time class="dt-published" datetime="2018-08-28T16:00:00.000Z" itemprop="datePublished">2018-08-29</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/leetcode/">leetcode</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2018/08/29/LeetCode/easy/leetcode-000104.%20%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E6%9C%80%E5%A4%A7%E6%B7%B1%E5%BA%A6/">104. 二叉树的最大深度</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h2 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h2><p>给定一个二叉树，找出其最大深度。</p>
+<p>二叉树的深度为根节点到最远叶子节点的最长路径上的节点数。</p>
+<p>说明: 叶子节点是指没有子节点的节点。</p>
+<h2 id="示例1："><a href="#示例1：" class="headerlink" title="示例1："></a>示例1：</h2><p>给定二叉树 <code>[3,9,20,null,null,15,7]</code>，</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">  3</span><br><span class="line"> / \</span><br><span class="line">9  20</span><br><span class="line">  /  \</span><br><span class="line"> 15   7</span><br></pre></td></tr></table></figure>
+<p>返回它的最大深度 3 。</p>
+<h2 id="解法"><a href="#解法" class="headerlink" title="解法"></a>解法</h2><h3 id="解法一：递归求解"><a href="#解法一：递归求解" class="headerlink" title="解法一：递归求解"></a>解法一：递归求解</h3><p>分别求出左右子树的最大深度，最后加一就行。</p>
+<h4 id="Java"><a href="#Java" class="headerlink" title="Java"></a>Java</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="type">int</span> <span class="title function_">maxDepth</span><span class="params">(TreeNode root)</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (<span class="literal">null</span> == root) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">		</span><br><span class="line">    <span class="type">int</span> <span class="variable">dl</span> <span class="operator">=</span> maxDepth(root.left) + <span class="number">1</span>;</span><br><span class="line">    <span class="type">int</span> <span class="variable">dr</span> <span class="operator">=</span> maxDepth(root.right) + <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">return</span> dl &gt; dr ? dl : dr;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="解法二：借助栈"><a href="#解法二：借助栈" class="headerlink" title="解法二：借助栈"></a>解法二：借助栈</h3><p>我们还可以在栈的帮助下将上面的递归转换为迭代。</p>
+<p>使用 DFS 策略访问每个结点，同时在每次访问时更新最大深度。</p>
+<p>所以我们从包含根结点且相应深度为 1 的栈开始。然后我们继续迭代：将当前结点弹出栈并推入子结点。每一步都会更新深度.</p>
+<h4 id="Java-1"><a href="#Java-1" class="headerlink" title="Java"></a>Java</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="type">int</span> <span class="title function_">maxDepth</span><span class="params">(TreeNode root)</span> &#123;</span><br><span class="line">    Queue&lt;Pair&lt;TreeNode, Integer&gt;&gt; stack = <span class="keyword">new</span> <span class="title class_">LinkedList</span>&lt;&gt;();</span><br><span class="line">    <span class="keyword">if</span> (root != <span class="literal">null</span>) &#123;</span><br><span class="line">      stack.add(<span class="keyword">new</span> <span class="title class_">Pair</span>(root, <span class="number">1</span>));</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="type">int</span> <span class="variable">depth</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">while</span> (!stack.isEmpty()) &#123;</span><br><span class="line">      Pair&lt;TreeNode, Integer&gt; current = stack.poll();</span><br><span class="line">      root = current.getKey();</span><br><span class="line">      <span class="type">int</span> <span class="variable">current_depth</span> <span class="operator">=</span> current.getValue();</span><br><span class="line">      <span class="keyword">if</span> (root != <span class="literal">null</span>) &#123;</span><br><span class="line">        depth = Math.max(depth, current_depth);</span><br><span class="line">        stack.add(<span class="keyword">new</span> <span class="title class_">Pair</span>(root.left, current_depth + <span class="number">1</span>));</span><br><span class="line">        stack.add(<span class="keyword">new</span> <span class="title class_">Pair</span>(root.right, current_depth + <span class="number">1</span>));</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> depth;</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://huhansi.com/2018/08/29/LeetCode/easy/leetcode-000104.%20%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E6%9C%80%E5%A4%A7%E6%B7%B1%E5%BA%A6/" data-id="cl541fsh200x55srwc7m03fp2" data-title="104. 二叉树的最大深度" class="article-share-link">Share</a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E4%BA%8C%E5%8F%89%E6%A0%91/" rel="tag">二叉树</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-LeetCode/easy/leetcode-000111- 二叉树的最小深度" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2018/08/29/LeetCode/easy/leetcode-000111-%20%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E6%9C%80%E5%B0%8F%E6%B7%B1%E5%BA%A6/" class="article-date">
+  <time class="dt-published" datetime="2018-08-28T16:00:00.000Z" itemprop="datePublished">2018-08-29</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/leetcode/">leetcode</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2018/08/29/LeetCode/easy/leetcode-000111-%20%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E6%9C%80%E5%B0%8F%E6%B7%B1%E5%BA%A6/">111. 二叉树的最小深度</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h2 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h2><p>给定一个二叉树，找出其最小深度。</p>
+<p>最小深度是从根节点到最近叶子节点的最短路径上的节点数量。</p>
+<p>说明: 叶子节点是指没有子节点的节点。</p>
+<h2 id="示例1："><a href="#示例1：" class="headerlink" title="示例1："></a>示例1：</h2><p><img src="https://huhansi.github.io/images/20220625-leetcode-000111.jpg" alt="示例1"></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">输入：root = [3,9,20,null,null,15,7]</span><br><span class="line">输出：2</span><br></pre></td></tr></table></figure>
+<h2 id="示例2："><a href="#示例2：" class="headerlink" title="示例2："></a>示例2：</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">输入：root = [2,null,3,null,4,null,5,null,6]</span><br><span class="line">输出：5</span><br></pre></td></tr></table></figure>
+
+<h2 id="提示："><a href="#提示：" class="headerlink" title="提示："></a>提示：</h2><ul>
+<li>树中节点数的范围在 <code>[0, 105]</code> 内</li>
+<li><code>-1000 &lt;= Node.val &lt;= 1000</code></li>
+</ul>
+<h2 id="解法"><a href="#解法" class="headerlink" title="解法"></a>解法</h2><h3 id="解法一："><a href="#解法一：" class="headerlink" title="解法一："></a>解法一：</h3><p>递归求最小深度</p>
+<h4 id="Java"><a href="#Java" class="headerlink" title="Java"></a>Java</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="type">int</span> <span class="title function_">minDepth</span><span class="params">(TreeNode root)</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (<span class="literal">null</span> == root) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">		</span><br><span class="line">    <span class="keyword">if</span>(root.left == <span class="literal">null</span>)&#123;</span><br><span class="line">        <span class="keyword">return</span> minDepth(root.right) + <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span>(root.right == <span class="literal">null</span>)&#123;</span><br><span class="line">        <span class="keyword">return</span> minDepth(root.left) + <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="type">int</span> <span class="variable">leftDepth</span> <span class="operator">=</span> minDepth(root.left) + <span class="number">1</span>;</span><br><span class="line">    <span class="type">int</span> <span class="variable">rightDepth</span> <span class="operator">=</span> minDepth(root.right) + <span class="number">1</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> leftDepth &lt; rightDepth ? leftDepth : rightDepth;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://huhansi.com/2018/08/29/LeetCode/easy/leetcode-000111-%20%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E6%9C%80%E5%B0%8F%E6%B7%B1%E5%BA%A6/" data-id="cl541fsh800xh5srwc73yg8l7" data-title="111. 二叉树的最小深度" class="article-share-link">Share</a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/leetcode/" rel="tag">leetcode</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E4%BA%8C%E5%8F%89%E6%A0%91/" rel="tag">二叉树</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E7%AE%97%E6%B3%95/" rel="tag">算法</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-LeetCode/easy/leetcode-000141.环形链表" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2018/08/29/LeetCode/easy/leetcode-000141.%E7%8E%AF%E5%BD%A2%E9%93%BE%E8%A1%A8/" class="article-date">
+  <time class="dt-published" datetime="2018-08-28T16:00:00.000Z" itemprop="datePublished">2018-08-29</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/leetcode/">leetcode</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2018/08/29/LeetCode/easy/leetcode-000141.%E7%8E%AF%E5%BD%A2%E9%93%BE%E8%A1%A8/">141.环形链表</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h2 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h2><p>给定一个链表，判断链表中是否有环。</p>
+<p>如果链表中有某个节点，可以通过连续跟踪 <code>next</code> 指针再次到达，则链表中存在环。 为了表示给定链表中的环，评测系统内部使用整数 <code>pos</code> 来表示链表尾连接到链表中的位置（索引从 0 开始）。<strong>注意：<code>pos</code> 不作为参数进行传递</strong> 。仅仅是为了标识链表的实际情况。</p>
+<p><em>如果链表中存在环</em> ，则返回 <code>true</code> 。 否则，返回 <code>false</code> 。</p>
+<h2 id="示例1"><a href="#示例1" class="headerlink" title="示例1"></a>示例1</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">输入：head = [<span class="number">3</span>,<span class="number">2</span>,<span class="number">0</span>,-<span class="number">4</span>], pos = <span class="number">1</span></span><br><span class="line">输出：<span class="literal">true</span></span><br><span class="line">解释：链表中有一个环，其尾部连接到第二个节点。</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://assets.leetcode-cn.com/aliyun-lc-upload/uploads/2018/12/07/circularlinkedlist.png"></p>
+<h2 id="示例2"><a href="#示例2" class="headerlink" title="示例2"></a>示例2</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">输入：head = [<span class="number">1</span>,<span class="number">2</span>], pos = <span class="number">0</span></span><br><span class="line">输出：<span class="literal">true</span></span><br><span class="line">解释：链表中有一个环，其尾部连接到第一个节点。</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://assets.leetcode-cn.com/aliyun-lc-upload/uploads/2018/12/07/circularlinkedlist_test2.png"></p>
+<h2 id="示例3"><a href="#示例3" class="headerlink" title="示例3"></a>示例3</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">输入：head = [<span class="number">1</span>], pos = -<span class="number">1</span></span><br><span class="line">输出：<span class="literal">false</span></span><br><span class="line">解释：链表中没有环。</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://assets.leetcode-cn.com/aliyun-lc-upload/uploads/2018/12/07/circularlinkedlist_test3.png"></p>
+<h2 id="提示："><a href="#提示：" class="headerlink" title="提示："></a>提示：</h2><ul>
+<li>链表中节点的数目范围是 <code>[0, 104]</code></li>
+<li><code>-105 &lt;= Node.val &lt;= 105</code></li>
+<li><code>pos</code> 为 <code>-1</code> 或者链表中的一个 <strong>有效索引</strong> 。</li>
+</ul>
+<h2 id="进阶："><a href="#进阶：" class="headerlink" title="进阶："></a>进阶：</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">你能用 O(1)（即，常量）内存解决此问题吗？</span><br></pre></td></tr></table></figure>
+<h2 id="解法"><a href="#解法" class="headerlink" title="解法"></a>解法</h2><h3 id="解法一"><a href="#解法一" class="headerlink" title="解法一"></a>解法一</h3><p>使用快慢指针。快指针每次移动两步，慢指针每次移动一步，如果链表不存在环路，那么快指针将先到达链表尾部。如果链表存在环路，那么快指针在进入环路之后就一定会套圈慢指针。因此，只要判断快指针是否等于慢指针就行了，相等，则存在环路，否则不存在。</p>
+<h4 id="Java"><a href="#Java" class="headerlink" title="Java"></a>Java</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="type">boolean</span> <span class="title function_">hasCycle</span><span class="params">(ListNode head)</span> &#123;</span><br><span class="line">    <span class="type">ListNode</span> <span class="variable">head2</span> <span class="operator">=</span> head;</span><br><span class="line">    <span class="type">ListNode</span> <span class="variable">head1</span> <span class="operator">=</span> head;</span><br><span class="line">    <span class="keyword">while</span> (head1 != <span class="literal">null</span> &amp;&amp; &amp;&amp; <span class="literal">null</span> != head2 &amp;&amp; head2.next != <span class="literal">null</span>) &#123;</span><br><span class="line">        head1 = head1.next;</span><br><span class="line">        head2 = head2.next.next;</span><br><span class="line">        <span class="keyword">if</span> (head1 == head2) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="解法二"><a href="#解法二" class="headerlink" title="解法二"></a>解法二</h3><p>使用哈希表，将每个访问过的结点保存到HashSet中，如果当前访问的结点已经在Set中了，说明存在环，如果当前结点为null说明不存在环。</p>
+<h4 id="Java-1"><a href="#Java-1" class="headerlink" title="Java"></a>Java</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="type">boolean</span> <span class="title function_">hasCycle</span><span class="params">(ListNode head)</span> &#123;</span><br><span class="line">    Set&lt;ListNode&gt; nodesSeen = <span class="keyword">new</span> <span class="title class_">HashSet</span>&lt;&gt;();</span><br><span class="line">    <span class="keyword">while</span> (head != <span class="literal">null</span>) &#123;</span><br><span class="line">        <span class="keyword">if</span> (nodesSeen.contains(head)) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            nodesSeen.add(head);</span><br><span class="line">        &#125;</span><br><span class="line">        head = head.next;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://huhansi.com/2018/08/29/LeetCode/easy/leetcode-000141.%E7%8E%AF%E5%BD%A2%E9%93%BE%E8%A1%A8/" data-id="cl541fshq00y75srw2cjh1opz" data-title="141.环形链表" class="article-share-link">Share</a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%8F%8C%E6%8C%87%E9%92%88/" rel="tag">双指针</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%93%88%E5%B8%8C%E8%A1%A8/" rel="tag">哈希表</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E7%8E%AF%E5%BD%A2/" rel="tag">环形</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E9%93%BE%E8%A1%A8/" rel="tag">链表</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-LeetCode/easy/leetcode-000169. 求众数" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2018/08/29/LeetCode/easy/leetcode-000169.%20%E6%B1%82%E4%BC%97%E6%95%B0/" class="article-date">
+  <time class="dt-published" datetime="2018-08-28T16:00:00.000Z" itemprop="datePublished">2018-08-29</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/leetcode/">leetcode</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2018/08/29/LeetCode/easy/leetcode-000169.%20%E6%B1%82%E4%BC%97%E6%95%B0/">169. 求众数</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h2 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h2><p>给定一个大小为 n 的数组，找到其中的众数。众数是指在数组中出现次数<strong>大于</strong> <code>⌊ n/2 ⌋</code> 的元素。</p>
+<p>你可以假设数组是非空的，并且给定的数组总是存在众数。</p>
+<h2 id="示例1："><a href="#示例1：" class="headerlink" title="示例1："></a>示例1：</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">输入: [3,2,3]</span><br><span class="line">输出: 3</span><br></pre></td></tr></table></figure>
+<h2 id="示例2："><a href="#示例2：" class="headerlink" title="示例2："></a>示例2：</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">输入: [2,2,1,1,1,2,2]</span><br><span class="line">输出: 2</span><br></pre></td></tr></table></figure>
+
+<h2 id="提示："><a href="#提示：" class="headerlink" title="提示："></a>提示：</h2><ul>
+<li><code>n == nums.length</code></li>
+<li><code>1 &lt;= n &lt;= 5 * 104</code></li>
+<li><code>-109 &lt;= nums[i] &lt;= 109</code></li>
+</ul>
+<h2 id="解法"><a href="#解法" class="headerlink" title="解法"></a>解法</h2><h3 id="解法一："><a href="#解法一：" class="headerlink" title="解法一："></a>解法一：</h3><p>既然众数是出现次数大于数组长度一半的数，那么，在排序之后，数组长度一半的位置上的数肯定是众数。</p>
+<h4 id="Java"><a href="#Java" class="headerlink" title="Java"></a>Java</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">majorityElement</span><span class="params">(<span class="type">int</span>[] nums)</span> &#123;</span><br><span class="line">        Arrays.sort(nums);</span><br><span class="line">        <span class="keyword">return</span> nums[nums.length / <span class="number">2</span>];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="解法二："><a href="#解法二：" class="headerlink" title="解法二："></a>解法二：</h3><p>摩尔投票法</p>
+<p>从第一个数开始count&#x3D;1，遇到相同的就加1，遇到不同的就减1，减到0就重新换个数开始计数。</p>
+<h4 id="Java-1"><a href="#Java-1" class="headerlink" title="Java"></a>Java</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="type">int</span> <span class="title function_">majorityElement</span><span class="params">(<span class="type">int</span>[] nums)</span> &#123;</span><br><span class="line">		<span class="type">int</span> <span class="variable">count</span> <span class="operator">=</span> <span class="number">1</span>;</span><br><span class="line">		<span class="type">int</span> <span class="variable">maj</span> <span class="operator">=</span> nums[<span class="number">0</span>];</span><br><span class="line">		<span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">1</span>; i &lt; nums.length; i++) &#123;</span><br><span class="line">			<span class="keyword">if</span> (maj == nums[i])</span><br><span class="line">				count++;</span><br><span class="line">			<span class="keyword">else</span> &#123;</span><br><span class="line">				count--;</span><br><span class="line">				<span class="keyword">if</span> (count == <span class="number">0</span>) &#123;</span><br><span class="line">					maj = nums[i + <span class="number">1</span>];</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">return</span> maj;</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://huhansi.com/2018/08/29/LeetCode/easy/leetcode-000169.%20%E6%B1%82%E4%BC%97%E6%95%B0/" data-id="cl541fsi800yx5srw6ogv2woy" data-title="169. 求众数" class="article-share-link">Share</a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%91%A9%E5%B0%94%E6%8A%95%E7%A5%A8/" rel="tag">摩尔投票</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%95%B0%E7%BB%84/" rel="tag">数组</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-LeetCode/easy/leetcode-000171. Excel表列序号" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2018/08/29/LeetCode/easy/leetcode-000171.%20Excel%E8%A1%A8%E5%88%97%E5%BA%8F%E5%8F%B7/" class="article-date">
+  <time class="dt-published" datetime="2018-08-28T16:00:00.000Z" itemprop="datePublished">2018-08-29</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/leetcode/">leetcode</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2018/08/29/LeetCode/easy/leetcode-000171.%20Excel%E8%A1%A8%E5%88%97%E5%BA%8F%E5%8F%B7/">171. Excel表列序号</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h2 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h2><p>给定一个Excel表格中的列名称，返回其相应的列序号。<br>例如，</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">A -&gt; 1</span><br><span class="line">B -&gt; 2</span><br><span class="line">C -&gt; 3</span><br><span class="line">...</span><br><span class="line">Z -&gt; 26</span><br><span class="line">AA -&gt; 27</span><br><span class="line">AB -&gt; 28 </span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+<h2 id="示例1："><a href="#示例1：" class="headerlink" title="示例1："></a>示例1：</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">输入: &quot;A&quot;</span><br><span class="line">输出: 1</span><br></pre></td></tr></table></figure>
+<h2 id="示例2："><a href="#示例2：" class="headerlink" title="示例2："></a>示例2：</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">输入: &quot;AB&quot;</span><br><span class="line">输出: 28</span><br></pre></td></tr></table></figure>
+<h2 id="示例3："><a href="#示例3：" class="headerlink" title="示例3："></a>示例3：</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">输入: &quot;ZY&quot;</span><br><span class="line">输出: 701</span><br></pre></td></tr></table></figure>
+<h2 id="提示："><a href="#提示：" class="headerlink" title="提示："></a>提示：</h2><ul>
+<li><p>1 &lt;&#x3D; columnTitle.length &lt;&#x3D; 7</p>
+</li>
+<li><p>columnTitle 仅由大写英文组成</p>
+</li>
+<li><p>columnTitle 在范围 [“A”, “FXSHRXW”] 内</p>
+</li>
+</ul>
+<h2 id="解法"><a href="#解法" class="headerlink" title="解法"></a>解法</h2><h3 id="解法一："><a href="#解法一：" class="headerlink" title="解法一："></a>解法一：</h3><p>当做26进制处理</p>
+<h4 id="Java"><a href="#Java" class="headerlink" title="Java"></a>Java</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line">    Map&lt;Character, Integer&gt; map = <span class="keyword">new</span> <span class="title class_">HashMap</span>&lt;&gt;();</span><br><span class="line">	<span class="keyword">public</span> <span class="type">int</span> <span class="title function_">titleToNumber</span><span class="params">(String s)</span> &#123;</span><br><span class="line">        init(map);</span><br><span class="line">        <span class="type">int</span> <span class="variable">count</span> <span class="operator">=</span> s.length() - <span class="number">1</span>;</span><br><span class="line">        <span class="type">int</span> <span class="variable">result</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>;i &lt; s.length();i++) &#123;</span><br><span class="line">        	result += map.get(s.charAt(i)) * pow(<span class="number">26</span>, count--);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> result;</span><br><span class="line">    &#125;</span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">void</span> <span class="title function_">init</span><span class="params">(Map&lt;Character, Integer&gt; map)</span> &#123;</span><br><span class="line">		<span class="type">int</span> <span class="variable">index</span> <span class="operator">=</span> <span class="number">1</span>;</span><br><span class="line">		<span class="keyword">for</span> (<span class="type">char</span> <span class="variable">c</span> <span class="operator">=</span> <span class="string">&#x27;A&#x27;</span>;c &lt;= <span class="string">&#x27;Z&#x27;</span>;c++) &#123;</span><br><span class="line">			map.put(c, index++);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">private</span> <span class="type">int</span> <span class="title function_">pow</span><span class="params">(<span class="type">int</span> val, <span class="type">int</span> time)</span> &#123;</span><br><span class="line">		<span class="type">int</span> <span class="variable">result</span> <span class="operator">=</span> <span class="number">1</span>;</span><br><span class="line">		<span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>;i &lt; time;i++) &#123;</span><br><span class="line">			result *= val;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">return</span> result;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://huhansi.com/2018/08/29/LeetCode/easy/leetcode-000171.%20Excel%E8%A1%A8%E5%88%97%E5%BA%8F%E5%8F%B7/" data-id="cl541fsid00z45srwdma23uw0" data-title="171. Excel表列序号" class="article-share-link">Share</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-LeetCode/easy/leetcode-000175. 组合两个表" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2018/08/29/LeetCode/easy/leetcode-000175.%20%E7%BB%84%E5%90%88%E4%B8%A4%E4%B8%AA%E8%A1%A8/" class="article-date">
+  <time class="dt-published" datetime="2018-08-28T16:00:00.000Z" itemprop="datePublished">2018-08-29</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/leetcode/">leetcode</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2018/08/29/LeetCode/easy/leetcode-000175.%20%E7%BB%84%E5%90%88%E4%B8%A4%E4%B8%AA%E8%A1%A8/">175. 组合两个表</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h2 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h2><p>表1: Person</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">+-------------+---------+</span><br><span class="line">| 列名         | 类型     |</span><br><span class="line">+-------------+---------+</span><br><span class="line">| PersonId    | int     |</span><br><span class="line">| FirstName   | varchar |</span><br><span class="line">| LastName    | varchar |</span><br><span class="line">+-------------+---------+</span><br><span class="line">PersonId 是上表主键</span><br><span class="line">该表包含一些人的 ID 和他们的姓和名的信息。</span><br></pre></td></tr></table></figure>
+<p>表2: Address</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">+-------------+---------+</span><br><span class="line">| 列名         | 类型    |</span><br><span class="line">+-------------+---------+</span><br><span class="line">| AddressId   | int     |</span><br><span class="line">| PersonId    | int     |</span><br><span class="line">| City        | varchar |</span><br><span class="line">| State       | varchar |</span><br><span class="line">+-------------+---------+</span><br><span class="line">AddressId 是上表主键</span><br></pre></td></tr></table></figure>
+
+<p>编写一个 SQL 查询，满足条件：无论 person 是否有地址信息，都需要基于上述两表提供 person 的以下信息：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">FirstName, LastName, City, State</span><br></pre></td></tr></table></figure>
+<h2 id="示例1："><a href="#示例1：" class="headerlink" title="示例1："></a>示例1：</h2><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">输入: </span><br><span class="line">Person表:</span><br><span class="line"><span class="operator">+</span><span class="comment">----------+----------+-----------+</span></span><br><span class="line"><span class="operator">|</span> personId <span class="operator">|</span> lastName <span class="operator">|</span> firstName <span class="operator">|</span></span><br><span class="line"><span class="operator">+</span><span class="comment">----------+----------+-----------+</span></span><br><span class="line"><span class="operator">|</span> <span class="number">1</span>        <span class="operator">|</span> Wang     <span class="operator">|</span> Allen     <span class="operator">|</span></span><br><span class="line"><span class="operator">|</span> <span class="number">2</span>        <span class="operator">|</span> Alice    <span class="operator">|</span> Bob       <span class="operator">|</span></span><br><span class="line"><span class="operator">+</span><span class="comment">----------+----------+-----------+</span></span><br><span class="line">Address表:</span><br><span class="line"><span class="operator">+</span><span class="comment">-----------+----------+---------------+------------+</span></span><br><span class="line"><span class="operator">|</span> addressId <span class="operator">|</span> personId <span class="operator">|</span> city          <span class="operator">|</span> state      <span class="operator">|</span></span><br><span class="line"><span class="operator">+</span><span class="comment">-----------+----------+---------------+------------+</span></span><br><span class="line"><span class="operator">|</span> <span class="number">1</span>         <span class="operator">|</span> <span class="number">2</span>        <span class="operator">|</span> <span class="keyword">New</span> York City <span class="operator">|</span> <span class="keyword">New</span> York   <span class="operator">|</span></span><br><span class="line"><span class="operator">|</span> <span class="number">2</span>         <span class="operator">|</span> <span class="number">3</span>        <span class="operator">|</span> Leetcode      <span class="operator">|</span> California <span class="operator">|</span></span><br><span class="line"><span class="operator">+</span><span class="comment">-----------+----------+---------------+------------+</span></span><br><span class="line">输出: </span><br><span class="line"><span class="operator">+</span><span class="comment">-----------+----------+---------------+----------+</span></span><br><span class="line"><span class="operator">|</span> firstName <span class="operator">|</span> lastName <span class="operator">|</span> city          <span class="operator">|</span> state    <span class="operator">|</span></span><br><span class="line"><span class="operator">+</span><span class="comment">-----------+----------+---------------+----------+</span></span><br><span class="line"><span class="operator">|</span> Allen     <span class="operator">|</span> Wang     <span class="operator">|</span> <span class="keyword">Null</span>          <span class="operator">|</span> <span class="keyword">Null</span>     <span class="operator">|</span></span><br><span class="line"><span class="operator">|</span> Bob       <span class="operator">|</span> Alice    <span class="operator">|</span> <span class="keyword">New</span> York City <span class="operator">|</span> <span class="keyword">New</span> York <span class="operator">|</span></span><br><span class="line"><span class="operator">+</span><span class="comment">-----------+----------+---------------+----------+</span></span><br><span class="line">解释: </span><br><span class="line">地址表中没有 personId <span class="operator">=</span> <span class="number">1</span> 的地址，所以它们的城市和州返回 <span class="keyword">null</span>。</span><br><span class="line">addressId <span class="operator">=</span> <span class="number">1</span> 包含了 personId <span class="operator">=</span> <span class="number">2</span> 的地址信息。</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="解法"><a href="#解法" class="headerlink" title="解法"></a>解法</h2><h3 id="解法一："><a href="#解法一：" class="headerlink" title="解法一："></a>解法一：</h3><h4 id="SQL"><a href="#SQL" class="headerlink" title="SQL"></a>SQL</h4><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># Write your MySQL query statement below</span><br><span class="line"><span class="keyword">select</span> FirstName, LastName, City, State <span class="keyword">from</span> Person <span class="keyword">left</span> <span class="keyword">join</span> Address <span class="keyword">on</span> Person.PersonId <span class="operator">=</span> Address.PersonId</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://huhansi.com/2018/08/29/LeetCode/easy/leetcode-000175.%20%E7%BB%84%E5%90%88%E4%B8%A4%E4%B8%AA%E8%A1%A8/" data-id="cl541fsif00z85srwfl0z6xlj" data-title="175. 组合两个表" class="article-share-link">Share</a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/SQL/" rel="tag">SQL</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+
+
+  <nav id="page-nav">
+    
+    <a class="extend prev" rel="prev" href="/page/86/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/85/">85</a><a class="page-number" href="/page/86/">86</a><span class="page-number current">87</span><a class="page-number" href="/page/88/">88</a><a class="page-number" href="/page/89/">89</a><span class="space">&hellip;</span><a class="page-number" href="/page/92/">92</a><a class="extend next" rel="next" href="/page/88/">Next &raquo;</a>
+  </nav>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/CAS/">CAS</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Dubbo/">Dubbo</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Guava/">Guava</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/JVM/">JVM</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Java/">Java</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/MySQL/">MySQL</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Redis/">Redis</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Spring-Cloud/">Spring Cloud</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Spring-Cloud-Gateway/">Spring Cloud Gateway</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Web%E5%AE%89%E5%85%A8/">Web安全</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/java-NIO/">java NIO</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/java%E5%A4%9A%E7%BA%BF%E7%A8%8B%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/">java多线程设计模式</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/leetcode/">leetcode</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/linux/">linux</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/python%E5%AD%A6%E4%B9%A0/">python学习</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/python%E7%88%AC%E8%99%AB/">python爬虫</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/redis/">redis</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%88%86%E5%B8%83%E5%BC%8F/">分布式</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%A4%9A%E7%BA%BF%E7%A8%8B/">多线程</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%AE%89%E5%85%A8/">安全</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%AE%98%E6%96%B9%E6%96%87%E6%A1%A3%E7%BF%BB%E8%AF%91/">官方文档翻译</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%BA%90%E7%A0%81/">源码</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%BA%90%E7%A0%81/%E5%A4%9A%E7%BA%BF%E7%A8%8B/">多线程</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%BA%90%E7%A0%81/%E5%A4%9A%E7%BA%BF%E7%A8%8B/CAS/">CAS</a></li></ul></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%AE%97%E6%B3%95/">算法</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/">设计模式</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/ACID/" rel="tag">ACID</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/AJAX/" rel="tag">AJAX</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/AQS/" rel="tag">AQS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/AbstractQueuedSynchronizer/" rel="tag">AbstractQueuedSynchronizer</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Abuse-case/" rel="tag">Abuse case</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Access-Control/" rel="tag">Access Control</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Active-Object%E6%A8%A1%E5%BC%8F/" rel="tag">Active Object模式</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ArrayBlockingQueue/" rel="tag">ArrayBlockingQueue</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ArrayList/" rel="tag">ArrayList</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Arrays/" rel="tag">Arrays</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Arrrays/" rel="tag">Arrrays</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Arthas/" rel="tag">Arthas</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/AtomicBoolean/" rel="tag">AtomicBoolean</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/AtomicInteger/" rel="tag">AtomicInteger</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/AtomicIntegerArray/" rel="tag">AtomicIntegerArray</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/AtomicIntegerFieldUpdater/" rel="tag">AtomicIntegerFieldUpdater</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/AtomicLong/" rel="tag">AtomicLong</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/AtomicLongArray/" rel="tag">AtomicLongArray</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/AtomicLongFieldUpdater/" rel="tag">AtomicLongFieldUpdater</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/AtomicMarkableReference/" rel="tag">AtomicMarkableReference</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/AtomicReference/" rel="tag">AtomicReference</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/AtomicReferenceArray/" rel="tag">AtomicReferenceArray</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/AtomicReferenceFieldUpdater/" rel="tag">AtomicReferenceFieldUpdater</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/AtomicStampedReference/" rel="tag">AtomicStampedReference</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/B-Tree/" rel="tag">B-Tree</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/BASE/" rel="tag">BASE</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Balking-%E6%A8%A1%E5%BC%8F/" rel="tag">Balking 模式</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Bash/" rel="tag">Bash</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/BlockingQueue/" rel="tag">BlockingQueue</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CAP/" rel="tag">CAP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CAS/" rel="tag">CAS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CMS/" rel="tag">CMS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/COW/" rel="tag">COW</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Callable/" rel="tag">Callable</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CharMatcher/" rel="tag">CharMatcher</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ClassLoader/" rel="tag">ClassLoader</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CompletableFuture/" rel="tag">CompletableFuture</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Concurrent-Mark-Sweep/" rel="tag">Concurrent Mark Sweep</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ConcurrentHashMap/" rel="tag">ConcurrentHashMap</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ConcurrentLinkedQueue/" rel="tag">ConcurrentLinkedQueue</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Condition/" rel="tag">Condition</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Consul/" rel="tag">Consul</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CopyOnWriteArrayList/" rel="tag">CopyOnWriteArrayList</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CopyOnWriteArraySet/" rel="tag">CopyOnWriteArraySet</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CountDownLatch/" rel="tag">CountDownLatch</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CyclicBarrier/" rel="tag">CyclicBarrier</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DTS/" rel="tag">DTS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DelayQueue/" rel="tag">DelayQueue</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DoubleAccumulator/" rel="tag">DoubleAccumulator</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DoubleAdder/" rel="tag">DoubleAdder</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Etcd/" rel="tag">Etcd</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Eureka/" rel="tag">Eureka</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Feign/" rel="tag">Feign</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Fibonacci/" rel="tag">Fibonacci</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/FullGC/" rel="tag">FullGC</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Future/" rel="tag">Future</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/FutureTask/" rel="tag">FutureTask</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Future%E6%A8%A1%E5%BC%8F/" rel="tag">Future模式</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/G1/" rel="tag">G1</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Garbage-First/" rel="tag">Garbage First</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Gossip/" rel="tag">Gossip</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Guarded-Suspension-%E6%A8%A1%E5%BC%8F/" rel="tag">Guarded Suspension 模式</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Guava/" rel="tag">Guava</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HTTP/" rel="tag">HTTP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HTTP%E8%AF%B7%E6%B1%82/" rel="tag">HTTP请求</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hash/" rel="tag">Hash</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HashMap/" rel="tag">HashMap</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HashSet/" rel="tag">HashSet</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hystrix/" rel="tag">Hystrix</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/IO%E5%A4%8D%E7%94%A8/" rel="tag">IO复用</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Immutable-%E6%A8%A1%E5%BC%8F/" rel="tag">Immutable 模式</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JVM/" rel="tag">JVM</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java/" rel="tag">Java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Joiner/" rel="tag">Joiner</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Kafka/" rel="tag">Kafka</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/LDAP/" rel="tag">LDAP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/LinkedBlockingQueue/" rel="tag">LinkedBlockingQueue</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/LinkedList/" rel="tag">LinkedList</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/List/" rel="tag">List</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Lock/" rel="tag">Lock</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/LockSupport/" rel="tag">LockSupport</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/LongAccumulator/" rel="tag">LongAccumulator</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/LongAdder/" rel="tag">LongAdder</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MQ%E4%BA%8B%E5%8A%A1/" rel="tag">MQ事务</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Math/" rel="tag">Math</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Maven/" rel="tag">Maven</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MySQL/" rel="tag">MySQL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/NIO/" rel="tag">NIO</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/NoSql/" rel="tag">NoSql</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/N%E5%8F%89%E6%A0%91/" rel="tag">N叉树</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/PriotityBlockingQueue/" rel="tag">PriotityBlockingQueue</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Producer-Consumer-%E6%A8%A1%E5%BC%8F/" rel="tag">Producer-Consumer 模式</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/PutLock/" rel="tag">PutLock</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Queue/" rel="tag">Queue</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RAFT/" rel="tag">RAFT</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RPC/" rel="tag">RPC</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RabbitMQ/" rel="tag">RabbitMQ</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Random/" rel="tag">Random</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Read-Write-Lock-%E6%A8%A1%E5%BC%8F/" rel="tag">Read-Write Lock 模式</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RedLock/" rel="tag">RedLock</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Redis/" rel="tag">Redis</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Redission/" rel="tag">Redission</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ReentrantLock/" rel="tag">ReentrantLock</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ReentrantReadWriteLock/" rel="tag">ReentrantReadWriteLock</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SQL/" rel="tag">SQL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Saga%E4%BA%8B%E5%8A%A1/" rel="tag">Saga事务</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Semaphore/" rel="tag">Semaphore</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Set/" rel="tag">Set</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Single-Threaded-Execution%E6%A8%A1%E5%BC%8F/" rel="tag">Single Threaded Execution模式</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SnowFlake/" rel="tag">SnowFlake</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Sorted-Set/" rel="tag">Sorted Set</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Spliter/" rel="tag">Spliter</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Spring/" rel="tag">Spring</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Spring-Cloud/" rel="tag">Spring Cloud</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Spring-Cloud-Gateway/" rel="tag">Spring Cloud Gateway</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Spring-Cloud-Stream/" rel="tag">Spring Cloud Stream</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Stack/" rel="tag">Stack</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/StampedLock/" rel="tag">StampedLock</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Stream/" rel="tag">Stream</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/String/" rel="tag">String</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Strings/" rel="tag">Strings</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Striped64/" rel="tag">Striped64</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SynchronousQueue/" rel="tag">SynchronousQueue</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/TCC/" rel="tag">TCC</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/TakeLock/" rel="tag">TakeLock</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Thread-Per-Message-%E6%A8%A1%E5%BC%8F/" rel="tag">Thread-Per-Message 模式</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Thread-Specific-Storage%E6%A8%A1%E5%BC%8F/" rel="tag">Thread-Specific-Storage模式</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ThreadLocal/" rel="tag">ThreadLocal</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ThreadLocalRandom/" rel="tag">ThreadLocalRandom</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ThreadPoolExecutor/" rel="tag">ThreadPoolExecutor</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Tree/" rel="tag">Tree</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Two-Phase-Termination%E6%A8%A1%E5%BC%8F/" rel="tag">Two-Phase-Termination模式</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/UnSave/" rel="tag">UnSave</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Web/" rel="tag">Web</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Worker-Thread-%E6%A8%A1%E5%BC%8F/" rel="tag">Worker Thread 模式</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/XA/" rel="tag">XA</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/XML/" rel="tag">XML</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/XPath/" rel="tag">XPath</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/XSS%E6%94%BB%E5%87%BB/" rel="tag">XSS攻击</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Zookeeper/" rel="tag">Zookeeper</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/cglib/" rel="tag">cglib</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/cross-join/" rel="tag">cross join</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/dfs/" rel="tag">dfs</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/dubbo/" rel="tag">dubbo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/epoll/" rel="tag">epoll</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/equals/" rel="tag">equals</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/full-outter-join/" rel="tag">full outter join</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hashCode/" rel="tag">hashCode</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/inner-join/" rel="tag">inner join</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/java/" rel="tag">java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/jmap/" rel="tag">jmap</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/join/" rel="tag">join</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/jps/" rel="tag">jps</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/jstack/" rel="tag">jstack</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/jstat/" rel="tag">jstat</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/leetcode/" rel="tag">leetcode</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/left-join/" rel="tag">left join</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux/" rel="tag">linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/list/" rel="tag">list</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/math/" rel="tag">math</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mathng/" rel="tag">mathng</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/paxos/" rel="tag">paxos</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/poll/" rel="tag">poll</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python/" rel="tag">python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python3-%E8%AF%AD%E6%B3%95/" rel="tag">python3 语法</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/redis/" rel="tag">redis</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/right-join/" rel="tag">right join</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/select/" rel="tag">select</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/self-join/" rel="tag">self join</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/set/" rel="tag">set</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/synchronized/" rel="tag">synchronized</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/transaction/" rel="tag">transaction</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/union/" rel="tag">union</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/union-all/" rel="tag">union all</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/zuul/" rel="tag">zuul</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%B8%89%E9%98%B6%E6%AE%B5%E6%8F%90%E4%BA%A4/" rel="tag">三阶段提交</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%B8%A4%E9%98%B6%E6%AE%B5%E6%8F%90%E4%BA%A4/" rel="tag">两阶段提交</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%B8%AD%E4%BB%8B%E8%80%85%E6%A8%A1%E5%BC%8F/" rel="tag">中介者模式</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%B8%AD%E4%BD%8D%E6%95%B0/" rel="tag">中位数</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%B8%AD%E5%BA%8F%E9%81%8D%E5%8E%86/" rel="tag">中序遍历</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%B8%B2%E8%A1%8C%E5%8C%96/" rel="tag">串行化</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%B8%BB%E4%BB%8E/" rel="tag">主从</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%BA%8B%E5%8A%A1/" rel="tag">事务</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%BA%8C%E5%88%86%E6%90%9C%E7%B4%A2/" rel="tag">二分搜索</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE/" rel="tag">二分查找</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91/" rel="tag">二叉搜索树</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%BA%8C%E5%8F%89%E6%A0%91/" rel="tag">二叉树</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%BA%8C%E8%BF%9B%E5%88%B6/" rel="tag">二进制</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%BA%AB%E5%85%83%E6%A8%A1%E5%BC%8F/" rel="tag">享元模式</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%BB%A3%E7%90%86/" rel="tag">代理</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%BB%A3%E7%90%86%E6%A8%A1%E5%BC%8F/" rel="tag">代理模式</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%BC%97%E6%95%B0/" rel="tag">众数</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%BC%9A%E8%AF%9D/" rel="tag">会话</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%BD%8D%E8%BF%90%E7%AE%97/" rel="tag">位运算</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%BE%9D%E8%B5%96%E4%BC%A0%E9%80%92/" rel="tag">依赖传递</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%85%83%E7%BB%84/" rel="tag">元组</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%85%A5%E9%97%A8/" rel="tag">入门</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%85%A8%E6%96%87%E7%B4%A2%E5%BC%95/" rel="tag">全文索引</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%86%85%E5%AD%98%E5%8C%BA%E5%9F%9F/" rel="tag">内存区域</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%86%85%E5%AD%98%E6%A8%A1%E5%9E%8B/" rel="tag">内存模型</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%86%99%E6%97%B6%E5%A4%8D%E5%88%B6/" rel="tag">写时复制</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%88%86%E4%BB%A3%E6%94%B6%E9%9B%86/" rel="tag">分代收集</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%88%86%E5%8C%BA/" rel="tag">分区</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%88%86%E5%B8%83%E5%BC%8FID/" rel="tag">分布式ID</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%88%86%E5%B8%83%E5%BC%8F%E4%BA%8B%E5%8A%A1/" rel="tag">分布式事务</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%88%86%E5%B8%83%E5%BC%8F%E7%BC%93%E5%AD%98/" rel="tag">分布式缓存</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81/" rel="tag">分布式锁</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%88%86%E5%BC%8F%E5%8C%96%E7%AE%80/" rel="tag">分式化简</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%89%8D%E5%BA%8F%E9%81%8D%E5%8E%86/" rel="tag">前序遍历</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%89%8D%E7%BC%80%E7%B4%A2%E5%BC%95/" rel="tag">前缀索引</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8A%A0%E6%B3%95/" rel="tag">加法</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8A%A8%E6%80%81%E4%BB%A3%E7%90%86/" rel="tag">动态代理</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/" rel="tag">动态规划</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8C%85%E5%86%B2%E7%AA%81/" rel="tag">包冲突</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F/" rel="tag">单例模式</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8E%8B%E7%BC%A9/" rel="tag">压缩</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8E%9F%E5%9E%8B%E6%A8%A1%E5%BC%8F/" rel="tag">原型模式</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8F%8C%E4%BA%B2%E5%A7%94%E6%B4%BE/" rel="tag">双亲委派</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8F%8C%E6%8C%87%E9%92%88/" rel="tag">双指针</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8F%8D%E5%B0%84/" rel="tag">反射</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8F%AF%E9%87%8D%E5%A4%8D%E8%AF%BB/" rel="tag">可重复读</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%90%88%E5%B9%B6/" rel="tag">合并</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%90%8C%E6%AD%A5/" rel="tag">同步</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%90%8E%E5%BA%8F%E9%81%8D%E5%8E%86/" rel="tag">后序遍历</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%91%BD%E4%BB%A4%E6%A8%A1%E5%BC%8F/" rel="tag">命令模式</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%93%88%E5%B8%8C/" rel="tag">哈希</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%93%88%E5%B8%8C%E7%B4%A2%E5%BC%95/" rel="tag">哈希索引</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%93%88%E5%B8%8C%E8%A1%A8/" rel="tag">哈希表</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%93%A8%E5%85%B5/" rel="tag">哨兵</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%9B%9E%E6%94%B6/" rel="tag">回收</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%9B%9E%E6%96%87/" rel="tag">回文</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6%E5%99%A8/" rel="tag">垃圾回收器</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6%E7%AE%97%E6%B3%95/" rel="tag">垃圾回收算法</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%A0%86/" rel="tag">堆</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%A0%86%E6%8E%92%E5%BA%8F/" rel="tag">堆排序</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%A4%87%E5%BF%98%E5%BD%95%E6%A8%A1%E5%BC%8F/" rel="tag">备忘录模式</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%A4%96%E8%A7%82%E6%A8%A1%E5%BC%8F/" rel="tag">外观模式</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%A4%9A%E7%BA%BF%E7%A8%8B/" rel="tag">多线程</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%AD%90%E5%AD%97%E7%AC%A6%E4%B8%B2/" rel="tag">子字符串</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%AD%90%E5%BA%8F%E5%88%97/" rel="tag">子序列</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%AD%90%E6%95%B0%E7%BB%84/" rel="tag">子数组</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%AD%90%E9%9B%86/" rel="tag">子集</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%AD%97%E5%85%B8/" rel="tag">字典</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2/" rel="tag">字符串</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2%E7%BF%BB%E8%BD%AC/" rel="tag">字符串翻转</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%AE%89%E5%85%A8/" rel="tag">安全</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%AE%98%E6%96%B9%E6%96%87%E6%A1%A3/" rel="tag">官方文档</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%AE%B9%E9%94%99/" rel="tag">容错</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%B1%82%E6%AC%A1%E9%81%8D%E5%8E%86/" rel="tag">层次遍历</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%B7%A5%E5%8E%82%E6%A8%A1%E5%BC%8F/" rel="tag">工厂模式</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%B8%83%E9%9A%86%E8%BF%87%E6%BB%A4%E5%99%A8/" rel="tag">布隆过滤器</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%B9%B3%E8%A1%A1%E4%BA%8C%E5%8F%89%E6%A0%91/" rel="tag">平衡二叉树</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%B9%B6%E5%8F%91/" rel="tag">并发</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%BB%BA%E9%80%A0%E8%80%85%E6%A8%A1%E5%BC%8F/" rel="tag">建造者模式</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%BC%82%E6%AD%A5/" rel="tag">异步</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%BC%95%E7%94%A8/" rel="tag">引用</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%BE%AA%E7%8E%AF%E9%98%9F%E5%88%97/" rel="tag">循环队列</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%BE%AE%E6%9C%8D%E5%8A%A1/" rel="tag">微服务</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84/" rel="tag">微服务架构</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%BF%AB%E4%B9%90%E6%95%B0/" rel="tag">快乐数</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%BF%AB%E9%80%9F%E6%8E%92%E5%BA%8F/" rel="tag">快速排序</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%8A%BD%E8%B1%A1%E5%B7%A5%E5%8E%82%E6%A8%A1%E5%BC%8F/" rel="tag">抽象工厂模式</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%8E%92%E5%88%97/" rel="tag">排列</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%8E%92%E5%BA%8F/" rel="tag">排序</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%90%9C%E7%B4%A2/" rel="tag">搜索</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%91%A9%E5%B0%94%E6%8A%95%E7%A5%A8/" rel="tag">摩尔投票</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E5%91%BD%E4%BB%A4/" rel="tag">操作系统命令</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%95%B0%E6%8D%AE%E5%AD%98%E5%82%A8/" rel="tag">数据存储</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" rel="tag">数据结构</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%95%B0%E7%8B%AC/" rel="tag">数独</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%95%B0%E7%BB%84/" rel="tag">数组</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%96%87%E4%BB%B6%E8%B7%AF%E5%BE%84/" rel="tag">文件路径</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%96%90%E6%B3%A2%E9%82%A3%E5%A5%91/" rel="tag">斐波那契</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%96%90%E6%B3%A2%E9%82%A3%E5%A5%91%E6%95%B0/" rel="tag">斐波那契数</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%97%A5%E6%9C%9F/" rel="tag">日期</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%9C%80%E5%B7%A6%E5%89%8D%E7%BC%80/" rel="tag">最左前缀</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%9C%80%E9%95%BF%E5%85%AC%E5%85%B1%E5%89%8D%E7%BC%80/" rel="tag">最长公共前缀</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%9C%89%E5%BA%8F/" rel="tag">有序</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%9C%8D%E5%8A%A1%E4%B8%B2%E8%81%94%E6%A8%A1%E5%BC%8F/" rel="tag">服务串联模式</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%9C%8D%E5%8A%A1%E4%BB%A3%E7%90%86%E6%A8%A1%E5%BC%8F/" rel="tag">服务代理模式</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%9C%8D%E5%8A%A1%E5%85%B1%E4%BA%AB%E6%95%B0%E6%8D%AE%E6%A8%A1%E5%BC%8F/" rel="tag">服务共享数据模式</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%9C%8D%E5%8A%A1%E5%88%86%E6%94%AF%E6%A8%A1%E5%BC%8F/" rel="tag">服务分支模式</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%9C%8D%E5%8A%A1%E5%8F%91%E7%8E%B0/" rel="tag">服务发现</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%9C%8D%E5%8A%A1%E5%BC%82%E6%AD%A5%E6%B6%88%E6%81%AF%E6%A8%A1%E5%BC%8F/" rel="tag">服务异步消息模式</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%9C%8D%E5%8A%A1%E6%B2%BB%E7%90%86/" rel="tag">服务治理</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%9C%8D%E5%8A%A1%E8%81%9A%E5%90%88%E6%A8%A1%E5%BC%8F/" rel="tag">服务聚合模式</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%9C%AC%E5%9C%B0%E6%B6%88%E6%81%AF%E8%A1%A8/" rel="tag">本地消息表</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%9D%A8%E8%BE%89%E4%B8%89%E8%A7%92/" rel="tag">杨辉三角</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%9E%B6%E6%9E%84/" rel="tag">架构</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%A0%87%E8%AE%B0-%E5%A4%8D%E5%88%B6/" rel="tag">标记-复制</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%A0%87%E8%AE%B0-%E6%95%B4%E7%90%86/" rel="tag">标记-整理</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%A0%87%E8%AE%B0-%E6%B8%85%E9%99%A4/" rel="tag">标记-清除</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%A0%88/" rel="tag">栈</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%A0%91/" rel="tag">树</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%A1%A5%E6%8E%A5%E6%A8%A1%E5%BC%8F/" rel="tag">桥接模式</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%A1%B6%E6%8E%92%E5%BA%8F/" rel="tag">桶排序</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%A8%A1%E6%9D%BF%E6%A8%A1%E5%BC%8F/" rel="tag">模板模式</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%AD%BB%E9%94%81/" rel="tag">死锁</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%B1%89%E8%AF%BA%E5%A1%94/" rel="tag">汉诺塔</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%B3%A8%E5%85%A5/" rel="tag">注入</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%B3%A8%E8%A7%A3/" rel="tag">注解</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%B7%B1%E5%BA%A6%E4%BC%98%E5%85%88%E6%90%9C%E7%B4%A2/" rel="tag">深度优先搜索</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%BA%90%E7%A0%81/" rel="tag">源码</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%BB%91%E5%8A%A8%E7%AA%97%E5%8F%A3/" rel="tag">滑动窗口</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%86%94%E6%96%AD/" rel="tag">熔断</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%88%AC%E8%99%AB/" rel="tag">爬虫</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%89%9B%E9%A1%BF%E8%BF%AD%E4%BB%A3%E6%B3%95/" rel="tag">牛顿迭代法</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%8A%B6%E6%80%81%E6%A8%A1%E5%BC%8F/" rel="tag">状态模式</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%8E%AF%E5%BD%A2/" rel="tag">环形</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%94%B5%E5%AD%90%E9%82%AE%E4%BB%B6/" rel="tag">电子邮件</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%9F%A9%E9%98%B5/" rel="tag">矩阵</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%AD%96%E7%95%A5%E6%A8%A1%E5%BC%8F/" rel="tag">策略模式</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%AE%97%E6%B3%95/" rel="tag">算法</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%AE%97%E6%B3%95%E9%A2%98/" rel="tag">算法题</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%B1%BB%E5%8A%A0%E8%BD%BD%E6%A8%A1%E5%9E%8B/" rel="tag">类加载模型</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%B4%A2%E5%BC%95/" rel="tag">索引</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%B4%A2%E5%BC%95%E4%BC%98%E5%8C%96/" rel="tag">索引优化</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%BA%BF%E7%A8%8B/" rel="tag">线程</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%BA%BF%E7%A8%8B%E6%B1%A0/" rel="tag">线程池</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%BB%84%E5%90%88%E6%A8%A1%E5%BC%8F/" rel="tag">组合模式</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%BC%93%E5%AD%98%E7%A9%BF%E9%80%8F/" rel="tag">缓存穿透</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%BC%93%E5%AD%98%E9%9B%AA%E5%B4%A9/" rel="tag">缓存雪崩</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%BC%93%E5%AD%98%E9%A2%84%E7%83%AD/" rel="tag">缓存预热</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%BF%BB%E8%AF%91/" rel="tag">翻译</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%BF%BB%E8%BD%AC/" rel="tag">翻转</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%81%9A%E7%B0%87%E7%B4%A2%E5%BC%95/" rel="tag">聚簇索引</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%8A%82%E7%82%B9/" rel="tag">节点</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%99%9A%E6%8B%9F%E6%9C%BA/" rel="tag">虚拟机</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%A3%85%E9%A5%B0%E5%99%A8%E6%A8%A1%E5%BC%8F/" rel="tag">装饰器模式</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%A7%82%E5%AF%9F%E8%80%85%E6%A8%A1%E5%BC%8F/" rel="tag">观察者模式</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%A7%A3%E9%87%8A%E5%99%A8%E6%A8%A1%E5%BC%8F/" rel="tag">解释器模式</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%A7%A3%E9%87%8A%E6%80%A7%E8%AF%AD%E8%A8%80/" rel="tag">解释性语言</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%AE%BE%E8%AE%A1/" rel="tag">设计</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" rel="tag">设计模式</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%AE%BF%E9%97%AE%E6%8E%A7%E5%88%B6/" rel="tag">访问控制</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%AE%BF%E9%97%AE%E8%80%85%E6%A8%A1%E5%BC%8F/" rel="tag">访问者模式</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%AF%BB%E6%8F%90%E4%BA%A4/" rel="tag">读提交</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%AF%BB%E6%9C%AA%E6%8F%90%E4%BA%A4/" rel="tag">读未提交</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%B4%A3%E4%BB%BB%E9%93%BE%E6%A8%A1%E5%BC%8F/" rel="tag">责任链模式</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%B4%AA%E5%BF%83/" rel="tag">贪心</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%BF%AD%E4%BB%A3/" rel="tag">迭代</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%BF%AD%E4%BB%A3%E5%99%A8%E6%A8%A1%E5%BC%8F/" rel="tag">迭代器模式</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%80%82%E9%85%8D%E5%99%A8%E6%A8%A1%E5%BC%8F/" rel="tag">适配器模式</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%80%92%E5%BD%92/" rel="tag">递归</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%80%BB%E8%BE%91/" rel="tag">逻辑</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%80%BB%E8%BE%91%E8%BF%90%E7%AE%97/" rel="tag">逻辑运算</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%93%BE%E8%A1%A8/" rel="tag">链表</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%94%81/" rel="tag">锁</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%98%9F%E5%88%97/" rel="tag">队列</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%98%B6%E4%B9%98/" rel="tag">阶乘</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%98%BB%E5%A1%9E/" rel="tag">阻塞</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%99%8D%E7%BA%A7/" rel="tag">降级</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%99%90%E6%B5%81/" rel="tag">限流</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%9A%94%E7%A6%BB%E7%BA%A7%E5%88%AB/" rel="tag">隔离级别</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%9B%86%E5%90%88/" rel="tag">集合</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%9B%86%E7%BE%A4/" rel="tag">集群</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%9D%99%E6%80%81%E4%BB%A3%E7%90%86/" rel="tag">静态代理</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%9D%9E%E9%98%BB%E5%A1%9E/" rel="tag">非阻塞</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%AA%8C%E8%AF%81/" rel="tag">验证</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/ACID/" style="font-size: 10.32px;">ACID</a> <a href="/tags/AJAX/" style="font-size: 10px;">AJAX</a> <a href="/tags/AQS/" style="font-size: 10px;">AQS</a> <a href="/tags/AbstractQueuedSynchronizer/" style="font-size: 10px;">AbstractQueuedSynchronizer</a> <a href="/tags/Abuse-case/" style="font-size: 10px;">Abuse case</a> <a href="/tags/Access-Control/" style="font-size: 10px;">Access Control</a> <a href="/tags/Active-Object%E6%A8%A1%E5%BC%8F/" style="font-size: 10px;">Active Object模式</a> <a href="/tags/ArrayBlockingQueue/" style="font-size: 10px;">ArrayBlockingQueue</a> <a href="/tags/ArrayList/" style="font-size: 10px;">ArrayList</a> <a href="/tags/Arrays/" style="font-size: 12.26px;">Arrays</a> <a href="/tags/Arrrays/" style="font-size: 10.32px;">Arrrays</a> <a href="/tags/Arthas/" style="font-size: 10px;">Arthas</a> <a href="/tags/AtomicBoolean/" style="font-size: 10.97px;">AtomicBoolean</a> <a href="/tags/AtomicInteger/" style="font-size: 10px;">AtomicInteger</a> <a href="/tags/AtomicIntegerArray/" style="font-size: 10.32px;">AtomicIntegerArray</a> <a href="/tags/AtomicIntegerFieldUpdater/" style="font-size: 10px;">AtomicIntegerFieldUpdater</a> <a href="/tags/AtomicLong/" style="font-size: 10px;">AtomicLong</a> <a href="/tags/AtomicLongArray/" style="font-size: 10px;">AtomicLongArray</a> <a href="/tags/AtomicLongFieldUpdater/" style="font-size: 10.32px;">AtomicLongFieldUpdater</a> <a href="/tags/AtomicMarkableReference/" style="font-size: 10px;">AtomicMarkableReference</a> <a href="/tags/AtomicReference/" style="font-size: 10px;">AtomicReference</a> <a href="/tags/AtomicReferenceArray/" style="font-size: 10px;">AtomicReferenceArray</a> <a href="/tags/AtomicReferenceFieldUpdater/" style="font-size: 10px;">AtomicReferenceFieldUpdater</a> <a href="/tags/AtomicStampedReference/" style="font-size: 10px;">AtomicStampedReference</a> <a href="/tags/B-Tree/" style="font-size: 10.32px;">B-Tree</a> <a href="/tags/BASE/" style="font-size: 10px;">BASE</a> <a href="/tags/Balking-%E6%A8%A1%E5%BC%8F/" style="font-size: 10px;">Balking 模式</a> <a href="/tags/Bash/" style="font-size: 10.32px;">Bash</a> <a href="/tags/BlockingQueue/" style="font-size: 10px;">BlockingQueue</a> <a href="/tags/CAP/" style="font-size: 10px;">CAP</a> <a href="/tags/CAS/" style="font-size: 10.32px;">CAS</a> <a href="/tags/CMS/" style="font-size: 10px;">CMS</a> <a href="/tags/COW/" style="font-size: 10px;">COW</a> <a href="/tags/Callable/" style="font-size: 10px;">Callable</a> <a href="/tags/CharMatcher/" style="font-size: 10px;">CharMatcher</a> <a href="/tags/ClassLoader/" style="font-size: 10px;">ClassLoader</a> <a href="/tags/CompletableFuture/" style="font-size: 10px;">CompletableFuture</a> <a href="/tags/Concurrent-Mark-Sweep/" style="font-size: 10px;">Concurrent Mark Sweep</a> <a href="/tags/ConcurrentHashMap/" style="font-size: 10.32px;">ConcurrentHashMap</a> <a href="/tags/ConcurrentLinkedQueue/" style="font-size: 10px;">ConcurrentLinkedQueue</a> <a href="/tags/Condition/" style="font-size: 10.97px;">Condition</a> <a href="/tags/Consul/" style="font-size: 10.32px;">Consul</a> <a href="/tags/CopyOnWriteArrayList/" style="font-size: 10px;">CopyOnWriteArrayList</a> <a href="/tags/CopyOnWriteArraySet/" style="font-size: 10px;">CopyOnWriteArraySet</a> <a href="/tags/CountDownLatch/" style="font-size: 10px;">CountDownLatch</a> <a href="/tags/CyclicBarrier/" style="font-size: 10px;">CyclicBarrier</a> <a href="/tags/DTS/" style="font-size: 10px;">DTS</a> <a href="/tags/DelayQueue/" style="font-size: 10px;">DelayQueue</a> <a href="/tags/DoubleAccumulator/" style="font-size: 10px;">DoubleAccumulator</a> <a href="/tags/DoubleAdder/" style="font-size: 10px;">DoubleAdder</a> <a href="/tags/Etcd/" style="font-size: 10px;">Etcd</a> <a href="/tags/Eureka/" style="font-size: 11.61px;">Eureka</a> <a href="/tags/Feign/" style="font-size: 10.97px;">Feign</a> <a href="/tags/Fibonacci/" style="font-size: 10px;">Fibonacci</a> <a href="/tags/FullGC/" style="font-size: 10px;">FullGC</a> <a href="/tags/Future/" style="font-size: 10px;">Future</a> <a href="/tags/FutureTask/" style="font-size: 10.32px;">FutureTask</a> <a href="/tags/Future%E6%A8%A1%E5%BC%8F/" style="font-size: 10px;">Future模式</a> <a href="/tags/G1/" style="font-size: 10px;">G1</a> <a href="/tags/Garbage-First/" style="font-size: 10px;">Garbage First</a> <a href="/tags/Gossip/" style="font-size: 10px;">Gossip</a> <a href="/tags/Guarded-Suspension-%E6%A8%A1%E5%BC%8F/" style="font-size: 10px;">Guarded Suspension 模式</a> <a href="/tags/Guava/" style="font-size: 11.29px;">Guava</a> <a href="/tags/HTTP/" style="font-size: 10px;">HTTP</a> <a href="/tags/HTTP%E8%AF%B7%E6%B1%82/" style="font-size: 10px;">HTTP请求</a> <a href="/tags/Hash/" style="font-size: 10px;">Hash</a> <a href="/tags/HashMap/" style="font-size: 12.26px;">HashMap</a> <a href="/tags/HashSet/" style="font-size: 10px;">HashSet</a> <a href="/tags/Hystrix/" style="font-size: 10.97px;">Hystrix</a> <a href="/tags/IO%E5%A4%8D%E7%94%A8/" style="font-size: 10px;">IO复用</a> <a href="/tags/Immutable-%E6%A8%A1%E5%BC%8F/" style="font-size: 10px;">Immutable 模式</a> <a href="/tags/JVM/" style="font-size: 13.87px;">JVM</a> <a href="/tags/Java/" style="font-size: 19.03px;">Java</a> <a href="/tags/Joiner/" style="font-size: 10px;">Joiner</a> <a href="/tags/Kafka/" style="font-size: 10.32px;">Kafka</a> <a href="/tags/LDAP/" style="font-size: 10px;">LDAP</a> <a href="/tags/LinkedBlockingQueue/" style="font-size: 10px;">LinkedBlockingQueue</a> <a href="/tags/LinkedList/" style="font-size: 11.29px;">LinkedList</a> <a href="/tags/List/" style="font-size: 10px;">List</a> <a href="/tags/Lock/" style="font-size: 10px;">Lock</a> <a href="/tags/LockSupport/" style="font-size: 10px;">LockSupport</a> <a href="/tags/LongAccumulator/" style="font-size: 10px;">LongAccumulator</a> <a href="/tags/LongAdder/" style="font-size: 10.32px;">LongAdder</a> <a href="/tags/MQ%E4%BA%8B%E5%8A%A1/" style="font-size: 10px;">MQ事务</a> <a href="/tags/Math/" style="font-size: 18.39px;">Math</a> <a href="/tags/Maven/" style="font-size: 10px;">Maven</a> <a href="/tags/MySQL/" style="font-size: 12.26px;">MySQL</a> <a href="/tags/NIO/" style="font-size: 10px;">NIO</a> <a href="/tags/NoSql/" style="font-size: 10px;">NoSql</a> <a href="/tags/N%E5%8F%89%E6%A0%91/" style="font-size: 10.65px;">N叉树</a> <a href="/tags/PriotityBlockingQueue/" style="font-size: 10px;">PriotityBlockingQueue</a> <a href="/tags/Producer-Consumer-%E6%A8%A1%E5%BC%8F/" style="font-size: 10px;">Producer-Consumer 模式</a> <a href="/tags/PutLock/" style="font-size: 10px;">PutLock</a> <a href="/tags/Queue/" style="font-size: 11.94px;">Queue</a> <a href="/tags/RAFT/" style="font-size: 10.32px;">RAFT</a> <a href="/tags/RPC/" style="font-size: 10px;">RPC</a> <a href="/tags/RabbitMQ/" style="font-size: 10.32px;">RabbitMQ</a> <a href="/tags/Random/" style="font-size: 10px;">Random</a> <a href="/tags/Read-Write-Lock-%E6%A8%A1%E5%BC%8F/" style="font-size: 10px;">Read-Write Lock 模式</a> <a href="/tags/RedLock/" style="font-size: 10px;">RedLock</a> <a href="/tags/Redis/" style="font-size: 10.65px;">Redis</a> <a href="/tags/Redission/" style="font-size: 10px;">Redission</a> <a href="/tags/ReentrantLock/" style="font-size: 12.58px;">ReentrantLock</a> <a href="/tags/ReentrantReadWriteLock/" style="font-size: 10px;">ReentrantReadWriteLock</a> <a href="/tags/SQL/" style="font-size: 18.06px;">SQL</a> <a href="/tags/Saga%E4%BA%8B%E5%8A%A1/" style="font-size: 10px;">Saga事务</a> <a href="/tags/Semaphore/" style="font-size: 10.65px;">Semaphore</a> <a href="/tags/Set/" style="font-size: 10px;">Set</a> <a href="/tags/Single-Threaded-Execution%E6%A8%A1%E5%BC%8F/" style="font-size: 10px;">Single Threaded Execution模式</a> <a href="/tags/SnowFlake/" style="font-size: 10px;">SnowFlake</a> <a href="/tags/Sorted-Set/" style="font-size: 10px;">Sorted Set</a> <a href="/tags/Spliter/" style="font-size: 10px;">Spliter</a> <a href="/tags/Spring/" style="font-size: 14.84px;">Spring</a> <a href="/tags/Spring-Cloud/" style="font-size: 10.97px;">Spring Cloud</a> <a href="/tags/Spring-Cloud-Gateway/" style="font-size: 10.32px;">Spring Cloud Gateway</a> <a href="/tags/Spring-Cloud-Stream/" style="font-size: 10.32px;">Spring Cloud Stream</a> <a href="/tags/Stack/" style="font-size: 10.32px;">Stack</a> <a href="/tags/StampedLock/" style="font-size: 10px;">StampedLock</a> <a href="/tags/Stream/" style="font-size: 10px;">Stream</a> <a href="/tags/String/" style="font-size: 11.94px;">String</a> <a href="/tags/Strings/" style="font-size: 10px;">Strings</a> <a href="/tags/Striped64/" style="font-size: 10px;">Striped64</a> <a href="/tags/SynchronousQueue/" style="font-size: 10px;">SynchronousQueue</a> <a href="/tags/TCC/" style="font-size: 10px;">TCC</a> <a href="/tags/TakeLock/" style="font-size: 10px;">TakeLock</a> <a href="/tags/Thread-Per-Message-%E6%A8%A1%E5%BC%8F/" style="font-size: 10px;">Thread-Per-Message 模式</a> <a href="/tags/Thread-Specific-Storage%E6%A8%A1%E5%BC%8F/" style="font-size: 10px;">Thread-Specific-Storage模式</a> <a href="/tags/ThreadLocal/" style="font-size: 10px;">ThreadLocal</a> <a href="/tags/ThreadLocalRandom/" style="font-size: 10px;">ThreadLocalRandom</a> <a href="/tags/ThreadPoolExecutor/" style="font-size: 10px;">ThreadPoolExecutor</a> <a href="/tags/Tree/" style="font-size: 10.65px;">Tree</a> <a href="/tags/Two-Phase-Termination%E6%A8%A1%E5%BC%8F/" style="font-size: 10px;">Two-Phase-Termination模式</a> <a href="/tags/UnSave/" style="font-size: 10px;">UnSave</a> <a href="/tags/Web/" style="font-size: 15.16px;">Web</a> <a href="/tags/Worker-Thread-%E6%A8%A1%E5%BC%8F/" style="font-size: 10px;">Worker Thread 模式</a> <a href="/tags/XA/" style="font-size: 10.32px;">XA</a> <a href="/tags/XML/" style="font-size: 10px;">XML</a> <a href="/tags/XPath/" style="font-size: 10px;">XPath</a> <a href="/tags/XSS%E6%94%BB%E5%87%BB/" style="font-size: 10px;">XSS攻击</a> <a href="/tags/Zookeeper/" style="font-size: 10.32px;">Zookeeper</a> <a href="/tags/cglib/" style="font-size: 10px;">cglib</a> <a href="/tags/cross-join/" style="font-size: 10px;">cross join</a> <a href="/tags/dfs/" style="font-size: 10px;">dfs</a> <a href="/tags/dubbo/" style="font-size: 10px;">dubbo</a> <a href="/tags/epoll/" style="font-size: 10px;">epoll</a> <a href="/tags/equals/" style="font-size: 10px;">equals</a> <a href="/tags/full-outter-join/" style="font-size: 10px;">full outter join</a> <a href="/tags/hashCode/" style="font-size: 10px;">hashCode</a> <a href="/tags/inner-join/" style="font-size: 10px;">inner join</a> <a href="/tags/java/" style="font-size: 14.19px;">java</a> <a href="/tags/jmap/" style="font-size: 10px;">jmap</a> <a href="/tags/join/" style="font-size: 10px;">join</a> <a href="/tags/jps/" style="font-size: 10px;">jps</a> <a href="/tags/jstack/" style="font-size: 10px;">jstack</a> <a href="/tags/jstat/" style="font-size: 10px;">jstat</a> <a href="/tags/leetcode/" style="font-size: 17.42px;">leetcode</a> <a href="/tags/left-join/" style="font-size: 10px;">left join</a> <a href="/tags/linux/" style="font-size: 10px;">linux</a> <a href="/tags/list/" style="font-size: 10px;">list</a> <a href="/tags/math/" style="font-size: 20px;">math</a> <a href="/tags/mathng/" style="font-size: 10px;">mathng</a> <a href="/tags/paxos/" style="font-size: 10px;">paxos</a> <a href="/tags/poll/" style="font-size: 10px;">poll</a> <a href="/tags/python/" style="font-size: 10.97px;">python</a> <a href="/tags/python3-%E8%AF%AD%E6%B3%95/" style="font-size: 10px;">python3 语法</a> <a href="/tags/redis/" style="font-size: 10px;">redis</a> <a href="/tags/right-join/" style="font-size: 10px;">right join</a> <a href="/tags/select/" style="font-size: 10px;">select</a> <a href="/tags/self-join/" style="font-size: 10px;">self join</a> <a href="/tags/set/" style="font-size: 10px;">set</a> <a href="/tags/synchronized/" style="font-size: 10px;">synchronized</a> <a href="/tags/transaction/" style="font-size: 10px;">transaction</a> <a href="/tags/union/" style="font-size: 10px;">union</a> <a href="/tags/union-all/" style="font-size: 10px;">union all</a> <a href="/tags/zuul/" style="font-size: 10.97px;">zuul</a> <a href="/tags/%E4%B8%89%E9%98%B6%E6%AE%B5%E6%8F%90%E4%BA%A4/" style="font-size: 10px;">三阶段提交</a> <a href="/tags/%E4%B8%A4%E9%98%B6%E6%AE%B5%E6%8F%90%E4%BA%A4/" style="font-size: 10px;">两阶段提交</a> <a href="/tags/%E4%B8%AD%E4%BB%8B%E8%80%85%E6%A8%A1%E5%BC%8F/" style="font-size: 10px;">中介者模式</a> <a href="/tags/%E4%B8%AD%E4%BD%8D%E6%95%B0/" style="font-size: 10px;">中位数</a> <a href="/tags/%E4%B8%AD%E5%BA%8F%E9%81%8D%E5%8E%86/" style="font-size: 10px;">中序遍历</a> <a href="/tags/%E4%B8%B2%E8%A1%8C%E5%8C%96/" style="font-size: 10.32px;">串行化</a> <a href="/tags/%E4%B8%BB%E4%BB%8E/" style="font-size: 10px;">主从</a> <a href="/tags/%E4%BA%8B%E5%8A%A1/" style="font-size: 10.65px;">事务</a> <a href="/tags/%E4%BA%8C%E5%88%86%E6%90%9C%E7%B4%A2/" style="font-size: 10px;">二分搜索</a> <a href="/tags/%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE/" style="font-size: 13.23px;">二分查找</a> <a href="/tags/%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91/" style="font-size: 12.58px;">二叉搜索树</a> <a href="/tags/%E4%BA%8C%E5%8F%89%E6%A0%91/" style="font-size: 17.74px;">二叉树</a> <a href="/tags/%E4%BA%8C%E8%BF%9B%E5%88%B6/" style="font-size: 10.32px;">二进制</a> <a href="/tags/%E4%BA%AB%E5%85%83%E6%A8%A1%E5%BC%8F/" style="font-size: 10px;">享元模式</a> <a href="/tags/%E4%BB%A3%E7%90%86/" style="font-size: 10px;">代理</a> <a href="/tags/%E4%BB%A3%E7%90%86%E6%A8%A1%E5%BC%8F/" style="font-size: 10px;">代理模式</a> <a href="/tags/%E4%BC%97%E6%95%B0/" style="font-size: 10px;">众数</a> <a href="/tags/%E4%BC%9A%E8%AF%9D/" style="font-size: 10px;">会话</a> <a href="/tags/%E4%BD%8D%E8%BF%90%E7%AE%97/" style="font-size: 10.32px;">位运算</a> <a href="/tags/%E4%BE%9D%E8%B5%96%E4%BC%A0%E9%80%92/" style="font-size: 10px;">依赖传递</a> <a href="/tags/%E5%85%83%E7%BB%84/" style="font-size: 10px;">元组</a> <a href="/tags/%E5%85%A5%E9%97%A8/" style="font-size: 10px;">入门</a> <a href="/tags/%E5%85%A8%E6%96%87%E7%B4%A2%E5%BC%95/" style="font-size: 10.32px;">全文索引</a> <a href="/tags/%E5%86%85%E5%AD%98%E5%8C%BA%E5%9F%9F/" style="font-size: 10.32px;">内存区域</a> <a href="/tags/%E5%86%85%E5%AD%98%E6%A8%A1%E5%9E%8B/" style="font-size: 10px;">内存模型</a> <a href="/tags/%E5%86%99%E6%97%B6%E5%A4%8D%E5%88%B6/" style="font-size: 10px;">写时复制</a> <a href="/tags/%E5%88%86%E4%BB%A3%E6%94%B6%E9%9B%86/" style="font-size: 10px;">分代收集</a> <a href="/tags/%E5%88%86%E5%8C%BA/" style="font-size: 10.32px;">分区</a> <a href="/tags/%E5%88%86%E5%B8%83%E5%BC%8FID/" style="font-size: 10px;">分布式ID</a> <a href="/tags/%E5%88%86%E5%B8%83%E5%BC%8F%E4%BA%8B%E5%8A%A1/" style="font-size: 10.65px;">分布式事务</a> <a href="/tags/%E5%88%86%E5%B8%83%E5%BC%8F%E7%BC%93%E5%AD%98/" style="font-size: 10px;">分布式缓存</a> <a href="/tags/%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81/" style="font-size: 10px;">分布式锁</a> <a href="/tags/%E5%88%86%E5%BC%8F%E5%8C%96%E7%AE%80/" style="font-size: 10px;">分式化简</a> <a href="/tags/%E5%89%8D%E5%BA%8F%E9%81%8D%E5%8E%86/" style="font-size: 10px;">前序遍历</a> <a href="/tags/%E5%89%8D%E7%BC%80%E7%B4%A2%E5%BC%95/" style="font-size: 10.32px;">前缀索引</a> <a href="/tags/%E5%8A%A0%E6%B3%95/" style="font-size: 10.65px;">加法</a> <a href="/tags/%E5%8A%A8%E6%80%81%E4%BB%A3%E7%90%86/" style="font-size: 10.32px;">动态代理</a> <a href="/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/" style="font-size: 11.94px;">动态规划</a> <a href="/tags/%E5%8C%85%E5%86%B2%E7%AA%81/" style="font-size: 10px;">包冲突</a> <a href="/tags/%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F/" style="font-size: 10px;">单例模式</a> <a href="/tags/%E5%8E%8B%E7%BC%A9/" style="font-size: 10px;">压缩</a> <a href="/tags/%E5%8E%9F%E5%9E%8B%E6%A8%A1%E5%BC%8F/" style="font-size: 10px;">原型模式</a> <a href="/tags/%E5%8F%8C%E4%BA%B2%E5%A7%94%E6%B4%BE/" style="font-size: 10px;">双亲委派</a> <a href="/tags/%E5%8F%8C%E6%8C%87%E9%92%88/" style="font-size: 11.94px;">双指针</a> <a href="/tags/%E5%8F%8D%E5%B0%84/" style="font-size: 10px;">反射</a> <a href="/tags/%E5%8F%AF%E9%87%8D%E5%A4%8D%E8%AF%BB/" style="font-size: 10.32px;">可重复读</a> <a href="/tags/%E5%90%88%E5%B9%B6/" style="font-size: 10px;">合并</a> <a href="/tags/%E5%90%8C%E6%AD%A5/" style="font-size: 10px;">同步</a> <a href="/tags/%E5%90%8E%E5%BA%8F%E9%81%8D%E5%8E%86/" style="font-size: 10px;">后序遍历</a> <a href="/tags/%E5%91%BD%E4%BB%A4%E6%A8%A1%E5%BC%8F/" style="font-size: 10px;">命令模式</a> <a href="/tags/%E5%93%88%E5%B8%8C/" style="font-size: 10px;">哈希</a> <a href="/tags/%E5%93%88%E5%B8%8C%E7%B4%A2%E5%BC%95/" style="font-size: 10.32px;">哈希索引</a> <a href="/tags/%E5%93%88%E5%B8%8C%E8%A1%A8/" style="font-size: 12.9px;">哈希表</a> <a href="/tags/%E5%93%A8%E5%85%B5/" style="font-size: 10px;">哨兵</a> <a href="/tags/%E5%9B%9E%E6%94%B6/" style="font-size: 10px;">回收</a> <a href="/tags/%E5%9B%9E%E6%96%87/" style="font-size: 13.55px;">回文</a> <a href="/tags/%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6%E5%99%A8/" style="font-size: 10px;">垃圾回收器</a> <a href="/tags/%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6%E7%AE%97%E6%B3%95/" style="font-size: 10px;">垃圾回收算法</a> <a href="/tags/%E5%A0%86/" style="font-size: 10.65px;">堆</a> <a href="/tags/%E5%A0%86%E6%8E%92%E5%BA%8F/" style="font-size: 11.61px;">堆排序</a> <a href="/tags/%E5%A4%87%E5%BF%98%E5%BD%95%E6%A8%A1%E5%BC%8F/" style="font-size: 10px;">备忘录模式</a> <a href="/tags/%E5%A4%96%E8%A7%82%E6%A8%A1%E5%BC%8F/" style="font-size: 10px;">外观模式</a> <a href="/tags/%E5%A4%9A%E7%BA%BF%E7%A8%8B/" style="font-size: 18.71px;">多线程</a> <a href="/tags/%E5%AD%90%E5%AD%97%E7%AC%A6%E4%B8%B2/" style="font-size: 12.58px;">子字符串</a> <a href="/tags/%E5%AD%90%E5%BA%8F%E5%88%97/" style="font-size: 10.32px;">子序列</a> <a href="/tags/%E5%AD%90%E6%95%B0%E7%BB%84/" style="font-size: 10.65px;">子数组</a> <a href="/tags/%E5%AD%90%E9%9B%86/" style="font-size: 10px;">子集</a> <a href="/tags/%E5%AD%97%E5%85%B8/" style="font-size: 10px;">字典</a> <a href="/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2/" style="font-size: 10px;">字符串</a> <a href="/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2%E7%BF%BB%E8%BD%AC/" style="font-size: 10px;">字符串翻转</a> <a href="/tags/%E5%AE%89%E5%85%A8/" style="font-size: 15.81px;">安全</a> <a href="/tags/%E5%AE%98%E6%96%B9%E6%96%87%E6%A1%A3/" style="font-size: 10px;">官方文档</a> <a href="/tags/%E5%AE%B9%E9%94%99/" style="font-size: 10px;">容错</a> <a href="/tags/%E5%B1%82%E6%AC%A1%E9%81%8D%E5%8E%86/" style="font-size: 10.32px;">层次遍历</a> <a href="/tags/%E5%B7%A5%E5%8E%82%E6%A8%A1%E5%BC%8F/" style="font-size: 10px;">工厂模式</a> <a href="/tags/%E5%B8%83%E9%9A%86%E8%BF%87%E6%BB%A4%E5%99%A8/" style="font-size: 10px;">布隆过滤器</a> <a href="/tags/%E5%B9%B3%E8%A1%A1%E4%BA%8C%E5%8F%89%E6%A0%91/" style="font-size: 10px;">平衡二叉树</a> <a href="/tags/%E5%B9%B6%E5%8F%91/" style="font-size: 12.58px;">并发</a> <a href="/tags/%E5%BB%BA%E9%80%A0%E8%80%85%E6%A8%A1%E5%BC%8F/" style="font-size: 10px;">建造者模式</a> <a href="/tags/%E5%BC%82%E6%AD%A5/" style="font-size: 10px;">异步</a> <a href="/tags/%E5%BC%95%E7%94%A8/" style="font-size: 10px;">引用</a> <a href="/tags/%E5%BE%AA%E7%8E%AF%E9%98%9F%E5%88%97/" style="font-size: 10.32px;">循环队列</a> <a href="/tags/%E5%BE%AE%E6%9C%8D%E5%8A%A1/" style="font-size: 10px;">微服务</a> <a href="/tags/%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84/" style="font-size: 10px;">微服务架构</a> <a href="/tags/%E5%BF%AB%E4%B9%90%E6%95%B0/" style="font-size: 10px;">快乐数</a> <a href="/tags/%E5%BF%AB%E9%80%9F%E6%8E%92%E5%BA%8F/" style="font-size: 10px;">快速排序</a> <a href="/tags/%E6%8A%BD%E8%B1%A1%E5%B7%A5%E5%8E%82%E6%A8%A1%E5%BC%8F/" style="font-size: 10px;">抽象工厂模式</a> <a href="/tags/%E6%8E%92%E5%88%97/" style="font-size: 10px;">排列</a> <a href="/tags/%E6%8E%92%E5%BA%8F/" style="font-size: 13.55px;">排序</a> <a href="/tags/%E6%90%9C%E7%B4%A2/" style="font-size: 10px;">搜索</a> <a href="/tags/%E6%91%A9%E5%B0%94%E6%8A%95%E7%A5%A8/" style="font-size: 10px;">摩尔投票</a> <a href="/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E5%91%BD%E4%BB%A4/" style="font-size: 10px;">操作系统命令</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E5%AD%98%E5%82%A8/" style="font-size: 10px;">数据存储</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" style="font-size: 10px;">数据结构</a> <a href="/tags/%E6%95%B0%E7%8B%AC/" style="font-size: 10px;">数独</a> <a href="/tags/%E6%95%B0%E7%BB%84/" style="font-size: 19.68px;">数组</a> <a href="/tags/%E6%96%87%E4%BB%B6%E8%B7%AF%E5%BE%84/" style="font-size: 10.32px;">文件路径</a> <a href="/tags/%E6%96%90%E6%B3%A2%E9%82%A3%E5%A5%91/" style="font-size: 10.32px;">斐波那契</a> <a href="/tags/%E6%96%90%E6%B3%A2%E9%82%A3%E5%A5%91%E6%95%B0/" style="font-size: 10px;">斐波那契数</a> <a href="/tags/%E6%97%A5%E6%9C%9F/" style="font-size: 10px;">日期</a> <a href="/tags/%E6%9C%80%E5%B7%A6%E5%89%8D%E7%BC%80/" style="font-size: 10.32px;">最左前缀</a> <a href="/tags/%E6%9C%80%E9%95%BF%E5%85%AC%E5%85%B1%E5%89%8D%E7%BC%80/" style="font-size: 10px;">最长公共前缀</a> <a href="/tags/%E6%9C%89%E5%BA%8F/" style="font-size: 10px;">有序</a> <a href="/tags/%E6%9C%8D%E5%8A%A1%E4%B8%B2%E8%81%94%E6%A8%A1%E5%BC%8F/" style="font-size: 10px;">服务串联模式</a> <a href="/tags/%E6%9C%8D%E5%8A%A1%E4%BB%A3%E7%90%86%E6%A8%A1%E5%BC%8F/" style="font-size: 10px;">服务代理模式</a> <a href="/tags/%E6%9C%8D%E5%8A%A1%E5%85%B1%E4%BA%AB%E6%95%B0%E6%8D%AE%E6%A8%A1%E5%BC%8F/" style="font-size: 10px;">服务共享数据模式</a> <a href="/tags/%E6%9C%8D%E5%8A%A1%E5%88%86%E6%94%AF%E6%A8%A1%E5%BC%8F/" style="font-size: 10px;">服务分支模式</a> <a href="/tags/%E6%9C%8D%E5%8A%A1%E5%8F%91%E7%8E%B0/" style="font-size: 10.65px;">服务发现</a> <a href="/tags/%E6%9C%8D%E5%8A%A1%E5%BC%82%E6%AD%A5%E6%B6%88%E6%81%AF%E6%A8%A1%E5%BC%8F/" style="font-size: 10px;">服务异步消息模式</a> <a href="/tags/%E6%9C%8D%E5%8A%A1%E6%B2%BB%E7%90%86/" style="font-size: 10.32px;">服务治理</a> <a href="/tags/%E6%9C%8D%E5%8A%A1%E8%81%9A%E5%90%88%E6%A8%A1%E5%BC%8F/" style="font-size: 10px;">服务聚合模式</a> <a href="/tags/%E6%9C%AC%E5%9C%B0%E6%B6%88%E6%81%AF%E8%A1%A8/" style="font-size: 10px;">本地消息表</a> <a href="/tags/%E6%9D%A8%E8%BE%89%E4%B8%89%E8%A7%92/" style="font-size: 10.32px;">杨辉三角</a> <a href="/tags/%E6%9E%B6%E6%9E%84/" style="font-size: 10px;">架构</a> <a href="/tags/%E6%A0%87%E8%AE%B0-%E5%A4%8D%E5%88%B6/" style="font-size: 10px;">标记-复制</a> <a href="/tags/%E6%A0%87%E8%AE%B0-%E6%95%B4%E7%90%86/" style="font-size: 10px;">标记-整理</a> <a href="/tags/%E6%A0%87%E8%AE%B0-%E6%B8%85%E9%99%A4/" style="font-size: 10px;">标记-清除</a> <a href="/tags/%E6%A0%88/" style="font-size: 13.87px;">栈</a> <a href="/tags/%E6%A0%91/" style="font-size: 10px;">树</a> <a href="/tags/%E6%A1%A5%E6%8E%A5%E6%A8%A1%E5%BC%8F/" style="font-size: 10px;">桥接模式</a> <a href="/tags/%E6%A1%B6%E6%8E%92%E5%BA%8F/" style="font-size: 10px;">桶排序</a> <a href="/tags/%E6%A8%A1%E6%9D%BF%E6%A8%A1%E5%BC%8F/" style="font-size: 10px;">模板模式</a> <a href="/tags/%E6%AD%BB%E9%94%81/" style="font-size: 10.97px;">死锁</a> <a href="/tags/%E6%B1%89%E8%AF%BA%E5%A1%94/" style="font-size: 10px;">汉诺塔</a> <a href="/tags/%E6%B3%A8%E5%85%A5/" style="font-size: 13.23px;">注入</a> <a href="/tags/%E6%B3%A8%E8%A7%A3/" style="font-size: 10.32px;">注解</a> <a href="/tags/%E6%B7%B1%E5%BA%A6%E4%BC%98%E5%85%88%E6%90%9C%E7%B4%A2/" style="font-size: 10px;">深度优先搜索</a> <a href="/tags/%E6%BA%90%E7%A0%81/" style="font-size: 12.58px;">源码</a> <a href="/tags/%E6%BB%91%E5%8A%A8%E7%AA%97%E5%8F%A3/" style="font-size: 10px;">滑动窗口</a> <a href="/tags/%E7%86%94%E6%96%AD/" style="font-size: 10px;">熔断</a> <a href="/tags/%E7%88%AC%E8%99%AB/" style="font-size: 10px;">爬虫</a> <a href="/tags/%E7%89%9B%E9%A1%BF%E8%BF%AD%E4%BB%A3%E6%B3%95/" style="font-size: 10px;">牛顿迭代法</a> <a href="/tags/%E7%8A%B6%E6%80%81%E6%A8%A1%E5%BC%8F/" style="font-size: 10px;">状态模式</a> <a href="/tags/%E7%8E%AF%E5%BD%A2/" style="font-size: 10px;">环形</a> <a href="/tags/%E7%94%B5%E5%AD%90%E9%82%AE%E4%BB%B6/" style="font-size: 10px;">电子邮件</a> <a href="/tags/%E7%9F%A9%E9%98%B5/" style="font-size: 16.13px;">矩阵</a> <a href="/tags/%E7%AD%96%E7%95%A5%E6%A8%A1%E5%BC%8F/" style="font-size: 10px;">策略模式</a> <a href="/tags/%E7%AE%97%E6%B3%95/" style="font-size: 19.35px;">算法</a> <a href="/tags/%E7%AE%97%E6%B3%95%E9%A2%98/" style="font-size: 10px;">算法题</a> <a href="/tags/%E7%B1%BB%E5%8A%A0%E8%BD%BD%E6%A8%A1%E5%9E%8B/" style="font-size: 10px;">类加载模型</a> <a href="/tags/%E7%B4%A2%E5%BC%95/" style="font-size: 10.97px;">索引</a> <a href="/tags/%E7%B4%A2%E5%BC%95%E4%BC%98%E5%8C%96/" style="font-size: 10.32px;">索引优化</a> <a href="/tags/%E7%BA%BF%E7%A8%8B/" style="font-size: 10.65px;">线程</a> <a href="/tags/%E7%BA%BF%E7%A8%8B%E6%B1%A0/" style="font-size: 10px;">线程池</a> <a href="/tags/%E7%BB%84%E5%90%88%E6%A8%A1%E5%BC%8F/" style="font-size: 10px;">组合模式</a> <a href="/tags/%E7%BC%93%E5%AD%98%E7%A9%BF%E9%80%8F/" style="font-size: 10px;">缓存穿透</a> <a href="/tags/%E7%BC%93%E5%AD%98%E9%9B%AA%E5%B4%A9/" style="font-size: 10px;">缓存雪崩</a> <a href="/tags/%E7%BC%93%E5%AD%98%E9%A2%84%E7%83%AD/" style="font-size: 10px;">缓存预热</a> <a href="/tags/%E7%BF%BB%E8%AF%91/" style="font-size: 10px;">翻译</a> <a href="/tags/%E7%BF%BB%E8%BD%AC/" style="font-size: 12.26px;">翻转</a> <a href="/tags/%E8%81%9A%E7%B0%87%E7%B4%A2%E5%BC%95/" style="font-size: 10.32px;">聚簇索引</a> <a href="/tags/%E8%8A%82%E7%82%B9/" style="font-size: 10px;">节点</a> <a href="/tags/%E8%99%9A%E6%8B%9F%E6%9C%BA/" style="font-size: 10px;">虚拟机</a> <a href="/tags/%E8%A3%85%E9%A5%B0%E5%99%A8%E6%A8%A1%E5%BC%8F/" style="font-size: 10px;">装饰器模式</a> <a href="/tags/%E8%A7%82%E5%AF%9F%E8%80%85%E6%A8%A1%E5%BC%8F/" style="font-size: 10px;">观察者模式</a> <a href="/tags/%E8%A7%A3%E9%87%8A%E5%99%A8%E6%A8%A1%E5%BC%8F/" style="font-size: 10px;">解释器模式</a> <a href="/tags/%E8%A7%A3%E9%87%8A%E6%80%A7%E8%AF%AD%E8%A8%80/" style="font-size: 10px;">解释性语言</a> <a href="/tags/%E8%AE%BE%E8%AE%A1/" style="font-size: 15.48px;">设计</a> <a href="/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" style="font-size: 17.1px;">设计模式</a> <a href="/tags/%E8%AE%BF%E9%97%AE%E6%8E%A7%E5%88%B6/" style="font-size: 10px;">访问控制</a> <a href="/tags/%E8%AE%BF%E9%97%AE%E8%80%85%E6%A8%A1%E5%BC%8F/" style="font-size: 10px;">访问者模式</a> <a href="/tags/%E8%AF%BB%E6%8F%90%E4%BA%A4/" style="font-size: 10.32px;">读提交</a> <a href="/tags/%E8%AF%BB%E6%9C%AA%E6%8F%90%E4%BA%A4/" style="font-size: 10.32px;">读未提交</a> <a href="/tags/%E8%B4%A3%E4%BB%BB%E9%93%BE%E6%A8%A1%E5%BC%8F/" style="font-size: 10px;">责任链模式</a> <a href="/tags/%E8%B4%AA%E5%BF%83/" style="font-size: 10.97px;">贪心</a> <a href="/tags/%E8%BF%AD%E4%BB%A3/" style="font-size: 11.94px;">迭代</a> <a href="/tags/%E8%BF%AD%E4%BB%A3%E5%99%A8%E6%A8%A1%E5%BC%8F/" style="font-size: 10px;">迭代器模式</a> <a href="/tags/%E9%80%82%E9%85%8D%E5%99%A8%E6%A8%A1%E5%BC%8F/" style="font-size: 10px;">适配器模式</a> <a href="/tags/%E9%80%92%E5%BD%92/" style="font-size: 16.77px;">递归</a> <a href="/tags/%E9%80%BB%E8%BE%91/" style="font-size: 10.65px;">逻辑</a> <a href="/tags/%E9%80%BB%E8%BE%91%E8%BF%90%E7%AE%97/" style="font-size: 10px;">逻辑运算</a> <a href="/tags/%E9%93%BE%E8%A1%A8/" style="font-size: 16.45px;">链表</a> <a href="/tags/%E9%94%81/" style="font-size: 14.52px;">锁</a> <a href="/tags/%E9%98%9F%E5%88%97/" style="font-size: 11.29px;">队列</a> <a href="/tags/%E9%98%B6%E4%B9%98/" style="font-size: 10px;">阶乘</a> <a href="/tags/%E9%98%BB%E5%A1%9E/" style="font-size: 10px;">阻塞</a> <a href="/tags/%E9%99%8D%E7%BA%A7/" style="font-size: 10px;">降级</a> <a href="/tags/%E9%99%90%E6%B5%81/" style="font-size: 10px;">限流</a> <a href="/tags/%E9%9A%94%E7%A6%BB%E7%BA%A7%E5%88%AB/" style="font-size: 10.32px;">隔离级别</a> <a href="/tags/%E9%9B%86%E5%90%88/" style="font-size: 10.32px;">集合</a> <a href="/tags/%E9%9B%86%E7%BE%A4/" style="font-size: 10px;">集群</a> <a href="/tags/%E9%9D%99%E6%80%81%E4%BB%A3%E7%90%86/" style="font-size: 10px;">静态代理</a> <a href="/tags/%E9%9D%9E%E9%98%BB%E5%A1%9E/" style="font-size: 10px;">非阻塞</a> <a href="/tags/%E9%AA%8C%E8%AF%81/" style="font-size: 10px;">验证</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/07/">July 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/06/">June 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/05/">May 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/05/">May 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/11/">November 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/08/">August 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/07/">July 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/05/">May 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/04/">April 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/03/">March 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">April 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">March 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">December 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">November 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">October 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">September 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/08/">August 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/01/">January 2018</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2022/07/02/LeetCode/offer/%E5%89%91%E6%8C%87%20Offer%2003.%20%E6%95%B0%E7%BB%84%E4%B8%AD%E9%87%8D%E5%A4%8D%E7%9A%84%E6%95%B0%E5%AD%97/">剑指 Offer 03. 数组中重复的数字</a>
+          </li>
+        
+          <li>
+            <a href="/2022/07/02/LeetCode/offer/%E5%89%91%E6%8C%87%20Offer%2005.%20%E6%9B%BF%E6%8D%A2%E7%A9%BA%E6%A0%BC/">剑指 Offer 05. 替换空格</a>
+          </li>
+        
+          <li>
+            <a href="/2022/07/02/LeetCode/offer/%E5%89%91%E6%8C%87%20Offer%2006.%20%E4%BB%8E%E5%B0%BE%E5%88%B0%E5%A4%B4%E6%89%93%E5%8D%B0%E9%93%BE%E8%A1%A8/">剑指 Offer 06. 从尾到头打印链表</a>
+          </li>
+        
+          <li>
+            <a href="/2022/07/02/LeetCode/offer/%E5%89%91%E6%8C%87%20Offer%2009.%20%E7%94%A8%E4%B8%A4%E4%B8%AA%E6%A0%88%E5%AE%9E%E7%8E%B0%E9%98%9F%E5%88%97/">剑指 Offer 09. 用两个栈实现队列</a>
+          </li>
+        
+          <li>
+            <a href="/2022/07/02/LeetCode/offer/%E5%89%91%E6%8C%87%20Offer%2010-%20I.%20%E6%96%90%E6%B3%A2%E9%82%A3%E5%A5%91%E6%95%B0%E5%88%97/">剑指 Offer 10- I. 斐波那契数列</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2022 HanSi<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>

@@ -1,418 +1,132 @@
 <!DOCTYPE html>
-
-
-
-  
-
-
-<html class="theme-next mist use-motion" lang="Zh_cn">
+<html>
 <head>
-  <meta charset="UTF-8"/>
-<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
-<meta name="theme-color" content="#222">
-
-
-
-
-
-
-
-
-
-<meta http-equiv="Cache-Control" content="no-transform" />
-<meta http-equiv="Cache-Control" content="no-siteapp" />
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+  <meta charset="utf-8">
   
   
-  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
-
-
-
-
-
-
-
-<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
-
-<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
-
-
-  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
-
-
-  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
-
-
-  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
-
-
-  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
-
-
-
-
-
-  <meta name="keywords" content="SQL,安全,Web,注入," />
-
-
-
-
-
-
-
-
-
-
-<meta name="description" content="注入SQL数据库中的信息通过SQL（Structured Query Language，结构化查询语言）访问。SQL可用于读取、更新、增加或删除数据库中保存的信息。 SQL是一种解释型语言，Web应用程序经常建立合并用户提交的数据的SQL语句。因此，如果建立语句的方法不安全，那么应用程序可能易于受到SQL注入攻击。 利用一个基本的漏洞下面以一个书籍零售商使用的Web应用程序为例，该应用程序允许用户">
+  <title>注入sql | HanSi&#39;s Blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="注入SQL数据库中的信息通过SQL（Structured Query Language，结构化查询语言）访问。SQL可用于读取、更新、增加或删除数据库中保存的信息。 SQL是一种解释型语言，Web应用程序经常建立合并用户提交的数据的SQL语句。因此，如果建立语句的方法不安全，那么应用程序可能易于受到SQL注入攻击。 利用一个基本的漏洞下面以一个书籍零售商使用的Web应用程序为例，该应用程序允许用户">
 <meta property="og:type" content="article">
 <meta property="og:title" content="注入sql">
 <meta property="og:url" content="http://huhansi.com/2019/03/23/%E5%AE%89%E5%85%A8/Web%E5%AE%89%E5%85%A8/4-2%E6%B3%A8%E5%85%A5SQL/index.html">
-<meta property="og:site_name" content="Hansi Blog">
+<meta property="og:site_name" content="HanSi&#39;s Blog">
 <meta property="og:description" content="注入SQL数据库中的信息通过SQL（Structured Query Language，结构化查询语言）访问。SQL可用于读取、更新、增加或删除数据库中保存的信息。 SQL是一种解释型语言，Web应用程序经常建立合并用户提交的数据的SQL语句。因此，如果建立语句的方法不安全，那么应用程序可能易于受到SQL注入攻击。 利用一个基本的漏洞下面以一个书籍零售商使用的Web应用程序为例，该应用程序允许用户">
-<meta property="og:locale" content="Zh_CN">
+<meta property="og:locale">
 <meta property="article:published_time" content="2019-03-22T16:00:00.000Z">
-<meta property="article:modified_time" content="2019-05-04T14:50:03.380Z">
-<meta property="article:author" content="Han si">
+<meta property="article:modified_time" content="2022-06-19T05:01:25.587Z">
+<meta property="article:author" content="HanSi">
 <meta property="article:tag" content="SQL">
 <meta property="article:tag" content="安全">
 <meta property="article:tag" content="Web">
 <meta property="article:tag" content="注入">
 <meta name="twitter:card" content="summary">
-
-
-
-<script type="text/javascript" id="hexo.configurations">
-  var NexT = window.NexT || {};
-  var CONFIG = {
-    root: '/',
-    scheme: 'Mist',
-    version: '5.1.4',
-    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
-    fancybox: true,
-    tabs: true,
-    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
-    duoshuo: {
-      userId: '0',
-      author: 'Author'
-    },
-    algolia: {
-      applicationID: '',
-      apiKey: '',
-      indexName: '',
-      hits: {"per_page":10},
-      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
-    }
-  };
-</script>
-
-
-
-  <link rel="canonical" href="http://huhansi.com/2019/03/23/安全/Web安全/4-2注入SQL/"/>
-
-
-
-
-
-  <title>注入sql | Hansi Blog</title>
   
-
-
-
-
-
-
-
-
-<meta name="generator" content="Hexo 4.2.0"></head>
-
-<body itemscope itemtype="http://schema.org/WebPage" lang="Zh_cn">
-
+    <link rel="alternate" href="/atom.xml" title="HanSi's Blog" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
   
   
     
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
   
+  
+<link rel="stylesheet" href="/css/style.css">
 
-  <div class="container sidebar-position-left page-post-detail">
-    <div class="headband"></div>
-
-    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
-      <div class="header-inner"><div class="site-brand-wrapper">
-  <div class="site-meta ">
+  
     
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
 
-    <div class="custom-logo-site-title">
-      <a href="/"  class="brand" rel="start">
-        <span class="logo-line-before"><i></i></span>
-        <span class="site-title">Hansi Blog</span>
-        <span class="logo-line-after"><i></i></span>
-      </a>
+  
+<meta name="generator" content="Hexo 6.2.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">HanSi&#39;s Blog</a>
+      </h1>
+      
     </div>
-      
-        <p class="site-subtitle">Know something of everything, know everything of something</p>
-      
-  </div>
-
-  <div class="site-nav-toggle">
-    <button>
-      <span class="btn-bar"></span>
-      <span class="btn-bar"></span>
-      <span class="btn-bar"></span>
-    </button>
-  </div>
-</div>
-
-<nav class="site-nav">
-  
-
-  
-    <ul id="menu" class="menu">
-      
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
         
-        <li class="menu-item menu-item-home">
-          <a href="/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
-            
-            Home
-          </a>
-        </li>
-      
+          <a class="main-nav-link" href="/">Home</a>
         
-        <li class="menu-item menu-item-about">
-          <a href="/about/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
-            
-            About
-          </a>
-        </li>
-      
+          <a class="main-nav-link" href="/archives">Archives</a>
         
-        <li class="menu-item menu-item-tags">
-          <a href="/tags/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
-            
-            Tags
-          </a>
-        </li>
-      
+      </nav>
+      <nav id="sub-nav">
         
-        <li class="menu-item menu-item-categories">
-          <a href="/categories/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
-            
-            Categories
-          </a>
-        </li>
-      
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
         
-        <li class="menu-item menu-item-archives">
-          <a href="/archives/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
-            
-            Archives
-          </a>
-        </li>
-      
-
-      
-        <li class="menu-item menu-item-search">
-          
-            <a href="javascript:;" class="popup-trigger">
-          
-            
-              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
-            
-            Search
-          </a>
-        </li>
-      
-    </ul>
-  
-
-  
-    <div class="site-search">
-      
-  <div class="popup search-popup local-search-popup">
-  <div class="local-search-header clearfix">
-    <span class="search-icon">
-      <i class="fa fa-search"></i>
-    </span>
-    <span class="popup-btn-close">
-      <i class="fa fa-times-circle"></i>
-    </span>
-    <div class="local-search-input-wrapper">
-      <input autocomplete="off"
-             placeholder="Searching..." spellcheck="false"
-             type="text" id="local-search-input">
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://huhansi.com"></form>
+      </div>
     </div>
   </div>
-  <div id="local-search-result"></div>
-</div>
+</header>
 
-
-
-    </div>
-  
-</nav>
-
-
-
- </div>
-    </header>
-
-    <main id="main" class="main">
-      <div class="main-inner">
-        <div class="content-wrap">
-          <div id="content" class="content">
-            
-
-  <div id="posts" class="posts-expand">
+      <div class="outer">
+        <section id="main"><article id="post-安全/Web安全/4-2注入SQL" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2019/03/23/%E5%AE%89%E5%85%A8/Web%E5%AE%89%E5%85%A8/4-2%E6%B3%A8%E5%85%A5SQL/" class="article-date">
+  <time class="dt-published" datetime="2019-03-22T16:00:00.000Z" itemprop="datePublished">2019-03-23</time>
+</a>
     
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Web%E5%AE%89%E5%85%A8/">Web安全</a>
+  </div>
 
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://huhansi.com/2019/03/23/%E5%AE%89%E5%85%A8/Web%E5%AE%89%E5%85%A8/4-2%E6%B3%A8%E5%85%A5SQL/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Han si">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hansi Blog">
-    </span>
-
+  </div>
+  <div class="article-inner">
     
-      <header class="post-header">
-
+    
+      <header class="article-header">
         
-        
-          <h1 class="post-title" itemprop="name headline">注入sql</h1>
-        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      注入sql
+    </h1>
+  
 
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-03-23T00:00:00+08:00">
-                2019-03-23
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Web%E5%AE%89%E5%85%A8/" itemprop="url" rel="index">
-                    <span itemprop="name">Web安全</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
       </header>
     
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
+    <div class="e-content article-entry" itemprop="articleBody">
       
         <h1 id="注入SQL"><a href="#注入SQL" class="headerlink" title="注入SQL"></a>注入SQL</h1><p>数据库中的信息通过SQL（Structured Query Language，结构化查询语言）访问。SQL可用于读取、更新、增加或删除数据库中保存的信息。</p>
 <p>SQL是一种解释型语言，Web应用程序经常建立合并用户提交的数据的SQL语句。因此，如果建立语句的方法不安全，那么应用程序可能易于受到SQL注入攻击。</p>
 <h2 id="利用一个基本的漏洞"><a href="#利用一个基本的漏洞" class="headerlink" title="利用一个基本的漏洞"></a>利用一个基本的漏洞</h2><p>下面以一个书籍零售商使用的Web应用程序为例，该应用程序允许用户根据作者、书名、出版商等信息搜索产品。完整的书籍目录保存在数据库中，应用程序使用SQL查询、根据用户提交的搜索项获取各种书籍的信息。</p>
 <p>当一名用户搜索由Wiley出版的所有书籍时，应用程序执行以下查询：</p>
-<p><strong>SELECT author, title, year FROM books WHERE publisher = ‘Wiley’ and published = 1</strong></p>
+<p><strong>SELECT author, title, year FROM books WHERE publisher &#x3D; ‘Wiley’ and published &#x3D; 1</strong></p>
 <p>该查询要求数据库检查书籍表的每一行，提取每条publisher列为wiley值的记录，并返回所有这些记录。然后应用程序处理这组记录，并通过一个HTML页面将结果显示给用户。</p>
 <p>在这个查询中，等号左边的词由SQL关键字、表和数据库列名称构成。这个部分的全部内容由程序员在创建应用程序时建立。当然，表达式wiley由用户提交，它是一个数据项。SQL查询中的字符串数据必须包含在单引号内，与查询的其他内容隔开来。</p>
 <p>现在思考一下，如果用户搜索所有由O’Reilly出版的书籍，会出现什么情况。应用程序将执行以下查询：</p>
-<p><strong>SELECT author, title, year FROM books WHERE publisher = ‘O’Reilly’ and published = 1</strong></p>
+<p><strong>SELECT author, title, year FROM books WHERE publisher &#x3D; ‘O’Reilly’ and published &#x3D; 1</strong></p>
 <p>在这个示例中，查询解释器以和前一个示例相同的方式到达字符串数据位置。它解析这个包含在单引号中的数据，得到值O。然后遇到表达式Reilly’，这并不是有效的SQL语法，因此，应用程序生成一条错误信息：</p>
 <p><strong>Incorrect syntax near ‘Reilly’.</strong></p>
 <p><strong>Server: Msg 105,Level 15, State 1, Line1</strong></p>
-<p>*<em>Unclosed quotation mark before the  character string ‘ *</em></p>
+<p>**Unclosed quotation mark before the  character string ‘ **</p>
 <p>如果应用程序以这种方式运行，那么它非常容易遭到SQL注入。攻击者可提交包含引号的输入终止它控制的字符串，然后编写任意的SQL修改开发者想要的应用程序执行的查询。例如，在这个示例中，攻击者可以对查询进行修改，通过以下输入项，返回零售商目录中的每一本书籍。</p>
-<p><strong>Willey’ OR 1=1–</strong></p>
+<p><strong>Willey’ OR 1&#x3D;1–</strong></p>
 <p>应用程序将执行以下查询：</p>
-<p><strong>SELECT author, title, year, FROM books WHERE publisher = ‘Willey’ OR 1=1 –’ AND published = 1</strong></p>
-<p>这个查询对开发者查询中的WHERE子句进行修改，增加了另外一个条件。数据库将检查书籍表的每一行，提取publisher列值位Willey<strong>或其中1=1</strong>的每一条记录。因为1总是等于1，所以数据库将返回书籍表中的所有记录。</p>
+<p><strong>SELECT author, title, year, FROM books WHERE publisher &#x3D; ‘Willey’ OR 1&#x3D;1 –’ AND published &#x3D; 1</strong></p>
+<p>这个查询对开发者查询中的WHERE子句进行修改，增加了另外一个条件。数据库将检查书籍表的每一行，提取publisher列值位Willey<strong>或其中1&#x3D;1</strong>的每一条记录。因为1总是等于1，所以数据库将返回书籍表中的所有记录。</p>
 <p>攻击者的输入中的双连字符在SQL中是一个有意义的表达式，它告诉查询解释器该行的其他部分属于注释，应被忽略。在一些SQL注入攻击中，这种技巧机器重要，因为它允许忽略由应用程序开发者建立的查询的剩余部分。在MySQL中，需要在双连字符后加入一个空格，或者使用<strong>“#”</strong>符号指定注释。</p>
 <p>有些时候，可以不使用注释符号处理字符串末尾部分的引号，而用一个需要引号包含的字符串数据结束注入的输入，依次<strong>“平衡引号”</strong>，例如，输入以下搜索项：</p>
-<p><strong>willey’ or ‘a’ = ‘a</strong></p>
+<p><strong>willey’ or ‘a’ &#x3D; ‘a</strong></p>
 <p>将生成以下查询：</p>
-<p><strong>SELECT author, title,year FROM books where publisher = ‘willey’ OR ‘a’ = ‘a’ and publisher = 1</strong></p>
-<p>这个查询完全有效，可得到和1=1攻击相同的效果。 </p>
+<p><strong>SELECT author, title,year FROM books where publisher &#x3D; ‘willey’ OR ‘a’ &#x3D; ‘a’ and publisher &#x3D; 1</strong></p>
+<p>这个查询完全有效，可得到和1&#x3D;1攻击相同的效果。 </p>
 <h2 id="注入不同的语句类型"><a href="#注入不同的语句类型" class="headerlink" title="注入不同的语句类型"></a>注入不同的语句类型</h2><p>当然，当与一个远程应用程序交互时，通常情况下不可能提前知道用户输入的一个特殊数据项将由哪种类型的语句处理。但是，可以根据使用的应用程序功能进行合理地猜测。</p>
 <h3 id="SELECT-语句"><a href="#SELECT-语句" class="headerlink" title="SELECT 语句"></a>SELECT 语句</h3><p>SELECT语句被用于从数据库中获取信息。它们常用于应用程序响应用户操作而返回信息的功能中，如浏览一个产品目录、查看一名用户的资料或者进行一项搜索。根据数据库中的数据核对用户提交的信息的登录功能也经常使用这种语句。</p>
 <p>如在前面的示例中说明的，SQL注入攻击的进入点（entry point）通常是查询中的WHERE子句，它将用户提交的数据传送给数据库，以控制查询结果的范围。因为WHERE子句一般在SELECT语句的最后，攻击者就可以使用注释符号将查询阶段到其输入的结束位置，而不会使整个查询的语法失效。</p>
@@ -435,13 +149,13 @@
 <p>在Oracle中，则可以在insert查询内发布subselect查询。使用后面基于推断的技巧，该subselect查询可能导致主查询成功或失败。</p>
 <h3 id="update语句"><a href="#update语句" class="headerlink" title="update语句"></a>update语句</h3><p>UPDATE语句用于修改表中的一行或几行数据。它们经常用在用户修改已有数据值的功能中，例如，更新联系信息、修改密码或更改订单数量。</p>
 <p>典型UPDATE语句的运行机制和INSERT语句类似，只是UPDATE语句中通常包含一个WHERE子句，告诉数据库更新表中哪些行的数据。例如，当用户修改密码时，应用程序可能会执行以下查询：</p>
-<p><strong>UPDATE users SET password=’newsecret’ WHERE user = ‘marcus’ and password = ‘secret’</strong></p>
+<p><strong>UPDATE users SET password&#x3D;’newsecret’ WHERE user &#x3D; ‘marcus’ and password &#x3D; ‘secret’</strong></p>
 <p>实际上，这个查询首先合适用户的现有密码是否争取，如果密码无误，就用新的值更新它。如果这项功能存在SQL注入漏洞，那么攻击者就能避开现有密码检查，通过输入以下用户名更新管理员的密码：</p>
 <p><strong>admin’–</strong></p>
 <p>由于无法提前知道应用程序将根据专门设计的输入执行什么操作，因此，在一个远程应用程序中探查SQL注入漏洞往往非常危险。特别注意，修改UPDATE语句中的WHERE子句可能会使一个重要的数据库表发生彻底的改变。例如，上面的攻击者之前已经提交了以下用户名：</p>
-<p><strong>admin’ or 1 = 1</strong></p>
+<p><strong>admin’ or 1 &#x3D; 1</strong></p>
 <p>那么应用程序可能会执行以下查询：</p>
-<p><strong>UPDATE users SET password = ‘newsecret’ where user = ‘admin’ or 1 = 1</strong></p>
+<p><strong>UPDATE users SET password &#x3D; ‘newsecret’ where user &#x3D; ‘admin’ or 1 &#x3D; 1</strong></p>
 <p>它会重新设置每一名用户的密码。</p>
 <h3 id="DELETE语句"><a href="#DELETE语句" class="headerlink" title="DELETE语句"></a>DELETE语句</h3><p>DELETE语句用于删除表中的一行或几行数据，例如，用户从他们的购物篮中删除意见商品或从个人资料中删除一个交货地址。</p>
 <p>与UPDATE语句一样，DELETE语句通常使用WHERE子句告诉数据库更新表中哪些行的数据，并很可能在这个子句中并入用户提交的数据。破坏正常运行的WHERE子句可能会造成严重的后果。</p>
@@ -476,7 +190,7 @@
 <h3 id="注入查询结构"><a href="#注入查询结构" class="headerlink" title="注入查询结构"></a>注入查询结构</h3><p>如果用户提交的数据被插入SQL查询结构。而不是查询的数据项中，这时，实施SQL注入攻击只需要直接应用有效的SQL语法，而不需要任何“转义”。</p>
 <p>SQL查询结构中最常见的注入点是ORDER BY子句。ORDER BY关键字接受某个列名称或编号，并根据该列中的值对结果集进行排序。</p>
 <p>例如，使用以下查询可以检索一个可排序的图书表：</p>
-<p><strong>SELECT author, title, year FROM bookes WHERE publisher = ‘Wiley’ ORDER BY title ASC</strong></p>
+<p><strong>SELECT author, title, year FROM bookes WHERE publisher &#x3D; ‘Wiley’ ORDER BY title ASC</strong></p>
 <p>如果ORDER BY中的列名称title由用户指定，就没有必要使用单引号，因为用户提交的数据已经直接修改了SQL查询的结构。</p>
 <p>在列名称中查找SQL注入漏洞可能会相当困难。如果提交一个并非有效列名称的值，查询将导致错误。这意味着，无论攻击者提交路径遍历字符串、单引号、双引号或其他任意字符串，应用程序都会返回相同的响应。因此，采用程勇的自动模糊测试和手动测试技巧往往会遗漏某些漏洞。如果提交用于探查各种漏洞的标准测试字符串全部导致相同的响应，这本身并不表示出现任何错误。</p>
 <ol>
@@ -489,7 +203,7 @@
 <p><strong>1 DESC –</strong></p>
 </li>
 <li><p>如果提交数字1生成一组结果，其中一个列的每一行都包含一个1，则说明输入可能被插入到查询返回的列的名称中。例如：</p>
-<p><strong>SELECT 1, title, year FROM book WHERE publisher = ‘Wiley’</strong></p>
+<p><strong>SELECT 1, title, year FROM book WHERE publisher &#x3D; ‘Wiley’</strong></p>
 </li>
 </ol>
 </li>
@@ -507,7 +221,7 @@
 <li>MySQL: CONNECTION_ID()-CONNECTION_ID()</li>
 </ul>
 <p>在识别数据库时，MySQL如何处理某些行内注释也是一个值得关注的问题。吐过一个注释以感叹号开头，接着是数据库版本字符串，那么只要数据库的实际版本等于或高于那个字符串，应用程序就会将注释内容解释为SQL；否则，应用程序就会忽略注释内容，将它作为注释处理。与C中的预处理指令类似，程序员也可以对这一点加以利用，编写出根据所使用数据库版本进行处理的不同代码。攻击者还可以利用它来识别数据库的实际版本。例如，如果使用的MySQL版本高于或等于3.23.02，注入下面的字符串将使SELECT语句的WHERE子句为假：</p>
-<p><strong>/*!32302 and 1=0 */</strong></p>
+<p>**&#x2F;<em>!32302 and 1&#x3D;0 <em>&#x2F;</em></em></p>
 <h2 id="UNION-操作符"><a href="#UNION-操作符" class="headerlink" title="UNION 操作符"></a>UNION 操作符</h2><p>SQL使用UNION操作符将两个或几个SELECT语句的记过组合到一个独立结果中。如果一个Web应用程序的SELECT语句存在SQL注入漏洞，通常可以使用UNION操作符执行另一次完全独立的查询，并将它的结果与第一次查询的结果组合在一起。如果应用程序向浏览器返回查询结果，那么就可以使用这种技巧从应用程序中提取任意的数据。</p>
 <p>UNION操作符可在SQL注入中发挥非常巨大的作用。但是，在利用它发动攻击之前，攻击者有必要了解它的两个重要限制。</p>
 <ol>
@@ -515,7 +229,7 @@
 <li>为注入另一个返回有用结果的查询，攻击者必须知道他所针对的数据库表的名称以及有关列的名称。</li>
 </ol>
 <h2 id="使用UNION提取数据"><a href="#使用UNION提取数据" class="headerlink" title="使用UNION提取数据"></a>使用UNION提取数据</h2><p>下面我们将分析一个攻击，虽然该攻击针对的是MS-SQL数据库，但它采用的攻击方法适用于所有数据库技术。以用户维护联系人列表及查询和更新联系人信息的通讯录应用程序为例。如果用户在通讯录中搜索名为Matthew的联系人，浏览器将提交以下数据：</p>
-<p><strong>Name= Matthew</strong></p>
+<p><strong>Name&#x3D; Matthew</strong></p>
 <table>
 <thead>
 <tr>
@@ -525,14 +239,14 @@
 </thead>
 <tbody><tr>
 <td>Matthew Adamson</td>
-<td><a href="mailto:handtrick@gmail.com">handtrick@gmail.com</a></td>
+<td><a href="mailto:&#104;&#97;&#x6e;&#x64;&#116;&#x72;&#105;&#99;&#107;&#64;&#103;&#x6d;&#97;&#105;&#108;&#46;&#99;&#111;&#x6d;">&#104;&#97;&#x6e;&#x64;&#116;&#x72;&#105;&#99;&#107;&#64;&#103;&#x6d;&#97;&#105;&#108;&#46;&#99;&#111;&#x6d;</a></td>
 </tr>
 </tbody></table>
 <p>首先，我们需要确定请求的猎术。对单一列进行测试导致了以下错误消息：</p>
-<p><strong>Name=Matthew’%20union%20select%20null–</strong></p>
+<p><strong>Name&#x3D;Matthew’%20union%20select%20null–</strong></p>
 <p>All queries combined using a UNION, INTERSECT or EXCEPT operator must hava an equal number of expressions in their target lists.</p>
 <p>我们添加另一个NULL，并得到同样的错误。于是，我们继续添加NULL， 知道查询被执行，并在结果表中生成另一个数据项，如下所示：</p>
-<p><strong>Name=Matthew’%20union%20select%20null,null,null,null,null–</strong></p>
+<p><strong>Name&#x3D;Matthew’%20union%20select%20null,null,null,null,null–</strong></p>
 <table>
 <thead>
 <tr>
@@ -542,7 +256,7 @@
 </thead>
 <tbody><tr>
 <td>Matthew Adamson</td>
-<td><a href="mailto:handtrick@gmail.com">handtrick@gmail.com</a></td>
+<td><a href="mailto:&#x68;&#x61;&#x6e;&#x64;&#116;&#114;&#105;&#99;&#107;&#64;&#x67;&#x6d;&#x61;&#x69;&#x6c;&#46;&#x63;&#111;&#x6d;">&#x68;&#x61;&#x6e;&#x64;&#116;&#114;&#105;&#99;&#107;&#64;&#x67;&#x6d;&#x61;&#x69;&#x6c;&#46;&#x63;&#111;&#x6d;</a></td>
 </tr>
 <tr>
 <td>[空]</td>
@@ -550,7 +264,7 @@
 </tr>
 </tbody></table>
 <p>我们验证查询的第一列是否包含字符串数据：</p>
-<p><strong>Name=Matthew’%20union%20select%20’a’,null,null,null,null–</strong></p>
+<p><strong>Name&#x3D;Matthew’%20union%20select%20’a’,null,null,null,null–</strong></p>
 <table>
 <thead>
 <tr>
@@ -568,7 +282,7 @@
 </tr>
 </tbody></table>
 <p>接下来，需要查明可能包含有用信息的数据库表和列的名称。为此，我们需要查询元数据表information_schema .columns，其中包含数据库中的所有表和列名称的详细资料。使用以下请求可以检索上述信息：</p>
-<p><strong>Name=Matthew’%20union%20select%20table_name,column_name,null,null,null%20from%20information_schema.columns–</strong></p>
+<p><strong>Name&#x3D;Matthew’%20union%20select%20table_name,column_name,null,null,null%20from%20information_schema.columns–</strong></p>
 <table>
 <thead>
 <tr>
@@ -578,7 +292,7 @@
 </thead>
 <tbody><tr>
 <td>Matthew Adamson</td>
-<td><a href="mailto:handytrick@gmail.com">handytrick@gmail.com</a></td>
+<td><a href="mailto:&#104;&#97;&#110;&#x64;&#121;&#x74;&#x72;&#105;&#99;&#x6b;&#x40;&#103;&#109;&#97;&#x69;&#x6c;&#x2e;&#99;&#x6f;&#x6d;">&#104;&#97;&#110;&#x64;&#121;&#x74;&#x72;&#105;&#99;&#x6b;&#x40;&#103;&#109;&#97;&#x69;&#x6c;&#x2e;&#99;&#x6f;&#x6d;</a></td>
 </tr>
 <tr>
 <td>shop_items</td>
@@ -610,7 +324,7 @@
 </tr>
 </tbody></table>
 <p>从以上结果可以确定，很明显，我们可以同用户表开始提取数据。这是使用以下查询：</p>
-<p><strong>Name=Matthew’%20UNION%20select%20username,password,null,null,null%20from%20users–</strong></p>
+<p><strong>Name&#x3D;Matthew’%20UNION%20select%20username,password,null,null,null%20from%20users–</strong></p>
 <table>
 <thead>
 <tr>
@@ -654,13 +368,13 @@
 <h2 id="避开过滤"><a href="#避开过滤" class="headerlink" title="避开过滤"></a>避开过滤</h2><p>有时，易受SQL注入攻击的应用程序可能会执行各种输入过滤以防止攻击者无限制地利用其中存在的缺陷。例如，应用程序可能会删除或净化某些字符，或阻止常用的SQL关键字。这种过滤通常非常容易避开，这时可尝试使用各种技巧。</p>
 <h3 id="避免使用被阻止的字符"><a href="#避免使用被阻止的字符" class="headerlink" title="避免使用被阻止的字符"></a>避免使用被阻止的字符</h3><p>如果应用程序删除或编码某些在SQL注入攻击中经常用到的字符，不使用这些字符仍然能够实施攻击。</p>
 <ul>
-<li><p>如果要注入数字数据字段或列名称，不一定必须使用单引号。要在攻击有效载荷中插入字符串，不使用引号仍可以做到这一点。这时，可以通过各种字符串函数，使用每个字符的ASCII代码动态构建一个字符串。例如，下面两个查询分别用于Oracle和MS-SQL，它们等同于SELECT ename,sal from emp where ename = ‘marcus’:</p>
-<p><strong>SELECT ename, sal FROM emp where ename=CHR(109)||CHR(97)||CHR(114)||CHR(99)||CHR(117)||CHR(115)</strong></p>
+<li><p>如果要注入数字数据字段或列名称，不一定必须使用单引号。要在攻击有效载荷中插入字符串，不使用引号仍可以做到这一点。这时，可以通过各种字符串函数，使用每个字符的ASCII代码动态构建一个字符串。例如，下面两个查询分别用于Oracle和MS-SQL，它们等同于SELECT ename,sal from emp where ename &#x3D; ‘marcus’:</p>
+<p><strong>SELECT ename, sal FROM emp where ename&#x3D;CHR(109)||CHR(97)||CHR(114)||CHR(99)||CHR(117)||CHR(115)</strong></p>
 </li>
 <li><p>如果注释符号被阻止，通常可以设计注入的数据，使其不会破会周围查询的语法。例如，不用注入</p>
-<p><strong>‘ or 1=1–</strong></p>
+<p><strong>‘ or 1&#x3D;1–</strong></p>
 <p>可以注入</p>
-<p><strong>‘ or ‘a’=’a</strong></p>
+<p><strong>‘ or ‘a’&#x3D;’a</strong></p>
 </li>
 <li><p>在MS-SQL数据库中注入批量查询时，不必使用分号分隔符。只要纠正所有批量查询的语法，无论你是否使用分号，查询解析器都会正确解释他们。</p>
 </li>
@@ -671,30 +385,30 @@
 <p><strong>SELSELECTECT</strong></p>
 <p><strong>%52%45%4c%45%43%54</strong></p>
 <p><strong>%2553%2545%254c%2545%2543%2554%</strong></p>
-<h3 id="使用SQL注释"><a href="#使用SQL注释" class="headerlink" title="使用SQL注释"></a>使用SQL注释</h3><p>与C++一样，我们也可以再SQL语句中插入行内注释，注释内容包含在<strong>/*</strong>与<strong>*/之间</strong>。如果应用程序阻止或删除输入中空格，可以使用注释“冒充注入数据中的空白符。例如：</p>
-<p><strong>SELECT /*foo*/ username,password FR/<em>foo\</em>/OM users</strong></p>
+<h3 id="使用SQL注释"><a href="#使用SQL注释" class="headerlink" title="使用SQL注释"></a>使用SQL注释</h3><p>与C++一样，我们也可以再SQL语句中插入行内注释，注释内容包含在**&#x2F;<em><strong>与</strong></em>&#x2F;之间**。如果应用程序阻止或删除输入中空格，可以使用注释“冒充注入数据中的空白符。例如：</p>
+<p>*<em>SELECT &#x2F;*foo*&#x2F; username,password FR&#x2F;<em>foo*&#x2F;OM users</em></em></p>
 <p>在MySQL语法中，注释甚至可以插入关键字中，这种方法可避开某些输入确认过了，同时保留查询中的语法。例如：</p>
-<p><strong>SEL/*foo*/ECT /*foo*/ username,password FR/<em>foo\</em>/OM users</strong></p>
+<p>*<em>SEL&#x2F;*foo*&#x2F;ECT &#x2F;*foo*&#x2F; username,password FR&#x2F;<em>foo*&#x2F;OM users</em></em></p>
 <h3 id="利用有缺陷的过滤"><a href="#利用有缺陷的过滤" class="headerlink" title="利用有缺陷的过滤"></a>利用有缺陷的过滤</h3><p>输入确认机制通常包含逻辑缺陷，可对这些缺陷加以利用，使被阻止的输入避开过滤。多数情况下，这类攻击会利用应用程序在对多个确认步骤进行排序，或未能以递归方式应用净化逻辑方面的缺陷。</p>
 <h2 id="二阶SQL注入"><a href="#二阶SQL注入" class="headerlink" title="二阶SQL注入"></a>二阶SQL注入</h2><p>一种特别有益的避开过滤的方法与二阶有关。当数据首次插入数据库中时，许多应用程序能够安全处理这些数据。但是，一旦数据存储在数据库中，随后应用程序本身或其他后端进程可能会以危险的方式处理这些数据。许多这类应用程序并不想面向因特网的主要应用程序一样安全，但却拥有较高权限的数据库账户。</p>
 <p>在一些应用程序中，用户输入在到达时通过转义单引号来进行确认。在前面搜索书籍的示例中，这种方法明显有效。当用户输入搜索项O’Reilly时，应用程序执行以下查询：</p>
-<p><strong>SELECT author,title,year FROM books WHERE publisher = ‘O’’Reilly’</strong></p>
+<p><strong>SELECT author,title,year FROM books WHERE publisher &#x3D; ‘O’’Reilly’</strong></p>
 <p>在这个查询中，用户提交的单引号被转换为两个单引号，因而传送给数据库的搜索项与用户最初的输入的表达式具有相同的字符含义。</p>
 <p>与单引号配对方法有关的问题出现在更复杂的情形中，此时同一个数据项被提交给几个SQL查询，然后写入数据库被几次读取。</p>
-<p>回到前面那个允许用户自我注册并且在一个INSERT语句中存在SQL注入漏洞的应用程序。假设开发者将修复出现在用户数据中的所有单引号配对导致的漏洞。注册用户名<strong>foo’</strong>来建立如下查询，他不会在数据库中造成问题：</p>
+<p>回到前面那个允许用户自我注册并且在一个INSERT语句中存在SQL注入漏洞的应用程序。假设开发者将修复出现在用户数据中的所有单引号配对导致的漏洞。注册用户名**foo’**来建立如下查询，他不会在数据库中造成问题：</p>
 <p><strong>INSERT INTO users (username, password, ID,privs) VALUES(‘foo’’’, ‘secret’, 2248, 1)</strong></p>
 <p>目前为止，一切正常。然而，假设应用程序还执行密码修改功能，那么只有通过验证的用户才能访问这项功能，而且为了加强保护，应用程序要求用户提供原始密码。然后应用程序从数据库中提取用户的当前密码，并对两个字符串进行比较，核对用户提供的密码是否正确。要完成核对任务，它首先要从数据库中提取用户的用户名，然后建立如下查询：</p>
-<p><strong>SELECT password FROM users WHERE username = ‘foo’’</strong></p>
+<p><strong>SELECT password FROM users WHERE username &#x3D; ‘foo’’</strong></p>
 <p>因为保存在数据库中的用户名是字面量字符串foo’，当应用程序提出访问要求时，数据库即返回这个值；只有在字符串被传送给数据库时才使用配对的转义序列。因此，当应用程序重复使用这个字符串并将它嵌入到另一个查询中时，就会造成一个SQL注入漏洞，用户最初的恶意输入就被嵌入到查询中。当用户尝试修改密码时，应用程序返回以下消息，暴露了上述缺陷：</p>
 <p><strong>Unclosed quotation mark before the character string ‘foo</strong></p>
 <p>要利用这种漏洞，攻击者值需注册一个包含专门设计的输入用户名，然后尝试修改密码。例如，如果注册如下用户名：</p>
-<p><strong>‘ or 1 in (select password from users where username = ‘admin’)–</strong></p>
+<p><strong>‘ or 1 in (select password from users where username &#x3D; ‘admin’)–</strong></p>
 <p>注册步骤将会被应用程序安全处理。如果攻击者尝试修改密码，他注入的查询就会执行，导致生成以下消息，泄露管理员的密码：</p>
 <p><strong>Microsoft OLE DB Provider for ODBC Drivers error ‘80040e07’</strong></p>
 <p><strong>Microsoft ODBC SQL Server Driver SQL Server Systax error converting</strong></p>
-<p>*<em>the varchar value ‘fme69’ to a column of data type int *</em></p>
+<p>**the varchar value ‘fme69’ to a column of data type int **</p>
 <p>攻击者已经成功避开旨在阻止SQL注入攻击的输入确认，现在他能够在数据库中执行任意查询并获得查询结果。</p>
-<h2 id="高级利用"><a href="#高级利用" class="headerlink" title="高级利用"></a>高级利用</h2><p>应用程序所有者应该意识到，并非所有攻击都旨在盗窃敏感数据。一些攻击可能更具破坏性，例如，仅仅提交12个字符的输入，攻击者就能够给使用关闭命令（shutdown`）关闭一个MS-SQL数据库。</p>
+<h2 id="高级利用"><a href="#高级利用" class="headerlink" title="高级利用"></a>高级利用</h2><p>应用程序所有者应该意识到，并非所有攻击都旨在盗窃敏感数据。一些攻击可能更具破坏性，例如，仅仅提交12个字符的输入，攻击者就能够给使用关闭命令（shutdown&#96;）关闭一个MS-SQL数据库。</p>
 <p><strong>‘ shutdown–</strong></p>
 <p>攻击者还可以注入恶意命令，如下面这些命令可删除一些数据库表：</p>
 <p><strong>‘ drop table users–</strong></p>
@@ -714,11 +428,11 @@
 <p>使用者两个函数，可以系统地将一个有用数据的字符串分割成单个的字符，并以数字形式分别返回每一个字符。在自定义攻击中，可以利用这种技巧，以一次一个字节的速度，迅速获得并重建大量基于字符串的数据。</p>
 <h3 id="使用带外通道"><a href="#使用带外通道" class="headerlink" title="使用带外通道"></a>使用带外通道</h3><p>在许多SQL注入攻击中，应用程序并不在用户的浏览器中显示注入查询的结果，也不返回数据库生成的任何错误消息。很明显，在这种情况下，即使一个SQL注入漏洞确实存在，攻击者也无法对其加以利用，提取任意数据或执行任何其他操作。但是，这种想法是错误的，及时出现这种情况，仍然可以使用各种技巧获取数据、确认其他恶意操作是否取得成功。</p>
 <p>许多时候，可以注入一个任意查询，但却无法获得查询结果。回到那个易受攻击的登录表单，它的用户名和密码字段易于遭受SQL注入：</p>
-<p><strong>SELECT * FROM  users WHERE username = ‘marcus’ and password = ‘secret’</strong></p>
+<p><strong>SELECT * FROM  users WHERE username &#x3D; ‘marcus’ and password &#x3D; ‘secret’</strong></p>
 <p>除了修改查询逻辑以避开登录外，还可以注入一个完全独立的子查询，使用字符串连接符把这个子查询的结果与控制的数据项连接起来。例如：</p>
-<p><strong>foo’ || (SELECT 1 FROM dual WHERE (SELECT username FROM all_users WHERE username=’SBSNMP’) = ‘DBSNMP’)–</strong></p>
+<p><strong>foo’ || (SELECT 1 FROM dual WHERE (SELECT username FROM all_users WHERE username&#x3D;’SBSNMP’) &#x3D; ‘DBSNMP’)–</strong></p>
 <p>应用程序将执行以下查询：</p>
-<p><strong>SELECT * FROM users WHERE username = ‘foo’ || (SELECT 1 FROM dual WHERE (SELECT username FROM all_users WHERE username = ‘DBSNMP’) = ‘DBSNMP’)</strong></p>
+<p><strong>SELECT * FROM users WHERE username &#x3D; ‘foo’ || (SELECT 1 FROM dual WHERE (SELECT username FROM all_users WHERE username &#x3D; ‘DBSNMP’) &#x3D; ‘DBSNMP’)</strong></p>
 <p>数据库将执行注入的任何子查询，并将它的结果附加在foo之后，然后查找所生成用户名的资料。当然，这种登录不会成功，但会执行注入的查询。在应用程序响应中受到的只是标准的登录失败消息。现在需要想办法获得注入查询的结果。</p>
 <p> 如果能对MS-SQL数据库使用批量查询，这时就会出现另一种情形。批量查询特别有用，因为它们允许执行一个完全独立的语句，在这个过程中，渗透测试员拥有全部的控制权，可以使用另外的SQL语句并针对不同的表进行查询。但是，因为批量查询执行查询的方式比较特殊，我们无法直接获得注入查询的执行结果，同样需要想办法获得注入查询的结果。</p>
 <p>在这种情况下，一种获取数据的有效方法是使用带外通道。能够在数据库中执行任意SQL语句后，渗透测试员往往可以利用数据库的一些内置功能在护具库与自己的计算机之间建立网络连接，通过它传送从数据库中收集到的任何数据。</p>
@@ -764,714 +478,155 @@
 
       
     </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-        <div class="post-tags">
-          
-            <a href="/tags/SQL/" rel="tag"># SQL</a>
-          
-            <a href="/tags/%E5%AE%89%E5%85%A8/" rel="tag"># 安全</a>
-          
-            <a href="/tags/Web/" rel="tag"># Web</a>
-          
-            <a href="/tags/%E6%B3%A8%E5%85%A5/" rel="tag"># 注入</a>
-          
-        </div>
-      
-
+    <footer class="article-footer">
+      <a data-url="http://huhansi.com/2019/03/23/%E5%AE%89%E5%85%A8/Web%E5%AE%89%E5%85%A8/4-2%E6%B3%A8%E5%85%A5SQL/" data-id="cl541ftkk029r5srwhnjz87q4" data-title="注入sql" class="article-share-link">Share</a>
       
       
       
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/SQL/" rel="tag">SQL</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Web/" rel="tag">Web</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%AE%89%E5%85%A8/" rel="tag">安全</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%B3%A8%E5%85%A5/" rel="tag">注入</a></li></ul>
 
-      
-        <div class="post-nav">
-          <div class="post-nav-next post-nav-item">
-            
-              <a href="/2019/03/22/%E5%AE%89%E5%85%A8/Web%E5%AE%89%E5%85%A8/4-1%E6%B3%A8%E5%85%A5%E8%A7%A3%E9%87%8A%E6%80%A7%E8%AF%AD%E8%A8%80/" rel="next" title="注入解释型语言">
-                <i class="fa fa-chevron-left"></i> 注入解释型语言
-              </a>
-            
-          </div>
-
-          <span class="post-nav-divider"></span>
-
-          <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2019/03/24/%E5%AE%89%E5%85%A8/Web%E5%AE%89%E5%85%A8/4-3%E6%B3%A8%E5%85%A5NoSQL/" rel="prev" title="注入NoSql">
-                注入NoSql <i class="fa fa-chevron-right"></i>
-              </a>
-            
-          </div>
-        </div>
-      
-
-      
-      
     </footer>
   </div>
   
-  
-  
-  </article>
-
-
-
-    <div class="post-spread">
-      
-    </div>
-  </div>
-
-
-          </div>
-          
-
-
-          
-
-  
-
-
-
-        </div>
-        
-          
-  
-  <div class="sidebar-toggle">
-    <div class="sidebar-toggle-line-wrap">
-      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
-      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
-      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
-    </div>
-  </div>
-
-  <aside id="sidebar" class="sidebar">
     
-    <div class="sidebar-inner">
+<nav id="article-nav">
+  
+    <a href="/2019/03/24/%E5%AE%89%E5%85%A8/Web%E5%AE%89%E5%85%A8/4-3%E6%B3%A8%E5%85%A5NoSQL/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          注入NoSql
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2019/03/22/%E5%AE%89%E5%85%A8/Web%E5%AE%89%E5%85%A8/4-1%E6%B3%A8%E5%85%A5%E8%A7%A3%E9%87%8A%E6%80%A7%E8%AF%AD%E8%A8%80/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">注入解释型语言</div>
+    </a>
+  
+</nav>
 
-      
+  
+</article>
 
-      
-        <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
-            Table of Contents
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/CAS/">CAS</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Dubbo/">Dubbo</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Guava/">Guava</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/JVM/">JVM</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Java/">Java</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/MySQL/">MySQL</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Redis/">Redis</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Spring-Cloud/">Spring Cloud</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Spring-Cloud-Gateway/">Spring Cloud Gateway</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Web%E5%AE%89%E5%85%A8/">Web安全</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/java-NIO/">java NIO</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/java%E5%A4%9A%E7%BA%BF%E7%A8%8B%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/">java多线程设计模式</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/leetcode/">leetcode</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/linux/">linux</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/python%E5%AD%A6%E4%B9%A0/">python学习</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/python%E7%88%AC%E8%99%AB/">python爬虫</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/redis/">redis</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%88%86%E5%B8%83%E5%BC%8F/">分布式</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%A4%9A%E7%BA%BF%E7%A8%8B/">多线程</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%AE%89%E5%85%A8/">安全</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%AE%98%E6%96%B9%E6%96%87%E6%A1%A3%E7%BF%BB%E8%AF%91/">官方文档翻译</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%BA%90%E7%A0%81/">源码</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%BA%90%E7%A0%81/%E5%A4%9A%E7%BA%BF%E7%A8%8B/">多线程</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%BA%90%E7%A0%81/%E5%A4%9A%E7%BA%BF%E7%A8%8B/CAS/">CAS</a></li></ul></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%AE%97%E6%B3%95/">算法</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/">设计模式</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/ACID/" rel="tag">ACID</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/AJAX/" rel="tag">AJAX</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/AQS/" rel="tag">AQS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/AbstractQueuedSynchronizer/" rel="tag">AbstractQueuedSynchronizer</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Abuse-case/" rel="tag">Abuse case</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Access-Control/" rel="tag">Access Control</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Active-Object%E6%A8%A1%E5%BC%8F/" rel="tag">Active Object模式</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ArrayBlockingQueue/" rel="tag">ArrayBlockingQueue</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ArrayList/" rel="tag">ArrayList</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Arrays/" rel="tag">Arrays</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Arrrays/" rel="tag">Arrrays</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Arthas/" rel="tag">Arthas</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/AtomicBoolean/" rel="tag">AtomicBoolean</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/AtomicInteger/" rel="tag">AtomicInteger</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/AtomicIntegerArray/" rel="tag">AtomicIntegerArray</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/AtomicIntegerFieldUpdater/" rel="tag">AtomicIntegerFieldUpdater</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/AtomicLong/" rel="tag">AtomicLong</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/AtomicLongArray/" rel="tag">AtomicLongArray</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/AtomicLongFieldUpdater/" rel="tag">AtomicLongFieldUpdater</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/AtomicMarkableReference/" rel="tag">AtomicMarkableReference</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/AtomicReference/" rel="tag">AtomicReference</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/AtomicReferenceArray/" rel="tag">AtomicReferenceArray</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/AtomicReferenceFieldUpdater/" rel="tag">AtomicReferenceFieldUpdater</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/AtomicStampedReference/" rel="tag">AtomicStampedReference</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/B-Tree/" rel="tag">B-Tree</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/BASE/" rel="tag">BASE</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Balking-%E6%A8%A1%E5%BC%8F/" rel="tag">Balking 模式</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Bash/" rel="tag">Bash</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/BlockingQueue/" rel="tag">BlockingQueue</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CAP/" rel="tag">CAP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CAS/" rel="tag">CAS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CMS/" rel="tag">CMS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/COW/" rel="tag">COW</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Callable/" rel="tag">Callable</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CharMatcher/" rel="tag">CharMatcher</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ClassLoader/" rel="tag">ClassLoader</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CompletableFuture/" rel="tag">CompletableFuture</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Concurrent-Mark-Sweep/" rel="tag">Concurrent Mark Sweep</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ConcurrentHashMap/" rel="tag">ConcurrentHashMap</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ConcurrentLinkedQueue/" rel="tag">ConcurrentLinkedQueue</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Condition/" rel="tag">Condition</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Consul/" rel="tag">Consul</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CopyOnWriteArrayList/" rel="tag">CopyOnWriteArrayList</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CopyOnWriteArraySet/" rel="tag">CopyOnWriteArraySet</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CountDownLatch/" rel="tag">CountDownLatch</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CyclicBarrier/" rel="tag">CyclicBarrier</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DTS/" rel="tag">DTS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DelayQueue/" rel="tag">DelayQueue</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DoubleAccumulator/" rel="tag">DoubleAccumulator</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DoubleAdder/" rel="tag">DoubleAdder</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Etcd/" rel="tag">Etcd</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Eureka/" rel="tag">Eureka</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Feign/" rel="tag">Feign</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Fibonacci/" rel="tag">Fibonacci</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/FullGC/" rel="tag">FullGC</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Future/" rel="tag">Future</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/FutureTask/" rel="tag">FutureTask</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Future%E6%A8%A1%E5%BC%8F/" rel="tag">Future模式</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/G1/" rel="tag">G1</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Garbage-First/" rel="tag">Garbage First</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Gossip/" rel="tag">Gossip</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Guarded-Suspension-%E6%A8%A1%E5%BC%8F/" rel="tag">Guarded Suspension 模式</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Guava/" rel="tag">Guava</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HTTP/" rel="tag">HTTP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HTTP%E8%AF%B7%E6%B1%82/" rel="tag">HTTP请求</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hash/" rel="tag">Hash</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HashMap/" rel="tag">HashMap</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HashSet/" rel="tag">HashSet</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hystrix/" rel="tag">Hystrix</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/IO%E5%A4%8D%E7%94%A8/" rel="tag">IO复用</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Immutable-%E6%A8%A1%E5%BC%8F/" rel="tag">Immutable 模式</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JVM/" rel="tag">JVM</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java/" rel="tag">Java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Joiner/" rel="tag">Joiner</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Kafka/" rel="tag">Kafka</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/LDAP/" rel="tag">LDAP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/LinkedBlockingQueue/" rel="tag">LinkedBlockingQueue</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/LinkedList/" rel="tag">LinkedList</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/List/" rel="tag">List</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Lock/" rel="tag">Lock</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/LockSupport/" rel="tag">LockSupport</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/LongAccumulator/" rel="tag">LongAccumulator</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/LongAdder/" rel="tag">LongAdder</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MQ%E4%BA%8B%E5%8A%A1/" rel="tag">MQ事务</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Math/" rel="tag">Math</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Maven/" rel="tag">Maven</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MySQL/" rel="tag">MySQL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/NIO/" rel="tag">NIO</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/NoSql/" rel="tag">NoSql</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/N%E5%8F%89%E6%A0%91/" rel="tag">N叉树</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/PriotityBlockingQueue/" rel="tag">PriotityBlockingQueue</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Producer-Consumer-%E6%A8%A1%E5%BC%8F/" rel="tag">Producer-Consumer 模式</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/PutLock/" rel="tag">PutLock</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Queue/" rel="tag">Queue</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RAFT/" rel="tag">RAFT</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RPC/" rel="tag">RPC</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RabbitMQ/" rel="tag">RabbitMQ</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Random/" rel="tag">Random</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Read-Write-Lock-%E6%A8%A1%E5%BC%8F/" rel="tag">Read-Write Lock 模式</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RedLock/" rel="tag">RedLock</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Redis/" rel="tag">Redis</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Redission/" rel="tag">Redission</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ReentrantLock/" rel="tag">ReentrantLock</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ReentrantReadWriteLock/" rel="tag">ReentrantReadWriteLock</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SQL/" rel="tag">SQL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Saga%E4%BA%8B%E5%8A%A1/" rel="tag">Saga事务</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Semaphore/" rel="tag">Semaphore</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Set/" rel="tag">Set</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Single-Threaded-Execution%E6%A8%A1%E5%BC%8F/" rel="tag">Single Threaded Execution模式</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SnowFlake/" rel="tag">SnowFlake</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Sorted-Set/" rel="tag">Sorted Set</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Spliter/" rel="tag">Spliter</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Spring/" rel="tag">Spring</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Spring-Cloud/" rel="tag">Spring Cloud</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Spring-Cloud-Gateway/" rel="tag">Spring Cloud Gateway</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Spring-Cloud-Stream/" rel="tag">Spring Cloud Stream</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Stack/" rel="tag">Stack</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/StampedLock/" rel="tag">StampedLock</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Stream/" rel="tag">Stream</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/String/" rel="tag">String</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Strings/" rel="tag">Strings</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Striped64/" rel="tag">Striped64</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SynchronousQueue/" rel="tag">SynchronousQueue</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/TCC/" rel="tag">TCC</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/TakeLock/" rel="tag">TakeLock</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Thread-Per-Message-%E6%A8%A1%E5%BC%8F/" rel="tag">Thread-Per-Message 模式</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Thread-Specific-Storage%E6%A8%A1%E5%BC%8F/" rel="tag">Thread-Specific-Storage模式</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ThreadLocal/" rel="tag">ThreadLocal</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ThreadLocalRandom/" rel="tag">ThreadLocalRandom</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ThreadPoolExecutor/" rel="tag">ThreadPoolExecutor</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Tree/" rel="tag">Tree</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Two-Phase-Termination%E6%A8%A1%E5%BC%8F/" rel="tag">Two-Phase-Termination模式</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/UnSave/" rel="tag">UnSave</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Web/" rel="tag">Web</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Worker-Thread-%E6%A8%A1%E5%BC%8F/" rel="tag">Worker Thread 模式</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/XA/" rel="tag">XA</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/XML/" rel="tag">XML</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/XPath/" rel="tag">XPath</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/XSS%E6%94%BB%E5%87%BB/" rel="tag">XSS攻击</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Zookeeper/" rel="tag">Zookeeper</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/cglib/" rel="tag">cglib</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/cross-join/" rel="tag">cross join</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/dfs/" rel="tag">dfs</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/dubbo/" rel="tag">dubbo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/epoll/" rel="tag">epoll</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/equals/" rel="tag">equals</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/full-outter-join/" rel="tag">full outter join</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hashCode/" rel="tag">hashCode</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/inner-join/" rel="tag">inner join</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/java/" rel="tag">java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/jmap/" rel="tag">jmap</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/join/" rel="tag">join</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/jps/" rel="tag">jps</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/jstack/" rel="tag">jstack</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/jstat/" rel="tag">jstat</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/leetcode/" rel="tag">leetcode</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/left-join/" rel="tag">left join</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux/" rel="tag">linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/list/" rel="tag">list</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/math/" rel="tag">math</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mathng/" rel="tag">mathng</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/paxos/" rel="tag">paxos</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/poll/" rel="tag">poll</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python/" rel="tag">python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python3-%E8%AF%AD%E6%B3%95/" rel="tag">python3 语法</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/redis/" rel="tag">redis</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/right-join/" rel="tag">right join</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/select/" rel="tag">select</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/self-join/" rel="tag">self join</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/set/" rel="tag">set</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/synchronized/" rel="tag">synchronized</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/transaction/" rel="tag">transaction</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/union/" rel="tag">union</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/union-all/" rel="tag">union all</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/zuul/" rel="tag">zuul</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%B8%89%E9%98%B6%E6%AE%B5%E6%8F%90%E4%BA%A4/" rel="tag">三阶段提交</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%B8%A4%E9%98%B6%E6%AE%B5%E6%8F%90%E4%BA%A4/" rel="tag">两阶段提交</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%B8%AD%E4%BB%8B%E8%80%85%E6%A8%A1%E5%BC%8F/" rel="tag">中介者模式</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%B8%AD%E4%BD%8D%E6%95%B0/" rel="tag">中位数</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%B8%AD%E5%BA%8F%E9%81%8D%E5%8E%86/" rel="tag">中序遍历</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%B8%B2%E8%A1%8C%E5%8C%96/" rel="tag">串行化</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%B8%BB%E4%BB%8E/" rel="tag">主从</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%BA%8B%E5%8A%A1/" rel="tag">事务</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%BA%8C%E5%88%86%E6%90%9C%E7%B4%A2/" rel="tag">二分搜索</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE/" rel="tag">二分查找</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91/" rel="tag">二叉搜索树</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%BA%8C%E5%8F%89%E6%A0%91/" rel="tag">二叉树</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%BA%8C%E8%BF%9B%E5%88%B6/" rel="tag">二进制</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%BA%AB%E5%85%83%E6%A8%A1%E5%BC%8F/" rel="tag">享元模式</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%BB%A3%E7%90%86/" rel="tag">代理</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%BB%A3%E7%90%86%E6%A8%A1%E5%BC%8F/" rel="tag">代理模式</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%BC%97%E6%95%B0/" rel="tag">众数</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%BC%9A%E8%AF%9D/" rel="tag">会话</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%BD%8D%E8%BF%90%E7%AE%97/" rel="tag">位运算</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%BE%9D%E8%B5%96%E4%BC%A0%E9%80%92/" rel="tag">依赖传递</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%85%83%E7%BB%84/" rel="tag">元组</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%85%A5%E9%97%A8/" rel="tag">入门</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%85%A8%E6%96%87%E7%B4%A2%E5%BC%95/" rel="tag">全文索引</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%86%85%E5%AD%98%E5%8C%BA%E5%9F%9F/" rel="tag">内存区域</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%86%85%E5%AD%98%E6%A8%A1%E5%9E%8B/" rel="tag">内存模型</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%86%99%E6%97%B6%E5%A4%8D%E5%88%B6/" rel="tag">写时复制</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%88%86%E4%BB%A3%E6%94%B6%E9%9B%86/" rel="tag">分代收集</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%88%86%E5%8C%BA/" rel="tag">分区</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%88%86%E5%B8%83%E5%BC%8FID/" rel="tag">分布式ID</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%88%86%E5%B8%83%E5%BC%8F%E4%BA%8B%E5%8A%A1/" rel="tag">分布式事务</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%88%86%E5%B8%83%E5%BC%8F%E7%BC%93%E5%AD%98/" rel="tag">分布式缓存</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81/" rel="tag">分布式锁</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%88%86%E5%BC%8F%E5%8C%96%E7%AE%80/" rel="tag">分式化简</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%89%8D%E5%BA%8F%E9%81%8D%E5%8E%86/" rel="tag">前序遍历</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%89%8D%E7%BC%80%E7%B4%A2%E5%BC%95/" rel="tag">前缀索引</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8A%A0%E6%B3%95/" rel="tag">加法</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8A%A8%E6%80%81%E4%BB%A3%E7%90%86/" rel="tag">动态代理</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/" rel="tag">动态规划</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8C%85%E5%86%B2%E7%AA%81/" rel="tag">包冲突</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F/" rel="tag">单例模式</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8E%8B%E7%BC%A9/" rel="tag">压缩</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8E%9F%E5%9E%8B%E6%A8%A1%E5%BC%8F/" rel="tag">原型模式</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8F%8C%E4%BA%B2%E5%A7%94%E6%B4%BE/" rel="tag">双亲委派</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8F%8C%E6%8C%87%E9%92%88/" rel="tag">双指针</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8F%8D%E5%B0%84/" rel="tag">反射</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8F%AF%E9%87%8D%E5%A4%8D%E8%AF%BB/" rel="tag">可重复读</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%90%88%E5%B9%B6/" rel="tag">合并</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%90%8C%E6%AD%A5/" rel="tag">同步</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%90%8E%E5%BA%8F%E9%81%8D%E5%8E%86/" rel="tag">后序遍历</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%91%BD%E4%BB%A4%E6%A8%A1%E5%BC%8F/" rel="tag">命令模式</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%93%88%E5%B8%8C/" rel="tag">哈希</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%93%88%E5%B8%8C%E7%B4%A2%E5%BC%95/" rel="tag">哈希索引</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%93%88%E5%B8%8C%E8%A1%A8/" rel="tag">哈希表</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%93%A8%E5%85%B5/" rel="tag">哨兵</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%9B%9E%E6%94%B6/" rel="tag">回收</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%9B%9E%E6%96%87/" rel="tag">回文</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6%E5%99%A8/" rel="tag">垃圾回收器</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6%E7%AE%97%E6%B3%95/" rel="tag">垃圾回收算法</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%A0%86/" rel="tag">堆</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%A0%86%E6%8E%92%E5%BA%8F/" rel="tag">堆排序</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%A4%87%E5%BF%98%E5%BD%95%E6%A8%A1%E5%BC%8F/" rel="tag">备忘录模式</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%A4%96%E8%A7%82%E6%A8%A1%E5%BC%8F/" rel="tag">外观模式</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%A4%9A%E7%BA%BF%E7%A8%8B/" rel="tag">多线程</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%AD%90%E5%AD%97%E7%AC%A6%E4%B8%B2/" rel="tag">子字符串</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%AD%90%E5%BA%8F%E5%88%97/" rel="tag">子序列</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%AD%90%E6%95%B0%E7%BB%84/" rel="tag">子数组</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%AD%90%E9%9B%86/" rel="tag">子集</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%AD%97%E5%85%B8/" rel="tag">字典</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2/" rel="tag">字符串</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2%E7%BF%BB%E8%BD%AC/" rel="tag">字符串翻转</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%AE%89%E5%85%A8/" rel="tag">安全</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%AE%98%E6%96%B9%E6%96%87%E6%A1%A3/" rel="tag">官方文档</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%AE%B9%E9%94%99/" rel="tag">容错</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%B1%82%E6%AC%A1%E9%81%8D%E5%8E%86/" rel="tag">层次遍历</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%B7%A5%E5%8E%82%E6%A8%A1%E5%BC%8F/" rel="tag">工厂模式</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%B8%83%E9%9A%86%E8%BF%87%E6%BB%A4%E5%99%A8/" rel="tag">布隆过滤器</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%B9%B3%E8%A1%A1%E4%BA%8C%E5%8F%89%E6%A0%91/" rel="tag">平衡二叉树</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%B9%B6%E5%8F%91/" rel="tag">并发</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%BB%BA%E9%80%A0%E8%80%85%E6%A8%A1%E5%BC%8F/" rel="tag">建造者模式</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%BC%82%E6%AD%A5/" rel="tag">异步</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%BC%95%E7%94%A8/" rel="tag">引用</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%BE%AA%E7%8E%AF%E9%98%9F%E5%88%97/" rel="tag">循环队列</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%BE%AE%E6%9C%8D%E5%8A%A1/" rel="tag">微服务</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84/" rel="tag">微服务架构</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%BF%AB%E4%B9%90%E6%95%B0/" rel="tag">快乐数</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%BF%AB%E9%80%9F%E6%8E%92%E5%BA%8F/" rel="tag">快速排序</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%8A%BD%E8%B1%A1%E5%B7%A5%E5%8E%82%E6%A8%A1%E5%BC%8F/" rel="tag">抽象工厂模式</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%8E%92%E5%88%97/" rel="tag">排列</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%8E%92%E5%BA%8F/" rel="tag">排序</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%90%9C%E7%B4%A2/" rel="tag">搜索</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%91%A9%E5%B0%94%E6%8A%95%E7%A5%A8/" rel="tag">摩尔投票</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E5%91%BD%E4%BB%A4/" rel="tag">操作系统命令</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%95%B0%E6%8D%AE%E5%AD%98%E5%82%A8/" rel="tag">数据存储</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" rel="tag">数据结构</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%95%B0%E7%8B%AC/" rel="tag">数独</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%95%B0%E7%BB%84/" rel="tag">数组</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%96%87%E4%BB%B6%E8%B7%AF%E5%BE%84/" rel="tag">文件路径</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%96%90%E6%B3%A2%E9%82%A3%E5%A5%91/" rel="tag">斐波那契</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%96%90%E6%B3%A2%E9%82%A3%E5%A5%91%E6%95%B0/" rel="tag">斐波那契数</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%97%A5%E6%9C%9F/" rel="tag">日期</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%9C%80%E5%B7%A6%E5%89%8D%E7%BC%80/" rel="tag">最左前缀</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%9C%80%E9%95%BF%E5%85%AC%E5%85%B1%E5%89%8D%E7%BC%80/" rel="tag">最长公共前缀</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%9C%89%E5%BA%8F/" rel="tag">有序</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%9C%8D%E5%8A%A1%E4%B8%B2%E8%81%94%E6%A8%A1%E5%BC%8F/" rel="tag">服务串联模式</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%9C%8D%E5%8A%A1%E4%BB%A3%E7%90%86%E6%A8%A1%E5%BC%8F/" rel="tag">服务代理模式</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%9C%8D%E5%8A%A1%E5%85%B1%E4%BA%AB%E6%95%B0%E6%8D%AE%E6%A8%A1%E5%BC%8F/" rel="tag">服务共享数据模式</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%9C%8D%E5%8A%A1%E5%88%86%E6%94%AF%E6%A8%A1%E5%BC%8F/" rel="tag">服务分支模式</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%9C%8D%E5%8A%A1%E5%8F%91%E7%8E%B0/" rel="tag">服务发现</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%9C%8D%E5%8A%A1%E5%BC%82%E6%AD%A5%E6%B6%88%E6%81%AF%E6%A8%A1%E5%BC%8F/" rel="tag">服务异步消息模式</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%9C%8D%E5%8A%A1%E6%B2%BB%E7%90%86/" rel="tag">服务治理</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%9C%8D%E5%8A%A1%E8%81%9A%E5%90%88%E6%A8%A1%E5%BC%8F/" rel="tag">服务聚合模式</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%9C%AC%E5%9C%B0%E6%B6%88%E6%81%AF%E8%A1%A8/" rel="tag">本地消息表</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%9D%A8%E8%BE%89%E4%B8%89%E8%A7%92/" rel="tag">杨辉三角</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%9E%B6%E6%9E%84/" rel="tag">架构</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%A0%87%E8%AE%B0-%E5%A4%8D%E5%88%B6/" rel="tag">标记-复制</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%A0%87%E8%AE%B0-%E6%95%B4%E7%90%86/" rel="tag">标记-整理</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%A0%87%E8%AE%B0-%E6%B8%85%E9%99%A4/" rel="tag">标记-清除</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%A0%88/" rel="tag">栈</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%A0%91/" rel="tag">树</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%A1%A5%E6%8E%A5%E6%A8%A1%E5%BC%8F/" rel="tag">桥接模式</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%A1%B6%E6%8E%92%E5%BA%8F/" rel="tag">桶排序</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%A8%A1%E6%9D%BF%E6%A8%A1%E5%BC%8F/" rel="tag">模板模式</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%AD%BB%E9%94%81/" rel="tag">死锁</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%B1%89%E8%AF%BA%E5%A1%94/" rel="tag">汉诺塔</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%B3%A8%E5%85%A5/" rel="tag">注入</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%B3%A8%E8%A7%A3/" rel="tag">注解</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%B7%B1%E5%BA%A6%E4%BC%98%E5%85%88%E6%90%9C%E7%B4%A2/" rel="tag">深度优先搜索</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%BA%90%E7%A0%81/" rel="tag">源码</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%BB%91%E5%8A%A8%E7%AA%97%E5%8F%A3/" rel="tag">滑动窗口</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%86%94%E6%96%AD/" rel="tag">熔断</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%88%AC%E8%99%AB/" rel="tag">爬虫</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%89%9B%E9%A1%BF%E8%BF%AD%E4%BB%A3%E6%B3%95/" rel="tag">牛顿迭代法</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%8A%B6%E6%80%81%E6%A8%A1%E5%BC%8F/" rel="tag">状态模式</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%8E%AF%E5%BD%A2/" rel="tag">环形</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%94%B5%E5%AD%90%E9%82%AE%E4%BB%B6/" rel="tag">电子邮件</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%9F%A9%E9%98%B5/" rel="tag">矩阵</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%AD%96%E7%95%A5%E6%A8%A1%E5%BC%8F/" rel="tag">策略模式</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%AE%97%E6%B3%95/" rel="tag">算法</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%AE%97%E6%B3%95%E9%A2%98/" rel="tag">算法题</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%B1%BB%E5%8A%A0%E8%BD%BD%E6%A8%A1%E5%9E%8B/" rel="tag">类加载模型</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%B4%A2%E5%BC%95/" rel="tag">索引</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%B4%A2%E5%BC%95%E4%BC%98%E5%8C%96/" rel="tag">索引优化</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%BA%BF%E7%A8%8B/" rel="tag">线程</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%BA%BF%E7%A8%8B%E6%B1%A0/" rel="tag">线程池</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%BB%84%E5%90%88%E6%A8%A1%E5%BC%8F/" rel="tag">组合模式</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%BC%93%E5%AD%98%E7%A9%BF%E9%80%8F/" rel="tag">缓存穿透</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%BC%93%E5%AD%98%E9%9B%AA%E5%B4%A9/" rel="tag">缓存雪崩</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%BC%93%E5%AD%98%E9%A2%84%E7%83%AD/" rel="tag">缓存预热</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%BF%BB%E8%AF%91/" rel="tag">翻译</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%BF%BB%E8%BD%AC/" rel="tag">翻转</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%81%9A%E7%B0%87%E7%B4%A2%E5%BC%95/" rel="tag">聚簇索引</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%8A%82%E7%82%B9/" rel="tag">节点</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%99%9A%E6%8B%9F%E6%9C%BA/" rel="tag">虚拟机</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%A3%85%E9%A5%B0%E5%99%A8%E6%A8%A1%E5%BC%8F/" rel="tag">装饰器模式</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%A7%82%E5%AF%9F%E8%80%85%E6%A8%A1%E5%BC%8F/" rel="tag">观察者模式</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%A7%A3%E9%87%8A%E5%99%A8%E6%A8%A1%E5%BC%8F/" rel="tag">解释器模式</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%A7%A3%E9%87%8A%E6%80%A7%E8%AF%AD%E8%A8%80/" rel="tag">解释性语言</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%AE%BE%E8%AE%A1/" rel="tag">设计</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" rel="tag">设计模式</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%AE%BF%E9%97%AE%E6%8E%A7%E5%88%B6/" rel="tag">访问控制</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%AE%BF%E9%97%AE%E8%80%85%E6%A8%A1%E5%BC%8F/" rel="tag">访问者模式</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%AF%BB%E6%8F%90%E4%BA%A4/" rel="tag">读提交</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%AF%BB%E6%9C%AA%E6%8F%90%E4%BA%A4/" rel="tag">读未提交</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%B4%A3%E4%BB%BB%E9%93%BE%E6%A8%A1%E5%BC%8F/" rel="tag">责任链模式</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%B4%AA%E5%BF%83/" rel="tag">贪心</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%BF%AD%E4%BB%A3/" rel="tag">迭代</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%BF%AD%E4%BB%A3%E5%99%A8%E6%A8%A1%E5%BC%8F/" rel="tag">迭代器模式</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%80%82%E9%85%8D%E5%99%A8%E6%A8%A1%E5%BC%8F/" rel="tag">适配器模式</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%80%92%E5%BD%92/" rel="tag">递归</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%80%BB%E8%BE%91/" rel="tag">逻辑</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%80%BB%E8%BE%91%E8%BF%90%E7%AE%97/" rel="tag">逻辑运算</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%93%BE%E8%A1%A8/" rel="tag">链表</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%94%81/" rel="tag">锁</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%98%9F%E5%88%97/" rel="tag">队列</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%98%B6%E4%B9%98/" rel="tag">阶乘</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%98%BB%E5%A1%9E/" rel="tag">阻塞</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%99%8D%E7%BA%A7/" rel="tag">降级</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%99%90%E6%B5%81/" rel="tag">限流</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%9A%94%E7%A6%BB%E7%BA%A7%E5%88%AB/" rel="tag">隔离级别</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%9B%86%E5%90%88/" rel="tag">集合</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%9B%86%E7%BE%A4/" rel="tag">集群</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%9D%99%E6%80%81%E4%BB%A3%E7%90%86/" rel="tag">静态代理</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%9D%9E%E9%98%BB%E5%A1%9E/" rel="tag">非阻塞</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%AA%8C%E8%AF%81/" rel="tag">验证</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/ACID/" style="font-size: 10.32px;">ACID</a> <a href="/tags/AJAX/" style="font-size: 10px;">AJAX</a> <a href="/tags/AQS/" style="font-size: 10px;">AQS</a> <a href="/tags/AbstractQueuedSynchronizer/" style="font-size: 10px;">AbstractQueuedSynchronizer</a> <a href="/tags/Abuse-case/" style="font-size: 10px;">Abuse case</a> <a href="/tags/Access-Control/" style="font-size: 10px;">Access Control</a> <a href="/tags/Active-Object%E6%A8%A1%E5%BC%8F/" style="font-size: 10px;">Active Object模式</a> <a href="/tags/ArrayBlockingQueue/" style="font-size: 10px;">ArrayBlockingQueue</a> <a href="/tags/ArrayList/" style="font-size: 10px;">ArrayList</a> <a href="/tags/Arrays/" style="font-size: 12.26px;">Arrays</a> <a href="/tags/Arrrays/" style="font-size: 10.32px;">Arrrays</a> <a href="/tags/Arthas/" style="font-size: 10px;">Arthas</a> <a href="/tags/AtomicBoolean/" style="font-size: 10.97px;">AtomicBoolean</a> <a href="/tags/AtomicInteger/" style="font-size: 10px;">AtomicInteger</a> <a href="/tags/AtomicIntegerArray/" style="font-size: 10.32px;">AtomicIntegerArray</a> <a href="/tags/AtomicIntegerFieldUpdater/" style="font-size: 10px;">AtomicIntegerFieldUpdater</a> <a href="/tags/AtomicLong/" style="font-size: 10px;">AtomicLong</a> <a href="/tags/AtomicLongArray/" style="font-size: 10px;">AtomicLongArray</a> <a href="/tags/AtomicLongFieldUpdater/" style="font-size: 10.32px;">AtomicLongFieldUpdater</a> <a href="/tags/AtomicMarkableReference/" style="font-size: 10px;">AtomicMarkableReference</a> <a href="/tags/AtomicReference/" style="font-size: 10px;">AtomicReference</a> <a href="/tags/AtomicReferenceArray/" style="font-size: 10px;">AtomicReferenceArray</a> <a href="/tags/AtomicReferenceFieldUpdater/" style="font-size: 10px;">AtomicReferenceFieldUpdater</a> <a href="/tags/AtomicStampedReference/" style="font-size: 10px;">AtomicStampedReference</a> <a href="/tags/B-Tree/" style="font-size: 10.32px;">B-Tree</a> <a href="/tags/BASE/" style="font-size: 10px;">BASE</a> <a href="/tags/Balking-%E6%A8%A1%E5%BC%8F/" style="font-size: 10px;">Balking 模式</a> <a href="/tags/Bash/" style="font-size: 10.32px;">Bash</a> <a href="/tags/BlockingQueue/" style="font-size: 10px;">BlockingQueue</a> <a href="/tags/CAP/" style="font-size: 10px;">CAP</a> <a href="/tags/CAS/" style="font-size: 10.32px;">CAS</a> <a href="/tags/CMS/" style="font-size: 10px;">CMS</a> <a href="/tags/COW/" style="font-size: 10px;">COW</a> <a href="/tags/Callable/" style="font-size: 10px;">Callable</a> <a href="/tags/CharMatcher/" style="font-size: 10px;">CharMatcher</a> <a href="/tags/ClassLoader/" style="font-size: 10px;">ClassLoader</a> <a href="/tags/CompletableFuture/" style="font-size: 10px;">CompletableFuture</a> <a href="/tags/Concurrent-Mark-Sweep/" style="font-size: 10px;">Concurrent Mark Sweep</a> <a href="/tags/ConcurrentHashMap/" style="font-size: 10.32px;">ConcurrentHashMap</a> <a href="/tags/ConcurrentLinkedQueue/" style="font-size: 10px;">ConcurrentLinkedQueue</a> <a href="/tags/Condition/" style="font-size: 10.97px;">Condition</a> <a href="/tags/Consul/" style="font-size: 10.32px;">Consul</a> <a href="/tags/CopyOnWriteArrayList/" style="font-size: 10px;">CopyOnWriteArrayList</a> <a href="/tags/CopyOnWriteArraySet/" style="font-size: 10px;">CopyOnWriteArraySet</a> <a href="/tags/CountDownLatch/" style="font-size: 10px;">CountDownLatch</a> <a href="/tags/CyclicBarrier/" style="font-size: 10px;">CyclicBarrier</a> <a href="/tags/DTS/" style="font-size: 10px;">DTS</a> <a href="/tags/DelayQueue/" style="font-size: 10px;">DelayQueue</a> <a href="/tags/DoubleAccumulator/" style="font-size: 10px;">DoubleAccumulator</a> <a href="/tags/DoubleAdder/" style="font-size: 10px;">DoubleAdder</a> <a href="/tags/Etcd/" style="font-size: 10px;">Etcd</a> <a href="/tags/Eureka/" style="font-size: 11.61px;">Eureka</a> <a href="/tags/Feign/" style="font-size: 10.97px;">Feign</a> <a href="/tags/Fibonacci/" style="font-size: 10px;">Fibonacci</a> <a href="/tags/FullGC/" style="font-size: 10px;">FullGC</a> <a href="/tags/Future/" style="font-size: 10px;">Future</a> <a href="/tags/FutureTask/" style="font-size: 10.32px;">FutureTask</a> <a href="/tags/Future%E6%A8%A1%E5%BC%8F/" style="font-size: 10px;">Future模式</a> <a href="/tags/G1/" style="font-size: 10px;">G1</a> <a href="/tags/Garbage-First/" style="font-size: 10px;">Garbage First</a> <a href="/tags/Gossip/" style="font-size: 10px;">Gossip</a> <a href="/tags/Guarded-Suspension-%E6%A8%A1%E5%BC%8F/" style="font-size: 10px;">Guarded Suspension 模式</a> <a href="/tags/Guava/" style="font-size: 11.29px;">Guava</a> <a href="/tags/HTTP/" style="font-size: 10px;">HTTP</a> <a href="/tags/HTTP%E8%AF%B7%E6%B1%82/" style="font-size: 10px;">HTTP请求</a> <a href="/tags/Hash/" style="font-size: 10px;">Hash</a> <a href="/tags/HashMap/" style="font-size: 12.26px;">HashMap</a> <a href="/tags/HashSet/" style="font-size: 10px;">HashSet</a> <a href="/tags/Hystrix/" style="font-size: 10.97px;">Hystrix</a> <a href="/tags/IO%E5%A4%8D%E7%94%A8/" style="font-size: 10px;">IO复用</a> <a href="/tags/Immutable-%E6%A8%A1%E5%BC%8F/" style="font-size: 10px;">Immutable 模式</a> <a href="/tags/JVM/" style="font-size: 13.87px;">JVM</a> <a href="/tags/Java/" style="font-size: 19.03px;">Java</a> <a href="/tags/Joiner/" style="font-size: 10px;">Joiner</a> <a href="/tags/Kafka/" style="font-size: 10.32px;">Kafka</a> <a href="/tags/LDAP/" style="font-size: 10px;">LDAP</a> <a href="/tags/LinkedBlockingQueue/" style="font-size: 10px;">LinkedBlockingQueue</a> <a href="/tags/LinkedList/" style="font-size: 11.29px;">LinkedList</a> <a href="/tags/List/" style="font-size: 10px;">List</a> <a href="/tags/Lock/" style="font-size: 10px;">Lock</a> <a href="/tags/LockSupport/" style="font-size: 10px;">LockSupport</a> <a href="/tags/LongAccumulator/" style="font-size: 10px;">LongAccumulator</a> <a href="/tags/LongAdder/" style="font-size: 10.32px;">LongAdder</a> <a href="/tags/MQ%E4%BA%8B%E5%8A%A1/" style="font-size: 10px;">MQ事务</a> <a href="/tags/Math/" style="font-size: 18.39px;">Math</a> <a href="/tags/Maven/" style="font-size: 10px;">Maven</a> <a href="/tags/MySQL/" style="font-size: 12.26px;">MySQL</a> <a href="/tags/NIO/" style="font-size: 10px;">NIO</a> <a href="/tags/NoSql/" style="font-size: 10px;">NoSql</a> <a href="/tags/N%E5%8F%89%E6%A0%91/" style="font-size: 10.65px;">N叉树</a> <a href="/tags/PriotityBlockingQueue/" style="font-size: 10px;">PriotityBlockingQueue</a> <a href="/tags/Producer-Consumer-%E6%A8%A1%E5%BC%8F/" style="font-size: 10px;">Producer-Consumer 模式</a> <a href="/tags/PutLock/" style="font-size: 10px;">PutLock</a> <a href="/tags/Queue/" style="font-size: 11.94px;">Queue</a> <a href="/tags/RAFT/" style="font-size: 10.32px;">RAFT</a> <a href="/tags/RPC/" style="font-size: 10px;">RPC</a> <a href="/tags/RabbitMQ/" style="font-size: 10.32px;">RabbitMQ</a> <a href="/tags/Random/" style="font-size: 10px;">Random</a> <a href="/tags/Read-Write-Lock-%E6%A8%A1%E5%BC%8F/" style="font-size: 10px;">Read-Write Lock 模式</a> <a href="/tags/RedLock/" style="font-size: 10px;">RedLock</a> <a href="/tags/Redis/" style="font-size: 10.65px;">Redis</a> <a href="/tags/Redission/" style="font-size: 10px;">Redission</a> <a href="/tags/ReentrantLock/" style="font-size: 12.58px;">ReentrantLock</a> <a href="/tags/ReentrantReadWriteLock/" style="font-size: 10px;">ReentrantReadWriteLock</a> <a href="/tags/SQL/" style="font-size: 18.06px;">SQL</a> <a href="/tags/Saga%E4%BA%8B%E5%8A%A1/" style="font-size: 10px;">Saga事务</a> <a href="/tags/Semaphore/" style="font-size: 10.65px;">Semaphore</a> <a href="/tags/Set/" style="font-size: 10px;">Set</a> <a href="/tags/Single-Threaded-Execution%E6%A8%A1%E5%BC%8F/" style="font-size: 10px;">Single Threaded Execution模式</a> <a href="/tags/SnowFlake/" style="font-size: 10px;">SnowFlake</a> <a href="/tags/Sorted-Set/" style="font-size: 10px;">Sorted Set</a> <a href="/tags/Spliter/" style="font-size: 10px;">Spliter</a> <a href="/tags/Spring/" style="font-size: 14.84px;">Spring</a> <a href="/tags/Spring-Cloud/" style="font-size: 10.97px;">Spring Cloud</a> <a href="/tags/Spring-Cloud-Gateway/" style="font-size: 10.32px;">Spring Cloud Gateway</a> <a href="/tags/Spring-Cloud-Stream/" style="font-size: 10.32px;">Spring Cloud Stream</a> <a href="/tags/Stack/" style="font-size: 10.32px;">Stack</a> <a href="/tags/StampedLock/" style="font-size: 10px;">StampedLock</a> <a href="/tags/Stream/" style="font-size: 10px;">Stream</a> <a href="/tags/String/" style="font-size: 11.94px;">String</a> <a href="/tags/Strings/" style="font-size: 10px;">Strings</a> <a href="/tags/Striped64/" style="font-size: 10px;">Striped64</a> <a href="/tags/SynchronousQueue/" style="font-size: 10px;">SynchronousQueue</a> <a href="/tags/TCC/" style="font-size: 10px;">TCC</a> <a href="/tags/TakeLock/" style="font-size: 10px;">TakeLock</a> <a href="/tags/Thread-Per-Message-%E6%A8%A1%E5%BC%8F/" style="font-size: 10px;">Thread-Per-Message 模式</a> <a href="/tags/Thread-Specific-Storage%E6%A8%A1%E5%BC%8F/" style="font-size: 10px;">Thread-Specific-Storage模式</a> <a href="/tags/ThreadLocal/" style="font-size: 10px;">ThreadLocal</a> <a href="/tags/ThreadLocalRandom/" style="font-size: 10px;">ThreadLocalRandom</a> <a href="/tags/ThreadPoolExecutor/" style="font-size: 10px;">ThreadPoolExecutor</a> <a href="/tags/Tree/" style="font-size: 10.65px;">Tree</a> <a href="/tags/Two-Phase-Termination%E6%A8%A1%E5%BC%8F/" style="font-size: 10px;">Two-Phase-Termination模式</a> <a href="/tags/UnSave/" style="font-size: 10px;">UnSave</a> <a href="/tags/Web/" style="font-size: 15.16px;">Web</a> <a href="/tags/Worker-Thread-%E6%A8%A1%E5%BC%8F/" style="font-size: 10px;">Worker Thread 模式</a> <a href="/tags/XA/" style="font-size: 10.32px;">XA</a> <a href="/tags/XML/" style="font-size: 10px;">XML</a> <a href="/tags/XPath/" style="font-size: 10px;">XPath</a> <a href="/tags/XSS%E6%94%BB%E5%87%BB/" style="font-size: 10px;">XSS攻击</a> <a href="/tags/Zookeeper/" style="font-size: 10.32px;">Zookeeper</a> <a href="/tags/cglib/" style="font-size: 10px;">cglib</a> <a href="/tags/cross-join/" style="font-size: 10px;">cross join</a> <a href="/tags/dfs/" style="font-size: 10px;">dfs</a> <a href="/tags/dubbo/" style="font-size: 10px;">dubbo</a> <a href="/tags/epoll/" style="font-size: 10px;">epoll</a> <a href="/tags/equals/" style="font-size: 10px;">equals</a> <a href="/tags/full-outter-join/" style="font-size: 10px;">full outter join</a> <a href="/tags/hashCode/" style="font-size: 10px;">hashCode</a> <a href="/tags/inner-join/" style="font-size: 10px;">inner join</a> <a href="/tags/java/" style="font-size: 14.19px;">java</a> <a href="/tags/jmap/" style="font-size: 10px;">jmap</a> <a href="/tags/join/" style="font-size: 10px;">join</a> <a href="/tags/jps/" style="font-size: 10px;">jps</a> <a href="/tags/jstack/" style="font-size: 10px;">jstack</a> <a href="/tags/jstat/" style="font-size: 10px;">jstat</a> <a href="/tags/leetcode/" style="font-size: 17.42px;">leetcode</a> <a href="/tags/left-join/" style="font-size: 10px;">left join</a> <a href="/tags/linux/" style="font-size: 10px;">linux</a> <a href="/tags/list/" style="font-size: 10px;">list</a> <a href="/tags/math/" style="font-size: 20px;">math</a> <a href="/tags/mathng/" style="font-size: 10px;">mathng</a> <a href="/tags/paxos/" style="font-size: 10px;">paxos</a> <a href="/tags/poll/" style="font-size: 10px;">poll</a> <a href="/tags/python/" style="font-size: 10.97px;">python</a> <a href="/tags/python3-%E8%AF%AD%E6%B3%95/" style="font-size: 10px;">python3 语法</a> <a href="/tags/redis/" style="font-size: 10px;">redis</a> <a href="/tags/right-join/" style="font-size: 10px;">right join</a> <a href="/tags/select/" style="font-size: 10px;">select</a> <a href="/tags/self-join/" style="font-size: 10px;">self join</a> <a href="/tags/set/" style="font-size: 10px;">set</a> <a href="/tags/synchronized/" style="font-size: 10px;">synchronized</a> <a href="/tags/transaction/" style="font-size: 10px;">transaction</a> <a href="/tags/union/" style="font-size: 10px;">union</a> <a href="/tags/union-all/" style="font-size: 10px;">union all</a> <a href="/tags/zuul/" style="font-size: 10.97px;">zuul</a> <a href="/tags/%E4%B8%89%E9%98%B6%E6%AE%B5%E6%8F%90%E4%BA%A4/" style="font-size: 10px;">三阶段提交</a> <a href="/tags/%E4%B8%A4%E9%98%B6%E6%AE%B5%E6%8F%90%E4%BA%A4/" style="font-size: 10px;">两阶段提交</a> <a href="/tags/%E4%B8%AD%E4%BB%8B%E8%80%85%E6%A8%A1%E5%BC%8F/" style="font-size: 10px;">中介者模式</a> <a href="/tags/%E4%B8%AD%E4%BD%8D%E6%95%B0/" style="font-size: 10px;">中位数</a> <a href="/tags/%E4%B8%AD%E5%BA%8F%E9%81%8D%E5%8E%86/" style="font-size: 10px;">中序遍历</a> <a href="/tags/%E4%B8%B2%E8%A1%8C%E5%8C%96/" style="font-size: 10.32px;">串行化</a> <a href="/tags/%E4%B8%BB%E4%BB%8E/" style="font-size: 10px;">主从</a> <a href="/tags/%E4%BA%8B%E5%8A%A1/" style="font-size: 10.65px;">事务</a> <a href="/tags/%E4%BA%8C%E5%88%86%E6%90%9C%E7%B4%A2/" style="font-size: 10px;">二分搜索</a> <a href="/tags/%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE/" style="font-size: 13.23px;">二分查找</a> <a href="/tags/%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91/" style="font-size: 12.58px;">二叉搜索树</a> <a href="/tags/%E4%BA%8C%E5%8F%89%E6%A0%91/" style="font-size: 17.74px;">二叉树</a> <a href="/tags/%E4%BA%8C%E8%BF%9B%E5%88%B6/" style="font-size: 10.32px;">二进制</a> <a href="/tags/%E4%BA%AB%E5%85%83%E6%A8%A1%E5%BC%8F/" style="font-size: 10px;">享元模式</a> <a href="/tags/%E4%BB%A3%E7%90%86/" style="font-size: 10px;">代理</a> <a href="/tags/%E4%BB%A3%E7%90%86%E6%A8%A1%E5%BC%8F/" style="font-size: 10px;">代理模式</a> <a href="/tags/%E4%BC%97%E6%95%B0/" style="font-size: 10px;">众数</a> <a href="/tags/%E4%BC%9A%E8%AF%9D/" style="font-size: 10px;">会话</a> <a href="/tags/%E4%BD%8D%E8%BF%90%E7%AE%97/" style="font-size: 10.32px;">位运算</a> <a href="/tags/%E4%BE%9D%E8%B5%96%E4%BC%A0%E9%80%92/" style="font-size: 10px;">依赖传递</a> <a href="/tags/%E5%85%83%E7%BB%84/" style="font-size: 10px;">元组</a> <a href="/tags/%E5%85%A5%E9%97%A8/" style="font-size: 10px;">入门</a> <a href="/tags/%E5%85%A8%E6%96%87%E7%B4%A2%E5%BC%95/" style="font-size: 10.32px;">全文索引</a> <a href="/tags/%E5%86%85%E5%AD%98%E5%8C%BA%E5%9F%9F/" style="font-size: 10.32px;">内存区域</a> <a href="/tags/%E5%86%85%E5%AD%98%E6%A8%A1%E5%9E%8B/" style="font-size: 10px;">内存模型</a> <a href="/tags/%E5%86%99%E6%97%B6%E5%A4%8D%E5%88%B6/" style="font-size: 10px;">写时复制</a> <a href="/tags/%E5%88%86%E4%BB%A3%E6%94%B6%E9%9B%86/" style="font-size: 10px;">分代收集</a> <a href="/tags/%E5%88%86%E5%8C%BA/" style="font-size: 10.32px;">分区</a> <a href="/tags/%E5%88%86%E5%B8%83%E5%BC%8FID/" style="font-size: 10px;">分布式ID</a> <a href="/tags/%E5%88%86%E5%B8%83%E5%BC%8F%E4%BA%8B%E5%8A%A1/" style="font-size: 10.65px;">分布式事务</a> <a href="/tags/%E5%88%86%E5%B8%83%E5%BC%8F%E7%BC%93%E5%AD%98/" style="font-size: 10px;">分布式缓存</a> <a href="/tags/%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81/" style="font-size: 10px;">分布式锁</a> <a href="/tags/%E5%88%86%E5%BC%8F%E5%8C%96%E7%AE%80/" style="font-size: 10px;">分式化简</a> <a href="/tags/%E5%89%8D%E5%BA%8F%E9%81%8D%E5%8E%86/" style="font-size: 10px;">前序遍历</a> <a href="/tags/%E5%89%8D%E7%BC%80%E7%B4%A2%E5%BC%95/" style="font-size: 10.32px;">前缀索引</a> <a href="/tags/%E5%8A%A0%E6%B3%95/" style="font-size: 10.65px;">加法</a> <a href="/tags/%E5%8A%A8%E6%80%81%E4%BB%A3%E7%90%86/" style="font-size: 10.32px;">动态代理</a> <a href="/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/" style="font-size: 11.94px;">动态规划</a> <a href="/tags/%E5%8C%85%E5%86%B2%E7%AA%81/" style="font-size: 10px;">包冲突</a> <a href="/tags/%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F/" style="font-size: 10px;">单例模式</a> <a href="/tags/%E5%8E%8B%E7%BC%A9/" style="font-size: 10px;">压缩</a> <a href="/tags/%E5%8E%9F%E5%9E%8B%E6%A8%A1%E5%BC%8F/" style="font-size: 10px;">原型模式</a> <a href="/tags/%E5%8F%8C%E4%BA%B2%E5%A7%94%E6%B4%BE/" style="font-size: 10px;">双亲委派</a> <a href="/tags/%E5%8F%8C%E6%8C%87%E9%92%88/" style="font-size: 11.94px;">双指针</a> <a href="/tags/%E5%8F%8D%E5%B0%84/" style="font-size: 10px;">反射</a> <a href="/tags/%E5%8F%AF%E9%87%8D%E5%A4%8D%E8%AF%BB/" style="font-size: 10.32px;">可重复读</a> <a href="/tags/%E5%90%88%E5%B9%B6/" style="font-size: 10px;">合并</a> <a href="/tags/%E5%90%8C%E6%AD%A5/" style="font-size: 10px;">同步</a> <a href="/tags/%E5%90%8E%E5%BA%8F%E9%81%8D%E5%8E%86/" style="font-size: 10px;">后序遍历</a> <a href="/tags/%E5%91%BD%E4%BB%A4%E6%A8%A1%E5%BC%8F/" style="font-size: 10px;">命令模式</a> <a href="/tags/%E5%93%88%E5%B8%8C/" style="font-size: 10px;">哈希</a> <a href="/tags/%E5%93%88%E5%B8%8C%E7%B4%A2%E5%BC%95/" style="font-size: 10.32px;">哈希索引</a> <a href="/tags/%E5%93%88%E5%B8%8C%E8%A1%A8/" style="font-size: 12.9px;">哈希表</a> <a href="/tags/%E5%93%A8%E5%85%B5/" style="font-size: 10px;">哨兵</a> <a href="/tags/%E5%9B%9E%E6%94%B6/" style="font-size: 10px;">回收</a> <a href="/tags/%E5%9B%9E%E6%96%87/" style="font-size: 13.55px;">回文</a> <a href="/tags/%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6%E5%99%A8/" style="font-size: 10px;">垃圾回收器</a> <a href="/tags/%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6%E7%AE%97%E6%B3%95/" style="font-size: 10px;">垃圾回收算法</a> <a href="/tags/%E5%A0%86/" style="font-size: 10.65px;">堆</a> <a href="/tags/%E5%A0%86%E6%8E%92%E5%BA%8F/" style="font-size: 11.61px;">堆排序</a> <a href="/tags/%E5%A4%87%E5%BF%98%E5%BD%95%E6%A8%A1%E5%BC%8F/" style="font-size: 10px;">备忘录模式</a> <a href="/tags/%E5%A4%96%E8%A7%82%E6%A8%A1%E5%BC%8F/" style="font-size: 10px;">外观模式</a> <a href="/tags/%E5%A4%9A%E7%BA%BF%E7%A8%8B/" style="font-size: 18.71px;">多线程</a> <a href="/tags/%E5%AD%90%E5%AD%97%E7%AC%A6%E4%B8%B2/" style="font-size: 12.58px;">子字符串</a> <a href="/tags/%E5%AD%90%E5%BA%8F%E5%88%97/" style="font-size: 10.32px;">子序列</a> <a href="/tags/%E5%AD%90%E6%95%B0%E7%BB%84/" style="font-size: 10.65px;">子数组</a> <a href="/tags/%E5%AD%90%E9%9B%86/" style="font-size: 10px;">子集</a> <a href="/tags/%E5%AD%97%E5%85%B8/" style="font-size: 10px;">字典</a> <a href="/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2/" style="font-size: 10px;">字符串</a> <a href="/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2%E7%BF%BB%E8%BD%AC/" style="font-size: 10px;">字符串翻转</a> <a href="/tags/%E5%AE%89%E5%85%A8/" style="font-size: 15.81px;">安全</a> <a href="/tags/%E5%AE%98%E6%96%B9%E6%96%87%E6%A1%A3/" style="font-size: 10px;">官方文档</a> <a href="/tags/%E5%AE%B9%E9%94%99/" style="font-size: 10px;">容错</a> <a href="/tags/%E5%B1%82%E6%AC%A1%E9%81%8D%E5%8E%86/" style="font-size: 10.32px;">层次遍历</a> <a href="/tags/%E5%B7%A5%E5%8E%82%E6%A8%A1%E5%BC%8F/" style="font-size: 10px;">工厂模式</a> <a href="/tags/%E5%B8%83%E9%9A%86%E8%BF%87%E6%BB%A4%E5%99%A8/" style="font-size: 10px;">布隆过滤器</a> <a href="/tags/%E5%B9%B3%E8%A1%A1%E4%BA%8C%E5%8F%89%E6%A0%91/" style="font-size: 10px;">平衡二叉树</a> <a href="/tags/%E5%B9%B6%E5%8F%91/" style="font-size: 12.58px;">并发</a> <a href="/tags/%E5%BB%BA%E9%80%A0%E8%80%85%E6%A8%A1%E5%BC%8F/" style="font-size: 10px;">建造者模式</a> <a href="/tags/%E5%BC%82%E6%AD%A5/" style="font-size: 10px;">异步</a> <a href="/tags/%E5%BC%95%E7%94%A8/" style="font-size: 10px;">引用</a> <a href="/tags/%E5%BE%AA%E7%8E%AF%E9%98%9F%E5%88%97/" style="font-size: 10.32px;">循环队列</a> <a href="/tags/%E5%BE%AE%E6%9C%8D%E5%8A%A1/" style="font-size: 10px;">微服务</a> <a href="/tags/%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84/" style="font-size: 10px;">微服务架构</a> <a href="/tags/%E5%BF%AB%E4%B9%90%E6%95%B0/" style="font-size: 10px;">快乐数</a> <a href="/tags/%E5%BF%AB%E9%80%9F%E6%8E%92%E5%BA%8F/" style="font-size: 10px;">快速排序</a> <a href="/tags/%E6%8A%BD%E8%B1%A1%E5%B7%A5%E5%8E%82%E6%A8%A1%E5%BC%8F/" style="font-size: 10px;">抽象工厂模式</a> <a href="/tags/%E6%8E%92%E5%88%97/" style="font-size: 10px;">排列</a> <a href="/tags/%E6%8E%92%E5%BA%8F/" style="font-size: 13.55px;">排序</a> <a href="/tags/%E6%90%9C%E7%B4%A2/" style="font-size: 10px;">搜索</a> <a href="/tags/%E6%91%A9%E5%B0%94%E6%8A%95%E7%A5%A8/" style="font-size: 10px;">摩尔投票</a> <a href="/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E5%91%BD%E4%BB%A4/" style="font-size: 10px;">操作系统命令</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E5%AD%98%E5%82%A8/" style="font-size: 10px;">数据存储</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" style="font-size: 10px;">数据结构</a> <a href="/tags/%E6%95%B0%E7%8B%AC/" style="font-size: 10px;">数独</a> <a href="/tags/%E6%95%B0%E7%BB%84/" style="font-size: 19.68px;">数组</a> <a href="/tags/%E6%96%87%E4%BB%B6%E8%B7%AF%E5%BE%84/" style="font-size: 10.32px;">文件路径</a> <a href="/tags/%E6%96%90%E6%B3%A2%E9%82%A3%E5%A5%91/" style="font-size: 10.32px;">斐波那契</a> <a href="/tags/%E6%96%90%E6%B3%A2%E9%82%A3%E5%A5%91%E6%95%B0/" style="font-size: 10px;">斐波那契数</a> <a href="/tags/%E6%97%A5%E6%9C%9F/" style="font-size: 10px;">日期</a> <a href="/tags/%E6%9C%80%E5%B7%A6%E5%89%8D%E7%BC%80/" style="font-size: 10.32px;">最左前缀</a> <a href="/tags/%E6%9C%80%E9%95%BF%E5%85%AC%E5%85%B1%E5%89%8D%E7%BC%80/" style="font-size: 10px;">最长公共前缀</a> <a href="/tags/%E6%9C%89%E5%BA%8F/" style="font-size: 10px;">有序</a> <a href="/tags/%E6%9C%8D%E5%8A%A1%E4%B8%B2%E8%81%94%E6%A8%A1%E5%BC%8F/" style="font-size: 10px;">服务串联模式</a> <a href="/tags/%E6%9C%8D%E5%8A%A1%E4%BB%A3%E7%90%86%E6%A8%A1%E5%BC%8F/" style="font-size: 10px;">服务代理模式</a> <a href="/tags/%E6%9C%8D%E5%8A%A1%E5%85%B1%E4%BA%AB%E6%95%B0%E6%8D%AE%E6%A8%A1%E5%BC%8F/" style="font-size: 10px;">服务共享数据模式</a> <a href="/tags/%E6%9C%8D%E5%8A%A1%E5%88%86%E6%94%AF%E6%A8%A1%E5%BC%8F/" style="font-size: 10px;">服务分支模式</a> <a href="/tags/%E6%9C%8D%E5%8A%A1%E5%8F%91%E7%8E%B0/" style="font-size: 10.65px;">服务发现</a> <a href="/tags/%E6%9C%8D%E5%8A%A1%E5%BC%82%E6%AD%A5%E6%B6%88%E6%81%AF%E6%A8%A1%E5%BC%8F/" style="font-size: 10px;">服务异步消息模式</a> <a href="/tags/%E6%9C%8D%E5%8A%A1%E6%B2%BB%E7%90%86/" style="font-size: 10.32px;">服务治理</a> <a href="/tags/%E6%9C%8D%E5%8A%A1%E8%81%9A%E5%90%88%E6%A8%A1%E5%BC%8F/" style="font-size: 10px;">服务聚合模式</a> <a href="/tags/%E6%9C%AC%E5%9C%B0%E6%B6%88%E6%81%AF%E8%A1%A8/" style="font-size: 10px;">本地消息表</a> <a href="/tags/%E6%9D%A8%E8%BE%89%E4%B8%89%E8%A7%92/" style="font-size: 10.32px;">杨辉三角</a> <a href="/tags/%E6%9E%B6%E6%9E%84/" style="font-size: 10px;">架构</a> <a href="/tags/%E6%A0%87%E8%AE%B0-%E5%A4%8D%E5%88%B6/" style="font-size: 10px;">标记-复制</a> <a href="/tags/%E6%A0%87%E8%AE%B0-%E6%95%B4%E7%90%86/" style="font-size: 10px;">标记-整理</a> <a href="/tags/%E6%A0%87%E8%AE%B0-%E6%B8%85%E9%99%A4/" style="font-size: 10px;">标记-清除</a> <a href="/tags/%E6%A0%88/" style="font-size: 13.87px;">栈</a> <a href="/tags/%E6%A0%91/" style="font-size: 10px;">树</a> <a href="/tags/%E6%A1%A5%E6%8E%A5%E6%A8%A1%E5%BC%8F/" style="font-size: 10px;">桥接模式</a> <a href="/tags/%E6%A1%B6%E6%8E%92%E5%BA%8F/" style="font-size: 10px;">桶排序</a> <a href="/tags/%E6%A8%A1%E6%9D%BF%E6%A8%A1%E5%BC%8F/" style="font-size: 10px;">模板模式</a> <a href="/tags/%E6%AD%BB%E9%94%81/" style="font-size: 10.97px;">死锁</a> <a href="/tags/%E6%B1%89%E8%AF%BA%E5%A1%94/" style="font-size: 10px;">汉诺塔</a> <a href="/tags/%E6%B3%A8%E5%85%A5/" style="font-size: 13.23px;">注入</a> <a href="/tags/%E6%B3%A8%E8%A7%A3/" style="font-size: 10.32px;">注解</a> <a href="/tags/%E6%B7%B1%E5%BA%A6%E4%BC%98%E5%85%88%E6%90%9C%E7%B4%A2/" style="font-size: 10px;">深度优先搜索</a> <a href="/tags/%E6%BA%90%E7%A0%81/" style="font-size: 12.58px;">源码</a> <a href="/tags/%E6%BB%91%E5%8A%A8%E7%AA%97%E5%8F%A3/" style="font-size: 10px;">滑动窗口</a> <a href="/tags/%E7%86%94%E6%96%AD/" style="font-size: 10px;">熔断</a> <a href="/tags/%E7%88%AC%E8%99%AB/" style="font-size: 10px;">爬虫</a> <a href="/tags/%E7%89%9B%E9%A1%BF%E8%BF%AD%E4%BB%A3%E6%B3%95/" style="font-size: 10px;">牛顿迭代法</a> <a href="/tags/%E7%8A%B6%E6%80%81%E6%A8%A1%E5%BC%8F/" style="font-size: 10px;">状态模式</a> <a href="/tags/%E7%8E%AF%E5%BD%A2/" style="font-size: 10px;">环形</a> <a href="/tags/%E7%94%B5%E5%AD%90%E9%82%AE%E4%BB%B6/" style="font-size: 10px;">电子邮件</a> <a href="/tags/%E7%9F%A9%E9%98%B5/" style="font-size: 16.13px;">矩阵</a> <a href="/tags/%E7%AD%96%E7%95%A5%E6%A8%A1%E5%BC%8F/" style="font-size: 10px;">策略模式</a> <a href="/tags/%E7%AE%97%E6%B3%95/" style="font-size: 19.35px;">算法</a> <a href="/tags/%E7%AE%97%E6%B3%95%E9%A2%98/" style="font-size: 10px;">算法题</a> <a href="/tags/%E7%B1%BB%E5%8A%A0%E8%BD%BD%E6%A8%A1%E5%9E%8B/" style="font-size: 10px;">类加载模型</a> <a href="/tags/%E7%B4%A2%E5%BC%95/" style="font-size: 10.97px;">索引</a> <a href="/tags/%E7%B4%A2%E5%BC%95%E4%BC%98%E5%8C%96/" style="font-size: 10.32px;">索引优化</a> <a href="/tags/%E7%BA%BF%E7%A8%8B/" style="font-size: 10.65px;">线程</a> <a href="/tags/%E7%BA%BF%E7%A8%8B%E6%B1%A0/" style="font-size: 10px;">线程池</a> <a href="/tags/%E7%BB%84%E5%90%88%E6%A8%A1%E5%BC%8F/" style="font-size: 10px;">组合模式</a> <a href="/tags/%E7%BC%93%E5%AD%98%E7%A9%BF%E9%80%8F/" style="font-size: 10px;">缓存穿透</a> <a href="/tags/%E7%BC%93%E5%AD%98%E9%9B%AA%E5%B4%A9/" style="font-size: 10px;">缓存雪崩</a> <a href="/tags/%E7%BC%93%E5%AD%98%E9%A2%84%E7%83%AD/" style="font-size: 10px;">缓存预热</a> <a href="/tags/%E7%BF%BB%E8%AF%91/" style="font-size: 10px;">翻译</a> <a href="/tags/%E7%BF%BB%E8%BD%AC/" style="font-size: 12.26px;">翻转</a> <a href="/tags/%E8%81%9A%E7%B0%87%E7%B4%A2%E5%BC%95/" style="font-size: 10.32px;">聚簇索引</a> <a href="/tags/%E8%8A%82%E7%82%B9/" style="font-size: 10px;">节点</a> <a href="/tags/%E8%99%9A%E6%8B%9F%E6%9C%BA/" style="font-size: 10px;">虚拟机</a> <a href="/tags/%E8%A3%85%E9%A5%B0%E5%99%A8%E6%A8%A1%E5%BC%8F/" style="font-size: 10px;">装饰器模式</a> <a href="/tags/%E8%A7%82%E5%AF%9F%E8%80%85%E6%A8%A1%E5%BC%8F/" style="font-size: 10px;">观察者模式</a> <a href="/tags/%E8%A7%A3%E9%87%8A%E5%99%A8%E6%A8%A1%E5%BC%8F/" style="font-size: 10px;">解释器模式</a> <a href="/tags/%E8%A7%A3%E9%87%8A%E6%80%A7%E8%AF%AD%E8%A8%80/" style="font-size: 10px;">解释性语言</a> <a href="/tags/%E8%AE%BE%E8%AE%A1/" style="font-size: 15.48px;">设计</a> <a href="/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" style="font-size: 17.1px;">设计模式</a> <a href="/tags/%E8%AE%BF%E9%97%AE%E6%8E%A7%E5%88%B6/" style="font-size: 10px;">访问控制</a> <a href="/tags/%E8%AE%BF%E9%97%AE%E8%80%85%E6%A8%A1%E5%BC%8F/" style="font-size: 10px;">访问者模式</a> <a href="/tags/%E8%AF%BB%E6%8F%90%E4%BA%A4/" style="font-size: 10.32px;">读提交</a> <a href="/tags/%E8%AF%BB%E6%9C%AA%E6%8F%90%E4%BA%A4/" style="font-size: 10.32px;">读未提交</a> <a href="/tags/%E8%B4%A3%E4%BB%BB%E9%93%BE%E6%A8%A1%E5%BC%8F/" style="font-size: 10px;">责任链模式</a> <a href="/tags/%E8%B4%AA%E5%BF%83/" style="font-size: 10.97px;">贪心</a> <a href="/tags/%E8%BF%AD%E4%BB%A3/" style="font-size: 11.94px;">迭代</a> <a href="/tags/%E8%BF%AD%E4%BB%A3%E5%99%A8%E6%A8%A1%E5%BC%8F/" style="font-size: 10px;">迭代器模式</a> <a href="/tags/%E9%80%82%E9%85%8D%E5%99%A8%E6%A8%A1%E5%BC%8F/" style="font-size: 10px;">适配器模式</a> <a href="/tags/%E9%80%92%E5%BD%92/" style="font-size: 16.77px;">递归</a> <a href="/tags/%E9%80%BB%E8%BE%91/" style="font-size: 10.65px;">逻辑</a> <a href="/tags/%E9%80%BB%E8%BE%91%E8%BF%90%E7%AE%97/" style="font-size: 10px;">逻辑运算</a> <a href="/tags/%E9%93%BE%E8%A1%A8/" style="font-size: 16.45px;">链表</a> <a href="/tags/%E9%94%81/" style="font-size: 14.52px;">锁</a> <a href="/tags/%E9%98%9F%E5%88%97/" style="font-size: 11.29px;">队列</a> <a href="/tags/%E9%98%B6%E4%B9%98/" style="font-size: 10px;">阶乘</a> <a href="/tags/%E9%98%BB%E5%A1%9E/" style="font-size: 10px;">阻塞</a> <a href="/tags/%E9%99%8D%E7%BA%A7/" style="font-size: 10px;">降级</a> <a href="/tags/%E9%99%90%E6%B5%81/" style="font-size: 10px;">限流</a> <a href="/tags/%E9%9A%94%E7%A6%BB%E7%BA%A7%E5%88%AB/" style="font-size: 10.32px;">隔离级别</a> <a href="/tags/%E9%9B%86%E5%90%88/" style="font-size: 10.32px;">集合</a> <a href="/tags/%E9%9B%86%E7%BE%A4/" style="font-size: 10px;">集群</a> <a href="/tags/%E9%9D%99%E6%80%81%E4%BB%A3%E7%90%86/" style="font-size: 10px;">静态代理</a> <a href="/tags/%E9%9D%9E%E9%98%BB%E5%A1%9E/" style="font-size: 10px;">非阻塞</a> <a href="/tags/%E9%AA%8C%E8%AF%81/" style="font-size: 10px;">验证</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/07/">July 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/06/">June 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/05/">May 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/05/">May 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/11/">November 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/08/">August 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/07/">July 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/05/">May 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/04/">April 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/03/">March 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">April 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">March 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">December 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">November 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">October 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">September 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/08/">August 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/01/">January 2018</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2022/07/02/LeetCode/offer/%E5%89%91%E6%8C%87%20Offer%2003.%20%E6%95%B0%E7%BB%84%E4%B8%AD%E9%87%8D%E5%A4%8D%E7%9A%84%E6%95%B0%E5%AD%97/">剑指 Offer 03. 数组中重复的数字</a>
           </li>
-          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
-            Overview
+        
+          <li>
+            <a href="/2022/07/02/LeetCode/offer/%E5%89%91%E6%8C%87%20Offer%2005.%20%E6%9B%BF%E6%8D%A2%E7%A9%BA%E6%A0%BC/">剑指 Offer 05. 替换空格</a>
           </li>
-        </ul>
-      
-
-      <section class="site-overview-wrap sidebar-panel">
-        <div class="site-overview">
-          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
-            
-              <p class="site-author-name" itemprop="name">Han si</p>
-              <p class="site-description motion-element" itemprop="description"></p>
-          </div>
-
-          <nav class="site-state motion-element">
-
-            
-              <div class="site-state-item site-state-posts">
-              
-                <a href="/archives/%7C%7C%20archive">
-              
-                  <span class="site-state-item-count">523</span>
-                  <span class="site-state-item-name">posts</span>
-                </a>
-              </div>
-            
-
-            
-              
-              
-              <div class="site-state-item site-state-categories">
-                <a href="/categories/index.html">
-                  <span class="site-state-item-count">23</span>
-                  <span class="site-state-item-name">categories</span>
-                </a>
-              </div>
-            
-
-            
-              
-              
-              <div class="site-state-item site-state-tags">
-                <a href="/tags/index.html">
-                  <span class="site-state-item-count">312</span>
-                  <span class="site-state-item-name">tags</span>
-                </a>
-              </div>
-            
-
-          </nav>
-
-          
-
-          
-            <div class="links-of-author motion-element">
-                
-                  <span class="links-of-author-item">
-                    <a href="mailto:kw120943839@gmail.com" target="_blank" title="E-Mail">
-                      
-                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
-                  </span>
-                
-            </div>
-          
-
-          
-          
-
-          
-          
-
-          
-
-        </div>
-      </section>
-
-      
-      <!--noindex-->
-        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
-          <div class="post-toc">
-
-            
-              
-            
-
-            
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#注入SQL"><span class="nav-number">1.</span> <span class="nav-text">注入SQL</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#利用一个基本的漏洞"><span class="nav-number">1.1.</span> <span class="nav-text">利用一个基本的漏洞</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#注入不同的语句类型"><span class="nav-number">1.2.</span> <span class="nav-text">注入不同的语句类型</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#SELECT-语句"><span class="nav-number">1.2.1.</span> <span class="nav-text">SELECT 语句</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#INSERT语句"><span class="nav-number">1.2.2.</span> <span class="nav-text">INSERT语句</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#update语句"><span class="nav-number">1.2.3.</span> <span class="nav-text">update语句</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#DELETE语句"><span class="nav-number">1.2.4.</span> <span class="nav-text">DELETE语句</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#查明SQL注入漏洞"><span class="nav-number">1.3.</span> <span class="nav-text">查明SQL注入漏洞</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#注入字符串数据"><span class="nav-number">1.3.1.</span> <span class="nav-text">注入字符串数据</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#注入数字数据"><span class="nav-number">1.3.2.</span> <span class="nav-text">注入数字数据</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#注入查询结构"><span class="nav-number">1.3.3.</span> <span class="nav-text">注入查询结构</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#“指纹”识别数据库"><span class="nav-number">1.4.</span> <span class="nav-text">“指纹”识别数据库</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#UNION-操作符"><span class="nav-number">1.5.</span> <span class="nav-text">UNION 操作符</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#使用UNION提取数据"><span class="nav-number">1.6.</span> <span class="nav-text">使用UNION提取数据</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#避开过滤"><span class="nav-number">1.7.</span> <span class="nav-text">避开过滤</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#避免使用被阻止的字符"><span class="nav-number">1.7.1.</span> <span class="nav-text">避免使用被阻止的字符</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#避免使用简单确认"><span class="nav-number">1.7.2.</span> <span class="nav-text">避免使用简单确认</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用SQL注释"><span class="nav-number">1.7.3.</span> <span class="nav-text">使用SQL注释</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#利用有缺陷的过滤"><span class="nav-number">1.7.4.</span> <span class="nav-text">利用有缺陷的过滤</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二阶SQL注入"><span class="nav-number">1.8.</span> <span class="nav-text">二阶SQL注入</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#高级利用"><span class="nav-number">1.9.</span> <span class="nav-text">高级利用</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#获取数字数据"><span class="nav-number">1.9.1.</span> <span class="nav-text">获取数字数据</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用带外通道"><span class="nav-number">1.9.2.</span> <span class="nav-text">使用带外通道</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#扩大数据库攻击范围"><span class="nav-number">1.10.</span> <span class="nav-text">扩大数据库攻击范围</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#防止SQL注入"><span class="nav-number">1.11.</span> <span class="nav-text">防止SQL注入</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#部分有效的防御措施"><span class="nav-number">1.11.1.</span> <span class="nav-text">部分有效的防御措施</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#参数化查询"><span class="nav-number">1.11.2.</span> <span class="nav-text">参数化查询</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#深层防御"><span class="nav-number">1.11.3.</span> <span class="nav-text">深层防御</span></a></li></ol></li></ol></li></ol></div>
-            
-
-          </div>
-        </section>
-      <!--/noindex-->
-      
-
-      
-
+        
+          <li>
+            <a href="/2022/07/02/LeetCode/offer/%E5%89%91%E6%8C%87%20Offer%2006.%20%E4%BB%8E%E5%B0%BE%E5%88%B0%E5%A4%B4%E6%89%93%E5%8D%B0%E9%93%BE%E8%A1%A8/">剑指 Offer 06. 从尾到头打印链表</a>
+          </li>
+        
+          <li>
+            <a href="/2022/07/02/LeetCode/offer/%E5%89%91%E6%8C%87%20Offer%2009.%20%E7%94%A8%E4%B8%A4%E4%B8%AA%E6%A0%88%E5%AE%9E%E7%8E%B0%E9%98%9F%E5%88%97/">剑指 Offer 09. 用两个栈实现队列</a>
+          </li>
+        
+          <li>
+            <a href="/2022/07/02/LeetCode/offer/%E5%89%91%E6%8C%87%20Offer%2010-%20I.%20%E6%96%90%E6%B3%A2%E9%82%A3%E5%A5%91%E6%95%B0%E5%88%97/">剑指 Offer 10- I. 斐波那契数列</a>
+          </li>
+        
+      </ul>
     </div>
-  </aside>
-
-
-        
-      </div>
-    </main>
-
-    <footer id="footer" class="footer">
-      <div class="footer-inner">
-        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
-  <span class="with-love">
-    <i class="fa fa-user"></i>
-  </span>
-  <span class="author" itemprop="copyrightHolder">Han si</span>
-
-  
-</div>
-
-
-  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
-
-
-
-  <span class="post-meta-divider">|</span>
-
-
-
-  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a> v5.1.4</div>
-
-
-
-
-        
-
-
-
-
-
-
-
-        
-      </div>
-    </footer>
-
-    
-      <div class="back-to-top">
-        <i class="fa fa-arrow-up"></i>
-        
-      </div>
-    
-
-    
-
   </div>
 
   
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2022 HanSi<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
 
-<script type="text/javascript">
-  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
-    window.Promise = null;
-  }
-</script>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
 
 
-
-
-
-
+<script src="/js/jquery-3.4.1.min.js"></script>
 
 
 
   
+<script src="/fancybox/jquery.fancybox.min.js"></script>
 
 
 
 
+<script src="/js/script.js"></script>
 
 
 
 
 
-
-
-
-  
-  
-    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
-  
-
-
-  
-
-
-  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
-
-  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
-
-
-
-  
-  
-
-  
-  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
-<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
-
-
-
-  
-
-
-  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
-
-
-
-  
-
-
-  
-
-
-
-
-	
-
-
-
-
-
-  
-
-
-
-
-
-  
-
-
-
-
-
-
-
-
-
-
-
-
-  
-
-  <script type="text/javascript">
-    // Popup Window;
-    var isfetched = false;
-    var isXml = true;
-    // Search DB path;
-    var search_path = "search.xml";
-    if (search_path.length === 0) {
-      search_path = "search.xml";
-    } else if (/json$/i.test(search_path)) {
-      isXml = false;
-    }
-    var path = "/" + search_path;
-    // monitor main search box;
-
-    var onPopupClose = function (e) {
-      $('.popup').hide();
-      $('#local-search-input').val('');
-      $('.search-result-list').remove();
-      $('#no-result').remove();
-      $(".local-search-pop-overlay").remove();
-      $('body').css('overflow', '');
-    }
-
-    function proceedsearch() {
-      $("body")
-        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
-        .css('overflow', 'hidden');
-      $('.search-popup-overlay').click(onPopupClose);
-      $('.popup').toggle();
-      var $localSearchInput = $('#local-search-input');
-      $localSearchInput.attr("autocapitalize", "none");
-      $localSearchInput.attr("autocorrect", "off");
-      $localSearchInput.focus();
-    }
-
-    // search function;
-    var searchFunc = function(path, search_id, content_id) {
-      'use strict';
-
-      // start loading animation
-      $("body")
-        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
-          '<div id="search-loading-icon">' +
-          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
-          '</div>' +
-          '</div>')
-        .css('overflow', 'hidden');
-      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
-
-      $.ajax({
-        url: path,
-        dataType: isXml ? "xml" : "json",
-        async: true,
-        success: function(res) {
-          // get the contents from search data
-          isfetched = true;
-          $('.popup').detach().appendTo('.header-inner');
-          var datas = isXml ? $("entry", res).map(function() {
-            return {
-              title: $("title", this).text(),
-              content: $("content",this).text(),
-              url: $("url" , this).text()
-            };
-          }).get() : res;
-          var input = document.getElementById(search_id);
-          var resultContent = document.getElementById(content_id);
-          var inputEventFunction = function() {
-            var searchText = input.value.trim().toLowerCase();
-            var keywords = searchText.split(/[\s\-]+/);
-            if (keywords.length > 1) {
-              keywords.push(searchText);
-            }
-            var resultItems = [];
-            if (searchText.length > 0) {
-              // perform local searching
-              datas.forEach(function(data) {
-                var isMatch = false;
-                var hitCount = 0;
-                var searchTextCount = 0;
-                var title = data.title.trim();
-                var titleInLowerCase = title.toLowerCase();
-                var content = data.content.trim().replace(/<[^>]+>/g,"");
-                var contentInLowerCase = content.toLowerCase();
-                var articleUrl = decodeURIComponent(data.url);
-                var indexOfTitle = [];
-                var indexOfContent = [];
-                // only match articles with not empty titles
-                if(title != '') {
-                  keywords.forEach(function(keyword) {
-                    function getIndexByWord(word, text, caseSensitive) {
-                      var wordLen = word.length;
-                      if (wordLen === 0) {
-                        return [];
-                      }
-                      var startPosition = 0, position = [], index = [];
-                      if (!caseSensitive) {
-                        text = text.toLowerCase();
-                        word = word.toLowerCase();
-                      }
-                      while ((position = text.indexOf(word, startPosition)) > -1) {
-                        index.push({position: position, word: word});
-                        startPosition = position + wordLen;
-                      }
-                      return index;
-                    }
-
-                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
-                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
-                  });
-                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
-                    isMatch = true;
-                    hitCount = indexOfTitle.length + indexOfContent.length;
-                  }
-                }
-
-                // show search results
-
-                if (isMatch) {
-                  // sort index by position of keyword
-
-                  [indexOfTitle, indexOfContent].forEach(function (index) {
-                    index.sort(function (itemLeft, itemRight) {
-                      if (itemRight.position !== itemLeft.position) {
-                        return itemRight.position - itemLeft.position;
-                      } else {
-                        return itemLeft.word.length - itemRight.word.length;
-                      }
-                    });
-                  });
-
-                  // merge hits into slices
-
-                  function mergeIntoSlice(text, start, end, index) {
-                    var item = index[index.length - 1];
-                    var position = item.position;
-                    var word = item.word;
-                    var hits = [];
-                    var searchTextCountInSlice = 0;
-                    while (position + word.length <= end && index.length != 0) {
-                      if (word === searchText) {
-                        searchTextCountInSlice++;
-                      }
-                      hits.push({position: position, length: word.length});
-                      var wordEnd = position + word.length;
-
-                      // move to next position of hit
-
-                      index.pop();
-                      while (index.length != 0) {
-                        item = index[index.length - 1];
-                        position = item.position;
-                        word = item.word;
-                        if (wordEnd > position) {
-                          index.pop();
-                        } else {
-                          break;
-                        }
-                      }
-                    }
-                    searchTextCount += searchTextCountInSlice;
-                    return {
-                      hits: hits,
-                      start: start,
-                      end: end,
-                      searchTextCount: searchTextCountInSlice
-                    };
-                  }
-
-                  var slicesOfTitle = [];
-                  if (indexOfTitle.length != 0) {
-                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
-                  }
-
-                  var slicesOfContent = [];
-                  while (indexOfContent.length != 0) {
-                    var item = indexOfContent[indexOfContent.length - 1];
-                    var position = item.position;
-                    var word = item.word;
-                    // cut out 100 characters
-                    var start = position - 20;
-                    var end = position + 80;
-                    if(start < 0){
-                      start = 0;
-                    }
-                    if (end < position + word.length) {
-                      end = position + word.length;
-                    }
-                    if(end > content.length){
-                      end = content.length;
-                    }
-                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
-                  }
-
-                  // sort slices in content by search text's count and hits' count
-
-                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
-                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
-                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
-                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
-                      return sliceRight.hits.length - sliceLeft.hits.length;
-                    } else {
-                      return sliceLeft.start - sliceRight.start;
-                    }
-                  });
-
-                  // select top N slices in content
-
-                  var upperBound = parseInt('-1');
-                  if (upperBound >= 0) {
-                    slicesOfContent = slicesOfContent.slice(0, upperBound);
-                  }
-
-                  // highlight title and content
-
-                  function highlightKeyword(text, slice) {
-                    var result = '';
-                    var prevEnd = slice.start;
-                    slice.hits.forEach(function (hit) {
-                      result += text.substring(prevEnd, hit.position);
-                      var end = hit.position + hit.length;
-                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
-                      prevEnd = end;
-                    });
-                    result += text.substring(prevEnd, slice.end);
-                    return result;
-                  }
-
-                  var resultItem = '';
-
-                  if (slicesOfTitle.length != 0) {
-                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
-                  } else {
-                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
-                  }
-
-                  slicesOfContent.forEach(function (slice) {
-                    resultItem += "<a href='" + articleUrl + "'>" +
-                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
-                      "...</p>" + "</a>";
-                  });
-
-                  resultItem += "</li>";
-                  resultItems.push({
-                    item: resultItem,
-                    searchTextCount: searchTextCount,
-                    hitCount: hitCount,
-                    id: resultItems.length
-                  });
-                }
-              })
-            };
-            if (keywords.length === 1 && keywords[0] === "") {
-              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
-            } else if (resultItems.length === 0) {
-              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
-            } else {
-              resultItems.sort(function (resultLeft, resultRight) {
-                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
-                  return resultRight.searchTextCount - resultLeft.searchTextCount;
-                } else if (resultLeft.hitCount !== resultRight.hitCount) {
-                  return resultRight.hitCount - resultLeft.hitCount;
-                } else {
-                  return resultRight.id - resultLeft.id;
-                }
-              });
-              var searchResultList = '<ul class=\"search-result-list\">';
-              resultItems.forEach(function (result) {
-                searchResultList += result.item;
-              })
-              searchResultList += "</ul>";
-              resultContent.innerHTML = searchResultList;
-            }
-          }
-
-          if ('auto' === 'auto') {
-            input.addEventListener('input', inputEventFunction);
-          } else {
-            $('.search-icon').click(inputEventFunction);
-            input.addEventListener('keypress', function (event) {
-              if (event.keyCode === 13) {
-                inputEventFunction();
-              }
-            });
-          }
-
-          // remove loading animation
-          $(".local-search-pop-overlay").remove();
-          $('body').css('overflow', '');
-
-          proceedsearch();
-        }
-      });
-    }
-
-    // handle and trigger popup window;
-    $('.popup-trigger').click(function(e) {
-      e.stopPropagation();
-      if (isfetched === false) {
-        searchFunc(path, 'local-search-input', 'local-search-result');
-      } else {
-        proceedsearch();
-      };
-    });
-
-    $('.popup-btn-close').click(onPopupClose);
-    $('.popup').click(function(e){
-      e.stopPropagation();
-    });
-    $(document).on('keyup', function (event) {
-      var shouldDismissSearchPopup = event.which === 27 &&
-        $('.search-popup').is(':visible');
-      if (shouldDismissSearchPopup) {
-        onPopupClose();
-      }
-    });
-  </script>
-
-
-
-
-
-  
-
-  
-
-  
-
-  
-  
-
-  
-
-  
-
-  
-
+  </div>
 </body>
 </html>
