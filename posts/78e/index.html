@@ -1,0 +1,1196 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="cn">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Java,RPC," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="RPC的原理及其简单实现什么是RPCRPC，全称为Remote Procedure Call，即远程过程调用。它的目的是使调用远程服务像调用本地服务一样。 RPC可基于HTTP或TCP协议，Web Service就是基于HTTP协议的RPC，它具有良好的跨平台性，但其性能却不如基于 TCP 协议的 RPC。会两方面会直接影响 RPC 的性能，一是传输方式，二是序列化。 RPC简易架构RPC可简化为">
+<meta property="og:type" content="article">
+<meta property="og:title" content="RPC的原理及其简单实现">
+<meta property="og:url" content="http://huhansi.com/posts/78e/index.html">
+<meta property="og:site_name" content="HanSi&#39;s Blog">
+<meta property="og:description" content="RPC的原理及其简单实现什么是RPCRPC，全称为Remote Procedure Call，即远程过程调用。它的目的是使调用远程服务像调用本地服务一样。 RPC可基于HTTP或TCP协议，Web Service就是基于HTTP协议的RPC，它具有良好的跨平台性，但其性能却不如基于 TCP 协议的 RPC。会两方面会直接影响 RPC 的性能，一是传输方式，二是序列化。 RPC简易架构RPC可简化为">
+<meta property="og:locale">
+<meta property="og:image" content="https://huhansi.github.io/images/2020-04-08-rpc1.png">
+<meta property="article:published_time" content="2020-04-07T16:00:00.000Z">
+<meta property="article:modified_time" content="2022-07-03T14:04:55.965Z">
+<meta property="article:author" content="HanSi">
+<meta property="article:tag" content="Java">
+<meta property="article:tag" content="RPC">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://huhansi.github.io/images/2020-04-08-rpc1.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '',
+    scheme: 'Mist',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":true,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://huhansi.com/posts/78e/"/>
+
+
+
+
+
+  <title>RPC的原理及其简单实现 | HanSi's Blog</title>
+  
+
+
+
+
+
+
+
+
+<meta name="generator" content="Hexo 6.2.0"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="cn">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">HanSi's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            About
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            Search
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="Searching..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://huhansi.com/posts/78e/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="HanSi's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">RPC的原理及其简单实现</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-04-08T00:00:00+08:00">
+                2020-04-08
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/JVM/" itemprop="url" rel="index">
+                    <span itemprop="name">JVM</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Words count in article&#58;</span>
+                
+                <span title="Words count in article">
+                  1.6k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Reading time &asymp;</span>
+                
+                <span title="Reading time">
+                  8
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="RPC的原理及其简单实现"><a href="#RPC的原理及其简单实现" class="headerlink" title="RPC的原理及其简单实现"></a>RPC的原理及其简单实现</h1><h2 id="什么是RPC"><a href="#什么是RPC" class="headerlink" title="什么是RPC"></a>什么是RPC</h2><p>RPC，全称为Remote Procedure Call，即远程过程调用。它的目的是使调用远程服务像调用本地服务一样。</p>
+<p>RPC可基于HTTP或TCP协议，Web Service就是基于HTTP协议的RPC，它具有良好的跨平台性，但其性能却不如基于 TCP 协议的 RPC。会两方面会直接影响 RPC 的性能，一是传输方式，二是序列化。</p>
+<h2 id="RPC简易架构"><a href="#RPC简易架构" class="headerlink" title="RPC简易架构"></a>RPC简易架构</h2><p>RPC可简化为如下架构：</p>
+<p><img src="https://huhansi.github.io/images/2020-04-08-rpc1.png" alt="rpc简易架构"></p>
+<p>调用步骤为：</p>
+<ol>
+<li>客户端函数调用客户端句柄，执行传送参数</li>
+<li>调用本地系统内核发送网络消息</li>
+<li>消息通过tcp或者自定义协议或者其他协议传送到服务端</li>
+<li>服务端句柄获取消息及参数</li>
+<li>执行远程过程</li>
+<li>将远程过程的结果返回给服务器句柄</li>
+<li>服务器句柄返回结果，调用远程系统内核发送网络消息</li>
+<li>本地主机获取返回消息</li>
+<li>客户端句柄通过内核接受消息</li>
+<li>客户端接收句柄返回的数据</li>
+</ol>
+<p>RPC可按照角色分为3类：</p>
+<ul>
+<li>服务提供者：由框架提供，运行在服务端，发布服务、接收客户端消息、返回消息</li>
+<li>服务调用者：由框架提供，运行在客户端，生成代理对象、调用远程服务</li>
+<li>服务具体实现：由使用框架者提供，运行在服务器，服务接口、接口实现类</li>
+</ul>
+<h2 id="RPC简易实现"><a href="#RPC简易实现" class="headerlink" title="RPC简易实现"></a>RPC简易实现</h2><h3 id="Server端"><a href="#Server端" class="headerlink" title="Server端"></a>Server端</h3><h4 id="Server"><a href="#Server" class="headerlink" title="Server"></a>Server</h4><p>在服务端利用Socket监听指定端口，并启用线程池来执行客户端的请求。</p>
+<p>注册服务service.registerService(StudentService.class, StudentServiceImpl.class);</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Server</span> &#123;</span><br><span class="line">	<span class="keyword">private</span> ServerSocket serverSocket;</span><br><span class="line">    <span class="keyword">private</span> <span class="type">int</span> servPort;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">Server</span><span class="params">(<span class="type">int</span> port)</span> <span class="keyword">throws</span> IOException &#123;</span><br><span class="line">        <span class="built_in">this</span>.servPort = port;</span><br><span class="line">        serverSocket = <span class="keyword">new</span> <span class="title class_">ServerSocket</span>(<span class="built_in">this</span>.servPort);</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">start</span><span class="params">()</span>&#123;</span><br><span class="line">        <span class="type">ThreadPoolExecutor</span> <span class="variable">threadPool</span> <span class="operator">=</span><span class="keyword">new</span> <span class="title class_">ThreadPoolExecutor</span>(<span class="number">5</span>, <span class="number">10</span>,</span><br><span class="line">                <span class="number">200</span>, TimeUnit.SECONDS, <span class="keyword">new</span> <span class="title class_">ArrayBlockingQueue</span>&lt;Runnable&gt;(<span class="number">10</span>));</span><br><span class="line">        <span class="keyword">while</span> (<span class="literal">true</span>) &#123;</span><br><span class="line">            <span class="keyword">try</span> &#123;</span><br><span class="line">                <span class="type">Socket</span> <span class="variable">sock</span> <span class="operator">=</span> serverSocket.accept();</span><br><span class="line">                <span class="type">ServerService</span> <span class="variable">service</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">ServerService</span>(sock);</span><br><span class="line">                service.registerService(StudentService.class, StudentServiceImpl.class);</span><br><span class="line">                threadPool.execute(service);</span><br><span class="line">            &#125; <span class="keyword">catch</span> (IOException e)&#123;</span><br><span class="line">                System.out.println(e.getMessage());</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="ServerService"><a href="#ServerService" class="headerlink" title="ServerService"></a>ServerService</h4><p>ServerService实现了Runnable接口，便于提交给线程池执行</p>
+<p>而后从Socket读取数据，转为Request对象</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">ServerService</span> <span class="keyword">implements</span> <span class="title class_">Runnable</span> &#123;</span><br><span class="line">	<span class="keyword">private</span> Socket sockClient;</span><br><span class="line">	<span class="keyword">private</span> Map&lt;String, Class&lt;?&gt;&gt; serviceRegistry = <span class="keyword">new</span> <span class="title class_">HashMap</span>&lt;String, Class&lt;?&gt;&gt;();</span><br><span class="line">	<span class="keyword">private</span> <span class="type">Response</span> <span class="variable">response</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Response</span>();</span><br><span class="line"></span><br><span class="line">	<span class="keyword">public</span> <span class="title function_">ServerService</span><span class="params">(Socket sock)</span> &#123;</span><br><span class="line">		<span class="built_in">super</span>();</span><br><span class="line">		<span class="built_in">this</span>.sockClient = sock;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">run</span><span class="params">()</span> &#123;</span><br><span class="line">		<span class="keyword">try</span> &#123;</span><br><span class="line">			<span class="type">OutputStream</span> <span class="variable">out</span> <span class="operator">=</span> sockClient.getOutputStream();</span><br><span class="line">			<span class="comment">// 建立好连接后，从socket中获取输入流，并建立缓冲区进行读取</span></span><br><span class="line">			<span class="type">InputStream</span> <span class="variable">in</span> <span class="operator">=</span> sockClient.getInputStream();</span><br><span class="line"></span><br><span class="line">			<span class="type">ObjectInputStream</span> <span class="variable">objIn</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">ObjectInputStream</span>(in);</span><br><span class="line">			<span class="type">ObjectOutputStream</span> <span class="variable">objOut</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">ObjectOutputStream</span>(out);</span><br><span class="line"></span><br><span class="line">			<span class="comment">// 2. 获取请求数据，强转参数类型</span></span><br><span class="line">			<span class="type">Object</span> <span class="variable">param</span> <span class="operator">=</span> objIn.readObject();</span><br><span class="line">			<span class="type">Request</span> <span class="variable">request</span> <span class="operator">=</span> <span class="literal">null</span>;</span><br><span class="line">			<span class="keyword">if</span> (!(param <span class="keyword">instanceof</span> Request)) &#123;</span><br><span class="line">				response.setMessage(<span class="string">&quot;参数错误&quot;</span>);</span><br><span class="line">				objOut.writeObject(response);</span><br><span class="line">				objOut.flush();</span><br><span class="line">				<span class="keyword">return</span>;</span><br><span class="line">			&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">				request = (Request) param;</span><br><span class="line">			&#125;</span><br><span class="line"></span><br><span class="line">			<span class="comment">// 3. 查找并执行服务方法</span></span><br><span class="line">			System.out.println(<span class="string">&quot;要执行的类型为：&quot;</span> + request.getClassName());</span><br><span class="line">			Class&lt;?&gt; service = serviceRegistry.get(request.getClassName());</span><br><span class="line">			<span class="keyword">if</span> (service != <span class="literal">null</span>) &#123;</span><br><span class="line">				<span class="type">Method</span> <span class="variable">method</span> <span class="operator">=</span> service.getMethod(request.getMethodName(), request.getParamTypes());</span><br><span class="line">				<span class="type">Object</span> <span class="variable">result</span> <span class="operator">=</span> method.invoke(service.newInstance(), request.getParams());</span><br><span class="line">				<span class="comment">// 4. 得到结果并返回</span></span><br><span class="line">				response.setObj(result);</span><br><span class="line">			&#125;</span><br><span class="line">			objOut.writeObject(response);</span><br><span class="line">			objOut.flush();</span><br><span class="line">			out.close();</span><br><span class="line">			in.close();</span><br><span class="line">			sockClient.close();</span><br><span class="line">		&#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">			System.out.println(e.getMessage());</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">registerService</span><span class="params">(Class&lt;?&gt; iface, Class&lt;?&gt; Imp)</span> &#123;</span><br><span class="line">		<span class="built_in">this</span>.serviceRegistry.put(iface.getName(), Imp);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h4 id="StudentService"><a href="#StudentService" class="headerlink" title="StudentService"></a>StudentService</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">interface</span> <span class="title class_">StudentService</span> &#123;</span><br><span class="line">	<span class="keyword">public</span> Student <span class="title function_">getInfo</span><span class="params">()</span>;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">print</span><span class="params">(Student stu)</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="StudentServiceImpl"><a href="#StudentServiceImpl" class="headerlink" title="StudentServiceImpl"></a>StudentServiceImpl</h4><p>StudentServiceImpl是StudentService的实现类</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">StudentServiceImpl</span> <span class="keyword">implements</span> <span class="title class_">StudentService</span> &#123;</span><br><span class="line">	<span class="meta">@Override</span></span><br><span class="line">	<span class="keyword">public</span> Student <span class="title function_">getInfo</span><span class="params">()</span> &#123;</span><br><span class="line">		<span class="type">Student</span> <span class="variable">stu</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Student</span>();</span><br><span class="line">		stu.setID(<span class="string">&quot;123456&quot;</span>);</span><br><span class="line">		stu.setAge(<span class="number">10</span>);</span><br><span class="line">		stu.setName(<span class="string">&quot;xxxx&quot;</span>);</span><br><span class="line">		<span class="keyword">return</span> stu;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="meta">@Override</span></span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">print</span><span class="params">(Student stu)</span> &#123;</span><br><span class="line"></span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="Client端"><a href="#Client端" class="headerlink" title="Client端"></a>Client端</h3><h4 id="SocketClient"><a href="#SocketClient" class="headerlink" title="SocketClient"></a>SocketClient</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">SocketClient</span> &#123;</span><br><span class="line">	<span class="keyword">private</span> Socket sock;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">public</span> <span class="title function_">SocketClient</span><span class="params">()</span> &#123;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">public</span> Object <span class="title function_">invoke</span><span class="params">(Request request, String Ip, <span class="type">int</span> port)</span> <span class="keyword">throws</span> IOException &#123;</span><br><span class="line">		sock = <span class="keyword">new</span> <span class="title class_">Socket</span>(Ip, port);</span><br><span class="line">		<span class="type">InputStream</span> <span class="variable">in</span> <span class="operator">=</span> sock.getInputStream();</span><br><span class="line">		<span class="type">OutputStream</span> <span class="variable">out</span> <span class="operator">=</span> sock.getOutputStream();</span><br><span class="line">		ObjectOutputStream objOut;</span><br><span class="line">		ObjectInputStream objIn;</span><br><span class="line">		<span class="type">Response</span> <span class="variable">response</span> <span class="operator">=</span> <span class="literal">null</span>;</span><br><span class="line">		<span class="keyword">try</span> &#123;</span><br><span class="line">			objOut = <span class="keyword">new</span> <span class="title class_">ObjectOutputStream</span>(out);</span><br><span class="line">			objOut.writeObject(request);</span><br><span class="line">			objOut.flush();</span><br><span class="line">			objIn = <span class="keyword">new</span> <span class="title class_">ObjectInputStream</span>(in);</span><br><span class="line">			<span class="type">Object</span> <span class="variable">res</span> <span class="operator">=</span> objIn.readObject();</span><br><span class="line">			<span class="keyword">if</span> (res <span class="keyword">instanceof</span> Response) &#123;</span><br><span class="line">				response = (Response) res;</span><br><span class="line">			&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">				<span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">RuntimeException</span>(<span class="string">&quot;返回不正确!!!&quot;</span>);</span><br><span class="line">			&#125;</span><br><span class="line">		&#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">			System.out.println(<span class="string">&quot;error:   &quot;</span> + e.getMessage());</span><br><span class="line">		&#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">			out.close();</span><br><span class="line">			in.close();</span><br><span class="line">			sock.close();</span><br><span class="line">			<span class="keyword">return</span> response.getObj();</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="SocketClientProxy"><a href="#SocketClientProxy" class="headerlink" title="SocketClientProxy"></a>SocketClientProxy</h4><p>SocketClientProxy创建代理对象，拦截代理对象执行方法</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">SocketClientProxy</span> &#123;</span><br><span class="line">	<span class="keyword">private</span> <span class="type">SocketClient</span> <span class="variable">sock</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">SocketClient</span>();</span><br><span class="line"></span><br><span class="line">	<span class="keyword">public</span> &lt;T&gt; T <span class="title function_">getProxy</span><span class="params">(Class&lt;T&gt; clazz)</span> &#123;</span><br><span class="line">		<span class="keyword">return</span> (T) Proxy.newProxyInstance(clazz.getClassLoader(), <span class="keyword">new</span> <span class="title class_">Class</span>&lt;?&gt;[] &#123; clazz &#125;, <span class="keyword">new</span> <span class="title class_">InvocationHandler</span>() &#123;</span><br><span class="line">			<span class="meta">@Override</span></span><br><span class="line">			<span class="keyword">public</span> Object <span class="title function_">invoke</span><span class="params">(Object proxy, Method method, Object[] args)</span> <span class="keyword">throws</span> Throwable &#123;</span><br><span class="line">				<span class="type">Request</span> <span class="variable">request</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Request</span>();</span><br><span class="line">				request.setClassName(method.getDeclaringClass().getName());</span><br><span class="line">				request.setMethodName(method.getName());</span><br><span class="line">				request.setParamTypes(method.getParameterTypes());</span><br><span class="line">				request.setParams(args);</span><br><span class="line">				<span class="keyword">return</span> sock.invoke(request, <span class="string">&quot;127.0.0.1&quot;</span>, <span class="number">12000</span>);</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h3 id="公共"><a href="#公共" class="headerlink" title="公共"></a>公共</h3><h4 id="Request"><a href="#Request" class="headerlink" title="Request"></a>Request</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Request</span> <span class="keyword">implements</span> <span class="title class_">Serializable</span> &#123;</span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="type">long</span> <span class="variable">serialVersionUID</span> <span class="operator">=</span> <span class="number">1L</span>;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">private</span> String className;</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">private</span> String methodName;</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">private</span> Object[] params;</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">private</span> Class&lt;?&gt;[] paramTypes;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">public</span> String <span class="title function_">getClassName</span><span class="params">()</span> &#123;</span><br><span class="line">		<span class="keyword">return</span> className;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">setClassName</span><span class="params">(String className)</span> &#123;</span><br><span class="line">		<span class="built_in">this</span>.className = className;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">public</span> String <span class="title function_">getMethodName</span><span class="params">()</span> &#123;</span><br><span class="line">		<span class="keyword">return</span> methodName;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">setMethodName</span><span class="params">(String methodName)</span> &#123;</span><br><span class="line">		<span class="built_in">this</span>.methodName = methodName;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">public</span> Object[] getParams() &#123;</span><br><span class="line">		<span class="keyword">return</span> params;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">setParams</span><span class="params">(Object[] params)</span> &#123;</span><br><span class="line">		<span class="built_in">this</span>.params = params;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">public</span> Class&lt;?&gt;[] getParamTypes() &#123;</span><br><span class="line">		<span class="keyword">return</span> paramTypes;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">setParamTypes</span><span class="params">(Class&lt;?&gt;[] paramTypes)</span> &#123;</span><br><span class="line">		<span class="built_in">this</span>.paramTypes = paramTypes;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h4 id="Response"><a href="#Response" class="headerlink" title="Response"></a>Response</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Response</span> <span class="keyword">implements</span> <span class="title class_">Serializable</span> &#123;</span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="type">long</span> <span class="variable">serialVersionUID</span> <span class="operator">=</span> <span class="number">1L</span>;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">private</span> String message;</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">private</span> Object obj;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">public</span> String <span class="title function_">getMessage</span><span class="params">()</span> &#123;</span><br><span class="line">		<span class="keyword">return</span> message;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">setMessage</span><span class="params">(String message)</span> &#123;</span><br><span class="line">		<span class="built_in">this</span>.message = message;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">public</span> Object <span class="title function_">getObj</span><span class="params">()</span> &#123;</span><br><span class="line">		<span class="keyword">return</span> obj;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">setObj</span><span class="params">(Object obj)</span> &#123;</span><br><span class="line">		<span class="built_in">this</span>.obj = obj;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h4 id="Student"><a href="#Student" class="headerlink" title="Student"></a>Student</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Student</span> <span class="keyword">implements</span> <span class="title class_">Serializable</span> &#123;</span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="type">long</span> <span class="variable">serialVersionUID</span> <span class="operator">=</span> <span class="number">3L</span>;</span><br><span class="line">	<span class="keyword">private</span> String ID;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">public</span> String <span class="title function_">getID</span><span class="params">()</span> &#123;</span><br><span class="line">		<span class="keyword">return</span> ID;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">setID</span><span class="params">(String ID)</span> &#123;</span><br><span class="line">		<span class="built_in">this</span>.ID = ID;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">private</span> String name;</span><br><span class="line">	<span class="keyword">private</span> <span class="type">int</span> age;</span><br><span class="line">	<span class="keyword">private</span> String school;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">public</span> String <span class="title function_">getName</span><span class="params">()</span> &#123;</span><br><span class="line">		<span class="keyword">return</span> name;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">setName</span><span class="params">(String name)</span> &#123;</span><br><span class="line">		<span class="built_in">this</span>.name = name;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">public</span> <span class="type">int</span> <span class="title function_">getAge</span><span class="params">()</span> &#123;</span><br><span class="line">		<span class="keyword">return</span> age;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">setAge</span><span class="params">(<span class="type">int</span> age)</span> &#123;</span><br><span class="line">		<span class="built_in">this</span>.age = age;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">public</span> String <span class="title function_">getSchool</span><span class="params">()</span> &#123;</span><br><span class="line">		<span class="keyword">return</span> school;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">setSchool</span><span class="params">(String school)</span> &#123;</span><br><span class="line">		<span class="built_in">this</span>.school = school;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="测试代码"><a href="#测试代码" class="headerlink" title="测试代码"></a>测试代码</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Test</span> &#123;</span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] arg)</span> &#123;</span><br><span class="line">		<span class="keyword">new</span> <span class="title class_">Thread</span>(() -&gt; &#123;</span><br><span class="line">			<span class="keyword">try</span> &#123;</span><br><span class="line">				<span class="type">Server</span> <span class="variable">server</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Server</span>(<span class="number">12000</span>);</span><br><span class="line">				server.start();</span><br><span class="line">			&#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">				System.out.println(e.getMessage());</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;).start();</span><br><span class="line"></span><br><span class="line">		<span class="type">SocketClientProxy</span> <span class="variable">proxy</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">SocketClientProxy</span>();</span><br><span class="line">		<span class="type">StudentService</span> <span class="variable">studentService</span> <span class="operator">=</span> proxy.getProxy(StudentService.class);</span><br><span class="line">		<span class="type">Student</span> <span class="variable">student</span> <span class="operator">=</span> studentService.getInfo();</span><br><span class="line">		System.out.println(student.getName());</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h2 id="RMI实现简易RPC"><a href="#RMI实现简易RPC" class="headerlink" title="RMI实现简易RPC"></a>RMI实现简易RPC</h2><p>定义RMI对外服务接口HelloService</p>
+<h4 id="HelloService"><a href="#HelloService" class="headerlink" title="HelloService"></a>HelloService</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">interface</span> <span class="title class_">HelloService</span> <span class="keyword">extends</span> <span class="title class_">Remote</span> &#123;</span><br><span class="line">	String <span class="title function_">sayHello</span><span class="params">(String someone)</span> <span class="keyword">throws</span> RemoteException;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>RMI接口方法定义必须显式声明抛出RemoteException异常</p>
+<h4 id="HelloServiceImpl"><a href="#HelloServiceImpl" class="headerlink" title="HelloServiceImpl"></a>HelloServiceImpl</h4><p>服务端接口实现HelloServiceImpl</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">HelloServiceImpl</span> <span class="keyword">extends</span> <span class="title class_">UnicastRemoteObject</span> <span class="keyword">implements</span> <span class="title class_">HelloService</span> &#123;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="type">long</span> <span class="variable">serialVersionUID</span> <span class="operator">=</span> <span class="number">1L</span>;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">protected</span> <span class="title function_">HelloServiceImpl</span><span class="params">()</span> <span class="keyword">throws</span> RemoteException &#123;</span><br><span class="line">		<span class="built_in">super</span>();</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="meta">@Override</span></span><br><span class="line">	<span class="keyword">public</span> String <span class="title function_">sayHello</span><span class="params">(String someone)</span> <span class="keyword">throws</span> RemoteException &#123;</span><br><span class="line">		<span class="keyword">return</span> <span class="string">&quot;Hello &quot;</span> + someone;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>服务端方法实现必须继承UnicastRemoteObject类，该类定义了服务调用方法与服务提供方对象实例，并建立一对一连接。</p>
+<h4 id="ServerMain"><a href="#ServerMain" class="headerlink" title="ServerMain"></a>ServerMain</h4><p>服务端RMI服务启动代码</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">ServerMain</span> &#123;</span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> Exception &#123;</span><br><span class="line">		<span class="type">HelloService</span> <span class="variable">helloService</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">HelloServiceImpl</span>();</span><br><span class="line">		LocateRegistry.createRegistry(<span class="number">12000</span>);</span><br><span class="line">		Naming.bind(<span class="string">&quot;rmi://localhost:12000/helloService&quot;</span>, helloService);</span><br><span class="line">		System.out.println(<span class="string">&quot;Server main provide RPC service now.&quot;</span>);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="ClientMain"><a href="#ClientMain" class="headerlink" title="ClientMain"></a>ClientMain</h4><p>客户端远程调用RMI服务代码</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">ClientMain</span> &#123;</span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> Exception &#123;</span><br><span class="line">		<span class="type">HelloService</span> <span class="variable">helloService</span> <span class="operator">=</span> (HelloService) Naming.lookup(<span class="string">&quot;rmi://localhost:12000/helloService&quot;</span>);</span><br><span class="line">		System.out.println(<span class="string">&quot;RMI 服务器返回的结果是：&quot;</span> + helloService.sayHello(<span class="string">&quot;haha&quot;</span>));</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Java/" rel="tag"># Java</a>
+          
+            <a href="/tags/RPC/" rel="tag"># RPC</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/posts/8613/" rel="next" title="Java中的COW">
+                <i class="fa fa-chevron-left"></i> Java中的COW
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/posts/b33d/" rel="prev" title="1351. 统计有序矩阵中的负数">
+                1351. 统计有序矩阵中的负数 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name"></p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/%7C%7Carchive">
+              
+                  <span class="site-state-item-count">917</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">27</span>
+                  <span class="site-state-item-name">categories</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">359</span>
+                  <span class="site-state-item-name">tags</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#RPC%E7%9A%84%E5%8E%9F%E7%90%86%E5%8F%8A%E5%85%B6%E7%AE%80%E5%8D%95%E5%AE%9E%E7%8E%B0"><span class="nav-number">1.</span> <span class="nav-text">RPC的原理及其简单实现</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BB%80%E4%B9%88%E6%98%AFRPC"><span class="nav-number">1.1.</span> <span class="nav-text">什么是RPC</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#RPC%E7%AE%80%E6%98%93%E6%9E%B6%E6%9E%84"><span class="nav-number">1.2.</span> <span class="nav-text">RPC简易架构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#RPC%E7%AE%80%E6%98%93%E5%AE%9E%E7%8E%B0"><span class="nav-number">1.3.</span> <span class="nav-text">RPC简易实现</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Server%E7%AB%AF"><span class="nav-number">1.3.1.</span> <span class="nav-text">Server端</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Server"><span class="nav-number">1.3.1.1.</span> <span class="nav-text">Server</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#ServerService"><span class="nav-number">1.3.1.2.</span> <span class="nav-text">ServerService</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#StudentService"><span class="nav-number">1.3.1.3.</span> <span class="nav-text">StudentService</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#StudentServiceImpl"><span class="nav-number">1.3.1.4.</span> <span class="nav-text">StudentServiceImpl</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Client%E7%AB%AF"><span class="nav-number">1.3.2.</span> <span class="nav-text">Client端</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#SocketClient"><span class="nav-number">1.3.2.1.</span> <span class="nav-text">SocketClient</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#SocketClientProxy"><span class="nav-number">1.3.2.2.</span> <span class="nav-text">SocketClientProxy</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%AC%E5%85%B1"><span class="nav-number">1.3.3.</span> <span class="nav-text">公共</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Request"><span class="nav-number">1.3.3.1.</span> <span class="nav-text">Request</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Response"><span class="nav-number">1.3.3.2.</span> <span class="nav-text">Response</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Student"><span class="nav-number">1.3.3.3.</span> <span class="nav-text">Student</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B5%8B%E8%AF%95%E4%BB%A3%E7%A0%81"><span class="nav-number">1.3.4.</span> <span class="nav-text">测试代码</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#RMI%E5%AE%9E%E7%8E%B0%E7%AE%80%E6%98%93RPC"><span class="nav-number">1.4.</span> <span class="nav-text">RMI实现简易RPC</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#HelloService"><span class="nav-number">1.4.0.1.</span> <span class="nav-text">HelloService</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#HelloServiceImpl"><span class="nav-number">1.4.0.2.</span> <span class="nav-text">HelloServiceImpl</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#ServerMain"><span class="nav-number">1.4.0.3.</span> <span class="nav-text">ServerMain</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#ClientMain"><span class="nav-number">1.4.0.4.</span> <span class="nav-text">ClientMain</span></a></li></ol></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">HanSi</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">Site words total count&#58;</span>
+    
+    <span title="Site words total count">657.4k</span>
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

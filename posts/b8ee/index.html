@@ -1,0 +1,1193 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="cn">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Java,多线程,Striped64," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="Striped64源码解析Striped64类介绍Striped64是Java8中新增用来支持累加器的并发组件。它可以在并发环境下做一个安全的计数器。它的设计思路，借鉴了JAVA7中的ConcurrentHashmap的分段思想，在竞争的时候，尽量分散竞争。从实现上来看，Striped64维护了一个base和一个Cell数组。在竞争不激烈的时候，累加器的值就一直在base上累加。竞争激烈的时候，就">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Striped64源码解析">
+<meta property="og:url" content="http://huhansi.com/posts/b8ee/index.html">
+<meta property="og:site_name" content="HanSi&#39;s Blog">
+<meta property="og:description" content="Striped64源码解析Striped64类介绍Striped64是Java8中新增用来支持累加器的并发组件。它可以在并发环境下做一个安全的计数器。它的设计思路，借鉴了JAVA7中的ConcurrentHashmap的分段思想，在竞争的时候，尽量分散竞争。从实现上来看，Striped64维护了一个base和一个Cell数组。在竞争不激烈的时候，累加器的值就一直在base上累加。竞争激烈的时候，就">
+<meta property="og:locale">
+<meta property="og:image" content="https://huhansi.github.io/images/2020-07-24-atomic1.png">
+<meta property="article:published_time" content="2020-07-16T16:00:00.000Z">
+<meta property="article:modified_time" content="2022-07-03T14:04:56.061Z">
+<meta property="article:author" content="HanSi">
+<meta property="article:tag" content="Java">
+<meta property="article:tag" content="多线程">
+<meta property="article:tag" content="Striped64">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://huhansi.github.io/images/2020-07-24-atomic1.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '',
+    scheme: 'Mist',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":true,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://huhansi.com/posts/b8ee/"/>
+
+
+
+
+
+  <title>Striped64源码解析 | HanSi's Blog</title>
+  
+
+
+
+
+
+
+
+
+<meta name="generator" content="Hexo 6.2.0"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="cn">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">HanSi's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            About
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            Search
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="Searching..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://huhansi.com/posts/b8ee/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="HanSi's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Striped64源码解析</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-07-17T00:00:00+08:00">
+                2020-07-17
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%BA%90%E7%A0%81/" itemprop="url" rel="index">
+                    <span itemprop="name">源码</span>
+                  </a>
+                </span>
+
+                
+                
+                  , 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%A4%9A%E7%BA%BF%E7%A8%8B/" itemprop="url" rel="index">
+                    <span itemprop="name">多线程</span>
+                  </a>
+                </span>
+
+                
+                
+                  , 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/CAS/" itemprop="url" rel="index">
+                    <span itemprop="name">CAS</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Words count in article&#58;</span>
+                
+                <span title="Words count in article">
+                  2.5k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Reading time &asymp;</span>
+                
+                <span title="Reading time">
+                  11
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="Striped64源码解析"><a href="#Striped64源码解析" class="headerlink" title="Striped64源码解析"></a>Striped64源码解析</h1><h2 id="Striped64类介绍"><a href="#Striped64类介绍" class="headerlink" title="Striped64类介绍"></a>Striped64类介绍</h2><p>Striped64是Java8中新增用来支持累加器的并发组件。它可以在并发环境下做一个安全的计数器。它的设计思路，借鉴了JAVA7中的ConcurrentHashmap的分段思想，在竞争的时候，尽量分散竞争。从实现上来看，Striped64维护了一个base和一个Cell数组。在竞争不激烈的时候，累加器的值就一直在base上累加。竞争激烈的时候，就会通过Cell数组来分散技术。Striped64根据线程计算他们的哈希值，将各个线程分散到不同的Cell中累加。最后的总数，只要结合base以及散落在Cell数组中的计数内容。</p>
+<p>Striped64采用了更为轻量级的CAS来协调并发，效率更佳。</p>
+<h2 id="类图"><a href="#类图" class="headerlink" title="类图"></a>类图</h2><p><img src="https://huhansi.github.io/images/2020-07-24-atomic1.png" alt="Striped64类图"></p>
+<h2 id="主要属性"><a href="#主要属性" class="headerlink" title="主要属性"></a>主要属性</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/** Number of CPUS, to place bound on table size */</span></span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">final</span> <span class="type">int</span> <span class="variable">NCPU</span> <span class="operator">=</span> Runtime.getRuntime().availableProcessors();</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * Table of cells. When non-null, size is a power of 2.</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">transient</span> <span class="keyword">volatile</span> Cell[] cells;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * Base value, used mainly when there is no contention, but also as</span></span><br><span class="line"><span class="comment">     * a fallback during table initialization races. Updated via CAS.</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">transient</span> <span class="keyword">volatile</span> <span class="type">long</span> base;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * Spinlock (locked via CAS) used when resizing and/or creating Cells.</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">transient</span> <span class="keyword">volatile</span> <span class="type">int</span> cellsBusy;</span><br><span class="line"><span class="comment">// Unsafe mechanics</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> sun.misc.Unsafe UNSAFE;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="type">long</span> BASE;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="type">long</span> CELLSBUSY;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="type">long</span> PROBE;</span><br></pre></td></tr></table></figure>
+
+<p><strong>NCPU</strong>：当前运行主机的CPU核数</p>
+<p><strong>cells</strong>：初始化值为null，没有竞争的情况下，不会使用到这个数组。有了竞争之后，第一次初始化的长度为2，后续每次扩容，都是原来长度的两倍，直到数组长度大于等于当前服务器CPU的数量为止。每个线程会通过线程对cells[threadLocalRandomProbe%cells.length]位置的Cell对象中的value做累加，这样相当于将线程绑定到了cells中的某个Cell对象上。</p>
+<p><strong>base</strong>：作用类似于AtomicLong中的value，没有竞争的情况下，就对这个值进行增或减。</p>
+<p><strong>cellsBusy</strong>：它有两个值0或1，它的作用是当要修改cells数组时加锁，防止多线程同时修改cells数组(也称cells表)，0为无锁，1为加锁，加锁的状况有三种：</p>
+<ul>
+<li>cells数组初始化的时候；</li>
+<li>cells数组扩容的时候；</li>
+<li>如果cells数组中某个元素为null，给这个位置创建新的Cell对象的时候；</li>
+</ul>
+<p><strong>UNSAFE</strong>：JDK提供的CAS算法工具类。</p>
+<p><strong>BASE</strong>：base字段在当前类中的内存偏移量</p>
+<p><strong>CELLSBUSY</strong>：cellsBusy字段在当前类中的内存偏移量</p>
+<p><strong>PROBE</strong>：标记位。标记当前线程是否已经初始化</p>
+<h2 id="主要方法"><a href="#主要方法" class="headerlink" title="主要方法"></a>主要方法</h2><h3 id="Striped64"><a href="#Striped64" class="headerlink" title="Striped64()"></a>Striped64()</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">     * Package-private default constructor</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    Striped64() &#123;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<p>默认的构造函数。什么都不做。</p>
+<h3 id="casBase-long-long"><a href="#casBase-long-long" class="headerlink" title="casBase(long,long)"></a>casBase(long,long)</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">     * CASes the base field.</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">final</span> <span class="type">boolean</span> <span class="title function_">casBase</span><span class="params">(<span class="type">long</span> cmp, <span class="type">long</span> val)</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> UNSAFE.compareAndSwapLong(<span class="built_in">this</span>, BASE, cmp, val);</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<p>如果当前值等于cmp，就把base的值更新为val，cas更新base字段的值。</p>
+<h3 id="casCellsBusy"><a href="#casCellsBusy" class="headerlink" title="casCellsBusy()"></a>casCellsBusy()</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">     * CASes the cellsBusy field from 0 to 1 to acquire lock.</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">final</span> <span class="type">boolean</span> <span class="title function_">casCellsBusy</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> UNSAFE.compareAndSwapInt(<span class="built_in">this</span>, CELLSBUSY, <span class="number">0</span>, <span class="number">1</span>);</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<p>将标记位casCellsBusy标记为1.采用cas，如果当前值是0，则标记成功。否则返回false。</p>
+<h3 id="getProbe"><a href="#getProbe" class="headerlink" title="getProbe()"></a>getProbe()</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">     * Returns the probe value for the current thread.</span></span><br><span class="line"><span class="comment">     * Duplicated from ThreadLocalRandom because of packaging restrictions.</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">final</span> <span class="type">int</span> <span class="title function_">getProbe</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> UNSAFE.getInt(Thread.currentThread(), PROBE);</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<p>返回当前线程的probe值。</p>
+<h3 id="longAccumulate-long-LongBinaryOperator-boolean"><a href="#longAccumulate-long-LongBinaryOperator-boolean" class="headerlink" title="longAccumulate(long,LongBinaryOperator,boolean)"></a>longAccumulate(long,LongBinaryOperator,boolean)</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">     * Handles cases of updates involving initialization, resizing,</span></span><br><span class="line"><span class="comment">     * creating new Cells, and/or contention. See above for</span></span><br><span class="line"><span class="comment">     * explanation. This method suffers the usual non-modularity</span></span><br><span class="line"><span class="comment">     * problems of optimistic retry code, relying on rechecked sets of</span></span><br><span class="line"><span class="comment">     * reads.</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> x the value</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> fn the update function, or null for add (this convention</span></span><br><span class="line"><span class="comment">     * avoids the need for an extra field or function in LongAdder).</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> wasUncontended false if CAS failed before call</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">final</span> <span class="keyword">void</span> <span class="title function_">longAccumulate</span><span class="params">(<span class="type">long</span> x, LongBinaryOperator fn,</span></span><br><span class="line"><span class="params">                              <span class="type">boolean</span> wasUncontended)</span> &#123;</span><br><span class="line">        <span class="type">int</span> h;</span><br><span class="line">        <span class="keyword">if</span> ((h = getProbe()) == <span class="number">0</span>) &#123;</span><br><span class="line">            <span class="comment">// 初始化变量threadLocalRandomProbe的值</span></span><br><span class="line">            ThreadLocalRandom.current(); <span class="comment">// force initialization</span></span><br><span class="line">            h = getProbe();</span><br><span class="line">            wasUncontended = <span class="literal">true</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// cas冲突标记，true表示相同的cell间有另外的线程在做累加</span></span><br><span class="line">        <span class="type">boolean</span> <span class="variable">collide</span> <span class="operator">=</span> <span class="literal">false</span>;                <span class="comment">// True if last slot nonempty</span></span><br><span class="line">        <span class="keyword">for</span> (;;) &#123;</span><br><span class="line">            Cell[] as; Cell a; <span class="type">int</span> n; <span class="type">long</span> v;</span><br><span class="line">            <span class="comment">// 如果当前cells数组已经初始化了，并且长度不为0</span></span><br><span class="line">            <span class="keyword">if</span> ((as = cells) != <span class="literal">null</span> &amp;&amp; (n = as.length) &gt; <span class="number">0</span>) &#123;</span><br><span class="line">                <span class="comment">// 通过计算得到隔间cell的值为null，说明没有其他线程对当前cell做操作，</span></span><br><span class="line">                <span class="keyword">if</span> ((a = as[(n - <span class="number">1</span>) &amp; h]) == <span class="literal">null</span>) &#123;</span><br><span class="line">                    <span class="keyword">if</span> (cellsBusy == <span class="number">0</span>) &#123;       <span class="comment">// Try to attach new Cell</span></span><br><span class="line">                        <span class="comment">// 新建一个cell</span></span><br><span class="line">                        <span class="type">Cell</span> <span class="variable">r</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Cell</span>(x);   <span class="comment">// Optimistically create</span></span><br><span class="line">                        <span class="comment">// 当前cell未上锁并且上锁成功</span></span><br><span class="line">                        <span class="keyword">if</span> (cellsBusy == <span class="number">0</span> &amp;&amp; casCellsBusy()) &#123;</span><br><span class="line">                            <span class="comment">// 创建成功标记位</span></span><br><span class="line">                            <span class="type">boolean</span> <span class="variable">created</span> <span class="operator">=</span> <span class="literal">false</span>;</span><br><span class="line">                            <span class="keyword">try</span> &#123;               <span class="comment">// Recheck under lock</span></span><br><span class="line">                                </span><br><span class="line">                                Cell[] rs; <span class="type">int</span> m, j;</span><br><span class="line">                                <span class="comment">// 二次检查当前隔间cell不为null</span></span><br><span class="line">                                <span class="keyword">if</span> ((rs = cells) != <span class="literal">null</span> &amp;&amp;</span><br><span class="line">                                    (m = rs.length) &gt; <span class="number">0</span> &amp;&amp;</span><br><span class="line">                                    rs[j = (m - <span class="number">1</span>) &amp; h] == <span class="literal">null</span>) &#123;</span><br><span class="line">                                    <span class="comment">// 设置当前隔间cell值为r</span></span><br><span class="line">                                    rs[j] = r;</span><br><span class="line">                                    <span class="comment">// 创建成功标记位设置为true</span></span><br><span class="line">                                    created = <span class="literal">true</span>;</span><br><span class="line">                                &#125;</span><br><span class="line">                            &#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">                                <span class="comment">// 释放锁</span></span><br><span class="line">                                cellsBusy = <span class="number">0</span>;</span><br><span class="line">                            &#125;</span><br><span class="line">                            <span class="comment">// 新增cell成功，跳出循环</span></span><br><span class="line">                            <span class="keyword">if</span> (created)</span><br><span class="line">                                <span class="keyword">break</span>;</span><br><span class="line">                            <span class="comment">// 新增cell失败，说明其他线程已经新增成功，继续循环</span></span><br><span class="line">                            <span class="keyword">continue</span>;           <span class="comment">// Slot is now non-empty</span></span><br><span class="line">                        &#125;</span><br><span class="line">                    &#125;</span><br><span class="line">                    <span class="comment">// cellsBusy=1，有线程正在更改cells数组，设置为false</span></span><br><span class="line">                    collide = <span class="literal">false</span>;</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="comment">// 如果cas当前cas失败，将wasUncontended设置为true，然后在87行重新计算probe值，</span></span><br><span class="line">                <span class="keyword">else</span> <span class="keyword">if</span> (!wasUncontended)       <span class="comment">// CAS already known to fail</span></span><br><span class="line">                    wasUncontended = <span class="literal">true</span>;      <span class="comment">// Continue after rehash</span></span><br><span class="line">                <span class="comment">// cas将值设置到当前cell的value上，成功则直接跳出</span></span><br><span class="line">                <span class="keyword">else</span> <span class="keyword">if</span> (a.cas(v = a.value, ((fn == <span class="literal">null</span>) ? v + x :</span><br><span class="line">                                             fn.applyAsLong(v, x))))</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">                <span class="comment">// 如果当前cells数组已经无法再扩容，已经大于等于最大的CPU数量；或者已经扩容，将collide设置为false，重新计算probe值</span></span><br><span class="line">                <span class="keyword">else</span> <span class="keyword">if</span> (n &gt;= NCPU || cells != as)</span><br><span class="line">                    collide = <span class="literal">false</span>;            <span class="comment">// At max size or stale</span></span><br><span class="line">                <span class="comment">// 如果发生了冲突collide=false，则设置其为true；会在最后重新计算hash值后，进入下一次for循环</span></span><br><span class="line">                <span class="keyword">else</span> <span class="keyword">if</span> (!collide)</span><br><span class="line">                    <span class="comment">//设置冲突标志，表示发生了冲突，需要再次生成hash，重试。 如果下次重试任然走到了改分支此时collide=true，!collide条件不成立，则走后一个分支</span></span><br><span class="line">                    collide = <span class="literal">true</span>;</span><br><span class="line">                <span class="comment">// 扩容，新参与cell争用的线程两次均失败，且符合扩容条件</span></span><br><span class="line">                <span class="keyword">else</span> <span class="keyword">if</span> (cellsBusy == <span class="number">0</span> &amp;&amp; casCellsBusy()) &#123;</span><br><span class="line">                    <span class="keyword">try</span> &#123;</span><br><span class="line">                        <span class="comment">// cells数组还未被扩容</span></span><br><span class="line">                        <span class="keyword">if</span> (cells == as) &#123;      <span class="comment">// Expand table unless stale</span></span><br><span class="line">                            <span class="comment">// 扩容为原大小的两倍</span></span><br><span class="line">                            Cell[] rs = <span class="keyword">new</span> <span class="title class_">Cell</span>[n &lt;&lt; <span class="number">1</span>];</span><br><span class="line">                            <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; n; ++i)</span><br><span class="line">                                rs[i] = as[i];</span><br><span class="line">                            cells = rs;</span><br><span class="line">                        &#125;</span><br><span class="line">                    &#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">                        <span class="comment">// 释放锁</span></span><br><span class="line">                        cellsBusy = <span class="number">0</span>;</span><br><span class="line">                    &#125;</span><br><span class="line">                    collide = <span class="literal">false</span>;</span><br><span class="line">                    <span class="keyword">continue</span>;                   <span class="comment">// Retry with expanded table</span></span><br><span class="line">                &#125;</span><br><span class="line">                <span class="comment">// 重新计算probe值</span></span><br><span class="line">                h = advanceProbe(h);</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="comment">// 如果cell未初始化或者长度为0，先尝试获取cellsBusy锁。</span></span><br><span class="line">            <span class="keyword">else</span> <span class="keyword">if</span> (cellsBusy == <span class="number">0</span> &amp;&amp; cells == as &amp;&amp; casCellsBusy()) &#123;</span><br><span class="line">                <span class="type">boolean</span> <span class="variable">init</span> <span class="operator">=</span> <span class="literal">false</span>;</span><br><span class="line">                <span class="keyword">try</span> &#123;                           <span class="comment">// Initialize table</span></span><br><span class="line">                    <span class="comment">// 初始化，初始容量为2</span></span><br><span class="line">                    <span class="keyword">if</span> (cells == as) &#123;</span><br><span class="line">                        Cell[] rs = <span class="keyword">new</span> <span class="title class_">Cell</span>[<span class="number">2</span>];</span><br><span class="line">                        rs[h &amp; <span class="number">1</span>] = <span class="keyword">new</span> <span class="title class_">Cell</span>(x);</span><br><span class="line">                        cells = rs;</span><br><span class="line">                        init = <span class="literal">true</span>;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">                    <span class="comment">// 释放锁</span></span><br><span class="line">                    cellsBusy = <span class="number">0</span>;</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="comment">/// 初始化成功</span></span><br><span class="line">                <span class="keyword">if</span> (init)</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="comment">// 以上操作均失败，则尝试用cas将值累加到base上</span></span><br><span class="line">            <span class="keyword">else</span> <span class="keyword">if</span> (casBase(v = base, ((fn == <span class="literal">null</span>) ? v + x :</span><br><span class="line">                                        fn.applyAsLong(v, x))))</span><br><span class="line">                <span class="keyword">break</span>;                          <span class="comment">// Fall back on using base</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="DoubleAccumulate-double-DoubleBinaryOperator-boolean"><a href="#DoubleAccumulate-double-DoubleBinaryOperator-boolean" class="headerlink" title="DoubleAccumulate(double,DoubleBinaryOperator, boolean)"></a>DoubleAccumulate(double,DoubleBinaryOperator, boolean)</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">     * Same as longAccumulate, but injecting long/double conversions</span></span><br><span class="line"><span class="comment">     * in too many places to sensibly merge with long version, given</span></span><br><span class="line"><span class="comment">     * the low-overhead requirements of this class. So must instead be</span></span><br><span class="line"><span class="comment">     * maintained by copy/paste/adapt.</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">final</span> <span class="keyword">void</span> <span class="title function_">doubleAccumulate</span><span class="params">(<span class="type">double</span> x, DoubleBinaryOperator fn,</span></span><br><span class="line"><span class="params">                                <span class="type">boolean</span> wasUncontended)</span> &#123;</span><br><span class="line">        <span class="type">int</span> h;</span><br><span class="line">        <span class="keyword">if</span> ((h = getProbe()) == <span class="number">0</span>) &#123;</span><br><span class="line">            <span class="comment">// 初始化变量threadLocalRandomProbe的值</span></span><br><span class="line">            ThreadLocalRandom.current(); <span class="comment">// force initialization</span></span><br><span class="line">            h = getProbe();</span><br><span class="line">            wasUncontended = <span class="literal">true</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// cas冲突标记，true表示相同的cell间有另外的线程在做累加</span></span><br><span class="line">        <span class="type">boolean</span> <span class="variable">collide</span> <span class="operator">=</span> <span class="literal">false</span>;                <span class="comment">// True if last slot nonempty</span></span><br><span class="line">        <span class="keyword">for</span> (;;) &#123;</span><br><span class="line">            Cell[] as; Cell a; <span class="type">int</span> n; <span class="type">long</span> v;</span><br><span class="line">            <span class="comment">// 如果当前cells数组已经初始化了，并且长度不为0</span></span><br><span class="line">            <span class="keyword">if</span> ((as = cells) != <span class="literal">null</span> &amp;&amp; (n = as.length) &gt; <span class="number">0</span>) &#123;</span><br><span class="line">                <span class="keyword">if</span> ((a = as[(n - <span class="number">1</span>) &amp; h]) == <span class="literal">null</span>) &#123;</span><br><span class="line">                    <span class="keyword">if</span> (cellsBusy == <span class="number">0</span>) &#123;       <span class="comment">// Try to attach new Cell</span></span><br><span class="line">                        <span class="comment">// 新建一个cell，并将double值转为long存储</span></span><br><span class="line">                        <span class="type">Cell</span> <span class="variable">r</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Cell</span>(Double.doubleToRawLongBits(x));</span><br><span class="line">                        <span class="comment">// 当前cell未上锁，并上锁成功</span></span><br><span class="line">                        <span class="keyword">if</span> (cellsBusy == <span class="number">0</span> &amp;&amp; casCellsBusy()) &#123;</span><br><span class="line">                            <span class="comment">// 创建成功标记位</span></span><br><span class="line">                            <span class="type">boolean</span> <span class="variable">created</span> <span class="operator">=</span> <span class="literal">false</span>;</span><br><span class="line">                            <span class="keyword">try</span> &#123;               <span class="comment">// Recheck under lock</span></span><br><span class="line">                                Cell[] rs; <span class="type">int</span> m, j;</span><br><span class="line">                                <span class="comment">// 二次检查当前隔间cell不为null</span></span><br><span class="line">                                <span class="keyword">if</span> ((rs = cells) != <span class="literal">null</span> &amp;&amp;</span><br><span class="line">                                    (m = rs.length) &gt; <span class="number">0</span> &amp;&amp;</span><br><span class="line">                                    rs[j = (m - <span class="number">1</span>) &amp; h] == <span class="literal">null</span>) &#123;									<span class="comment">// 当前隔间cell为r</span></span><br><span class="line">                                    rs[j] = r;</span><br><span class="line">                                    <span class="comment">// 创建成功</span></span><br><span class="line">                                    created = <span class="literal">true</span>;</span><br><span class="line">                                &#125;</span><br><span class="line">                            &#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">                                <span class="comment">// 释放锁</span></span><br><span class="line">                                cellsBusy = <span class="number">0</span>;</span><br><span class="line">                            &#125;</span><br><span class="line">                            <span class="comment">// 新增成功，跳出循环</span></span><br><span class="line">                            <span class="keyword">if</span> (created)</span><br><span class="line">                                <span class="keyword">break</span>;</span><br><span class="line">                            <span class="comment">// 新增失败，说明已经有其他线程新增成功，继续循环</span></span><br><span class="line">                            <span class="keyword">continue</span>;           <span class="comment">// Slot is now non-empty</span></span><br><span class="line">                        &#125;</span><br><span class="line">                    &#125;</span><br><span class="line">                    <span class="comment">// cellsBusy=1，有线程正在更改cells数组，设置为false</span></span><br><span class="line">                    collide = <span class="literal">false</span>;</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="comment">// 如果当前cas失败，将wasUncontended设置为true，然后重新计算probe值，重新散列当前线程到其他cell减少冲突</span></span><br><span class="line">                <span class="keyword">else</span> <span class="keyword">if</span> (!wasUncontended)       <span class="comment">// CAS already known to fail</span></span><br><span class="line">                    wasUncontended = <span class="literal">true</span>;      <span class="comment">// Continue after rehash</span></span><br><span class="line">                <span class="keyword">else</span> <span class="keyword">if</span> (a.cas(v = a.value,</span><br><span class="line">                               ((fn == <span class="literal">null</span>) ?</span><br><span class="line">                                Double.doubleToRawLongBits</span><br><span class="line">                                (Double.longBitsToDouble(v) + x) :</span><br><span class="line">                                Double.doubleToRawLongBits</span><br><span class="line">                                (fn.applyAsDouble</span><br><span class="line">                                 (Double.longBitsToDouble(v), x)))))</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">                <span class="comment">// 如果当前cells数组已经无法再扩容，已经大于等于最大的CPU数量；或者已经扩容，将collide设置为false，重新计算probe值</span></span><br><span class="line">                <span class="keyword">else</span> <span class="keyword">if</span> (n &gt;= NCPU || cells != as)</span><br><span class="line">                    collide = <span class="literal">false</span>;            <span class="comment">// At max size or stale</span></span><br><span class="line">                <span class="comment">// 如果发生了冲突collide=false，则设置其为true；会在最后重新计算hash值后，进入下一次for循环</span></span><br><span class="line">                <span class="keyword">else</span> <span class="keyword">if</span> (!collide)</span><br><span class="line">                    <span class="comment">// 设置冲突标志，表示发生了冲突，需要再次生成hash，重试。 如果下次重试仍然走到了改分支此时collide=true，!collide条件不成立，则走后一个分支</span></span><br><span class="line">                    collide = <span class="literal">true</span>;</span><br><span class="line">                <span class="comment">// 扩容，新参与cell争用的线程两次均失败，且符合扩容条件</span></span><br><span class="line">                <span class="keyword">else</span> <span class="keyword">if</span> (cellsBusy == <span class="number">0</span> &amp;&amp; casCellsBusy()) &#123;</span><br><span class="line">                    <span class="keyword">try</span> &#123;</span><br><span class="line">                        <span class="comment">// cells数组还未被扩容</span></span><br><span class="line">                        <span class="keyword">if</span> (cells == as) &#123;      <span class="comment">// Expand table unless stale</span></span><br><span class="line">                            <span class="comment">// 扩容为原大小的两倍</span></span><br><span class="line">                            Cell[] rs = <span class="keyword">new</span> <span class="title class_">Cell</span>[n &lt;&lt; <span class="number">1</span>];</span><br><span class="line">                            <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; n; ++i)</span><br><span class="line">                                rs[i] = as[i];</span><br><span class="line">                            cells = rs;</span><br><span class="line">                        &#125;</span><br><span class="line">                    &#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">                        <span class="comment">// 释放锁</span></span><br><span class="line">                        cellsBusy = <span class="number">0</span>;</span><br><span class="line">                    &#125;</span><br><span class="line">                    collide = <span class="literal">false</span>;</span><br><span class="line">                    <span class="keyword">continue</span>;                   <span class="comment">// Retry with expanded table</span></span><br><span class="line">                &#125;</span><br><span class="line">                <span class="comment">// 重新计算probe值</span></span><br><span class="line">                h = advanceProbe(h);</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="comment">// 如果cell未初始化或者长度为0，先尝试获取cellsBusy锁。</span></span><br><span class="line">            <span class="keyword">else</span> <span class="keyword">if</span> (cellsBusy == <span class="number">0</span> &amp;&amp; cells == as &amp;&amp; casCellsBusy()) &#123;</span><br><span class="line">                <span class="type">boolean</span> <span class="variable">init</span> <span class="operator">=</span> <span class="literal">false</span>;</span><br><span class="line">                <span class="keyword">try</span> &#123;                           <span class="comment">// Initialize table</span></span><br><span class="line">                    <span class="comment">// 初始化，初始容量为2</span></span><br><span class="line">                    <span class="keyword">if</span> (cells == as) &#123;</span><br><span class="line">                        Cell[] rs = <span class="keyword">new</span> <span class="title class_">Cell</span>[<span class="number">2</span>];</span><br><span class="line">                        rs[h &amp; <span class="number">1</span>] = <span class="keyword">new</span> <span class="title class_">Cell</span>(Double.doubleToRawLongBits(x));</span><br><span class="line">                        cells = rs;</span><br><span class="line">                        init = <span class="literal">true</span>;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">                    <span class="comment">// 释放锁</span></span><br><span class="line">                    cellsBusy = <span class="number">0</span>;</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="comment">// 初始化成功</span></span><br><span class="line">                <span class="keyword">if</span> (init)</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="comment">// 以上操作均失败，则尝试用cas将值累加到base上</span></span><br><span class="line">            <span class="keyword">else</span> <span class="keyword">if</span> (casBase(v = base,</span><br><span class="line">                             ((fn == <span class="literal">null</span>) ?</span><br><span class="line">                              Double.doubleToRawLongBits</span><br><span class="line">                              (Double.longBitsToDouble(v) + x) :</span><br><span class="line">                              Double.doubleToRawLongBits</span><br><span class="line">                              (fn.applyAsDouble</span><br><span class="line">                               (Double.longBitsToDouble(v), x)))))</span><br><span class="line">                <span class="keyword">break</span>;                          <span class="comment">// Fall back on using base</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<p>doubleAccumulate基本上和longAccumulate差不多，它多了Double转长整型和长整型转Double的步骤。</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Java/" rel="tag"># Java</a>
+          
+            <a href="/tags/%E5%A4%9A%E7%BA%BF%E7%A8%8B/" rel="tag"># 多线程</a>
+          
+            <a href="/tags/Striped64/" rel="tag"># Striped64</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/posts/d740/" rel="next" title="MySQL查询优化">
+                <i class="fa fa-chevron-left"></i> MySQL查询优化
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/posts/18db/" rel="prev" title="AtomicBoolean源码解析">
+                AtomicBoolean源码解析 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name"></p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/%7C%7Carchive">
+              
+                  <span class="site-state-item-count">917</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">27</span>
+                  <span class="site-state-item-name">categories</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">359</span>
+                  <span class="site-state-item-name">tags</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Striped64%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90"><span class="nav-number">1.</span> <span class="nav-text">Striped64源码解析</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Striped64%E7%B1%BB%E4%BB%8B%E7%BB%8D"><span class="nav-number">1.1.</span> <span class="nav-text">Striped64类介绍</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%B1%BB%E5%9B%BE"><span class="nav-number">1.2.</span> <span class="nav-text">类图</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%BB%E8%A6%81%E5%B1%9E%E6%80%A7"><span class="nav-number">1.3.</span> <span class="nav-text">主要属性</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%BB%E8%A6%81%E6%96%B9%E6%B3%95"><span class="nav-number">1.4.</span> <span class="nav-text">主要方法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Striped64"><span class="nav-number">1.4.1.</span> <span class="nav-text">Striped64()</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#casBase-long-long"><span class="nav-number">1.4.2.</span> <span class="nav-text">casBase(long,long)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#casCellsBusy"><span class="nav-number">1.4.3.</span> <span class="nav-text">casCellsBusy()</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#getProbe"><span class="nav-number">1.4.4.</span> <span class="nav-text">getProbe()</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#longAccumulate-long-LongBinaryOperator-boolean"><span class="nav-number">1.4.5.</span> <span class="nav-text">longAccumulate(long,LongBinaryOperator,boolean)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#DoubleAccumulate-double-DoubleBinaryOperator-boolean"><span class="nav-number">1.4.6.</span> <span class="nav-text">DoubleAccumulate(double,DoubleBinaryOperator, boolean)</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">HanSi</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">Site words total count&#58;</span>
+    
+    <span title="Site words total count">657.4k</span>
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

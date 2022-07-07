@@ -1,0 +1,1213 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="cn">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="安全,Web,注入,操作系统命令," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="注入操作系统命令大多数Web服务器平台发展迅速，现在它们已经能够使用内置的API与服务器的操作系统进行几乎任何必须的交互。如果正确使用，这些API可帮助开发者访问文件系统、连接其他进程、进行安全的网络通信。但是，许多时候，开发者选择使用更高级的技术直接向服务器发送操作系统的命令。由于这些技术功能强大、操作简单，并且通常能够立即解决特定的问题，因而具有很强的吸引力。但是，如果应用程序向操作系统命令传">
+<meta property="og:type" content="article">
+<meta property="og:title" content="注入操作系统命令">
+<meta property="og:url" content="http://huhansi.com/posts/b558/index.html">
+<meta property="og:site_name" content="HanSi&#39;s Blog">
+<meta property="og:description" content="注入操作系统命令大多数Web服务器平台发展迅速，现在它们已经能够使用内置的API与服务器的操作系统进行几乎任何必须的交互。如果正确使用，这些API可帮助开发者访问文件系统、连接其他进程、进行安全的网络通信。但是，许多时候，开发者选择使用更高级的技术直接向服务器发送操作系统的命令。由于这些技术功能强大、操作简单，并且通常能够立即解决特定的问题，因而具有很强的吸引力。但是，如果应用程序向操作系统命令传">
+<meta property="og:locale">
+<meta property="article:published_time" content="2019-03-25T16:00:00.000Z">
+<meta property="article:modified_time" content="2022-07-03T14:04:57.401Z">
+<meta property="article:author" content="HanSi">
+<meta property="article:tag" content="安全">
+<meta property="article:tag" content="Web">
+<meta property="article:tag" content="注入">
+<meta property="article:tag" content="操作系统命令">
+<meta name="twitter:card" content="summary">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '',
+    scheme: 'Mist',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":true,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://huhansi.com/posts/b558/"/>
+
+
+
+
+
+  <title>注入操作系统命令 | HanSi's Blog</title>
+  
+
+
+
+
+
+
+
+
+<meta name="generator" content="Hexo 6.2.0"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="cn">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">HanSi's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            About
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            Search
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="Searching..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://huhansi.com/posts/b558/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="HanSi's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">注入操作系统命令</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-03-26T00:00:00+08:00">
+                2019-03-26
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Web%E5%AE%89%E5%85%A8/" itemprop="url" rel="index">
+                    <span itemprop="name">Web安全</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Words count in article&#58;</span>
+                
+                <span title="Words count in article">
+                  3.3k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Reading time &asymp;</span>
+                
+                <span title="Reading time">
+                  11
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="注入操作系统命令"><a href="#注入操作系统命令" class="headerlink" title="注入操作系统命令"></a>注入操作系统命令</h1><p>大多数Web服务器平台发展迅速，现在它们已经能够使用内置的API与服务器的操作系统进行几乎任何必须的交互。如果正确使用，这些API可帮助开发者访问文件系统、连接其他进程、进行安全的网络通信。但是，许多时候，开发者选择使用更高级的技术直接向服务器发送操作系统的命令。由于这些技术功能强大、操作简单，并且通常能够立即解决特定的问题，因而具有很强的吸引力。但是，如果应用程序向操作系统命令传送用户提交的输入，那么就可能会受到命令注入攻击，由此攻击者能够提交专门设计的输入，修改开发者想要执行的命令。</p>
+<p>长用户发出操作系统命令的函数，如PHP中的exec和ASP中的wscript.shell函数，通常并不限制命令的可执行范围。即使开发者准备使用API执行相对善意的任务，例如，列出目录的内容，攻击者还是可以对其进行暗中破坏，从而写入任意文件或启动其他程序。通常，所有的注入命令都可在Web服务器的进程中安全运行，它具有足够强大的功能，使得攻击者能够完全控制整个服务器。</p>
+<p>许多非定制和定制Web应用程序中都存在这种命令注入缺陷。在为企业服务器或防火墙、打印机和路由器之类的设备提供管理界面的应用程序中，这种缺陷尤为普遍。通常，由于这类程序由于操作系统交互的特殊需求，导致开发者直接使用合并了用户提交的数据的系统命令。</p>
+<h2 id="通过Perl注入"><a href="#通过Perl注入" class="headerlink" title="通过Perl注入"></a>通过Perl注入</h2><p>以下面的Perl CGI代码为例，它是一个用于服务器管理的Web应用程序代码的一部分。这项功能允许管理员在服务器上指定一个目录，并查看它的磁盘使用情况：</p>
+<figure class="highlight perl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#!/usr/bin/perl</span></span><br><span class="line"><span class="keyword">use</span> strict;</span><br><span class="line"><span class="keyword">use</span> CGI <span class="string">qw(:standard escapeHTML)</span></span><br><span class="line"><span class="keyword">print</span> header, start_html(<span class="string">&quot;&quot;</span>);</span><br><span class="line"><span class="keyword">print</span> <span class="string">&quot;&lt;pre&gt;&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">my</span> $command = <span class="string">&quot;du -h --exclude php* /var/www/html&quot;</span></span><br><span class="line">$command=$command.param(<span class="string">&quot;dir&quot;</span>);</span><br><span class="line">$command=<span class="string">`$command`</span>;</span><br><span class="line"><span class="keyword">print</span> <span class="string">&quot;$command\n&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">print</span> end_html;</span><br></pre></td></tr></table></figure>
+
+<p>如果按设想的方式运行，这段脚本将把用户提交的dir参数值附加在预先设定的命令后面，执行命令并显示结果。</p>
+<p>然而，通过提交专门设计的、包含shell元字符的输入，攻击者可对这项功能进行各种方式的利用。对处理命令的解释器而言，这些字符有着特殊的含义，并可破坏开发者想要执行的命令。例如，管道符“|”可用于将一个进程的输入重定向为另一个进程的输入，从而将几个命令连接在一起。攻击者可以利用这种行为注入另外一个命令并获得输出结果。</p>
+<h2 id="通过ASP注入"><a href="#通过ASP注入" class="headerlink" title="通过ASP注入"></a>通过ASP注入</h2><p>以下面的C#代码为例，它是一个用于管理Web服务器的Web应用程序代码部分。该功能允许管理员查看被请求的目录和内容。</p>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">String dirName = <span class="string">&quot;C:\\filestore\\&quot;</span> + Directory.Text;</span><br><span class="line">ProcessStartInfo psInfo = <span class="keyword">new</span> ProcessStartInfo(<span class="string">&quot;cmd&quot;</span>, <span class="string">&quot;/c dir &quot;</span> + dirName);</span><br><span class="line">...</span><br><span class="line">Process proc = Process.Start(psInfo);</span><br></pre></td></tr></table></figure>
+
+<p>如果按设想的方式运行，这段脚本将把用户提交的Directory参数值插入到预先设定的命令中，执行命令并显示结果。</p>
+<p>和前面易受攻击的Perl脚本一样，攻击者可以使用shell元字符破坏开发者预先设定的命令，并注入他自己的命令。&amp;字符用于将几个命令组合在一起。提交一个包含&amp;字符的文件名和另外一个命令就可以执行该命令并显示器结果。</p>
+<h2 id="通过动态执行注入"><a href="#通过动态执行注入" class="headerlink" title="通过动态执行注入"></a>通过动态执行注入</h2><p>许多Web脚本语言支持动态执行在运行时生成的代码。这种特性允许开发者创建可根据各种数据和条件攻台修改其代码的应用程序。如果用户输入合并到可动态执行的代码中，那么攻击者就可以提交专门设计的输入，破坏原有数据，指定服务器执行自己的命令，就好像这些命令是由最初开发者编写的一样。这时，攻击者的第一个目标通常是注入运行操作系统命令的API。</p>
+<p>PHP函数eval可用于动态执行在运行时传送给该函数的代码。下面以一个搜索功能为例，该动能允许用户创建保存的搜索，然后在用户界面上以链接的形式丰台生成这些搜索。用户使用下面的URL访问该搜索功能：</p>
+<p><strong>&#x2F;search.php?storedsearch&#x3D;\$mysearch%3dwahh</strong></p>
+<p>服务器端应用程序通过动态生成变量来执行这项功能，生成的变量包含在storedsearch参数中指定的名&#x2F;值对；此处，它创建值为wahh的变量mysearch。</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$storedsearch</span> = <span class="variable">$_GET</span>[<span class="string">&#x27;storedsearch&#x27;</span>];</span><br><span class="line"><span class="keyword">eval</span>(<span class="string">&quot;<span class="subst">$storedsearch</span>&quot;</span>);</span><br></pre></td></tr></table></figure>
+
+<p>这时，就可以提交专门设计的输入，由eval函数动态执行，从而在服务器端应用程序中注入任意PHP命令。分号字符可用于在单独一个参数中将几个命令连接在一起。例如，要检索文件&#x2F;etc&#x2F;password,keyi shiyong file_get_contents命令或system命令：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">/search.php?storedsearch=\<span class="variable">$mysearch</span>%<span class="number">3</span>dwahh;%<span class="number">20</span><span class="keyword">echo</span>%<span class="number">20</span>file_get_contents(<span class="string">&#x27;/etc/password&#x27;</span>)</span><br><span class="line">/search.php?storedsearch=\<span class="variable">$mysearch</span>%<span class="number">3</span>dwahh;%<span class="number">20</span><span class="keyword">echo</span>%<span class="number">20</span>file_get_contents(<span class="string">&#x27;cat%20/etc/password&#x27;</span>)</span><br></pre></td></tr></table></figure>
+
+<h2 id="查找OS命令注入漏洞"><a href="#查找OS命令注入漏洞" class="headerlink" title="查找OS命令注入漏洞"></a>查找OS命令注入漏洞</h2><p>不同的命令解释器处理shell元字符的方式各不相同。理论上，任何类型的应用程序开发平台或Web服务器可能会调用任何shell解释器，在它自己或任何其他主机的操作系统上运行。因此，不应根据对Web服务器操作系统的了解，对应用程序如何处理元数据做出任何假设。</p>
+<p>有两种类型的元字符可用于在一个现有的预先设定的命令中注入一个独立的命令。</p>
+<ul>
+<li>字符 ; | &amp; 和换行符可用于将几个命令逐个连接在一起。有些时候，可以承兑使用这些字符以达到不同的效果。例如，在Windows命令解释器中，使用&amp;&amp;则第二个命令只有在第一个命令成功执行后才会运行。使用 ||  则总运行第二个命令，无论第一个命令是否成功执行。</li>
+<li>反引号（&#96;）用于讲一个独立的命令包含在最初的命令处理的数据中。把一个注入的命令放在反引号内shell解释器就会执行该命令，并用这个命令的结果代替被包含的文本，然后继续执行得到的命令字符串。</li>
+</ul>
+<p>通常，检测命令注入是否可行的最可靠方法就是使用时间延迟推断，类似于前面描述的利用盲目SQL注入时使用的方法。如果一个潜在的漏洞可能存在，那么就可以使用其他方法确定这个漏洞，并获得注入命令的执行结果。</p>
+<ol>
+<li><p>通常可以使用PING命令让服务器在一段时间内检测它的回环接口，从而触发时间延迟。Windows和Unix平台在处理命令分隔符与PING命令方面存在一些细微的差别，但是，如果没有设置过滤，下面的通用测试字符串应该能够在两个平台上引起30秒的时间延迟。</p>
+<p><strong>|| ping -i 30 127.0.0.1 ; x || ping -n 30 127.0.0.1 &amp;</strong></p>
+<p>如果应用程序过滤掉某些命令的分隔符，为加大监测到命令注入漏洞的可能性，还应轮流向每一个目标参数提交下面的每个测试字符串，并监控应用程序进行响应的时间。</p>
+<p><strong>| ping -i 30 127.0.0.1 |</strong></p>
+<p><strong>| ping -n 30 127.0.0.1 |</strong></p>
+<p><strong>&amp; ping -i 30 127.0.0.1 &amp;</strong></p>
+<p><strong>&amp; ping -n 30 127.0.0.1 &amp;</strong></p>
+<p><strong>; ping -i 30 127.0.0.1 ;</strong></p>
+<p><strong>%0a ping -i 30 127.0.0.1 %0a</strong></p>
+<p><strong>‘ ping 127.0.0.1 ‘</strong></p>
+</li>
+<li><p>如果发生时间延迟，说明应用程序可能易于受到命令注入攻击。重复几次测试过程，确定延迟不是由于网络延时或其他异常造成的。可以尝试更改-n或-i的参数的值，并确定经历的时间延迟是否会随着提交的值发生对应的变化。</p>
+</li>
+<li><p>使用所发现的任何一个可成功实施攻击的注入字符串，尝试注入另一个更有用的命令（如ls或dir），确定是否能够将命令结果返回到浏览器上。</p>
+</li>
+<li><p>如果不能直接获得命令执行结果，还可以采用其他方法：</p>
+<ul>
+<li>可以尝试打开一条通向自己计算机的带外通道。尝试使用TFTP上传工具至服务器，使用telnet或netcat建立一个通向自己计算机的反向shell，并使用main命令通过SMTP发送命令结果。</li>
+<li>可以将命令结果重定向到Web根目录下的一个文件，然后使用浏览器直接获取结果。</li>
+</ul>
+<p><strong>dir &gt; C:\inetpub\wwwroot\foo.txt</strong></p>
+</li>
+</ol>
+<p>有时，由于某些字符被过滤掉，或者应用程序所使用的的命令的API的特殊行为，可能无法注入一个完全独立的命令。但是，攻击者仍然可以破坏所执行的命令的行为，得到想要的结果。</p>
+<h2 id="查找动态执行漏洞"><a href="#查找动态执行漏洞" class="headerlink" title="查找动态执行漏洞"></a>查找动态执行漏洞</h2><p>动态执行漏洞最常见于PHP和Perl等语言。但基本上，任何应用程序平台都可能会向基于脚本的解释器传送用户提交的输入。</p>
+<ol>
+<li>用户提交的所有数据项都可提交给动态执行函数。其中最常见的数据项是cookie参数名称和参数值，以及作为前一项操作结果保存在用户资料中的永久数据。</li>
+<li>尝试轮流项目表参数提交下列值：</li>
+</ol>
+<ul>
+<li><strong>;echo%20111111</strong></li>
+<li><strong>echo%201111111</strong></li>
+<li><strong>response.write%20111111</strong></li>
+<li><strong>:response.write%20111111</strong></li>
+</ul>
+<ol start="3">
+<li>监控应用程序的响应。如果字符串111111被单独返回，就表示应用程序可能易于受到脚本命令注入。</li>
+<li>如果字符串111111并未返回，寻找任何表示输入被动态执行的错误消息；另外，可能需要对语法进行调整，以实现注入任意命令的目的。</li>
+<li>如果攻击的应用程序使用PHP，可以使用测试字符串phpinfo()。如果它成功执行，应用程序将返回PHP环境的配置信息。</li>
+<li>如果应用程序可能易于受到攻击，与前面描述的查找OS命令注入漏洞时一样，注入一些造成时间延迟的命令确认这一点。例如：</li>
+</ol>
+<p><strong>system(‘ping%20127.0.0.1’)</strong></p>
+<h2 id="防止OS命令注入"><a href="#防止OS命令注入" class="headerlink" title="防止OS命令注入"></a>防止OS命令注入</h2><p>通常来说，防止OS命令注入漏洞的最佳方法是完全避免直接调用操作系统命令。几乎Web应用程序所需要执行的每个任务都可以使用内置API完成，而且攻击者无法控制这些API，使其执行其他预料之外的命令。</p>
+<p>如果无法避免要在传送给操作系统命令解释器的命令字符串中插入用户提交的数据，应用程序应实施严格的防御来防止漏洞发生。如果可能，应使用一份“白名单”限制用户只输入一组特殊的值。或者，应将输入范围限制为少数字符，例如，仅字母数字字符。应拒绝包含任何其他数据（包含任何元字符或空白符）的输入。</p>
+<p>应用程序应使用命令API通过它的名称和命令行参数启动特殊的进程，而不是想支持命令链接与重定向的shell解释器传送命令字符串，从而实施另一层保护。</p>
+<h2 id="防止脚本注入漏洞"><a href="#防止脚本注入漏洞" class="headerlink" title="防止脚本注入漏洞"></a>防止脚本注入漏洞</h2><p>通常而言，防止脚本注入漏洞的最佳方法是，避免将用户提交的输入或者来自用户的数据传送给任何动态执行或包含函数。如果由于某种原因必须传送用户提交的输入，那么应对相关输入进行严格的确认检查以组织任何攻击。如有可能，使用一份由已知可靠的值组成的“白名单”，并拒绝任何没有出现在这个名单上的输入。如果无法做到这一点，应根据一组已知无害的字符[如字母数字字符（空白符除外）]检查再输入中使用的字符。</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/%E5%AE%89%E5%85%A8/" rel="tag"># 安全</a>
+          
+            <a href="/tags/Web/" rel="tag"># Web</a>
+          
+            <a href="/tags/%E6%B3%A8%E5%85%A5/" rel="tag"># 注入</a>
+          
+            <a href="/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E5%91%BD%E4%BB%A4/" rel="tag"># 操作系统命令</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/posts/be9c/" rel="next" title="注入后端HTTP请求">
+                <i class="fa fa-chevron-left"></i> 注入后端HTTP请求
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/posts/a87c/" rel="prev" title="操作文件路径">
+                操作文件路径 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name"></p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/%7C%7Carchive">
+              
+                  <span class="site-state-item-count">917</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">27</span>
+                  <span class="site-state-item-name">categories</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">359</span>
+                  <span class="site-state-item-name">tags</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%B3%A8%E5%85%A5%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E5%91%BD%E4%BB%A4"><span class="nav-number">1.</span> <span class="nav-text">注入操作系统命令</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%80%9A%E8%BF%87Perl%E6%B3%A8%E5%85%A5"><span class="nav-number">1.1.</span> <span class="nav-text">通过Perl注入</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%80%9A%E8%BF%87ASP%E6%B3%A8%E5%85%A5"><span class="nav-number">1.2.</span> <span class="nav-text">通过ASP注入</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%80%9A%E8%BF%87%E5%8A%A8%E6%80%81%E6%89%A7%E8%A1%8C%E6%B3%A8%E5%85%A5"><span class="nav-number">1.3.</span> <span class="nav-text">通过动态执行注入</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9F%A5%E6%89%BEOS%E5%91%BD%E4%BB%A4%E6%B3%A8%E5%85%A5%E6%BC%8F%E6%B4%9E"><span class="nav-number">1.4.</span> <span class="nav-text">查找OS命令注入漏洞</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9F%A5%E6%89%BE%E5%8A%A8%E6%80%81%E6%89%A7%E8%A1%8C%E6%BC%8F%E6%B4%9E"><span class="nav-number">1.5.</span> <span class="nav-text">查找动态执行漏洞</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%98%B2%E6%AD%A2OS%E5%91%BD%E4%BB%A4%E6%B3%A8%E5%85%A5"><span class="nav-number">1.6.</span> <span class="nav-text">防止OS命令注入</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%98%B2%E6%AD%A2%E8%84%9A%E6%9C%AC%E6%B3%A8%E5%85%A5%E6%BC%8F%E6%B4%9E"><span class="nav-number">1.7.</span> <span class="nav-text">防止脚本注入漏洞</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">HanSi</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">Site words total count&#58;</span>
+    
+    <span title="Site words total count">657.4k</span>
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

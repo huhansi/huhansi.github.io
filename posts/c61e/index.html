@@ -1,0 +1,1264 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="cn">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Java,多线程,CompletableFuture," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="Java使用CompletableFutureJava提供了Future接口用来描述异步计算的结果。它可以使用isDone方法检查计算是否完成，可以使用cancel方法停止任务的执行，也可以用get方法阻塞住调用线程，直到计算完成。 但是它也存在一些问题，比如获取计算结果，只能通过阻塞或者轮询的方式获取计算的结果。阻塞的方式显然和异步编程的初衷相违背，轮询的方式又会耗费不必要的CPU资源，而且也不">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Java使用CompletableFuture解析">
+<meta property="og:url" content="http://huhansi.com/posts/c61e/index.html">
+<meta property="og:site_name" content="HanSi&#39;s Blog">
+<meta property="og:description" content="Java使用CompletableFutureJava提供了Future接口用来描述异步计算的结果。它可以使用isDone方法检查计算是否完成，可以使用cancel方法停止任务的执行，也可以用get方法阻塞住调用线程，直到计算完成。 但是它也存在一些问题，比如获取计算结果，只能通过阻塞或者轮询的方式获取计算的结果。阻塞的方式显然和异步编程的初衷相违背，轮询的方式又会耗费不必要的CPU资源，而且也不">
+<meta property="og:locale">
+<meta property="og:image" content="https://huhansi.github.io/images/2020-05-07-completablefuture.png">
+<meta property="og:image" content="https://huhansi.github.io/images/2020-05-07-completablefuture1.png">
+<meta property="og:image" content="https://huhansi.github.io/images/2020-05-07-completablefuture2.png">
+<meta property="og:image" content="https://huhansi.github.io/images/2020-05-07-completablefuture3.png">
+<meta property="og:image" content="https://huhansi.github.io/images/2020-05-07-completablefuture4.png">
+<meta property="og:image" content="https://huhansi.github.io/images/2020-05-07-completablefuture6.png">
+<meta property="og:image" content="https://huhansi.github.io/images/2020-05-07-completablefuture5.png">
+<meta property="og:image" content="https://huhansi.github.io/images/2020-05-07-completablefuture7.png">
+<meta property="og:image" content="https://huhansi.github.io/images/2020-05-07-completablefuture8.png">
+<meta property="og:image" content="https://huhansi.github.io/images/2020-05-07-completablefuture9.png">
+<meta property="og:image" content="https://huhansi.github.io/images/2020-05-07-completablefuture10.png">
+<meta property="og:image" content="https://huhansi.github.io/images/2020-05-07-completablefuture11.png">
+<meta property="og:image" content="https://huhansi.github.io/images/2020-05-07-completablefuture12.png">
+<meta property="og:image" content="https://huhansi.github.io/images/2020-05-07-completablefuture13.png">
+<meta property="og:image" content="https://huhansi.github.io/images/2020-05-07-completablefuture14.png">
+<meta property="og:image" content="https://huhansi.github.io/images/2020-05-07-completablefuture15.png">
+<meta property="og:image" content="https://huhansi.github.io/images/2020-05-07-completablefuture16.png">
+<meta property="og:image" content="https://huhansi.github.io/images/2020-05-07-completablefuture17.png">
+<meta property="article:published_time" content="2020-05-06T16:00:00.000Z">
+<meta property="article:modified_time" content="2022-07-03T14:04:55.998Z">
+<meta property="article:author" content="HanSi">
+<meta property="article:tag" content="Java">
+<meta property="article:tag" content="多线程">
+<meta property="article:tag" content="CompletableFuture">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://huhansi.github.io/images/2020-05-07-completablefuture.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '',
+    scheme: 'Mist',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":true,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://huhansi.com/posts/c61e/"/>
+
+
+
+
+
+  <title>Java使用CompletableFuture解析 | HanSi's Blog</title>
+  
+
+
+
+
+
+
+
+
+<meta name="generator" content="Hexo 6.2.0"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="cn">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">HanSi's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            About
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            Search
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="Searching..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://huhansi.com/posts/c61e/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="HanSi's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Java使用CompletableFuture解析</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-05-07T00:00:00+08:00">
+                2020-05-07
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Java/" itemprop="url" rel="index">
+                    <span itemprop="name">Java</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Words count in article&#58;</span>
+                
+                <span title="Words count in article">
+                  3.8k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Reading time &asymp;</span>
+                
+                <span title="Reading time">
+                  19
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="Java使用CompletableFuture"><a href="#Java使用CompletableFuture" class="headerlink" title="Java使用CompletableFuture"></a>Java使用CompletableFuture</h1><p>Java提供了Future接口用来描述异步计算的结果。它可以使用isDone方法检查计算是否完成，可以使用cancel方法停止任务的执行，也可以用get方法阻塞住调用线程，直到计算完成。</p>
+<p>但是它也存在一些问题，比如获取计算结果，只能通过阻塞或者轮询的方式获取计算的结果。阻塞的方式显然和异步编程的初衷相违背，轮询的方式又会耗费不必要的CPU资源，而且也不能即使地得到计算结果。</p>
+<p>因此，JAVA 8 提供了一个包含50个方法左右的类，<strong>CompletableFuture</strong>，提供了非常强大的Future的扩展功能，它可以帮助简化异步编程的复杂性，提供了函数式编程的能力，可以通过回调的方式处理计算结果，并且提供了转换和组合CompletableFuture的方法。</p>
+<p>它可能代表一个明确完成的Future，也有可能代表一个完成阶段（CompletionStage），它支持在计算完成以后触发一些函数或执行某些动作。</p>
+<p>CompletionStage代表意不计算过程中的某一阶段，一个阶段完成以后可能会触发另外一个阶段，一个阶段的计算执行可以是一个Function，Consumer或者Runnable。比如<code>stage.thenApply(x -&gt; square(x)).thenAccept(x -&gt; System.out.println(x)).thenRun(() -&gt; System.out.println()))</code></p>
+<h2 id="创建CompletableFuture对象"><a href="#创建CompletableFuture对象" class="headerlink" title="创建CompletableFuture对象"></a>创建CompletableFuture对象</h2><p>CompletableFuture提供了5个公共方法可以获取到CompletableFuture对象。</p>
+<p>它们可以分为三大类：</p>
+<ul>
+<li>以Async结尾并且方法签名中没有executor参数的方法：如果是supplyAsync方法，它是支持方法返回值的，runAsync方法则不支持方法返回值。它们默认的线程池是ForkJoinPool.CommonPool</li>
+<li>以Async结尾并且方法签名中有executor参数的方法：如果是supplyAsync方法，它是支持方法返回值的，runAsync方法则不支持方法返回值。使用调用方指定的线程池</li>
+<li>不以Async结尾，参数中传入的是值的方法：返回一个已经计算好的completableFuture。</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Returns a new CompletableFuture that is asynchronously completed</span></span><br><span class="line"><span class="comment"> * by a task running in the &#123;<span class="doctag">@link</span> ForkJoinPool#commonPool()&#125; with</span></span><br><span class="line"><span class="comment"> * the value obtained by calling the given Supplier.</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> supplier a function returning the value to be used</span></span><br><span class="line"><span class="comment"> * to complete the returned CompletableFuture</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> &lt;U&gt; the function&#x27;s return type</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@return</span> the new CompletableFuture</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> &lt;U&gt; CompletableFuture&lt;U&gt; <span class="title function_">supplyAsync</span><span class="params">(Supplier&lt;U&gt; supplier)</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> asyncSupplyStage(asyncPool, supplier);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Returns a new CompletableFuture that is asynchronously completed</span></span><br><span class="line"><span class="comment"> * by a task running in the given executor with the value obtained</span></span><br><span class="line"><span class="comment"> * by calling the given Supplier.</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> supplier a function returning the value to be used</span></span><br><span class="line"><span class="comment"> * to complete the returned CompletableFuture</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> executor the executor to use for asynchronous execution</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> &lt;U&gt; the function&#x27;s return type</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@return</span> the new CompletableFuture</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> &lt;U&gt; CompletableFuture&lt;U&gt; <span class="title function_">supplyAsync</span><span class="params">(Supplier&lt;U&gt; supplier,</span></span><br><span class="line"><span class="params">                                                   Executor executor)</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> asyncSupplyStage(screenExecutor(executor), supplier);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Returns a new CompletableFuture that is asynchronously completed</span></span><br><span class="line"><span class="comment"> * by a task running in the &#123;<span class="doctag">@link</span> ForkJoinPool#commonPool()&#125; after</span></span><br><span class="line"><span class="comment"> * it runs the given action.</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> runnable the action to run before completing the</span></span><br><span class="line"><span class="comment"> * returned CompletableFuture</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@return</span> the new CompletableFuture</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> CompletableFuture&lt;Void&gt; <span class="title function_">runAsync</span><span class="params">(Runnable runnable)</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> asyncRunStage(asyncPool, runnable);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Returns a new CompletableFuture that is asynchronously completed</span></span><br><span class="line"><span class="comment"> * by a task running in the given executor after it runs the given</span></span><br><span class="line"><span class="comment"> * action.</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> runnable the action to run before completing the</span></span><br><span class="line"><span class="comment"> * returned CompletableFuture</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> executor the executor to use for asynchronous execution</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@return</span> the new CompletableFuture</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> CompletableFuture&lt;Void&gt; <span class="title function_">runAsync</span><span class="params">(Runnable runnable,</span></span><br><span class="line"><span class="params">                                               Executor executor)</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> asyncRunStage(screenExecutor(executor), runnable);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Returns a new CompletableFuture that is already completed with</span></span><br><span class="line"><span class="comment"> * the given value.</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> value the value</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> &lt;U&gt; the type of the value</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@return</span> the completed CompletableFuture</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> &lt;U&gt; CompletableFuture&lt;U&gt; <span class="title function_">completedFuture</span><span class="params">(U value)</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">CompletableFuture</span>&lt;U&gt;((value == <span class="literal">null</span>) ? NIL : value);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="CompletableFuture完成操作"><a href="#CompletableFuture完成操作" class="headerlink" title="CompletableFuture完成操作"></a>CompletableFuture完成操作</h2><p>在CompletableFuture执行完成或者出现异常的时候，可以执行它完成特定的动作。按照有返回值和没有范围值可以分为两类：</p>
+<h3 id="没有返回值"><a href="#没有返回值" class="headerlink" title="没有返回值"></a>没有返回值</h3><p>主要是以下三个方法，外带一个异常处理的exceptionally方法</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">    * Returns a new CompletableFuture that is completed when this</span></span><br><span class="line"><span class="comment">    * CompletableFuture completes, with the result of the given</span></span><br><span class="line"><span class="comment">    * function of the exception triggering this CompletableFuture&#x27;s</span></span><br><span class="line"><span class="comment">    * completion when it completes exceptionally; otherwise, if this</span></span><br><span class="line"><span class="comment">    * CompletableFuture completes normally, then the returned</span></span><br><span class="line"><span class="comment">    * CompletableFuture also completes normally with the same value.</span></span><br><span class="line"><span class="comment">    * Note: More flexible versions of this functionality are</span></span><br><span class="line"><span class="comment">    * available using methods &#123;<span class="doctag">@code</span> whenComplete&#125; and &#123;<span class="doctag">@code</span> handle&#125;.</span></span><br><span class="line"><span class="comment">    *</span></span><br><span class="line"><span class="comment">    * <span class="doctag">@param</span> fn the function to use to compute the value of the</span></span><br><span class="line"><span class="comment">    * returned CompletableFuture if this CompletableFuture completed</span></span><br><span class="line"><span class="comment">    * exceptionally</span></span><br><span class="line"><span class="comment">    * <span class="doctag">@return</span> the new CompletableFuture</span></span><br><span class="line"><span class="comment">    */</span></span><br><span class="line">   <span class="keyword">public</span> CompletableFuture&lt;T&gt; <span class="title function_">exceptionally</span><span class="params">(</span></span><br><span class="line"><span class="params">       Function&lt;Throwable, ? extends T&gt; fn)</span> &#123;</span><br><span class="line">       <span class="keyword">return</span> uniExceptionallyStage(fn);</span><br><span class="line">   &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> CompletableFuture&lt;T&gt; <span class="title function_">whenComplete</span><span class="params">(</span></span><br><span class="line"><span class="params">       BiConsumer&lt;? <span class="built_in">super</span> T, ? <span class="built_in">super</span> Throwable&gt; action)</span> &#123;</span><br><span class="line">       <span class="keyword">return</span> uniWhenCompleteStage(<span class="literal">null</span>, action);</span><br><span class="line">   &#125;</span><br><span class="line"></span><br><span class="line">   <span class="keyword">public</span> CompletableFuture&lt;T&gt; <span class="title function_">whenCompleteAsync</span><span class="params">(</span></span><br><span class="line"><span class="params">       BiConsumer&lt;? <span class="built_in">super</span> T, ? <span class="built_in">super</span> Throwable&gt; action)</span> &#123;</span><br><span class="line">       <span class="keyword">return</span> uniWhenCompleteStage(asyncPool, action);</span><br><span class="line">   &#125;</span><br><span class="line"></span><br><span class="line">   <span class="keyword">public</span> CompletableFuture&lt;T&gt; <span class="title function_">whenCompleteAsync</span><span class="params">(</span></span><br><span class="line"><span class="params">       BiConsumer&lt;? <span class="built_in">super</span> T, ? <span class="built_in">super</span> Throwable&gt; action, Executor executor)</span> &#123;</span><br><span class="line">       <span class="keyword">return</span> uniWhenCompleteStage(screenExecutor(executor), action);</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
+
+<p>whenComplete* 这三个方法都是异曲同工，区别就在于是否支持异步，是否支持指定线程池。可以看看下面这个例子，如何使用whenComplete方法：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">CompletableFutureTest</span> &#123;</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">static</span> <span class="type">int</span> <span class="title function_">sum</span><span class="params">()</span> &#123;</span><br><span class="line">		System.out.println(<span class="string">&quot;Begin to sum&quot;</span>);</span><br><span class="line">		</span><br><span class="line">		<span class="type">long</span> <span class="variable">time</span> <span class="operator">=</span> System.currentTimeMillis();</span><br><span class="line">		</span><br><span class="line">		<span class="type">int</span> <span class="variable">sum</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line">		<span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">1</span>;i &lt;= <span class="number">100</span>;i++) &#123;</span><br><span class="line">			sum += i;</span><br><span class="line">		&#125;</span><br><span class="line">		</span><br><span class="line">		<span class="keyword">try</span> &#123;</span><br><span class="line">			Thread.sleep(<span class="number">3000</span>);</span><br><span class="line">		&#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">			e.printStackTrace();</span><br><span class="line">		&#125;</span><br><span class="line">		</span><br><span class="line">		System.out.println(<span class="string">&quot;End to sum cost: &quot;</span> + (System.currentTimeMillis() - time));</span><br><span class="line">		<span class="keyword">return</span> sum;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> InterruptedException, ExecutionException &#123;</span><br><span class="line">		CompletableFuture&lt;Integer&gt; future = CompletableFuture.supplyAsync(CompletableFutureTest::sum);</span><br><span class="line">		Future&lt;Integer&gt; f = future.whenComplete((v, e) -&gt; &#123;</span><br><span class="line">			System.out.println(<span class="string">&quot;Result is &quot;</span> + v);</span><br><span class="line">			System.out.println(<span class="string">&quot;Error is &quot;</span> + e);</span><br><span class="line">		&#125;);</span><br><span class="line">		System.out.println(f.get());</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br></pre></td></tr></table></figure>
+
+<p>运行结果：</p>
+<p><img src="https://huhansi.github.io/images/2020-05-07-completablefuture.png"></p>
+<p>exceptionally方法则是在方法调用出现异常之后使用，参考下面示例：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="type">int</span> <span class="title function_">divideByZero</span><span class="params">()</span> &#123;</span><br><span class="line">		System.out.println(<span class="string">&quot;Begin to sum&quot;</span>);</span><br><span class="line">		</span><br><span class="line">		<span class="type">long</span> <span class="variable">time</span> <span class="operator">=</span> System.currentTimeMillis();</span><br><span class="line">		</span><br><span class="line">		<span class="keyword">try</span> &#123;</span><br><span class="line">			<span class="type">int</span> <span class="variable">result</span> <span class="operator">=</span> <span class="number">1</span> / <span class="number">0</span>;</span><br><span class="line">			Thread.sleep(<span class="number">3000</span>);</span><br><span class="line">		&#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">			e.printStackTrace();</span><br><span class="line">		&#125;</span><br><span class="line">		</span><br><span class="line">		System.out.println(<span class="string">&quot;End to sum cost: &quot;</span> + (System.currentTimeMillis() - time));</span><br><span class="line">		<span class="keyword">return</span> -<span class="number">2</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> InterruptedException, ExecutionException &#123;</span><br><span class="line">		CompletableFuture&lt;Integer&gt; future = CompletableFuture.supplyAsync(CompletableFutureTest::divideByZero).exceptionally(e -&gt; &#123;</span><br><span class="line">			System.out.println(e.getMessage());</span><br><span class="line">			<span class="keyword">return</span> -<span class="number">1</span>;</span><br><span class="line">		&#125;);</span><br><span class="line">		Future&lt;Integer&gt; f = future.whenComplete((v, e) -&gt; &#123;</span><br><span class="line">			System.out.println(<span class="string">&quot;Value is &quot;</span> + v);</span><br><span class="line">			System.out.println(<span class="string">&quot;Error is &quot;</span> + e);</span><br><span class="line">		&#125;);</span><br><span class="line">		System.out.println(f.get());</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure>
+
+<p>构造一个除以0的异常，然后再创建CompleteFuture的时候，指定异常处理方法，demo中仅仅打印了异常信息。</p>
+<p><img src="https://huhansi.github.io/images/2020-05-07-completablefuture1.png"></p>
+<p>我们从上述的结果中可以看到，虽然执行的时候出现了异常，但是经过<strong>exceptionally</strong>的处理，whenComplete方法还是正常成功了，只不过返回的值，是<strong>exceptionally</strong>方法中返回的。</p>
+<p>那么把whenComplete放在<strong>exceptionally</strong>前面会怎么样呢，一起来看一下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="type">int</span> <span class="title function_">divideByZero</span><span class="params">()</span> &#123;</span><br><span class="line">		System.out.println(<span class="string">&quot;Begin to sum&quot;</span>);</span><br><span class="line">		</span><br><span class="line">		<span class="type">long</span> <span class="variable">time</span> <span class="operator">=</span> System.currentTimeMillis();</span><br><span class="line">		</span><br><span class="line">		<span class="keyword">try</span> &#123;</span><br><span class="line">			<span class="type">int</span> <span class="variable">result</span> <span class="operator">=</span> <span class="number">1</span> / <span class="number">0</span>;</span><br><span class="line">			Thread.sleep(<span class="number">3000</span>);</span><br><span class="line">		&#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">			e.printStackTrace();</span><br><span class="line">		&#125;</span><br><span class="line">		</span><br><span class="line">		System.out.println(<span class="string">&quot;End to sum cost: &quot;</span> + (System.currentTimeMillis() - time));</span><br><span class="line">		<span class="keyword">return</span> -<span class="number">2</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> InterruptedException, ExecutionException &#123;</span><br><span class="line">		CompletableFuture&lt;Integer&gt; future = CompletableFuture.supplyAsync(CompletableFutureTest::divideByZero).whenComplete((v, e) -&gt; &#123;</span><br><span class="line">			System.out.println(<span class="string">&quot;Value is &quot;</span> + v);</span><br><span class="line">			System.out.println(<span class="string">&quot;Error is &quot;</span> + e);</span><br><span class="line">		&#125;).exceptionally(e -&gt; &#123;</span><br><span class="line">			System.out.println(e.getMessage());</span><br><span class="line">			<span class="keyword">return</span> -<span class="number">1</span>;</span><br><span class="line">		&#125;);</span><br><span class="line">		System.out.println(future.get());</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://huhansi.github.io/images/2020-05-07-completablefuture2.png"></p>
+<p>可以看到，whenComplete方法还是执行了。但是因为中间出了异常，已经无法获取到值了，不过错误信息和上面的一个不一样，不为null了。</p>
+<h3 id="有返回值"><a href="#有返回值" class="headerlink" title="有返回值"></a>有返回值</h3><p>handle*方法作用和whenComplete方法类似，区别就是他们可以有返回值，而正是因为他们有返回值，他们可以在方法里面实现exceptionally的功能。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> &lt;U&gt; CompletableFuture&lt;U&gt; <span class="title function_">handle</span><span class="params">(</span></span><br><span class="line"><span class="params">       BiFunction&lt;? <span class="built_in">super</span> T, Throwable, ? extends U&gt; fn)</span> &#123;</span><br><span class="line">       <span class="keyword">return</span> uniHandleStage(<span class="literal">null</span>, fn);</span><br><span class="line">   &#125;</span><br><span class="line"></span><br><span class="line">   <span class="keyword">public</span> &lt;U&gt; CompletableFuture&lt;U&gt; <span class="title function_">handleAsync</span><span class="params">(</span></span><br><span class="line"><span class="params">       BiFunction&lt;? <span class="built_in">super</span> T, Throwable, ? extends U&gt; fn)</span> &#123;</span><br><span class="line">       <span class="keyword">return</span> uniHandleStage(asyncPool, fn);</span><br><span class="line">   &#125;</span><br><span class="line"></span><br><span class="line">   <span class="keyword">public</span> &lt;U&gt; CompletableFuture&lt;U&gt; <span class="title function_">handleAsync</span><span class="params">(</span></span><br><span class="line"><span class="params">       BiFunction&lt;? <span class="built_in">super</span> T, Throwable, ? extends U&gt; fn, Executor executor)</span> &#123;</span><br><span class="line">       <span class="keyword">return</span> uniHandleStage(screenExecutor(executor), fn);</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
+
+<p>将上面的whenComplete例子稍微改动下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="type">int</span> <span class="title function_">sum</span><span class="params">()</span> &#123;</span><br><span class="line">		System.out.println(<span class="string">&quot;Begin to sum&quot;</span>);</span><br><span class="line">		</span><br><span class="line">		<span class="type">long</span> <span class="variable">time</span> <span class="operator">=</span> System.currentTimeMillis();</span><br><span class="line">		</span><br><span class="line">		<span class="type">int</span> <span class="variable">sum</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line">		<span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">1</span>;i &lt;= <span class="number">100</span>;i++) &#123;</span><br><span class="line">			sum += i;</span><br><span class="line">		&#125;</span><br><span class="line">		</span><br><span class="line">		<span class="keyword">try</span> &#123;</span><br><span class="line">			Thread.sleep(<span class="number">3000</span>);</span><br><span class="line">		&#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">			e.printStackTrace();</span><br><span class="line">		&#125;</span><br><span class="line">		</span><br><span class="line">		System.out.println(<span class="string">&quot;End to sum cost: &quot;</span> + (System.currentTimeMillis() - time));</span><br><span class="line">		<span class="keyword">return</span> sum;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> InterruptedException, ExecutionException &#123;</span><br><span class="line">		CompletableFuture&lt;Integer&gt; future = CompletableFuture.supplyAsync(CompletableFutureTest::sum).handle((v, e) -&gt; &#123;</span><br><span class="line">			System.out.println(<span class="string">&quot;Value before multiply 2 is &quot;</span> + v);</span><br><span class="line">			System.out.println(<span class="string">&quot;Error is &quot;</span> + e);</span><br><span class="line">			<span class="keyword">return</span> v * <span class="number">2</span>;</span><br><span class="line">		&#125;).exceptionally(e -&gt; &#123;</span><br><span class="line">			System.out.println(e.getMessage());</span><br><span class="line">			<span class="keyword">return</span> -<span class="number">1</span>;</span><br><span class="line">		&#125;);</span><br><span class="line">		System.out.println(future.get());</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://huhansi.github.io/images/2020-05-07-completablefuture3.png"></p>
+<p>handle*和whenComplete*还有个不同点就是，可以在handle*里面处理异常。看下下面这个例子：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="type">int</span> <span class="title function_">divideByZero</span><span class="params">()</span> &#123;</span><br><span class="line">		System.out.println(<span class="string">&quot;Begin to sum&quot;</span>);</span><br><span class="line">		</span><br><span class="line">		<span class="type">long</span> <span class="variable">time</span> <span class="operator">=</span> System.currentTimeMillis();</span><br><span class="line">		</span><br><span class="line">		<span class="keyword">try</span> &#123;</span><br><span class="line">			<span class="type">int</span> <span class="variable">result</span> <span class="operator">=</span> <span class="number">1</span> / <span class="number">0</span>;</span><br><span class="line">			Thread.sleep(<span class="number">3000</span>);</span><br><span class="line">		&#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">			e.printStackTrace();</span><br><span class="line">		&#125;</span><br><span class="line">		</span><br><span class="line">		System.out.println(<span class="string">&quot;End to sum cost: &quot;</span> + (System.currentTimeMillis() - time));</span><br><span class="line">		<span class="keyword">return</span> -<span class="number">2</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> InterruptedException, ExecutionException &#123;</span><br><span class="line">		CompletableFuture&lt;Integer&gt; future = CompletableFuture.supplyAsync(CompletableFutureTest::divideByZero).handle((v, e) -&gt; &#123;</span><br><span class="line">			System.out.println(<span class="string">&quot;Value before multiply 2 is &quot;</span> + v);</span><br><span class="line">			<span class="keyword">if</span> (<span class="literal">null</span> != e) &#123;</span><br><span class="line">				System.out.println(<span class="string">&quot;Error is &quot;</span> + e);</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="keyword">return</span> <span class="number">1010</span>;</span><br><span class="line">		&#125;).exceptionally(e -&gt; &#123;</span><br><span class="line">			System.out.println(e.getMessage());</span><br><span class="line">			<span class="keyword">return</span> -<span class="number">1</span>;</span><br><span class="line">		&#125;);</span><br><span class="line">		System.out.println(future.get());</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://huhansi.github.io/images/2020-05-07-completablefuture4.png"></p>
+<p>从上图的运行结果可以看出，handle在处理了异常之后，exceptionally就不会再去处理异常了，future.get()也是返回的默认的1010.</p>
+<h2 id="CompletableFuture组合操作"><a href="#CompletableFuture组合操作" class="headerlink" title="CompletableFuture组合操作"></a>CompletableFuture组合操作</h2><h3 id="thenApply"><a href="#thenApply" class="headerlink" title="thenApply"></a>thenApply</h3><p>当前任务正常完成以后执行，当前任务的执行的结果会作为下一任务的输入参数,<strong>有返回值</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> InterruptedException, ExecutionException &#123;</span><br><span class="line">		CompletableFuture&lt;Integer&gt; future = CompletableFuture.supplyAsync(CompletableFutureTest::sum).thenApply(sum -&gt; &#123;</span><br><span class="line">			System.out.println(<span class="string">&quot;Get sum is &quot;</span> + sum);</span><br><span class="line">			<span class="keyword">return</span> sum * <span class="number">2</span>;</span><br><span class="line">			&#125;);</span><br><span class="line">		System.out.println(future.get());</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://huhansi.github.io/images/2020-05-07-completablefuture6.png"></p>
+<p>可以看到，thenApply将前一个CompletableFuture的结果乘以2，返回了。</p>
+<h3 id="thenAccept"><a href="#thenAccept" class="headerlink" title="thenAccept"></a>thenAccept</h3><p>当前的任务正常完成以后执行，当前任务的执行结果可以作为下一任务的输入参数，<strong>无返回值</strong>。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> InterruptedException, ExecutionException &#123;</span><br><span class="line">		CompletableFuture&lt;Void&gt; future = CompletableFuture.supplyAsync(CompletableFutureTest::sum).thenAccept(sum -&gt; &#123;</span><br><span class="line">			System.out.println(<span class="string">&quot;Get sum is &quot;</span> + sum);</span><br><span class="line">			&#125;);</span><br><span class="line">		System.out.println(future.get());</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://huhansi.github.io/images/2020-05-07-completablefuture5.png"></p>
+<p>可以看到，thenAccept可以把前一个CompletableFuture的结果作为参数打印出来。</p>
+<h3 id="thenRun"><a href="#thenRun" class="headerlink" title="thenRun"></a>thenRun</h3><p>不关心上一步的计算结果，执行下一个操作.并且不管上一步有没有返回值，它都没有返回值。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> InterruptedException, ExecutionException &#123;</span><br><span class="line">		CompletableFuture&lt;Void&gt; future = CompletableFuture.supplyAsync(CompletableFutureTest::sum).thenRun(CompletableFutureTest::sum);</span><br><span class="line">		System.out.println(future.get());</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://huhansi.github.io/images/2020-05-07-completablefuture7.png"></p>
+<h3 id="thenCombine"><a href="#thenCombine" class="headerlink" title="thenCombine"></a>thenCombine</h3><p>结合两个任务的返回值进行转化之后返回</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="type">int</span> <span class="title function_">multiply</span><span class="params">()</span> &#123;</span><br><span class="line">	<span class="type">int</span> <span class="variable">multiply</span> <span class="operator">=</span> <span class="number">1</span>;</span><br><span class="line">	<span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">1</span>;i &lt;= <span class="number">10</span>;i++) &#123;</span><br><span class="line">		multiply *= i;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> multiply;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> InterruptedException, ExecutionException &#123;</span><br><span class="line">	CompletableFuture&lt;Integer&gt; multiplyFuture = CompletableFuture.supplyAsync(CompletableFutureTest::multiply);</span><br><span class="line">	CompletableFuture&lt;Integer&gt; future = CompletableFuture.supplyAsync(CompletableFutureTest::sum).thenCombine(multiplyFuture, (a, b) -&gt; a + b);</span><br><span class="line">	System.out.println(future.get());</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://huhansi.github.io/images/2020-05-07-completablefuture8.png"></p>
+<h3 id="thenAcceptBoth"><a href="#thenAcceptBoth" class="headerlink" title="thenAcceptBoth"></a>thenAcceptBoth</h3><p>结合两个任务的返回值，不需要返回，没有返回值</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> InterruptedException, ExecutionException &#123;</span><br><span class="line">		CompletableFuture&lt;Integer&gt; multiplyFuture = CompletableFuture.supplyAsync(CompletableFutureTest::multiply);</span><br><span class="line">		<span class="comment">//CompletableFuture&lt;Integer&gt; future = CompletableFuture.supplyAsync(CompletableFutureTest::sum).thenCombine(multiplyFuture, (a, b) -&gt; a + b);</span></span><br><span class="line">		CompletableFuture&lt;Void&gt; emptyFuture = CompletableFuture.supplyAsync(CompletableFutureTest::multiply).thenAcceptBoth(multiplyFuture, (a, b) -&gt; System.out.println(<span class="string">&quot;Multiply from 1 to 10 is &quot;</span> + a));</span><br><span class="line">		<span class="comment">//System.out.println(future.get());</span></span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://huhansi.github.io/images/2020-05-07-completablefuture9.png"></p>
+<h3 id="runAfterBoth"><a href="#runAfterBoth" class="headerlink" title="runAfterBoth"></a>runAfterBoth</h3><p>结合两个任务，不关心返回值，也不返回任何值</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> InterruptedException, ExecutionException &#123;</span><br><span class="line">		CompletableFuture&lt;Integer&gt; multiplyFuture = CompletableFuture.supplyAsync(CompletableFutureTest::multiply);</span><br><span class="line">		<span class="comment">//CompletableFuture&lt;Integer&gt; future = CompletableFuture.supplyAsync(CompletableFutureTest::sum).thenCombine(multiplyFuture, (a, b) -&gt; a + b);</span></span><br><span class="line">		CompletableFuture&lt;Void&gt; emptyFuture = CompletableFuture.supplyAsync(CompletableFutureTest::multiply).runAfterBoth(multiplyFuture, () -&gt; System.out.println(<span class="string">&quot;do nothing use runAfterBoth&quot;</span>));</span><br><span class="line">		<span class="comment">//System.out.println(future.get());</span></span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://huhansi.github.io/images/2020-05-07-completablefuture10.png"></p>
+<h3 id="thenCompose"><a href="#thenCompose" class="headerlink" title="thenCompose"></a>thenCompose</h3><p>功能和thenApply差不多</p>
+<p>thenApply是把泛型变量从T转为U，相当于stream中的map</p>
+<p>thenCompose用来连接两个CompletableFuture，想到与Stream中的flatMap</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> InterruptedException, ExecutionException &#123;</span><br><span class="line">		CompletableFuture&lt;Integer&gt; future = CompletableFuture.supplyAsync(() -&gt; &#123;</span><br><span class="line">		    <span class="keyword">return</span> <span class="number">100</span>;</span><br><span class="line">		&#125;);</span><br><span class="line">		CompletableFuture&lt;String&gt; f = future.thenCompose( i -&gt; &#123;</span><br><span class="line">		    <span class="keyword">return</span> CompletableFuture.supplyAsync(() -&gt; &#123;</span><br><span class="line">		        <span class="keyword">return</span> (i * <span class="number">10</span>) + <span class="string">&quot;&quot;</span>;</span><br><span class="line">		    &#125;);</span><br><span class="line">		&#125;);</span><br><span class="line"></span><br><span class="line">		System.out.println(f.get()); <span class="comment">//1000</span></span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="applyToEither"><a href="#applyToEither" class="headerlink" title="applyToEither"></a>applyToEither</h3><p>执行两个CompletableFuture的结果，那个先返回就使用哪个的结果</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="type">int</span> <span class="title function_">sumWait3</span><span class="params">()</span> &#123;</span><br><span class="line">		System.out.println(<span class="string">&quot;Begin to sum&quot;</span>);</span><br><span class="line">		</span><br><span class="line">		<span class="type">long</span> <span class="variable">time</span> <span class="operator">=</span> System.currentTimeMillis();</span><br><span class="line">		</span><br><span class="line">		<span class="type">int</span> <span class="variable">sum</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line">		<span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">1</span>;i &lt;= <span class="number">100</span>;i++) &#123;</span><br><span class="line">			sum += i;</span><br><span class="line">		&#125;</span><br><span class="line">		</span><br><span class="line">		<span class="keyword">try</span> &#123;</span><br><span class="line">			Thread.sleep(<span class="number">3000</span>);</span><br><span class="line">		&#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">			e.printStackTrace();</span><br><span class="line">		&#125;</span><br><span class="line">		</span><br><span class="line">		System.out.println(<span class="string">&quot;End to sum cost: &quot;</span> + (System.currentTimeMillis() - time));</span><br><span class="line">		<span class="keyword">return</span> sum;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">static</span> <span class="type">int</span> <span class="title function_">sumWait5</span><span class="params">()</span> &#123;</span><br><span class="line">		System.out.println(<span class="string">&quot;Begin to sum&quot;</span>);</span><br><span class="line">		</span><br><span class="line">		<span class="type">long</span> <span class="variable">time</span> <span class="operator">=</span> System.currentTimeMillis();</span><br><span class="line">		</span><br><span class="line">		<span class="type">int</span> <span class="variable">sum</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line">		<span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">1</span>;i &lt;= <span class="number">200</span>;i++) &#123;</span><br><span class="line">			sum += i;</span><br><span class="line">		&#125;</span><br><span class="line">		</span><br><span class="line">		<span class="keyword">try</span> &#123;</span><br><span class="line">			Thread.sleep(<span class="number">5000</span>);</span><br><span class="line">		&#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">			e.printStackTrace();</span><br><span class="line">		&#125;</span><br><span class="line">		</span><br><span class="line">		System.out.println(<span class="string">&quot;End to sum cost: &quot;</span> + (System.currentTimeMillis() - time));</span><br><span class="line">		<span class="keyword">return</span> sum;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> InterruptedException, ExecutionException &#123;</span><br><span class="line">		CompletableFuture&lt;Integer&gt; to100 = CompletableFuture.supplyAsync(CompletableFutureTest::sumWait3);</span><br><span class="line">		CompletableFuture&lt;Integer&gt; to200 = CompletableFuture.supplyAsync(CompletableFutureTest::sumWait5);</span><br><span class="line">		CompletableFuture&lt;Integer&gt; future = to100.applyToEither(to200, a -&gt; &#123;System.out.println(<span class="string">&quot;result is &quot;</span> + a);<span class="keyword">return</span> a;&#125;);</span><br><span class="line">		System.out.println(future.get());</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://huhansi.github.io/images/2020-05-07-completablefuture11.png"></p>
+<p>从上图可以看出，future返回了最先完成计算的sumWait3的结果。</p>
+<h3 id="acceptEither"><a href="#acceptEither" class="headerlink" title="acceptEither"></a>acceptEither</h3><p>acceptEither功能和applyToEither，只不过它们没有返回值。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> InterruptedException, ExecutionException &#123;</span><br><span class="line">		CompletableFuture&lt;Integer&gt; to100 = CompletableFuture.supplyAsync(CompletableFutureTest::sumWait3);</span><br><span class="line">		CompletableFuture&lt;Integer&gt; to200 = CompletableFuture.supplyAsync(CompletableFutureTest::sumWait5);</span><br><span class="line">		CompletableFuture&lt;Void&gt; future = to100.acceptEither(to200, a -&gt; &#123;System.out.println(<span class="string">&quot;result is &quot;</span> + a);&#125;);</span><br><span class="line">		System.out.println(future.get());</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://huhansi.github.io/images/2020-05-07-completablefuture12.png"></p>
+<h3 id="runAfterEither"><a href="#runAfterEither" class="headerlink" title="runAfterEither"></a>runAfterEither</h3><p>runAfterEither功能也类似，不过它不接受其他CompletableFuture的返回值，也没有返回值。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> InterruptedException, ExecutionException &#123;</span><br><span class="line">		CompletableFuture&lt;Integer&gt; to100 = CompletableFuture.supplyAsync(CompletableFutureTest::sumWait3);</span><br><span class="line">		CompletableFuture&lt;Integer&gt; to200 = CompletableFuture.supplyAsync(CompletableFutureTest::sumWait5);</span><br><span class="line">		CompletableFuture&lt;Void&gt; future = to100.runAfterEither(to200, () -&gt; &#123;System.out.println(<span class="string">&quot;result is 123&quot;</span>);&#125;);</span><br><span class="line">		System.out.println(future.get());</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://huhansi.github.io/images/2020-05-07-completablefuture13.png"></p>
+<h2 id="CompletableFuture结果获取"><a href="#CompletableFuture结果获取" class="headerlink" title="CompletableFuture结果获取"></a>CompletableFuture结果获取</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">     * Waits if necessary for this future to complete, and then</span></span><br><span class="line"><span class="comment">     * returns its result.</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> the result value</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@throws</span> CancellationException if this future was cancelled</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@throws</span> ExecutionException if this future completed exceptionally</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@throws</span> InterruptedException if the current thread was interrupted</span></span><br><span class="line"><span class="comment">     * while waiting</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">public</span> T <span class="title function_">get</span><span class="params">()</span> <span class="keyword">throws</span> InterruptedException, ExecutionException &#123;</span><br><span class="line">        Object r;</span><br><span class="line">        <span class="keyword">return</span> reportGet((r = result) == <span class="literal">null</span> ? waitingGet(<span class="literal">true</span>) : r);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * Waits if necessary for at most the given time for this future</span></span><br><span class="line"><span class="comment">     * to complete, and then returns its result, if available.</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> timeout the maximum time to wait</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> unit the time unit of the timeout argument</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> the result value</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@throws</span> CancellationException if this future was cancelled</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@throws</span> ExecutionException if this future completed exceptionally</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@throws</span> InterruptedException if the current thread was interrupted</span></span><br><span class="line"><span class="comment">     * while waiting</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@throws</span> TimeoutException if the wait timed out</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">public</span> T <span class="title function_">get</span><span class="params">(<span class="type">long</span> timeout, TimeUnit unit)</span></span><br><span class="line">        <span class="keyword">throws</span> InterruptedException, ExecutionException, TimeoutException &#123;</span><br><span class="line">        Object r;</span><br><span class="line">        <span class="type">long</span> <span class="variable">nanos</span> <span class="operator">=</span> unit.toNanos(timeout);</span><br><span class="line">        <span class="keyword">return</span> reportGet((r = result) == <span class="literal">null</span> ? timedGet(nanos) : r);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * Returns the result value when complete, or throws an</span></span><br><span class="line"><span class="comment">     * (unchecked) exception if completed exceptionally. To better</span></span><br><span class="line"><span class="comment">     * conform with the use of common functional forms, if a</span></span><br><span class="line"><span class="comment">     * computation involved in the completion of this</span></span><br><span class="line"><span class="comment">     * CompletableFuture threw an exception, this method throws an</span></span><br><span class="line"><span class="comment">     * (unchecked) &#123;<span class="doctag">@link</span> CompletionException&#125; with the underlying</span></span><br><span class="line"><span class="comment">     * exception as its cause.</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> the result value</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@throws</span> CancellationException if the computation was cancelled</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@throws</span> CompletionException if this future completed</span></span><br><span class="line"><span class="comment">     * exceptionally or a completion computation threw an exception</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">public</span> T <span class="title function_">join</span><span class="params">()</span> &#123;</span><br><span class="line">        Object r;</span><br><span class="line">        <span class="keyword">return</span> reportJoin((r = result) == <span class="literal">null</span> ? waitingGet(<span class="literal">false</span>) : r);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * Returns the result value (or throws any encountered exception)</span></span><br><span class="line"><span class="comment">     * if completed, else returns the given valueIfAbsent.</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> valueIfAbsent the value to return if not completed</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> the result value, if completed, else the given valueIfAbsent</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@throws</span> CancellationException if the computation was cancelled</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@throws</span> CompletionException if this future completed</span></span><br><span class="line"><span class="comment">     * exceptionally or a completion computation threw an exception</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">public</span> T <span class="title function_">getNow</span><span class="params">(T valueIfAbsent)</span> &#123;</span><br><span class="line">        Object r;</span><br><span class="line">        <span class="keyword">return</span> ((r = result) == <span class="literal">null</span>) ? valueIfAbsent : reportJoin(r);</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<p>get方法和之前的Future.get一致</p>
+<p>getNow方法，表示立即获取结果，如果此时计算已经完成，返回结果或者异常，否则返回给定的值valueIfAbsent</p>
+<p>join返回计算的结果或者抛出一个unchecked异常(CompletionException)，它和<code>get</code>对抛出的异常的处理有些细微的区别</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">CompletableFuture&lt;Integer&gt; future = CompletableFuture.supplyAsync(() -&gt; &#123;</span><br><span class="line">    <span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">1</span>/<span class="number">0</span>;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">100</span>;</span><br><span class="line">&#125;);</span><br><span class="line"><span class="comment">//future.join();</span></span><br><span class="line">future.get();</span><br></pre></td></tr></table></figure>
+
+<p>下面是执行future.get方法返回的结果</p>
+<p><img src="https://huhansi.github.io/images/2020-05-07-completablefuture14.png"></p>
+<p>下面是执行future.join方法返回的结果</p>
+<p><img src="https://huhansi.github.io/images/2020-05-07-completablefuture15.png"></p>
+<p>join返回一个unchecked异常（CompletionException），而get返回一个具体的异常</p>
+<h2 id="CompletableFuture-辅助方法"><a href="#CompletableFuture-辅助方法" class="headerlink" title="CompletableFuture 辅助方法"></a>CompletableFuture 辅助方法</h2><h3 id="allOf"><a href="#allOf" class="headerlink" title="allOf"></a>allOf</h3><p>allOf方法是当所有的CompletableFuture都执行完后，执行计算</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> InterruptedException, ExecutionException &#123;</span><br><span class="line">		CompletableFuture&lt;Integer&gt; to100 = CompletableFuture.supplyAsync(CompletableFutureTest::sumWait3);</span><br><span class="line">		CompletableFuture&lt;Integer&gt; to200 = CompletableFuture.supplyAsync(CompletableFutureTest::sumWait5);</span><br><span class="line">		CompletableFuture&lt;Void&gt; future = CompletableFuture.allOf(to100, to200);</span><br><span class="line">		System.out.println(future.get());</span><br><span class="line">		</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure>
+
+<p>运行就能发现，future会等to100和to200全部完成之后才会结束运行</p>
+<p><img src="https://huhansi.github.io/images/2020-05-07-completablefuture16.png"></p>
+<h3 id="anyOf"><a href="#anyOf" class="headerlink" title="anyOf"></a>anyOf</h3><p>anyOf方法是当任意一个的CompletableFuture都执行完后，执行计算</p>
+<p><img src="https://huhansi.github.io/images/2020-05-07-completablefuture17.png"></p>
+<p>运行时候能看到，在to100运行完成之后，整个CompletableFuture就完成计算，结束运行了。</p>
+<h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><p><a target="_blank" rel="noopener" href="https://colobu.com/2016/02/29/Java-CompletableFuture/">Java CompletableFuture 详解</a></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Java/" rel="tag"># Java</a>
+          
+            <a href="/tags/%E5%A4%9A%E7%BA%BF%E7%A8%8B/" rel="tag"># 多线程</a>
+          
+            <a href="/tags/CompletableFuture/" rel="tag"># CompletableFuture</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/posts/6751/" rel="next" title="SynchronousQueue源码解析">
+                <i class="fa fa-chevron-left"></i> SynchronousQueue源码解析
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/posts/b7a0/" rel="prev" title="Java使用Future、Callable和FutureTask">
+                Java使用Future、Callable和FutureTask <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name"></p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/%7C%7Carchive">
+              
+                  <span class="site-state-item-count">917</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">27</span>
+                  <span class="site-state-item-name">categories</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">359</span>
+                  <span class="site-state-item-name">tags</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Java%E4%BD%BF%E7%94%A8CompletableFuture"><span class="nav-number">1.</span> <span class="nav-text">Java使用CompletableFuture</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%9B%E5%BB%BACompletableFuture%E5%AF%B9%E8%B1%A1"><span class="nav-number">1.1.</span> <span class="nav-text">创建CompletableFuture对象</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#CompletableFuture%E5%AE%8C%E6%88%90%E6%93%8D%E4%BD%9C"><span class="nav-number">1.2.</span> <span class="nav-text">CompletableFuture完成操作</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B2%A1%E6%9C%89%E8%BF%94%E5%9B%9E%E5%80%BC"><span class="nav-number">1.2.1.</span> <span class="nav-text">没有返回值</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9C%89%E8%BF%94%E5%9B%9E%E5%80%BC"><span class="nav-number">1.2.2.</span> <span class="nav-text">有返回值</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#CompletableFuture%E7%BB%84%E5%90%88%E6%93%8D%E4%BD%9C"><span class="nav-number">1.3.</span> <span class="nav-text">CompletableFuture组合操作</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#thenApply"><span class="nav-number">1.3.1.</span> <span class="nav-text">thenApply</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#thenAccept"><span class="nav-number">1.3.2.</span> <span class="nav-text">thenAccept</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#thenRun"><span class="nav-number">1.3.3.</span> <span class="nav-text">thenRun</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#thenCombine"><span class="nav-number">1.3.4.</span> <span class="nav-text">thenCombine</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#thenAcceptBoth"><span class="nav-number">1.3.5.</span> <span class="nav-text">thenAcceptBoth</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#runAfterBoth"><span class="nav-number">1.3.6.</span> <span class="nav-text">runAfterBoth</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#thenCompose"><span class="nav-number">1.3.7.</span> <span class="nav-text">thenCompose</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#applyToEither"><span class="nav-number">1.3.8.</span> <span class="nav-text">applyToEither</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#acceptEither"><span class="nav-number">1.3.9.</span> <span class="nav-text">acceptEither</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#runAfterEither"><span class="nav-number">1.3.10.</span> <span class="nav-text">runAfterEither</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#CompletableFuture%E7%BB%93%E6%9E%9C%E8%8E%B7%E5%8F%96"><span class="nav-number">1.4.</span> <span class="nav-text">CompletableFuture结果获取</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#CompletableFuture-%E8%BE%85%E5%8A%A9%E6%96%B9%E6%B3%95"><span class="nav-number">1.5.</span> <span class="nav-text">CompletableFuture 辅助方法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#allOf"><span class="nav-number">1.5.1.</span> <span class="nav-text">allOf</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#anyOf"><span class="nav-number">1.5.2.</span> <span class="nav-text">anyOf</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%82%E8%80%83%E8%B5%84%E6%96%99"><span class="nav-number">1.6.</span> <span class="nav-text">参考资料</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">HanSi</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">Site words total count&#58;</span>
+    
+    <span title="Site words total count">657.4k</span>
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

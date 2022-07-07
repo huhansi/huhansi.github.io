@@ -1,0 +1,1300 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="cn">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Java,多线程,AtomicLongFieldUpdater," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="AtomicLongFieldUpdater源码解析AtomicLongFieldUpdater类介绍AtomicLongFieldUpdater类是JDK提供的volatile long封装器。可以通过它来原子更新某些对象的volatile修饰的long字段。 看下面这个例子，假设NotUseAtomicLongFieldUpdate类有一个字段value，它在某些场景下需要具有原子更新的能力，">
+<meta property="og:type" content="article">
+<meta property="og:title" content="AtomicLongFieldUpdater源码解析">
+<meta property="og:url" content="http://huhansi.com/posts/de22/index.html">
+<meta property="og:site_name" content="HanSi&#39;s Blog">
+<meta property="og:description" content="AtomicLongFieldUpdater源码解析AtomicLongFieldUpdater类介绍AtomicLongFieldUpdater类是JDK提供的volatile long封装器。可以通过它来原子更新某些对象的volatile修饰的long字段。 看下面这个例子，假设NotUseAtomicLongFieldUpdate类有一个字段value，它在某些场景下需要具有原子更新的能力，">
+<meta property="og:locale">
+<meta property="og:image" content="https://huhansi.github.io/images/2020-07-21-atomic8.png">
+<meta property="og:image" content="https://huhansi.github.io/images/2020-07-21-atomic9.png">
+<meta property="og:image" content="https://huhansi.github.io/images/2020-07-21-atomic10.png">
+<meta property="og:image" content="https://huhansi.github.io/images/2020-07-21-atomic11.png">
+<meta property="article:published_time" content="2020-07-16T16:00:00.000Z">
+<meta property="article:modified_time" content="2022-07-03T14:04:56.030Z">
+<meta property="article:author" content="HanSi">
+<meta property="article:tag" content="Java">
+<meta property="article:tag" content="多线程">
+<meta property="article:tag" content="AtomicLongFieldUpdater">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://huhansi.github.io/images/2020-07-21-atomic8.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '',
+    scheme: 'Mist',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":true,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://huhansi.com/posts/de22/"/>
+
+
+
+
+
+  <title>AtomicLongFieldUpdater源码解析 | HanSi's Blog</title>
+  
+
+
+
+
+
+
+
+
+<meta name="generator" content="Hexo 6.2.0"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="cn">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">HanSi's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            About
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            Search
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="Searching..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://huhansi.com/posts/de22/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="HanSi's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">AtomicLongFieldUpdater源码解析</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-07-17T00:00:00+08:00">
+                2020-07-17
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%BA%90%E7%A0%81/" itemprop="url" rel="index">
+                    <span itemprop="name">源码</span>
+                  </a>
+                </span>
+
+                
+                
+                  , 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%A4%9A%E7%BA%BF%E7%A8%8B/" itemprop="url" rel="index">
+                    <span itemprop="name">多线程</span>
+                  </a>
+                </span>
+
+                
+                
+                  , 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/CAS/" itemprop="url" rel="index">
+                    <span itemprop="name">CAS</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Words count in article&#58;</span>
+                
+                <span title="Words count in article">
+                  3.8k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Reading time &asymp;</span>
+                
+                <span title="Reading time">
+                  20
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="AtomicLongFieldUpdater源码解析"><a href="#AtomicLongFieldUpdater源码解析" class="headerlink" title="AtomicLongFieldUpdater源码解析"></a>AtomicLongFieldUpdater源码解析</h1><h2 id="AtomicLongFieldUpdater类介绍"><a href="#AtomicLongFieldUpdater类介绍" class="headerlink" title="AtomicLongFieldUpdater类介绍"></a>AtomicLongFieldUpdater类介绍</h2><p>AtomicLongFieldUpdater类是JDK提供的volatile long封装器。可以通过它来原子更新某些对象的volatile修饰的long字段。</p>
+<p>看下面这个例子，假设NotUseAtomicLongFieldUpdate类有一个字段value，它在某些场景下需要具有原子更新的能力，但又不能使用AtomicLong（可以认为是出于节省空间的考虑）。这个时候，AtomicLongFieldUpdater就派上用场了。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">NotUseAtomicLongFieldUpdate</span> <span class="keyword">implements</span> <span class="title class_">Runnable</span> &#123;</span><br><span class="line">	<span class="keyword">private</span> <span class="type">long</span> <span class="variable">value</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">	<span class="meta">@Override</span></span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">run</span><span class="params">()</span> &#123;</span><br><span class="line">		<span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>;i &lt; <span class="number">1000</span>;i++) &#123;</span><br><span class="line">			value++;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">		<span class="type">NotUseAtomicLongFieldUpdate</span> <span class="variable">update</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">NotUseAtomicLongFieldUpdate</span>();</span><br><span class="line">		<span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>;i &lt; <span class="number">10</span>;i++) &#123;</span><br><span class="line">			<span class="type">Thread</span> <span class="variable">t</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Thread</span>(update);</span><br><span class="line">			t.start();</span><br><span class="line">		&#125;</span><br><span class="line">		</span><br><span class="line">		<span class="keyword">try</span> &#123;</span><br><span class="line">			Thread.sleep(<span class="number">3000</span>);</span><br><span class="line">		&#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">			e.printStackTrace();</span><br><span class="line">		&#125;</span><br><span class="line">		</span><br><span class="line">		System.out.println(<span class="string">&quot;Final value is &quot;</span> + update.value);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p><img src="https://huhansi.github.io/images/2020-07-21-atomic8.png" alt="运行结果1"></p>
+<p><img src="https://huhansi.github.io/images/2020-07-21-atomic9.png" alt="运行结果2"></p>
+<p><img src="https://huhansi.github.io/images/2020-07-21-atomic10.png" alt="运行结果3"></p>
+<h2 id="类图"><a href="#类图" class="headerlink" title="类图"></a>类图</h2><p><img src="https://huhansi.github.io/images/2020-07-21-atomic11.png" alt="AtomicLongFieldUpdater"></p>
+<h2 id="主要属性"><a href="#主要属性" class="headerlink" title="主要属性"></a>主要属性</h2><p>无。主要属性在CASUpdater或者LockedUpdater中。这里就拿CASUpdater的属性来说明</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> sun.misc.<span class="type">Unsafe</span> <span class="variable">U</span> <span class="operator">=</span> sun.misc.Unsafe.getUnsafe();</span><br><span class="line">        <span class="keyword">private</span> <span class="keyword">final</span> <span class="type">long</span> offset;</span><br><span class="line">        <span class="comment">/**</span></span><br><span class="line"><span class="comment">         * if field is protected, the subclass constructing updater, else</span></span><br><span class="line"><span class="comment">         * the same as tclass</span></span><br><span class="line"><span class="comment">         */</span></span><br><span class="line">        <span class="keyword">private</span> <span class="keyword">final</span> Class&lt;?&gt; cclass;</span><br><span class="line">        <span class="comment">/** class holding the field */</span></span><br><span class="line">        <span class="keyword">private</span> <span class="keyword">final</span> Class&lt;T&gt; tclass;</span><br></pre></td></tr></table></figure>
+
+<p><strong>U</strong>: Unsafe类，实现CAS算法</p>
+<p><strong>offset</strong>：Field字段在整个AtomicIntegerFieldUpdaterImpl中的内存偏移。</p>
+<p><strong>cclass</strong>：如果字段受保护，cclass为调用者类的Class对象，否则cclass等于tclass</p>
+<p><strong>tclass</strong>：被操作对象类的Class对象</p>
+<h2 id="主要方法"><a href="#主要方法" class="headerlink" title="主要方法"></a>主要方法</h2><h3 id="newUpdater-Class-String"><a href="#newUpdater-Class-String" class="headerlink" title="newUpdater(Class,String)"></a>newUpdater(Class,String)</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">     * Creates and returns an updater for objects with the given field.</span></span><br><span class="line"><span class="comment">     * The Class argument is needed to check that reflective types and</span></span><br><span class="line"><span class="comment">     * generic types match.</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> tclass the class of the objects holding the field</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> fieldName the name of the field to be updated</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> &lt;U&gt; the type of instances of tclass</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> the updater</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@throws</span> IllegalArgumentException if the field is not a</span></span><br><span class="line"><span class="comment">     * volatile long type</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@throws</span> RuntimeException with a nested reflection-based</span></span><br><span class="line"><span class="comment">     * exception if the class does not hold field or is the wrong type,</span></span><br><span class="line"><span class="comment">     * or the field is inaccessible to the caller according to Java language</span></span><br><span class="line"><span class="comment">     * access control</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@CallerSensitive</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> &lt;U&gt; AtomicLongFieldUpdater&lt;U&gt; <span class="title function_">newUpdater</span><span class="params">(Class&lt;U&gt; tclass,</span></span><br><span class="line"><span class="params">                                                           String fieldName)</span> &#123;</span><br><span class="line">        Class&lt;?&gt; caller = Reflection.getCallerClass();</span><br><span class="line">        <span class="keyword">if</span> (AtomicLong.VM_SUPPORTS_LONG_CAS)</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">CASUpdater</span>&lt;U&gt;(tclass, fieldName, caller);</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">LockedUpdater</span>&lt;U&gt;(tclass, fieldName, caller);</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<p>新建一个Updater返回。如果平台支持CAS，则返回CASUpdater否则返回LockedUpdater</p>
+<h3 id="AtomicLongFieldUpdater"><a href="#AtomicLongFieldUpdater" class="headerlink" title="AtomicLongFieldUpdater()"></a>AtomicLongFieldUpdater()</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">     * Protected do-nothing constructor for use by subclasses.</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">protected</span> <span class="title function_">AtomicLongFieldUpdater</span><span class="params">()</span> &#123;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<p>空函数</p>
+<h3 id="compareAndSet（T-long-long"><a href="#compareAndSet（T-long-long" class="headerlink" title="compareAndSet（T,long,long)"></a>compareAndSet（T,long,long)</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">     * Atomically sets the field of the given object managed by this updater</span></span><br><span class="line"><span class="comment">     * to the given updated value if the current value &#123;<span class="doctag">@code</span> ==&#125; the</span></span><br><span class="line"><span class="comment">     * expected value. This method is guaranteed to be atomic with respect to</span></span><br><span class="line"><span class="comment">     * other calls to &#123;<span class="doctag">@code</span> compareAndSet&#125; and &#123;<span class="doctag">@code</span> set&#125;, but not</span></span><br><span class="line"><span class="comment">     * necessarily with respect to other changes in the field.</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> obj An object whose field to conditionally set</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> expect the expected value</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> update the new value</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> &#123;<span class="doctag">@code</span> true&#125; if successful</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@throws</span> ClassCastException if &#123;<span class="doctag">@code</span> obj&#125; is not an instance</span></span><br><span class="line"><span class="comment">     * of the class possessing the field established in the constructor</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">abstract</span> <span class="type">boolean</span> <span class="title function_">compareAndSet</span><span class="params">(T obj, <span class="type">long</span> expect, <span class="type">long</span> update)</span>;</span><br></pre></td></tr></table></figure>
+
+<p>抽象函数，具体实现可看CASUpdater或者LockedUpdater。</p>
+<h3 id="weakCompareAndSet-T-long-long"><a href="#weakCompareAndSet-T-long-long" class="headerlink" title="weakCompareAndSet(T,long,long)"></a>weakCompareAndSet(T,long,long)</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">     * Atomically sets the field of the given object managed by this updater</span></span><br><span class="line"><span class="comment">     * to the given updated value if the current value &#123;<span class="doctag">@code</span> ==&#125; the</span></span><br><span class="line"><span class="comment">     * expected value. This method is guaranteed to be atomic with respect to</span></span><br><span class="line"><span class="comment">     * other calls to &#123;<span class="doctag">@code</span> compareAndSet&#125; and &#123;<span class="doctag">@code</span> set&#125;, but not</span></span><br><span class="line"><span class="comment">     * necessarily with respect to other changes in the field.</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * &lt;p&gt;&lt;a href=&quot;package-summary.html#weakCompareAndSet&quot;&gt;May fail</span></span><br><span class="line"><span class="comment">     * spuriously and does not provide ordering guarantees&lt;/a&gt;, so is</span></span><br><span class="line"><span class="comment">     * only rarely an appropriate alternative to &#123;<span class="doctag">@code</span> compareAndSet&#125;.</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> obj An object whose field to conditionally set</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> expect the expected value</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> update the new value</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> &#123;<span class="doctag">@code</span> true&#125; if successful</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@throws</span> ClassCastException if &#123;<span class="doctag">@code</span> obj&#125; is not an instance</span></span><br><span class="line"><span class="comment">     * of the class possessing the field established in the constructor</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">abstract</span> <span class="type">boolean</span> <span class="title function_">weakCompareAndSet</span><span class="params">(T obj, <span class="type">long</span> expect, <span class="type">long</span> update)</span>;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>抽象函数，具体实现可看CASUpdater或者LockedUpdater。</p>
+<h3 id="set-T-long"><a href="#set-T-long" class="headerlink" title="set(T,long)"></a>set(T,long)</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">     * Sets the field of the given object managed by this updater to the</span></span><br><span class="line"><span class="comment">     * given updated value. This operation is guaranteed to act as a volatile</span></span><br><span class="line"><span class="comment">     * store with respect to subsequent invocations of &#123;<span class="doctag">@code</span> compareAndSet&#125;.</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> obj An object whose field to set</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> newValue the new value</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">void</span> <span class="title function_">set</span><span class="params">(T obj, <span class="type">long</span> newValue)</span>;</span><br></pre></td></tr></table></figure>
+
+<p>抽象函数，具体实现可看CASUpdater或者LockedUpdater。</p>
+<h3 id="lazySet-T-long"><a href="#lazySet-T-long" class="headerlink" title="lazySet(T,long)"></a>lazySet(T,long)</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">     * Eventually sets the field of the given object managed by this</span></span><br><span class="line"><span class="comment">     * updater to the given updated value.</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> obj An object whose field to set</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> newValue the new value</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@since</span> 1.6</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">void</span> <span class="title function_">lazySet</span><span class="params">(T obj, <span class="type">long</span> newValue)</span>;</span><br></pre></td></tr></table></figure>
+
+<p>抽象函数，具体实现可看CASUpdater或者LockedUpdater。</p>
+<h3 id="long-get-T"><a href="#long-get-T" class="headerlink" title="long get(T)"></a>long get(T)</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">     * Gets the current value held in the field of the given object managed</span></span><br><span class="line"><span class="comment">     * by this updater.</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> obj An object whose field to get</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> the current value</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">abstract</span> <span class="type">long</span> <span class="title function_">get</span><span class="params">(T obj)</span>;</span><br></pre></td></tr></table></figure>
+
+<p>抽象函数，具体实现可看CASUpdater或者LockedUpdater。</p>
+<h3 id="getAndSet-T-long"><a href="#getAndSet-T-long" class="headerlink" title="getAndSet(T,long)"></a>getAndSet(T,long)</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">     * Atomically sets the field of the given object managed by this updater</span></span><br><span class="line"><span class="comment">     * to the given value and returns the old value.</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> obj An object whose field to get and set</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> newValue the new value</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> the previous value</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">public</span> <span class="type">long</span> <span class="title function_">getAndSet</span><span class="params">(T obj, <span class="type">long</span> newValue)</span> &#123;</span><br><span class="line">        <span class="type">long</span> prev;</span><br><span class="line">        <span class="keyword">do</span> &#123;</span><br><span class="line">            prev = get(obj);</span><br><span class="line">        &#125; <span class="keyword">while</span> (!compareAndSet(obj, prev, newValue));</span><br><span class="line">        <span class="keyword">return</span> prev;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<p>获取当前的值，并且将当前值更新为newValue。这里是一个死循环，极端情况下，可能导致自旋过久。</p>
+<h3 id="getAndIncrement-T）"><a href="#getAndIncrement-T）" class="headerlink" title="getAndIncrement(T）"></a>getAndIncrement(T）</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">     * Atomically increments by one the current value of the field of the</span></span><br><span class="line"><span class="comment">     * given object managed by this updater.</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> obj An object whose field to get and set</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> the previous value</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">public</span> <span class="type">long</span> <span class="title function_">getAndIncrement</span><span class="params">(T obj)</span> &#123;</span><br><span class="line">        <span class="type">long</span> prev, next;</span><br><span class="line">        <span class="keyword">do</span> &#123;</span><br><span class="line">            prev = get(obj);</span><br><span class="line">            next = prev + <span class="number">1</span>;</span><br><span class="line">        &#125; <span class="keyword">while</span> (!compareAndSet(obj, prev, next));</span><br><span class="line">        <span class="keyword">return</span> prev;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<p>获取当前值，返回。并把当前值加1，更新。这里是一个死循环，极端情况下，可能导致自旋过久。</p>
+<h3 id="getAndDecrement-T）"><a href="#getAndDecrement-T）" class="headerlink" title="getAndDecrement(T）"></a>getAndDecrement(T）</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">     * Atomically decrements by one the current value of the field of the</span></span><br><span class="line"><span class="comment">     * given object managed by this updater.</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> obj An object whose field to get and set</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> the previous value</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">public</span> <span class="type">long</span> <span class="title function_">getAndDecrement</span><span class="params">(T obj)</span> &#123;</span><br><span class="line">        <span class="type">long</span> prev, next;</span><br><span class="line">        <span class="keyword">do</span> &#123;</span><br><span class="line">            prev = get(obj);</span><br><span class="line">            next = prev - <span class="number">1</span>;</span><br><span class="line">        &#125; <span class="keyword">while</span> (!compareAndSet(obj, prev, next));</span><br><span class="line">        <span class="keyword">return</span> prev;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<p>获取当前值，返回。并把当前值减1，更新。这里是一个死循环，极端情况下，可能导致自旋过久。</p>
+<h3 id="getAndAdd-T-long"><a href="#getAndAdd-T-long" class="headerlink" title="getAndAdd(T,long)"></a>getAndAdd(T,long)</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">     * Atomically adds the given value to the current value of the field of</span></span><br><span class="line"><span class="comment">     * the given object managed by this updater.</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> obj An object whose field to get and set</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> delta the value to add</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> the previous value</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">public</span> <span class="type">long</span> <span class="title function_">getAndAdd</span><span class="params">(T obj, <span class="type">long</span> delta)</span> &#123;</span><br><span class="line">        <span class="type">long</span> prev, next;</span><br><span class="line">        <span class="keyword">do</span> &#123;</span><br><span class="line">            prev = get(obj);</span><br><span class="line">            next = prev + delta;</span><br><span class="line">        &#125; <span class="keyword">while</span> (!compareAndSet(obj, prev, next));</span><br><span class="line">        <span class="keyword">return</span> prev;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<p>获取当前值，返回。并将当前值加上delta，更新当前值.这里是一个死循环，极端情况下，可能导致自旋过久。</p>
+<h3 id="incrementAndGet-T"><a href="#incrementAndGet-T" class="headerlink" title="incrementAndGet(T)"></a>incrementAndGet(T)</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">     * Atomically increments by one the current value of the field of the</span></span><br><span class="line"><span class="comment">     * given object managed by this updater.</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> obj An object whose field to get and set</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> the updated value</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">public</span> <span class="type">long</span> <span class="title function_">incrementAndGet</span><span class="params">(T obj)</span> &#123;</span><br><span class="line">        <span class="type">long</span> prev, next;</span><br><span class="line">        <span class="keyword">do</span> &#123;</span><br><span class="line">            prev = get(obj);</span><br><span class="line">            next = prev + <span class="number">1</span>;</span><br><span class="line">        &#125; <span class="keyword">while</span> (!compareAndSet(obj, prev, next));</span><br><span class="line">        <span class="keyword">return</span> next;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<p>将当前值加1并更新，返回当前值。这里是一个死循环，极端情况下，可能导致自旋过久。</p>
+<h3 id="decrementAndGet-T"><a href="#decrementAndGet-T" class="headerlink" title="decrementAndGet(T)"></a>decrementAndGet(T)</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">     * Atomically decrements by one the current value of the field of the</span></span><br><span class="line"><span class="comment">     * given object managed by this updater.</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> obj An object whose field to get and set</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> the updated value</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">public</span> <span class="type">long</span> <span class="title function_">decrementAndGet</span><span class="params">(T obj)</span> &#123;</span><br><span class="line">        <span class="type">long</span> prev, next;</span><br><span class="line">        <span class="keyword">do</span> &#123;</span><br><span class="line">            prev = get(obj);</span><br><span class="line">            next = prev - <span class="number">1</span>;</span><br><span class="line">        &#125; <span class="keyword">while</span> (!compareAndSet(obj, prev, next));</span><br><span class="line">        <span class="keyword">return</span> next;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<p>将当前值减1并更新，返回当前值。这里是一个死循环，极端情况下，可能导致自旋过久。</p>
+<h3 id="addAndGet-T-long"><a href="#addAndGet-T-long" class="headerlink" title="addAndGet(T,long)"></a>addAndGet(T,long)</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">     * Atomically adds the given value to the current value of the field of</span></span><br><span class="line"><span class="comment">     * the given object managed by this updater.</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> obj An object whose field to get and set</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> delta the value to add</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> the updated value</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">public</span> <span class="type">long</span> <span class="title function_">addAndGet</span><span class="params">(T obj, <span class="type">long</span> delta)</span> &#123;</span><br><span class="line">        <span class="type">long</span> prev, next;</span><br><span class="line">        <span class="keyword">do</span> &#123;</span><br><span class="line">            prev = get(obj);</span><br><span class="line">            next = prev + delta;</span><br><span class="line">        &#125; <span class="keyword">while</span> (!compareAndSet(obj, prev, next));</span><br><span class="line">        <span class="keyword">return</span> next;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<p>将当前值加上delta，更新，并返回。这里是一个死循环，极端情况下，可能导致自旋过久。</p>
+<h3 id="getAndUpdate-T-LongUnaryOperator"><a href="#getAndUpdate-T-LongUnaryOperator" class="headerlink" title="getAndUpdate(T,LongUnaryOperator)"></a>getAndUpdate(T,LongUnaryOperator)</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">     * Atomically updates the field of the given object managed by this updater</span></span><br><span class="line"><span class="comment">     * with the results of applying the given function, returning the previous</span></span><br><span class="line"><span class="comment">     * value. The function should be side-effect-free, since it may be</span></span><br><span class="line"><span class="comment">     * re-applied when attempted updates fail due to contention among threads.</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> obj An object whose field to get and set</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> updateFunction a side-effect-free function</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> the previous value</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@since</span> 1.8</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">final</span> <span class="type">long</span> <span class="title function_">getAndUpdate</span><span class="params">(T obj, LongUnaryOperator updateFunction)</span> &#123;</span><br><span class="line">        <span class="type">long</span> prev, next;</span><br><span class="line">        <span class="keyword">do</span> &#123;</span><br><span class="line">            prev = get(obj);</span><br><span class="line">            next = updateFunction.applyAsLong(prev);</span><br><span class="line">        &#125; <span class="keyword">while</span> (!compareAndSet(obj, prev, next));</span><br><span class="line">        <span class="keyword">return</span> prev;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<p>返回当前值，并将单元函数应用于当前值，更新。这里是一个死循环，极端情况下，可能导致自旋过久。</p>
+<h3 id="updateAndGet-T-LongUnaryOperator"><a href="#updateAndGet-T-LongUnaryOperator" class="headerlink" title="updateAndGet(T,LongUnaryOperator)"></a>updateAndGet(T,LongUnaryOperator)</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">     * Atomically updates the field of the given object managed by this updater</span></span><br><span class="line"><span class="comment">     * with the results of applying the given function, returning the updated</span></span><br><span class="line"><span class="comment">     * value. The function should be side-effect-free, since it may be</span></span><br><span class="line"><span class="comment">     * re-applied when attempted updates fail due to contention among threads.</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> obj An object whose field to get and set</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> updateFunction a side-effect-free function</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> the updated value</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@since</span> 1.8</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">final</span> <span class="type">long</span> <span class="title function_">updateAndGet</span><span class="params">(T obj, LongUnaryOperator updateFunction)</span> &#123;</span><br><span class="line">        <span class="type">long</span> prev, next;</span><br><span class="line">        <span class="keyword">do</span> &#123;</span><br><span class="line">            prev = get(obj);</span><br><span class="line">            next = updateFunction.applyAsLong(prev);</span><br><span class="line">        &#125; <span class="keyword">while</span> (!compareAndSet(obj, prev, next));</span><br><span class="line">        <span class="keyword">return</span> next;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<p>将当前值应用于单元函数，并更新，返回。这里是一个死循环，极端情况下，可能导致自旋过久。</p>
+<h3 id="getAndAccumulate-T-long-LongBinaryOperator"><a href="#getAndAccumulate-T-long-LongBinaryOperator" class="headerlink" title="getAndAccumulate(T,long,LongBinaryOperator)"></a>getAndAccumulate(T,long,LongBinaryOperator)</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">     * Atomically updates the field of the given object managed by this</span></span><br><span class="line"><span class="comment">     * updater with the results of applying the given function to the</span></span><br><span class="line"><span class="comment">     * current and given values, returning the previous value. The</span></span><br><span class="line"><span class="comment">     * function should be side-effect-free, since it may be re-applied</span></span><br><span class="line"><span class="comment">     * when attempted updates fail due to contention among threads.  The</span></span><br><span class="line"><span class="comment">     * function is applied with the current value as its first argument,</span></span><br><span class="line"><span class="comment">     * and the given update as the second argument.</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> obj An object whose field to get and set</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> x the update value</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> accumulatorFunction a side-effect-free function of two arguments</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> the previous value</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@since</span> 1.8</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">final</span> <span class="type">long</span> <span class="title function_">getAndAccumulate</span><span class="params">(T obj, <span class="type">long</span> x,</span></span><br><span class="line"><span class="params">                                       LongBinaryOperator accumulatorFunction)</span> &#123;</span><br><span class="line">        <span class="type">long</span> prev, next;</span><br><span class="line">        <span class="keyword">do</span> &#123;</span><br><span class="line">            prev = get(obj);</span><br><span class="line">            next = accumulatorFunction.applyAsLong(prev, x);</span><br><span class="line">        &#125; <span class="keyword">while</span> (!compareAndSet(obj, prev, next));</span><br><span class="line">        <span class="keyword">return</span> prev;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<p>返回当前值，并对当前值和x应用双元函数，将得到的结果更新当前值。这里是一个死循环，极端情况下，可能导致自旋过久。</p>
+<h3 id="accumulateAndGet-T-long-LongBinaryOperator"><a href="#accumulateAndGet-T-long-LongBinaryOperator" class="headerlink" title="accumulateAndGet(T,long,LongBinaryOperator)"></a>accumulateAndGet(T,long,LongBinaryOperator)</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">     * Atomically updates the field of the given object managed by this</span></span><br><span class="line"><span class="comment">     * updater with the results of applying the given function to the</span></span><br><span class="line"><span class="comment">     * current and given values, returning the updated value. The</span></span><br><span class="line"><span class="comment">     * function should be side-effect-free, since it may be re-applied</span></span><br><span class="line"><span class="comment">     * when attempted updates fail due to contention among threads.  The</span></span><br><span class="line"><span class="comment">     * function is applied with the current value as its first argument,</span></span><br><span class="line"><span class="comment">     * and the given update as the second argument.</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> obj An object whose field to get and set</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> x the update value</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> accumulatorFunction a side-effect-free function of two arguments</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> the updated value</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@since</span> 1.8</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">final</span> <span class="type">long</span> <span class="title function_">accumulateAndGet</span><span class="params">(T obj, <span class="type">long</span> x,</span></span><br><span class="line"><span class="params">                                       LongBinaryOperator accumulatorFunction)</span> &#123;</span><br><span class="line">        <span class="type">long</span> prev, next;</span><br><span class="line">        <span class="keyword">do</span> &#123;</span><br><span class="line">            prev = get(obj);</span><br><span class="line">            next = accumulatorFunction.applyAsLong(prev, x);</span><br><span class="line">        &#125; <span class="keyword">while</span> (!compareAndSet(obj, prev, next));</span><br><span class="line">        <span class="keyword">return</span> next;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<p>对当前值和x应用双元函数，并将得到的结果更新至当前值，并返回。</p>
+<h3 id="CASUpdater源码"><a href="#CASUpdater源码" class="headerlink" title="CASUpdater源码"></a>CASUpdater源码</h3><h3 id="CASUpdater-Class-String-Class"><a href="#CASUpdater-Class-String-Class" class="headerlink" title="CASUpdater(Class,  String,Class)"></a>CASUpdater(Class,  String,Class)</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line">CASUpdater(<span class="keyword">final</span> Class&lt;T&gt; tclass, <span class="keyword">final</span> String fieldName,</span><br><span class="line">                   <span class="keyword">final</span> Class&lt;?&gt; caller) &#123;</span><br><span class="line">            <span class="keyword">final</span> Field field;</span><br><span class="line">            <span class="keyword">final</span> <span class="type">int</span> modifiers;</span><br><span class="line">            <span class="keyword">try</span> &#123;</span><br><span class="line">                <span class="comment">// 校验tclass中是否存在fieldName这个字段</span></span><br><span class="line">                field = AccessController.doPrivileged(</span><br><span class="line">                    <span class="keyword">new</span> <span class="title class_">PrivilegedExceptionAction</span>&lt;Field&gt;() &#123;</span><br><span class="line">                        <span class="keyword">public</span> Field <span class="title function_">run</span><span class="params">()</span> <span class="keyword">throws</span> NoSuchFieldException &#123;</span><br><span class="line">                            <span class="keyword">return</span> tclass.getDeclaredField(fieldName);</span><br><span class="line">                        &#125;</span><br><span class="line">                    &#125;);</span><br><span class="line">                modifiers = field.getModifiers();</span><br><span class="line">                <span class="comment">// 确认当前字段和AtomicLongFieldUpdater具有同样的访问级别</span></span><br><span class="line">                sun.reflect.misc.ReflectUtil.ensureMemberAccess(</span><br><span class="line">                    caller, tclass, <span class="literal">null</span>, modifiers);</span><br><span class="line">                <span class="type">ClassLoader</span> <span class="variable">cl</span> <span class="operator">=</span> tclass.getClassLoader();</span><br><span class="line">                <span class="type">ClassLoader</span> <span class="variable">ccl</span> <span class="operator">=</span> caller.getClassLoader();</span><br><span class="line">                <span class="keyword">if</span> ((ccl != <span class="literal">null</span>) &amp;&amp; (ccl != cl) &amp;&amp;</span><br><span class="line">                    ((cl == <span class="literal">null</span>) || !isAncestor(cl, ccl))) &#123;</span><br><span class="line">                    sun.reflect.misc.ReflectUtil.checkPackageAccess(tclass);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125; <span class="keyword">catch</span> (PrivilegedActionException pae) &#123;</span><br><span class="line">                <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">RuntimeException</span>(pae.getException());</span><br><span class="line">            &#125; <span class="keyword">catch</span> (Exception ex) &#123;</span><br><span class="line">                <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">RuntimeException</span>(ex);</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            <span class="comment">// 只能是long型</span></span><br><span class="line">            <span class="keyword">if</span> (field.getType() != <span class="type">long</span>.class)</span><br><span class="line">                <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">IllegalArgumentException</span>(<span class="string">&quot;Must be long type&quot;</span>);</span><br><span class="line"></span><br><span class="line">            <span class="comment">// 一定要有volatile字段修饰</span></span><br><span class="line">            <span class="keyword">if</span> (!Modifier.isVolatile(modifiers))</span><br><span class="line">                <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">IllegalArgumentException</span>(<span class="string">&quot;Must be volatile type&quot;</span>);</span><br><span class="line"></span><br><span class="line">            <span class="comment">// Access to protected field members is restricted to receivers only</span></span><br><span class="line">            <span class="comment">// of the accessing class, or one of its subclasses, and the</span></span><br><span class="line">            <span class="comment">// accessing class must in turn be a subclass (or package sibling)</span></span><br><span class="line">            <span class="comment">// of the protected member&#x27;s defining class.</span></span><br><span class="line">            <span class="comment">// If the updater refers to a protected field of a declaring class</span></span><br><span class="line">            <span class="comment">// outside the current package, the receiver argument will be</span></span><br><span class="line">            <span class="comment">// narrowed to the type of the accessing class.</span></span><br><span class="line">            <span class="built_in">this</span>.cclass = (Modifier.isProtected(modifiers) &amp;&amp;</span><br><span class="line">                           tclass.isAssignableFrom(caller) &amp;&amp;</span><br><span class="line">                           !isSamePackage(tclass, caller))</span><br><span class="line">                          ? caller : tclass;</span><br><span class="line">            <span class="built_in">this</span>.tclass = tclass;</span><br><span class="line">            <span class="built_in">this</span>.offset = U.objectFieldOffset(field);</span><br><span class="line">        &#125;</span><br></pre></td></tr></table></figure>
+
+<p>从上述代码中可以看到，如果字段想要被AtomicLongFieldUpdater修改的话，必须要满足下面几个条件：</p>
+<ol>
+<li>字段必须是volatile类型的，在线程之间共享变量时保证立即可见.eg:volatile long value &#x3D; 3</li>
+<li>字段的描述类型（修饰符public&#x2F;protected&#x2F;default&#x2F;private）是与调用者与操作对象字段的关系一致。也就是说调用者能够直接操作对象字段，那么就可以反射进行原子操作。但是对于父类的字段，子类是不能直接操作的，尽管子类可以访问父类的字段。</li>
+<li>只能是实例变量，不能是类变量，也就是说不能加static关键字。</li>
+<li>只能是可修改变量，不能使final变量，因为final的语义就是不可修改。实际上final的语义和volatile是有冲突的，这两个关键字不能同时存在。</li>
+<li>对于AtomicIntegerFieldUpdater和AtomicLongFieldUpdater只能修改int&#x2F;long类型的字段，不能修改其包装类型（Integer&#x2F;Long）。如果要修改包装类型就需要使用AtomicReferenceFieldUpdater。</li>
+</ol>
+<h3 id="accessCheck-T"><a href="#accessCheck-T" class="headerlink" title="accessCheck(T)"></a>accessCheck(T)</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">         * Checks that target argument is instance of cclass.  On</span></span><br><span class="line"><span class="comment">         * failure, throws cause.</span></span><br><span class="line"><span class="comment">         */</span></span><br><span class="line">        <span class="keyword">private</span> <span class="keyword">final</span> <span class="keyword">void</span> <span class="title function_">accessCheck</span><span class="params">(T obj)</span> &#123;</span><br><span class="line">            <span class="keyword">if</span> (!cclass.isInstance(obj))</span><br><span class="line">                throwAccessCheckException(obj);</span><br><span class="line">        &#125;</span><br></pre></td></tr></table></figure>
+
+<p>确认obj是不是cclass的实例</p>
+<h3 id="throwAccessCheckException-T"><a href="#throwAccessCheckException-T" class="headerlink" title="throwAccessCheckException(T)"></a>throwAccessCheckException(T)</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">         * Throws access exception if accessCheck failed due to</span></span><br><span class="line"><span class="comment">         * protected access, else ClassCastException.</span></span><br><span class="line"><span class="comment">         */</span></span><br><span class="line">        <span class="keyword">private</span> <span class="keyword">final</span> <span class="keyword">void</span> <span class="title function_">throwAccessCheckException</span><span class="params">(T obj)</span> &#123;</span><br><span class="line">            <span class="keyword">if</span> (cclass == tclass)</span><br><span class="line">                <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">ClassCastException</span>();</span><br><span class="line">            <span class="keyword">else</span></span><br><span class="line">                <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">RuntimeException</span>(</span><br><span class="line">                    <span class="keyword">new</span> <span class="title class_">IllegalAccessException</span>(</span><br><span class="line">                        <span class="string">&quot;Class &quot;</span> +</span><br><span class="line">                        cclass.getName() +</span><br><span class="line">                        <span class="string">&quot; can not access a protected member of class &quot;</span> +</span><br><span class="line">                        tclass.getName() +</span><br><span class="line">                        <span class="string">&quot; using an instance of &quot;</span> +</span><br><span class="line">                        obj.getClass().getName()));</span><br><span class="line">        &#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="compareAndSet-T-long-long"><a href="#compareAndSet-T-long-long" class="headerlink" title="compareAndSet(T,long,long)"></a>compareAndSet(T,long,long)</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">final</span> <span class="type">boolean</span> <span class="title function_">compareAndSet</span><span class="params">(T obj, <span class="type">long</span> expect, <span class="type">long</span> update)</span> &#123;</span><br><span class="line">            accessCheck(obj);</span><br><span class="line">            <span class="keyword">return</span> U.compareAndSwapLong(obj, offset, expect, update);</span><br><span class="line">        &#125;</span><br></pre></td></tr></table></figure>
+
+<p>如果当前值是expect，就通过调用unsafe的cas相关算法，更新当前值为update，返回true，否则返回false。</p>
+<h3 id="weakCompareAndSet-T-long-long-1"><a href="#weakCompareAndSet-T-long-long-1" class="headerlink" title="weakCompareAndSet(T,long,long)"></a>weakCompareAndSet(T,long,long)</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">final</span> <span class="type">boolean</span> <span class="title function_">weakCompareAndSet</span><span class="params">(T obj, <span class="type">long</span> expect, <span class="type">long</span> update)</span> &#123;</span><br><span class="line">            accessCheck(obj);</span><br><span class="line">            <span class="keyword">return</span> U.compareAndSwapLong(obj, offset, expect, update);</span><br><span class="line">        &#125;</span><br></pre></td></tr></table></figure>
+
+<p>从父类的注释上看，这个方法的本意是，调用weakCompareAndSet方法时不能保证指令重排的发生，因此，这个方法有时候会毫无理由地失败。</p>
+<p>但是当前实现就是compareAndSet。</p>
+<h3 id="set-T-long-1"><a href="#set-T-long-1" class="headerlink" title="set(T,long)"></a>set(T,long)</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">void</span> <span class="title function_">set</span><span class="params">(T obj, <span class="type">long</span> newValue)</span> &#123;</span><br><span class="line">            accessCheck(obj);</span><br><span class="line">            U.putLongVolatile(obj, offset, newValue);</span><br><span class="line">        &#125;</span><br></pre></td></tr></table></figure>
+
+<p>设置当前值为newValue</p>
+<h3 id="lazySet-T-long-1"><a href="#lazySet-T-long-1" class="headerlink" title="lazySet(T,long)"></a>lazySet(T,long)</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">void</span> <span class="title function_">lazySet</span><span class="params">(T obj, <span class="type">long</span> newValue)</span> &#123;</span><br><span class="line">            accessCheck(obj);</span><br><span class="line">            U.putOrderedLong(obj, offset, newValue);</span><br><span class="line">        &#125;</span><br></pre></td></tr></table></figure>
+
+<p>该方法是“慢慢”地将对象的obj的fieldName字段设置为newValue。这就意味着有段时间，多线程环境下，会有线程读取到旧值。</p>
+<h3 id="get-T"><a href="#get-T" class="headerlink" title="get(T)"></a>get(T)</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">final</span> <span class="type">long</span> <span class="title function_">get</span><span class="params">(T obj)</span> &#123;</span><br><span class="line">            accessCheck(obj);</span><br><span class="line">            <span class="keyword">return</span> U.getLongVolatile(obj, offset);</span><br><span class="line">        &#125;</span><br></pre></td></tr></table></figure>
+
+<p>获取当前值</p>
+<h3 id="getAndSet-T-long-1"><a href="#getAndSet-T-long-1" class="headerlink" title="getAndSet(T,long)"></a>getAndSet(T,long)</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">final</span> <span class="type">long</span> <span class="title function_">getAndSet</span><span class="params">(T obj, <span class="type">long</span> newValue)</span> &#123;</span><br><span class="line">            accessCheck(obj);</span><br><span class="line">            <span class="keyword">return</span> U.getAndSetLong(obj, offset, newValue);</span><br><span class="line">        &#125;</span><br></pre></td></tr></table></figure>
+
+<p>返回当前值，并将当前值更新为newValue</p>
+<h3 id="getAndAdd-T-long-1"><a href="#getAndAdd-T-long-1" class="headerlink" title="getAndAdd(T,long)"></a>getAndAdd(T,long)</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">final</span> <span class="type">long</span> <span class="title function_">getAndAdd</span><span class="params">(T obj, <span class="type">long</span> delta)</span> &#123;</span><br><span class="line">            accessCheck(obj);</span><br><span class="line">            <span class="keyword">return</span> U.getAndAddLong(obj, offset, delta);</span><br><span class="line">        &#125;</span><br></pre></td></tr></table></figure>
+
+<p>返回当前值，并将当前值加上delta</p>
+<h3 id="getAndIncrement-T"><a href="#getAndIncrement-T" class="headerlink" title="getAndIncrement(T)"></a>getAndIncrement(T)</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">final</span> <span class="type">long</span> <span class="title function_">getAndIncrement</span><span class="params">(T obj)</span> &#123;</span><br><span class="line">            <span class="keyword">return</span> getAndAdd(obj, <span class="number">1</span>);</span><br><span class="line">        &#125;</span><br></pre></td></tr></table></figure>
+
+<p>返回当前值，并将当前值加1</p>
+<h3 id="getAndDecrement-T"><a href="#getAndDecrement-T" class="headerlink" title="getAndDecrement(T)"></a>getAndDecrement(T)</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">final</span> <span class="type">long</span> <span class="title function_">getAndDecrement</span><span class="params">(T obj)</span> &#123;</span><br><span class="line">            <span class="keyword">return</span> getAndAdd(obj, -<span class="number">1</span>);</span><br><span class="line">        &#125;</span><br></pre></td></tr></table></figure>
+
+<p>返回当前值，并将当前值减1</p>
+<h3 id="incrementAndGet-T-1"><a href="#incrementAndGet-T-1" class="headerlink" title="incrementAndGet(T)"></a>incrementAndGet(T)</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">final</span> <span class="type">long</span> <span class="title function_">incrementAndGet</span><span class="params">(T obj)</span> &#123;</span><br><span class="line">            <span class="keyword">return</span> getAndAdd(obj, <span class="number">1</span>) + <span class="number">1</span>;</span><br><span class="line">        &#125;</span><br></pre></td></tr></table></figure>
+
+<p>将当前值加1，并返回</p>
+<h3 id="decrementAndGet-T-1"><a href="#decrementAndGet-T-1" class="headerlink" title="decrementAndGet(T)"></a>decrementAndGet(T)</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">final</span> <span class="type">long</span> <span class="title function_">decrementAndGet</span><span class="params">(T obj)</span> &#123;</span><br><span class="line">            <span class="keyword">return</span> getAndAdd(obj, -<span class="number">1</span>) - <span class="number">1</span>;</span><br><span class="line">        &#125;</span><br></pre></td></tr></table></figure>
+
+<p>将当前值减1，并返回</p>
+<h3 id="addAndGet-T-long-1"><a href="#addAndGet-T-long-1" class="headerlink" title="addAndGet(T,long)"></a>addAndGet(T,long)</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">final</span> <span class="type">long</span> <span class="title function_">addAndGet</span><span class="params">(T obj, <span class="type">long</span> delta)</span> &#123;</span><br><span class="line">            <span class="keyword">return</span> getAndAdd(obj, delta) + delta;</span><br><span class="line">        &#125;</span><br></pre></td></tr></table></figure>
+
+<p>将当前值加上delta，并返回。</p>
+<h3 id="LockedUpdater"><a href="#LockedUpdater" class="headerlink" title="LockedUpdater"></a>LockedUpdater</h3><p>由于LockUpdater部分方法与CASUpdater相同，这里不再赘述。仅列出和CASUpdater实现不同的方法。</p>
+<h3 id="compareAndSet-T-long-long-1"><a href="#compareAndSet-T-long-long-1" class="headerlink" title="compareAndSet(T,long,long)"></a>compareAndSet(T,long,long)</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">final</span> <span class="type">boolean</span> <span class="title function_">compareAndSet</span><span class="params">(T obj, <span class="type">long</span> expect, <span class="type">long</span> update)</span> &#123;</span><br><span class="line">            accessCheck(obj);</span><br><span class="line">            <span class="keyword">synchronized</span> (<span class="built_in">this</span>) &#123;</span><br><span class="line">                <span class="type">long</span> <span class="variable">v</span> <span class="operator">=</span> U.getLong(obj, offset);</span><br><span class="line">                <span class="keyword">if</span> (v != expect)</span><br><span class="line">                    <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">                U.putLong(obj, offset, update);</span><br><span class="line">                <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br></pre></td></tr></table></figure>
+
+<p>这里和CASUpdater不同，这里使用了锁。在更新当前值的时候，先锁上当前实例，如果当前值不等于expect，返回false，否则调用unsafe接口，更新当前值为update。</p>
+<h3 id="weakCompareAndSet-T-long-long-2"><a href="#weakCompareAndSet-T-long-long-2" class="headerlink" title="weakCompareAndSet(T,long,long)"></a>weakCompareAndSet(T,long,long)</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">final</span> <span class="type">boolean</span> <span class="title function_">weakCompareAndSet</span><span class="params">(T obj, <span class="type">long</span> expect, <span class="type">long</span> update)</span> &#123;</span><br><span class="line">            <span class="keyword">return</span> compareAndSet(obj, expect, update);</span><br><span class="line">        &#125;</span><br></pre></td></tr></table></figure>
+
+<p>直接调用的compareAndSet方法</p>
+<h3 id="set-T-long-2"><a href="#set-T-long-2" class="headerlink" title="set(T,long)"></a>set(T,long)</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">void</span> <span class="title function_">set</span><span class="params">(T obj, <span class="type">long</span> newValue)</span> &#123;</span><br><span class="line">            accessCheck(obj);</span><br><span class="line">            <span class="keyword">synchronized</span> (<span class="built_in">this</span>) &#123;</span><br><span class="line">                U.putLong(obj, offset, newValue);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br></pre></td></tr></table></figure>
+
+<p>更新当前值的时候锁住实例。</p>
+<h3 id="lazySet-T-long-2"><a href="#lazySet-T-long-2" class="headerlink" title="lazySet(T,long)"></a>lazySet(T,long)</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">void</span> <span class="title function_">lazySet</span><span class="params">(T obj, <span class="type">long</span> newValue)</span> &#123;</span><br><span class="line">            set(obj, newValue);</span><br><span class="line">        &#125;</span><br></pre></td></tr></table></figure>
+
+<p>直接调用set方法</p>
+<h3 id="get-T-1"><a href="#get-T-1" class="headerlink" title="get(T)"></a>get(T)</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">final</span> <span class="type">long</span> <span class="title function_">get</span><span class="params">(T obj)</span> &#123;</span><br><span class="line">            accessCheck(obj);</span><br><span class="line">            <span class="keyword">synchronized</span> (<span class="built_in">this</span>) &#123;</span><br><span class="line">                <span class="keyword">return</span> U.getLong(obj, offset);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br></pre></td></tr></table></figure>
+
+<p>取值的时候，锁住当前实例，再调用Unsafe的方法获取值。</p>
+<h2 id="应用"><a href="#应用" class="headerlink" title="应用"></a>应用</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">NotUseAtomicLongFieldUpdate</span> &#123;</span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">volatile</span> <span class="type">long</span> <span class="variable">value</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">UseAtomicLongFieldUpdater</span> <span class="keyword">implements</span> <span class="title class_">Runnable</span> &#123;</span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">static</span> <span class="type">NotUseAtomicLongFieldUpdate</span> <span class="variable">update</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">NotUseAtomicLongFieldUpdate</span>();</span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">static</span> AtomicLongFieldUpdater&lt;NotUseAtomicLongFieldUpdate&gt; holder = AtomicLongFieldUpdater.newUpdater(NotUseAtomicLongFieldUpdate.class, <span class="string">&quot;value&quot;</span>);</span><br><span class="line">	<span class="meta">@Override</span></span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">run</span><span class="params">()</span> &#123;</span><br><span class="line">		<span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>;i &lt; <span class="number">1000</span>;i++) &#123;</span><br><span class="line">			holder.incrementAndGet(update);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">		<span class="type">UseAtomicLongFieldUpdater</span> <span class="variable">updater</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">UseAtomicLongFieldUpdater</span>();</span><br><span class="line">		</span><br><span class="line">		<span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>;i &lt; <span class="number">10</span>;i++) &#123;</span><br><span class="line">			<span class="type">Thread</span> <span class="variable">t</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Thread</span>(updater);</span><br><span class="line">			t.start();</span><br><span class="line">		&#125;</span><br><span class="line">		</span><br><span class="line">		<span class="keyword">try</span> &#123;</span><br><span class="line">			Thread.sleep(<span class="number">3000</span>);</span><br><span class="line">		&#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">			e.printStackTrace();</span><br><span class="line">		&#125;</span><br><span class="line">		</span><br><span class="line">		System.out.println(<span class="string">&quot;Final value of update is &quot;</span> + updater.update.value);</span><br><span class="line">		System.out.println(<span class="string">&quot;Final value of holder is &quot;</span> + updater.holder.get(update));</span><br><span class="line">		</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Java/" rel="tag"># Java</a>
+          
+            <a href="/tags/%E5%A4%9A%E7%BA%BF%E7%A8%8B/" rel="tag"># 多线程</a>
+          
+            <a href="/tags/AtomicLongFieldUpdater/" rel="tag"># AtomicLongFieldUpdater</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/posts/1d2a/" rel="next" title="AtomicLong源码解析">
+                <i class="fa fa-chevron-left"></i> AtomicLong源码解析
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/posts/de22/" rel="prev" title="AtomicLongFieldUpdater源码解析">
+                AtomicLongFieldUpdater源码解析 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name"></p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/%7C%7Carchive">
+              
+                  <span class="site-state-item-count">917</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">27</span>
+                  <span class="site-state-item-name">categories</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">359</span>
+                  <span class="site-state-item-name">tags</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#AtomicLongFieldUpdater%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90"><span class="nav-number">1.</span> <span class="nav-text">AtomicLongFieldUpdater源码解析</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#AtomicLongFieldUpdater%E7%B1%BB%E4%BB%8B%E7%BB%8D"><span class="nav-number">1.1.</span> <span class="nav-text">AtomicLongFieldUpdater类介绍</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%B1%BB%E5%9B%BE"><span class="nav-number">1.2.</span> <span class="nav-text">类图</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%BB%E8%A6%81%E5%B1%9E%E6%80%A7"><span class="nav-number">1.3.</span> <span class="nav-text">主要属性</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%BB%E8%A6%81%E6%96%B9%E6%B3%95"><span class="nav-number">1.4.</span> <span class="nav-text">主要方法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#newUpdater-Class-String"><span class="nav-number">1.4.1.</span> <span class="nav-text">newUpdater(Class,String)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#AtomicLongFieldUpdater"><span class="nav-number">1.4.2.</span> <span class="nav-text">AtomicLongFieldUpdater()</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#compareAndSet%EF%BC%88T-long-long"><span class="nav-number">1.4.3.</span> <span class="nav-text">compareAndSet（T,long,long)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#weakCompareAndSet-T-long-long"><span class="nav-number">1.4.4.</span> <span class="nav-text">weakCompareAndSet(T,long,long)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#set-T-long"><span class="nav-number">1.4.5.</span> <span class="nav-text">set(T,long)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#lazySet-T-long"><span class="nav-number">1.4.6.</span> <span class="nav-text">lazySet(T,long)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#long-get-T"><span class="nav-number">1.4.7.</span> <span class="nav-text">long get(T)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#getAndSet-T-long"><span class="nav-number">1.4.8.</span> <span class="nav-text">getAndSet(T,long)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#getAndIncrement-T%EF%BC%89"><span class="nav-number">1.4.9.</span> <span class="nav-text">getAndIncrement(T）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#getAndDecrement-T%EF%BC%89"><span class="nav-number">1.4.10.</span> <span class="nav-text">getAndDecrement(T）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#getAndAdd-T-long"><span class="nav-number">1.4.11.</span> <span class="nav-text">getAndAdd(T,long)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#incrementAndGet-T"><span class="nav-number">1.4.12.</span> <span class="nav-text">incrementAndGet(T)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#decrementAndGet-T"><span class="nav-number">1.4.13.</span> <span class="nav-text">decrementAndGet(T)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#addAndGet-T-long"><span class="nav-number">1.4.14.</span> <span class="nav-text">addAndGet(T,long)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#getAndUpdate-T-LongUnaryOperator"><span class="nav-number">1.4.15.</span> <span class="nav-text">getAndUpdate(T,LongUnaryOperator)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#updateAndGet-T-LongUnaryOperator"><span class="nav-number">1.4.16.</span> <span class="nav-text">updateAndGet(T,LongUnaryOperator)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#getAndAccumulate-T-long-LongBinaryOperator"><span class="nav-number">1.4.17.</span> <span class="nav-text">getAndAccumulate(T,long,LongBinaryOperator)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#accumulateAndGet-T-long-LongBinaryOperator"><span class="nav-number">1.4.18.</span> <span class="nav-text">accumulateAndGet(T,long,LongBinaryOperator)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#CASUpdater%E6%BA%90%E7%A0%81"><span class="nav-number">1.4.19.</span> <span class="nav-text">CASUpdater源码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#CASUpdater-Class-String-Class"><span class="nav-number">1.4.20.</span> <span class="nav-text">CASUpdater(Class,  String,Class)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#accessCheck-T"><span class="nav-number">1.4.21.</span> <span class="nav-text">accessCheck(T)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#throwAccessCheckException-T"><span class="nav-number">1.4.22.</span> <span class="nav-text">throwAccessCheckException(T)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#compareAndSet-T-long-long"><span class="nav-number">1.4.23.</span> <span class="nav-text">compareAndSet(T,long,long)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#weakCompareAndSet-T-long-long-1"><span class="nav-number">1.4.24.</span> <span class="nav-text">weakCompareAndSet(T,long,long)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#set-T-long-1"><span class="nav-number">1.4.25.</span> <span class="nav-text">set(T,long)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#lazySet-T-long-1"><span class="nav-number">1.4.26.</span> <span class="nav-text">lazySet(T,long)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#get-T"><span class="nav-number">1.4.27.</span> <span class="nav-text">get(T)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#getAndSet-T-long-1"><span class="nav-number">1.4.28.</span> <span class="nav-text">getAndSet(T,long)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#getAndAdd-T-long-1"><span class="nav-number">1.4.29.</span> <span class="nav-text">getAndAdd(T,long)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#getAndIncrement-T"><span class="nav-number">1.4.30.</span> <span class="nav-text">getAndIncrement(T)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#getAndDecrement-T"><span class="nav-number">1.4.31.</span> <span class="nav-text">getAndDecrement(T)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#incrementAndGet-T-1"><span class="nav-number">1.4.32.</span> <span class="nav-text">incrementAndGet(T)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#decrementAndGet-T-1"><span class="nav-number">1.4.33.</span> <span class="nav-text">decrementAndGet(T)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#addAndGet-T-long-1"><span class="nav-number">1.4.34.</span> <span class="nav-text">addAndGet(T,long)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#LockedUpdater"><span class="nav-number">1.4.35.</span> <span class="nav-text">LockedUpdater</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#compareAndSet-T-long-long-1"><span class="nav-number">1.4.36.</span> <span class="nav-text">compareAndSet(T,long,long)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#weakCompareAndSet-T-long-long-2"><span class="nav-number">1.4.37.</span> <span class="nav-text">weakCompareAndSet(T,long,long)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#set-T-long-2"><span class="nav-number">1.4.38.</span> <span class="nav-text">set(T,long)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#lazySet-T-long-2"><span class="nav-number">1.4.39.</span> <span class="nav-text">lazySet(T,long)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#get-T-1"><span class="nav-number">1.4.40.</span> <span class="nav-text">get(T)</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BA%94%E7%94%A8"><span class="nav-number">1.5.</span> <span class="nav-text">应用</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">HanSi</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">Site words total count&#58;</span>
+    
+    <span title="Site words total count">657.4k</span>
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

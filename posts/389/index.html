@@ -1,0 +1,1212 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="cn">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Java,线程,ThreadLocal," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="ThreadLocal源码解析多线程访问同一个共享变量时特别容易出现并发问题，特别是在多个线程需要对一个共享变量进行写入时。为了保证线程安全，一般使用者在访问共享变量时需要进行适当的同步。同步的措施一般是加锁，这就需要使用者对锁有一定的了解，这显然加重了使用者的负担。 JDK包提供了ThreadLocal，它提供了线程本地变量，也就是说，如果创建了一个ThreadLocal变量，那么访问这个变量的">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ThreadLocal源码解析">
+<meta property="og:url" content="http://huhansi.com/posts/389/index.html">
+<meta property="og:site_name" content="HanSi&#39;s Blog">
+<meta property="og:description" content="ThreadLocal源码解析多线程访问同一个共享变量时特别容易出现并发问题，特别是在多个线程需要对一个共享变量进行写入时。为了保证线程安全，一般使用者在访问共享变量时需要进行适当的同步。同步的措施一般是加锁，这就需要使用者对锁有一定的了解，这显然加重了使用者的负担。 JDK包提供了ThreadLocal，它提供了线程本地变量，也就是说，如果创建了一个ThreadLocal变量，那么访问这个变量的">
+<meta property="og:locale">
+<meta property="og:image" content="https://huhansi.github.io/images/2020-05-02-threadlocal.png">
+<meta property="og:image" content="https://huhansi.github.io/images/2020-05-02-threadlocal1.png">
+<meta property="og:image" content="https://huhansi.github.io/images/2020-05-02-threadlocal2.png">
+<meta property="og:image" content="https://huhansi.github.io/images/2020-05-02-threadlocal3.png">
+<meta property="og:image" content="https://huhansi.github.io/images/2020-05-02-threadlocal4.png">
+<meta property="og:image" content="https://huhansi.github.io/images/2020-05-02-threadlocal5.png">
+<meta property="article:published_time" content="2020-05-01T16:00:00.000Z">
+<meta property="article:modified_time" content="2022-07-03T14:04:55.932Z">
+<meta property="article:author" content="HanSi">
+<meta property="article:tag" content="Java">
+<meta property="article:tag" content="线程">
+<meta property="article:tag" content="ThreadLocal">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://huhansi.github.io/images/2020-05-02-threadlocal.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '',
+    scheme: 'Mist',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":true,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://huhansi.com/posts/389/"/>
+
+
+
+
+
+  <title>ThreadLocal源码解析 | HanSi's Blog</title>
+  
+
+
+
+
+
+
+
+
+<meta name="generator" content="Hexo 6.2.0"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="cn">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">HanSi's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            About
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            Search
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="Searching..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://huhansi.com/posts/389/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="HanSi's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">ThreadLocal源码解析</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-05-02T00:00:00+08:00">
+                2020-05-02
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%BA%90%E7%A0%81/" itemprop="url" rel="index">
+                    <span itemprop="name">源码</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Words count in article&#58;</span>
+                
+                <span title="Words count in article">
+                  2.5k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Reading time &asymp;</span>
+                
+                <span title="Reading time">
+                  11
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="ThreadLocal源码解析"><a href="#ThreadLocal源码解析" class="headerlink" title="ThreadLocal源码解析"></a>ThreadLocal源码解析</h1><p>多线程访问同一个共享变量时特别容易出现并发问题，特别是在多个线程需要对一个共享变量进行写入时。为了保证线程安全，一般使用者在访问共享变量时需要进行适当的同步。同步的措施一般是加锁，这就需要使用者对锁有一定的了解，这显然加重了使用者的负担。</p>
+<p>JDK包提供了ThreadLocal，它提供了线程本地变量，也就是说，如果创建了一个ThreadLocal变量，那么访问这个变量的每个线程都会有这个变量的一个本地副本。当多个线程操作这个变量时，实际操作的是自己本地内存里面的变量，从而避免了线程安全问题。创建一个ThreadLocal变量后，每个线程都会复制一个变量到自己的本地内存。如下图：</p>
+<p><img src="https://huhansi.github.io/images/2020-05-02-threadlocal.png"></p>
+<h2 id="ThreadLocal简单例子"><a href="#ThreadLocal简单例子" class="headerlink" title="ThreadLocal简单例子"></a>ThreadLocal简单例子</h2><p>下面看一个简单的ThreadLocal的例子</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">ThreadLocalTest</span> &#123;</span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> ThreadLocal&lt;Integer&gt; threadLocal = <span class="keyword">new</span> <span class="title class_">ThreadLocal</span>&lt;Integer&gt;() &#123;</span><br><span class="line">		<span class="comment">// 重写初始化值方法</span></span><br><span class="line">		<span class="meta">@Override</span></span><br><span class="line">		<span class="keyword">protected</span> Integer <span class="title function_">initialValue</span><span class="params">()</span> &#123;</span><br><span class="line">			<span class="keyword">return</span> Integer.valueOf(<span class="number">0</span>);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">		Thread[] threads = <span class="keyword">new</span> <span class="title class_">Thread</span>[<span class="number">5</span>];</span><br><span class="line">		<span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; <span class="number">5</span>; i++) &#123;</span><br><span class="line">			threads[i] = <span class="keyword">new</span> <span class="title class_">Thread</span>(<span class="keyword">new</span> <span class="title class_">Runnable</span>() &#123;</span><br><span class="line">				<span class="meta">@Override</span></span><br><span class="line">				<span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">run</span><span class="params">()</span> &#123;</span><br><span class="line">					<span class="type">Random</span> <span class="variable">random</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Random</span>();</span><br><span class="line">					System.out.println(Thread.currentThread() + <span class="string">&quot;&#x27;s initial value: &quot;</span> + threadLocal.get());</span><br><span class="line">					<span class="keyword">for</span> (<span class="type">int</span> <span class="variable">j</span> <span class="operator">=</span> <span class="number">0</span>; j &lt; <span class="number">5</span>; j++) &#123;</span><br><span class="line">						threadLocal.set(threadLocal.get() + random.nextInt(<span class="number">20</span>));</span><br><span class="line">					&#125;</span><br><span class="line">					System.out.println(Thread.currentThread() + <span class="string">&quot;&#x27;s last value: &quot;</span> + threadLocal.get());</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;);</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		<span class="keyword">for</span> (Thread t : threads)</span><br><span class="line">			t.start();</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://huhansi.github.io/images/2020-05-02-threadlocal1.png"></p>
+<p>从上图的运行结果可以看出，它们的值都是线程独有的，互相不影响。</p>
+<h2 id="ThreadLocal实现原理"><a href="#ThreadLocal实现原理" class="headerlink" title="ThreadLocal实现原理"></a>ThreadLocal实现原理</h2><p>首先看一下ThreadLocal相关类的类图结构</p>
+<p><img src="https://huhansi.github.io/images/2020-05-02-threadlocal2.png"></p>
+<p>由该图可知，Thread类中有一个threadLocals和inheritableThreadLocals变量，它们都是ThreadLocalMap类型。而ThreadLocalMap是一个定制化的HashMap。</p>
+<p>它们默认值为null</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* ThreadLocal values pertaining to this thread. This map is maintained</span></span><br><span class="line"><span class="comment">     * by the ThreadLocal class. */</span></span><br><span class="line">    ThreadLocal.<span class="type">ThreadLocalMap</span> <span class="variable">threadLocals</span> <span class="operator">=</span> <span class="literal">null</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/*</span></span><br><span class="line"><span class="comment">     * InheritableThreadLocal values pertaining to this thread. This map is</span></span><br><span class="line"><span class="comment">     * maintained by the InheritableThreadLocal class.</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    ThreadLocal.<span class="type">ThreadLocalMap</span> <span class="variable">inheritableThreadLocals</span> <span class="operator">=</span> <span class="literal">null</span>;</span><br></pre></td></tr></table></figure>
+
+<p>只有当前线程第一次调用ThreadLocal的set或者get方法时才会创建它们。起始每个线程的本地变量不是存放在ThreadLocal实例里面，而是存放在调用线程的threadLocals变量里面。ThreadLocal类型的本地变量存放在具体的线程内存空间中。ThreadLocal是一个工具壳，它通过set方法把value值放入线程的threadLocals变量里面将其拿出来使用，所以当不需要使用本地变量时可以通过调用ThreadLocal变量的remove方法，从当前线程的threadLocals里面删除该本地变量。</p>
+<h2 id="TheadLocal主要方法"><a href="#TheadLocal主要方法" class="headerlink" title="TheadLocal主要方法"></a>TheadLocal主要方法</h2><h3 id="set"><a href="#set" class="headerlink" title="set"></a>set</h3><p>首先看下源码</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">     * Sets the current thread&#x27;s copy of this thread-local variable</span></span><br><span class="line"><span class="comment">     * to the specified value.  Most subclasses will have no need to</span></span><br><span class="line"><span class="comment">     * override this method, relying solely on the &#123;<span class="doctag">@link</span> #initialValue&#125;</span></span><br><span class="line"><span class="comment">     * method to set the values of thread-locals.</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> value the value to be stored in the current thread&#x27;s copy of</span></span><br><span class="line"><span class="comment">     *        this thread-local.</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">set</span><span class="params">(T value)</span> &#123;</span><br><span class="line">        <span class="comment">// 获取当前线程的引用</span></span><br><span class="line">        <span class="type">Thread</span> <span class="variable">t</span> <span class="operator">=</span> Thread.currentThread();</span><br><span class="line">        <span class="comment">// 当前线程的引用为key，获取对应的ThreadLocalMap对象</span></span><br><span class="line">        <span class="type">ThreadLocalMap</span> <span class="variable">map</span> <span class="operator">=</span> getMap(t);</span><br><span class="line">        <span class="keyword">if</span> (map != <span class="literal">null</span>)</span><br><span class="line">            <span class="comment">// 如果map不为空，设置值</span></span><br><span class="line">            map.set(<span class="built_in">this</span>, value);</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">            <span class="comment">// 创建新map</span></span><br><span class="line">            createMap(t, value);</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<p>整体的流程就是：获取当前线程的引用，然后调用getMap方法，获取threadLocalMap的实例，接着设置值。</p>
+<h4 id="getMap"><a href="#getMap" class="headerlink" title="getMap"></a>getMap</h4><p>接下来看下getMap方法</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">     * Get the map associated with a ThreadLocal. Overridden in</span></span><br><span class="line"><span class="comment">     * InheritableThreadLocal.</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span>  t the current thread</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> the map</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    ThreadLocalMap <span class="title function_">getMap</span><span class="params">(Thread t)</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> t.threadLocals;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<p>getMap(t)的作用是获取线程自己的变量threadLocals，threadLocal变量被绑定到了线程的成员变量上。</p>
+<h3 id="get"><a href="#get" class="headerlink" title="get"></a>get</h3><p>下面看下get方法</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">     * Returns the value in the current thread&#x27;s copy of this</span></span><br><span class="line"><span class="comment">     * thread-local variable.  If the variable has no value for the</span></span><br><span class="line"><span class="comment">     * current thread, it is first initialized to the value returned</span></span><br><span class="line"><span class="comment">     * by an invocation of the &#123;<span class="doctag">@link</span> #initialValue&#125; method.</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> the current thread&#x27;s value of this thread-local</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">public</span> T <span class="title function_">get</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="comment">// 获取当前线程的引用</span></span><br><span class="line">        <span class="type">Thread</span> <span class="variable">t</span> <span class="operator">=</span> Thread.currentThread();</span><br><span class="line">        <span class="comment">// 获取当前线程的threadLocalMap实例</span></span><br><span class="line">        <span class="type">ThreadLocalMap</span> <span class="variable">map</span> <span class="operator">=</span> getMap(t);</span><br><span class="line">        <span class="keyword">if</span> (map != <span class="literal">null</span>) &#123;</span><br><span class="line">            ThreadLocalMap.<span class="type">Entry</span> <span class="variable">e</span> <span class="operator">=</span> map.getEntry(<span class="built_in">this</span>);</span><br><span class="line">            <span class="keyword">if</span> (e != <span class="literal">null</span>) &#123;</span><br><span class="line">                <span class="meta">@SuppressWarnings(&quot;unchecked&quot;)</span></span><br><span class="line">                <span class="type">T</span> <span class="variable">result</span> <span class="operator">=</span> (T)e.value;</span><br><span class="line">                <span class="keyword">return</span> result;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// 设置初始值</span></span><br><span class="line">        <span class="keyword">return</span> setInitialValue();</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<p>流程大致是：获取当前线程的引用，继而获取该线程的threadLocalMap实例，接着从map中获取对应线程的值，如果有的话。否则就调用setInitialValue()方法，设置初始值。</p>
+<h4 id="setInitialValue"><a href="#setInitialValue" class="headerlink" title="setInitialValue"></a>setInitialValue</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">     * Variant of set() to establish initialValue. Used instead</span></span><br><span class="line"><span class="comment">     * of set() in case user has overridden the set() method.</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> the initial value</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">private</span> T <span class="title function_">setInitialValue</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="type">T</span> <span class="variable">value</span> <span class="operator">=</span> initialValue();</span><br><span class="line">        <span class="type">Thread</span> <span class="variable">t</span> <span class="operator">=</span> Thread.currentThread();</span><br><span class="line">        <span class="type">ThreadLocalMap</span> <span class="variable">map</span> <span class="operator">=</span> getMap(t);</span><br><span class="line">        <span class="keyword">if</span> (map != <span class="literal">null</span>)</span><br><span class="line">            map.set(<span class="built_in">this</span>, value);</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">            createMap(t, value);</span><br><span class="line">        <span class="keyword">return</span> value;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<p>如果当前线程的threadLocals变量不为空，则设置当前线程的本地变量值为null，否则调用createMap方法创建当前线程的createMap变量。</p>
+<p>initialValue方法可以被重写，默认为返回null。</p>
+<p>createMap方法会创建一个新的ThreadLocalMap对象。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">     * Create the map associated with a ThreadLocal. Overridden in</span></span><br><span class="line"><span class="comment">     * InheritableThreadLocal.</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> t the current thread</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> firstValue value for the initial entry of the map</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">void</span> <span class="title function_">createMap</span><span class="params">(Thread t, T firstValue)</span> &#123;</span><br><span class="line">        t.threadLocals = <span class="keyword">new</span> <span class="title class_">ThreadLocalMap</span>(<span class="built_in">this</span>, firstValue);</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="remove"><a href="#remove" class="headerlink" title="remove"></a>remove</h3><p>remove方法实现为：如果当前线程的threadLocals变量不为空，则删除当前线程中执行ThreadLocal实例的本地变量。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">     * Removes the current thread&#x27;s value for this thread-local</span></span><br><span class="line"><span class="comment">     * variable.  If this thread-local variable is subsequently</span></span><br><span class="line"><span class="comment">     * &#123;<span class="doctag">@linkplain</span> #get read&#125; by the current thread, its value will be</span></span><br><span class="line"><span class="comment">     * reinitialized by invoking its &#123;<span class="doctag">@link</span> #initialValue&#125; method,</span></span><br><span class="line"><span class="comment">     * unless its value is &#123;<span class="doctag">@linkplain</span> #set set&#125; by the current thread</span></span><br><span class="line"><span class="comment">     * in the interim.  This may result in multiple invocations of the</span></span><br><span class="line"><span class="comment">     * &#123;<span class="doctag">@code</span> initialValue&#125; method in the current thread.</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@since</span> 1.5</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">     <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">remove</span><span class="params">()</span> &#123;</span><br><span class="line">         <span class="type">ThreadLocalMap</span> <span class="variable">m</span> <span class="operator">=</span> getMap(Thread.currentThread());</span><br><span class="line">         <span class="keyword">if</span> (m != <span class="literal">null</span>)</span><br><span class="line">             m.remove(<span class="built_in">this</span>);</span><br><span class="line">     &#125;</span><br></pre></td></tr></table></figure>
+
+<p>总的来说，在每个线程内部都有一个名为threadLocals的成员变量，该变量的类型为HashMap，其中key为我们定义的ThreadLocal变量的this引用，value则为我们使用set方法设置的值。每个线程的本地变量存放在线程自己的内存变量threadLocals中，如果当前线程一直不消亡，那么这些本地变量会一直存在，所以可能会造成内存溢出，因此使用完毕后要记得调用ThreadLocal的remove方法深处对应线程的threadLocals中的本地变量。</p>
+<p><img src="https://huhansi.github.io/images/2020-05-02-threadlocal3.png"></p>
+<h2 id="ThreadLocal不支持继承性"><a href="#ThreadLocal不支持继承性" class="headerlink" title="ThreadLocal不支持继承性"></a>ThreadLocal不支持继承性</h2><p>看下下面这个例子</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">ThreadLocalTest</span> &#123;</span><br><span class="line">	<span class="comment">// 创建线程变量</span></span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">static</span> ThreadLocal&lt;String&gt; threadLocal = <span class="keyword">new</span> <span class="title class_">ThreadLocal</span>&lt;&gt;();</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">		<span class="comment">// 设置线程变量</span></span><br><span class="line">		threadLocal.set(<span class="string">&quot;hello world&quot;</span>);</span><br><span class="line">		<span class="comment">// 启动子线程</span></span><br><span class="line">		<span class="type">Thread</span> <span class="variable">thread</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Thread</span>(<span class="keyword">new</span> <span class="title class_">Runnable</span>() &#123;</span><br><span class="line">			</span><br><span class="line">			<span class="meta">@Override</span></span><br><span class="line">			<span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">run</span><span class="params">()</span> &#123;</span><br><span class="line">				<span class="comment">// TODO Auto-generated method stub</span></span><br><span class="line">				<span class="comment">// 子线程输出线程变量的值</span></span><br><span class="line">				System.out.println(<span class="string">&quot;thread: &quot;</span> + threadLocal.get());</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;);</span><br><span class="line">		thread.start();</span><br><span class="line">		</span><br><span class="line">		<span class="comment">// 主线程输出线程变量的值</span></span><br><span class="line">		System.out.println(<span class="string">&quot;main: &quot;</span> + threadLocal.get());</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>它的结果是：</p>
+<p><img src="https://huhansi.github.io/images/2020-05-02-threadlocal4.png"></p>
+<p>也就是说，同一个ThreadLocal变量在父线程中被设置值后，在子线程中是获取不到的。因为子线程thread里面调用get方法时当前线程为thread线程，而这里调用set方法设置线程变量的是main线程，两者是不同的线程，自然子线程访问时返回null。</p>
+<h2 id="InheritableThreadLocal类"><a href="#InheritableThreadLocal类" class="headerlink" title="InheritableThreadLocal类"></a>InheritableThreadLocal类</h2><p>InheritableThreadLocal类继承自ThreadLocal，其提供了一个特性，就是让子线程可以访问在父线程中设置的本地变量。</p>
+<p>InheritableHereadLocal继承了ThreadLocal类，并重写了getMap、createMap和childValue三个方法。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">InheritableThreadLocal</span>&lt;T&gt; <span class="keyword">extends</span> <span class="title class_">ThreadLocal</span>&lt;T&gt; &#123;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * Computes the child&#x27;s initial value for this inheritable thread-local</span></span><br><span class="line"><span class="comment">     * variable as a function of the parent&#x27;s value at the time the child</span></span><br><span class="line"><span class="comment">     * thread is created.  This method is called from within the parent</span></span><br><span class="line"><span class="comment">     * thread before the child is started.</span></span><br><span class="line"><span class="comment">     * &lt;p&gt;</span></span><br><span class="line"><span class="comment">     * This method merely returns its input argument, and should be overridden</span></span><br><span class="line"><span class="comment">     * if a different behavior is desired.</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> parentValue the parent thread&#x27;s value</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> the child thread&#x27;s initial value</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">protected</span> T <span class="title function_">childValue</span><span class="params">(T parentValue)</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> parentValue;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * Get the map associated with a ThreadLocal.</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> t the current thread</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    ThreadLocalMap <span class="title function_">getMap</span><span class="params">(Thread t)</span> &#123;</span><br><span class="line">       <span class="keyword">return</span> t.inheritableThreadLocals;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * Create the map associated with a ThreadLocal.</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> t the current thread</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> firstValue value for the initial entry of the table.</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">void</span> <span class="title function_">createMap</span><span class="params">(Thread t, T firstValue)</span> &#123;</span><br><span class="line">        t.inheritableThreadLocals = <span class="keyword">new</span> <span class="title class_">ThreadLocalMap</span>(<span class="built_in">this</span>, firstValue);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h3 id="getMap-1"><a href="#getMap-1" class="headerlink" title="getMap"></a>getMap</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">     * Get the map associated with a ThreadLocal.</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> t the current thread</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    ThreadLocalMap <span class="title function_">getMap</span><span class="params">(Thread t)</span> &#123;</span><br><span class="line">       <span class="keyword">return</span> t.inheritableThreadLocals;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<p>当调用getMap方法获取ThreadLocal变量时，不再返回threadLocals，而是返回inheritableThreadLocals变量。</p>
+<h3 id="createMap"><a href="#createMap" class="headerlink" title="createMap"></a>createMap</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">     * Create the map associated with a ThreadLocal.</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> t the current thread</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> firstValue value for the initial entry of the table.</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">void</span> <span class="title function_">createMap</span><span class="params">(Thread t, T firstValue)</span> &#123;</span><br><span class="line">        t.inheritableThreadLocals = <span class="keyword">new</span> <span class="title class_">ThreadLocalMap</span>(<span class="built_in">this</span>, firstValue);</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<p>当第一次调用set方法时，创建的是当前的inheritableThreadLocals变量的实例，而不是threadLocals。</p>
+<h3 id="childValue"><a href="#childValue" class="headerlink" title="childValue"></a>childValue</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">     * Computes the child&#x27;s initial value for this inheritable thread-local</span></span><br><span class="line"><span class="comment">     * variable as a function of the parent&#x27;s value at the time the child</span></span><br><span class="line"><span class="comment">     * thread is created.  This method is called from within the parent</span></span><br><span class="line"><span class="comment">     * thread before the child is started.</span></span><br><span class="line"><span class="comment">     * &lt;p&gt;</span></span><br><span class="line"><span class="comment">     * This method merely returns its input argument, and should be overridden</span></span><br><span class="line"><span class="comment">     * if a different behavior is desired.</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> parentValue the parent thread&#x27;s value</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> the child thread&#x27;s initial value</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">protected</span> T <span class="title function_">childValue</span><span class="params">(T parentValue)</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> parentValue;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<p>childValue方法的应用场景比较复杂，得从创建线程的时候说起。</p>
+<p>在创建Thread时候，有这么几句：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title function_">init</span><span class="params">(ThreadGroup g, Runnable target, String name,</span></span><br><span class="line"><span class="params">                      <span class="type">long</span> stackSize, AccessControlContext acc,</span></span><br><span class="line"><span class="params">                      <span class="type">boolean</span> inheritThreadLocals)</span> &#123;</span><br><span class="line">        <span class="type">Thread</span> <span class="variable">parent</span> <span class="operator">=</span> currentThread();</span><br><span class="line">        ...</span><br><span class="line">        <span class="keyword">if</span> (inheritThreadLocals &amp;&amp; parent.inheritableThreadLocals != <span class="literal">null</span>)</span><br><span class="line">            <span class="built_in">this</span>.inheritableThreadLocals =</span><br><span class="line">                ThreadLocal.createInheritedMap(parent.inheritableThreadLocals);</span><br><span class="line">        ...</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<p>在创建线程的时候，构造函数会调用init方法，第4行先获取了当前线程的引用，作为父线程，然后判断主线程的inheritThreadLocals的值是否为null，不为null的话就调用createInheritedMap方法，传入父线程的inheritableThreadLocals参数。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">     * Factory method to create map of inherited thread locals.</span></span><br><span class="line"><span class="comment">     * Designed to be called only from Thread constructor.</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span>  parentMap the map associated with parent thread</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> a map containing the parent&#x27;s inheritable bindings</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">static</span> ThreadLocalMap <span class="title function_">createInheritedMap</span><span class="params">(ThreadLocalMap parentMap)</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">ThreadLocalMap</span>(parentMap);</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<p>接下来看下ThreadLocalMap方法</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">         * Construct a new map including all Inheritable ThreadLocals</span></span><br><span class="line"><span class="comment">         * from given parent map. Called only by createInheritedMap.</span></span><br><span class="line"><span class="comment">         *</span></span><br><span class="line"><span class="comment">         * <span class="doctag">@param</span> parentMap the map associated with parent thread.</span></span><br><span class="line"><span class="comment">         */</span></span><br><span class="line">        <span class="keyword">private</span> <span class="title function_">ThreadLocalMap</span><span class="params">(ThreadLocalMap parentMap)</span> &#123;</span><br><span class="line">            Entry[] parentTable = parentMap.table;</span><br><span class="line">            <span class="type">int</span> <span class="variable">len</span> <span class="operator">=</span> parentTable.length;</span><br><span class="line">            setThreshold(len);</span><br><span class="line">            table = <span class="keyword">new</span> <span class="title class_">Entry</span>[len];</span><br><span class="line"></span><br><span class="line">            <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">j</span> <span class="operator">=</span> <span class="number">0</span>; j &lt; len; j++) &#123;</span><br><span class="line">                <span class="type">Entry</span> <span class="variable">e</span> <span class="operator">=</span> parentTable[j];</span><br><span class="line">                <span class="keyword">if</span> (e != <span class="literal">null</span>) &#123;</span><br><span class="line">                    <span class="meta">@SuppressWarnings(&quot;unchecked&quot;)</span></span><br><span class="line">                    ThreadLocal&lt;Object&gt; key = (ThreadLocal&lt;Object&gt;) e.get();</span><br><span class="line">                    <span class="keyword">if</span> (key != <span class="literal">null</span>) &#123;</span><br><span class="line">                        <span class="type">Object</span> <span class="variable">value</span> <span class="operator">=</span> key.childValue(e.value);</span><br><span class="line">                        <span class="type">Entry</span> <span class="variable">c</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Entry</span>(key, value);</span><br><span class="line">                        <span class="type">int</span> <span class="variable">h</span> <span class="operator">=</span> key.threadLocalHashCode &amp; (len - <span class="number">1</span>);</span><br><span class="line">                        <span class="keyword">while</span> (table[h] != <span class="literal">null</span>)</span><br><span class="line">                            h = nextIndex(h, len);</span><br><span class="line">                        table[h] = c;</span><br><span class="line">                        size++;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br></pre></td></tr></table></figure>
+
+<p>在17行那句代码，会调用重写的childValue方法，将父线程的值，复制到子线程的ThreadLocalMap对象中。</p>
+<p>因此，只要把<strong>ThreadLocal不支持继承性</strong>章节中的例子改为：</p>
+<p>public static ThreadLocal&lt;String&gt; threadLocal &#x3D; new InheritableThreadLocal&lt;&gt;();</p>
+<p><img src="https://huhansi.github.io/images/2020-05-02-threadlocal5.png"></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Java/" rel="tag"># Java</a>
+          
+            <a href="/tags/%E7%BA%BF%E7%A8%8B/" rel="tag"># 线程</a>
+          
+            <a href="/tags/ThreadLocal/" rel="tag"># ThreadLocal</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/posts/6c14/" rel="next" title="Spring Cloud Gateway入门">
+                <i class="fa fa-chevron-left"></i> Spring Cloud Gateway入门
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/posts/1cf1/" rel="prev" title="LongAdder源码解析">
+                LongAdder源码解析 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name"></p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/%7C%7Carchive">
+              
+                  <span class="site-state-item-count">917</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">27</span>
+                  <span class="site-state-item-name">categories</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">359</span>
+                  <span class="site-state-item-name">tags</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#ThreadLocal%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90"><span class="nav-number">1.</span> <span class="nav-text">ThreadLocal源码解析</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#ThreadLocal%E7%AE%80%E5%8D%95%E4%BE%8B%E5%AD%90"><span class="nav-number">1.1.</span> <span class="nav-text">ThreadLocal简单例子</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ThreadLocal%E5%AE%9E%E7%8E%B0%E5%8E%9F%E7%90%86"><span class="nav-number">1.2.</span> <span class="nav-text">ThreadLocal实现原理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#TheadLocal%E4%B8%BB%E8%A6%81%E6%96%B9%E6%B3%95"><span class="nav-number">1.3.</span> <span class="nav-text">TheadLocal主要方法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#set"><span class="nav-number">1.3.1.</span> <span class="nav-text">set</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#getMap"><span class="nav-number">1.3.1.1.</span> <span class="nav-text">getMap</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#get"><span class="nav-number">1.3.2.</span> <span class="nav-text">get</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#setInitialValue"><span class="nav-number">1.3.2.1.</span> <span class="nav-text">setInitialValue</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#remove"><span class="nav-number">1.3.3.</span> <span class="nav-text">remove</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ThreadLocal%E4%B8%8D%E6%94%AF%E6%8C%81%E7%BB%A7%E6%89%BF%E6%80%A7"><span class="nav-number">1.4.</span> <span class="nav-text">ThreadLocal不支持继承性</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#InheritableThreadLocal%E7%B1%BB"><span class="nav-number">1.5.</span> <span class="nav-text">InheritableThreadLocal类</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#getMap-1"><span class="nav-number">1.5.1.</span> <span class="nav-text">getMap</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#createMap"><span class="nav-number">1.5.2.</span> <span class="nav-text">createMap</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#childValue"><span class="nav-number">1.5.3.</span> <span class="nav-text">childValue</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">HanSi</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">Site words total count&#58;</span>
+    
+    <span title="Site words total count">657.4k</span>
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

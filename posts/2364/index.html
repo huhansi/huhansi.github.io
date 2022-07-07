@@ -1,0 +1,1188 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="cn">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="安全,Web,注入,XPath," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="注入XPathXPath（XML路径语言）是一种利用与导航XML文档并从中获取数据的解释型语言。许多时候一个XPath表达式代表由一个文档节点导航到另一个文档节点所需要的一系列步骤。 如果Web应用程序将数据保存在XML文档中，那么它们可能使用XPath访问数据，以响应用户提交的输入。如果这个输入未经任何过滤或净化就插入到XPath查询中，攻击者就可以通过控制查询来破坏应用程序的逻辑，或者获取未授">
+<meta property="og:type" content="article">
+<meta property="og:title" content="注入XPath">
+<meta property="og:url" content="http://huhansi.com/posts/2364/index.html">
+<meta property="og:site_name" content="HanSi&#39;s Blog">
+<meta property="og:description" content="注入XPathXPath（XML路径语言）是一种利用与导航XML文档并从中获取数据的解释型语言。许多时候一个XPath表达式代表由一个文档节点导航到另一个文档节点所需要的一系列步骤。 如果Web应用程序将数据保存在XML文档中，那么它们可能使用XPath访问数据，以响应用户提交的输入。如果这个输入未经任何过滤或净化就插入到XPath查询中，攻击者就可以通过控制查询来破坏应用程序的逻辑，或者获取未授">
+<meta property="og:locale">
+<meta property="article:published_time" content="2019-03-24T16:00:00.000Z">
+<meta property="article:modified_time" content="2022-07-03T14:04:57.398Z">
+<meta property="article:author" content="HanSi">
+<meta property="article:tag" content="安全">
+<meta property="article:tag" content="Web">
+<meta property="article:tag" content="注入">
+<meta property="article:tag" content="XPath">
+<meta name="twitter:card" content="summary">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '',
+    scheme: 'Mist',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":true,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://huhansi.com/posts/2364/"/>
+
+
+
+
+
+  <title>注入XPath | HanSi's Blog</title>
+  
+
+
+
+
+
+
+
+
+<meta name="generator" content="Hexo 6.2.0"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="cn">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">HanSi's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            About
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            Search
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="Searching..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://huhansi.com/posts/2364/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="HanSi's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">注入XPath</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-03-25T00:00:00+08:00">
+                2019-03-25
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Web%E5%AE%89%E5%85%A8/" itemprop="url" rel="index">
+                    <span itemprop="name">Web安全</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Words count in article&#58;</span>
+                
+                <span title="Words count in article">
+                  2k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Reading time &asymp;</span>
+                
+                <span title="Reading time">
+                  7
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="注入XPath"><a href="#注入XPath" class="headerlink" title="注入XPath"></a>注入XPath</h1><p>XPath（XML路径语言）是一种利用与导航XML文档并从中获取数据的解释型语言。许多时候一个XPath表达式代表由一个文档节点导航到另一个文档节点所需要的一系列步骤。</p>
+<p>如果Web应用程序将数据保存在XML文档中，那么它们可能使用XPath访问数据，以响应用户提交的输入。如果这个输入未经任何过滤或净化就插入到XPath查询中，攻击者就可以通过控制查询来破坏应用程序的逻辑，或者获取未授权访问的数据。</p>
+<p>通常，XML文档并不是保存企业数据的首选工具。但是，它们常常被用于保存可根据用户输入获取的应用程序配置数据。小型应用程序也可使用它们保存简单的信息，如用户证书、角色和权限。以下面的XML数据为例：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">addressBook</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">address</span>&gt;</span></span><br><span class="line">    	<span class="tag">&lt;<span class="name">firstName</span>&gt;</span>William<span class="tag">&lt;/<span class="name">firstName</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">surname</span>&gt;</span>Gates<span class="tag">&lt;/<span class="name">surname</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">password</span>&gt;</span>MSRocks!<span class="tag">&lt;/<span class="name">password</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">email</span>&gt;</span>billyg@microsoft.com<span class="tag">&lt;/<span class="name">email</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">ccard</span>&gt;</span>5130 8190 3282 3515<span class="tag">&lt;/<span class="name">ccard</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">address</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">address</span>&gt;</span></span><br><span class="line">    	<span class="tag">&lt;<span class="name">firstName</span>&gt;</span>Chris<span class="tag">&lt;/<span class="name">firstName</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">surname</span>&gt;</span>Dawes<span class="tag">&lt;/<span class="name">surname</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">password</span>&gt;</span>secret!<span class="tag">&lt;/<span class="name">password</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">email</span>&gt;</span>cdawes@craftnet.com<span class="tag">&lt;/<span class="name">email</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">ccard</span>&gt;</span>3981 2491 3241 3121<span class="tag">&lt;/<span class="name">ccard</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">address</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">address</span>&gt;</span></span><br><span class="line">    	<span class="tag">&lt;<span class="name">firstName</span>&gt;</span>James<span class="tag">&lt;/<span class="name">firstName</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">surname</span>&gt;</span>Hunter<span class="tag">&lt;/<span class="name">surname</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">password</span>&gt;</span>letmein<span class="tag">&lt;/<span class="name">password</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">email</span>&gt;</span>james.hunter@pookmail.com<span class="tag">&lt;/<span class="name">email</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">ccard</span>&gt;</span>8113 8320 8014 3313<span class="tag">&lt;/<span class="name">ccard</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">address</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">addressBook</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>一个获取所有电子邮件地址的XPath查询如下：</p>
+<p><strong>&#x2F;&#x2F;address&#x2F;email&#x2F;text()</strong></p>
+<p>一个返回Dawes的全部用户资料的查询为：</p>
+<p><strong>&#x2F;&#x2F;address[surname&#x2F;text() &#x3D; ‘Dawes’]</strong></p>
+<p>在一些应用程序中，用户提交的数据可被直接嵌入到XPath查询中，查询的结果可能在应用程序的响应中返回，或者用于决定应用程序某些方面的行为。</p>
+<h3 id="破坏应用程序逻辑"><a href="#破坏应用程序逻辑" class="headerlink" title="破坏应用程序逻辑"></a>破坏应用程序逻辑</h3><p>以一个根据用户名和密码获得用户保存的信用卡号码的应用程序功能为例。下面的XPath查询核实用户提交的整数，并获取相关用户的信用卡号码：</p>
+<p><strong>&#x2F;&#x2F;address[surname&#x2F;text()&#x3D;’Dawes’ and password&#x2F;text() &#x3D; ‘secret’]&#x2F;ccard&#x2F;text()</strong></p>
+<p>与利用SQL注入漏洞一样，这时攻击者也可以破坏应用程序的查询。例如，提交密码值</p>
+<p><strong>‘ or ‘a’&#x3D;’a</strong></p>
+<p>将导致下面的XPath查询，获取所有用户的信用卡信息：</p>
+<p><strong>&#x2F;&#x2F;address[surname&#x2F;text() &#x3D; ‘Dawes’ and password&#x2F;text() &#x3D; ‘’ or ‘a’ &#x3D; ‘a’]&#x2F;ccard&#x2F;text()</strong></p>
+<p>另外，与SQL注入一样，注入一个数字值时不需要单引号。但与SQL查询不同，XPath查询中的关键字区分大小写，XML文档中的元素名也区分大小写。</p>
+<h3 id="谨慎XPath注入"><a href="#谨慎XPath注入" class="headerlink" title="谨慎XPath注入"></a>谨慎XPath注入</h3><p>攻击者可利用Xpath注入漏洞从目标XML文档中获取任意信息。获取信息的一种可靠途径是使用和上述SQL注入时相同的技巧，促使应用程序根据攻击者指定的条件以不同的方式作出响应。</p>
+<p>提交以下两个密码将导致应用程序的不同行为：第一种情况返回结果，但第二种情况不返回结果。</p>
+<p><strong>‘ or 1 &#x3D; 1 and ‘a’ &#x3D; ‘a</strong></p>
+<p><strong>‘ or 1 &#x3D; 2 and ‘a’ &#x3D; ‘a</strong></p>
+<p>这种行为差异可用于测试任何特殊条件的真假，因此可通过它依次第一个字节地提取出任意信息。与SQL一样，XPath语言也包含一个子字符串函数，可用它依次一个字符地测试一个字符串的值。例如，提交密码</p>
+<p><strong>‘ or &#x2F;&#x2F;address[surname&#x2F;text()&#x3D;’Gates’ and substring(password&#x2F;text(), 1, 1) &#x3D; ‘M’] and ‘a’ &#x3D; ‘a</strong></p>
+<p>将导致下面的XPath查询，如果用户Gates密码的第一个字符为M，将返回查询结果：</p>
+<p><strong>&#x2F;&#x2F;address[surname&#x2F;text()&#x3D;’Dawes’ and password&#x2F;text() &#x3D; ‘’ or &#x2F;&#x2F;address[surname&#x2F;text() &#x3D; ‘Gates’ and substring(password&#x2F;text(), 1, 1) &#x3D; ‘M’] and ‘a’ &#x3D; ‘a ‘]&#x2F;ccard&#x2F;text()</strong></p>
+<p>轮流针对每个字符为止并测试每个可能的值，攻击者就能够获得Gate的完整密码。</p>
+<h3 id="盲目XPath注入"><a href="#盲目XPath注入" class="headerlink" title="盲目XPath注入"></a>盲目XPath注入</h3><p>在前面的攻击中，注入的测试条件指定了提取数据的绝对路径以及目标字段的名称。实际上，即使不了解这些信息，攻击者仍有可能发动完全盲目的攻击。Xpath查询可包括与XML文档中当前节点的有关步骤，因此，从当前节点可以导航到父节点或一个特定的子节点。另外，XPath包含可查询文档原信息（包含特殊元素的名称）的函数。使用这些技巧就可以提取出文档中所有节点的名称与之，而不必提前知道与它的结构或内容有关的任何信息。</p>
+<p>例如，可以使用前面描述的子字符串技巧，通过提交如下格式的密码，提取当前节点的父节点名称：</p>
+<p><strong>‘ or substring(name(parent::*[position() &#x3D; 1]), 1, 1) &#x3D; ‘a</strong></p>
+<p>这个输入能够返回结果，因为address节点的第一个字母为a。轮到第二个字母，这时可以提交下列密码确定该字母为d，因为最后一个输入返回了结果：</p>
+<p><strong>‘ or substring(name(parent::*[position()&#x3D;1]),2,1) &#x3D; ‘a</strong></p>
+<p><strong>‘ or substring(name(parent::*[position()&#x3D;1]),2,1) &#x3D; ‘b</strong></p>
+<p><strong>‘ or substring(name(parent::*[position()&#x3D;1]),2,1) &#x3D; ‘c</strong></p>
+<p><strong>‘ or substring(name(parent::*[position()&#x3D;1]),2,1) &#x3D; ‘d</strong></p>
+<p>确定address节点的名称后，攻击者就可以轮流攻击他的每一个子节点，提取出它们的名称与值。通过索引指定相关子节点可不必知道任何节点的名称。例如，下面的查询将返回值Hunter：</p>
+<p><em><em>&#x2F;&#x2F;address[position() &#x3D; 3]&#x2F;child::node()[position</em>() &#x3D; 4]&#x2F;text()</em>*</p>
+<p>而下面的查询返回值letmein：</p>
+<p><em><em>&#x2F;&#x2F;address[position() &#x3D; 3]&#x2F;child::node()[position</em>() &#x3D; 6]&#x2F;text()</em>*</p>
+<p>这种技巧可用在完全盲目的攻击中，这时应用程序在响应中不返回任何结果，我们可以设计一个注入的条件，通过索引指定目标节点。例如，如果Gates密码的第一个字母为M，提交下面的密码将返回结果：</p>
+<p><strong>‘ or substring (&#x2F;&#x2F;address[position()&#x3D;1]&#x2F;child::node()[position() &#x3D; 6]text(), 1, 1) &#x3D; ‘M’ and ‘a’ &#x3D; ‘a</strong></p>
+<p>轮流攻击每个地址节点的每个子节点，并以此一个字符地提取出它们的值，攻击者就可以提取整个XML数据的内容。</p>
+<h3 id="查找XPath注入漏洞"><a href="#查找XPath注入漏洞" class="headerlink" title="查找XPath注入漏洞"></a>查找XPath注入漏洞</h3><p>许多常用于探查SQL注入漏洞的攻击字符串如果被提交给一个易于受到XPath注入的函数，往往会导致反常行为。例如，下面的两个字符会破坏XPath查询的语法，从而造成错误：</p>
+<p><strong>‘</strong></p>
+<p><strong>‘–</strong></p>
+<p>通常，与在SQL注入漏洞中一样，下面的一个或几个字符串将会引起应用程序的行为发生变化，但不会造成错误：</p>
+<p><strong>‘ or ‘a’ &#x3D; ‘a</strong></p>
+<p><strong>‘ and ‘ a’ &#x3D; ‘b</strong></p>
+<p><strong>or 1 &#x3D; 1</strong></p>
+<p><strong>and 1&#x3D;2</strong></p>
+<p>因此，任何时候，如果在探查SQL注入过程中发现一个漏洞的初步证据，但却无法对该漏洞加以利用，那么遇到的可能就是XPath注入漏洞。</p>
+<h3 id="防止XPath注入"><a href="#防止XPath注入" class="headerlink" title="防止XPath注入"></a>防止XPath注入</h3><p>如果觉得必须在一个XPath查询中插入用户提交的输入，应该只提交可事实严格输入确认的简单数据。应根据一份可接受字符组成的“白名单”检查用户输入，其中最好只包括字母数字字符。应阻止任何可能破坏XPath查询的字符，包括( ) &#x3D; ‘ [ ] : , * &#x2F; 和所有空白符。直接拒绝而不是净化任何与白名单不匹配的输入。</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/%E5%AE%89%E5%85%A8/" rel="tag"># 安全</a>
+          
+            <a href="/tags/Web/" rel="tag"># Web</a>
+          
+            <a href="/tags/%E6%B3%A8%E5%85%A5/" rel="tag"># 注入</a>
+          
+            <a href="/tags/XPath/" rel="tag"># XPath</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/posts/b4f/" rel="next" title="注入LDAP">
+                <i class="fa fa-chevron-left"></i> 注入LDAP
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/posts/be9c/" rel="prev" title="注入后端HTTP请求">
+                注入后端HTTP请求 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name"></p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/%7C%7Carchive">
+              
+                  <span class="site-state-item-count">917</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">27</span>
+                  <span class="site-state-item-name">categories</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">359</span>
+                  <span class="site-state-item-name">tags</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%B3%A8%E5%85%A5XPath"><span class="nav-number">1.</span> <span class="nav-text">注入XPath</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%A0%B4%E5%9D%8F%E5%BA%94%E7%94%A8%E7%A8%8B%E5%BA%8F%E9%80%BB%E8%BE%91"><span class="nav-number">1.0.1.</span> <span class="nav-text">破坏应用程序逻辑</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%B0%A8%E6%85%8EXPath%E6%B3%A8%E5%85%A5"><span class="nav-number">1.0.2.</span> <span class="nav-text">谨慎XPath注入</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%9B%B2%E7%9B%AEXPath%E6%B3%A8%E5%85%A5"><span class="nav-number">1.0.3.</span> <span class="nav-text">盲目XPath注入</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9F%A5%E6%89%BEXPath%E6%B3%A8%E5%85%A5%E6%BC%8F%E6%B4%9E"><span class="nav-number">1.0.4.</span> <span class="nav-text">查找XPath注入漏洞</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%98%B2%E6%AD%A2XPath%E6%B3%A8%E5%85%A5"><span class="nav-number">1.0.5.</span> <span class="nav-text">防止XPath注入</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">HanSi</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">Site words total count&#58;</span>
+    
+    <span title="Site words total count">657.4k</span>
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

@@ -1,0 +1,1298 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="cn">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="安全,Web,HTTP," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="HTTPHTTP(HyperText Transfer Protocol, 超文本传输协议)是访问万维网使用的核心通信协议。也是今天所有Web应用程序使用的通信协议。最初，HTTP只是一个为获取基于文本的静态资源而开发的简单协议，后来人们以各种形式扩展和利用它，时期能够支持如今常见的复杂分布式应用程序。 HTTP使用一种基于消息的模型：客户端送出一条请求消息，而后由服务器返回一条响应消息。该协议基">
+<meta property="og:type" content="article">
+<meta property="og:title" content="HTTP相关">
+<meta property="og:url" content="http://huhansi.com/posts/4e7d/index.html">
+<meta property="og:site_name" content="HanSi&#39;s Blog">
+<meta property="og:description" content="HTTPHTTP(HyperText Transfer Protocol, 超文本传输协议)是访问万维网使用的核心通信协议。也是今天所有Web应用程序使用的通信协议。最初，HTTP只是一个为获取基于文本的静态资源而开发的简单协议，后来人们以各种形式扩展和利用它，时期能够支持如今常见的复杂分布式应用程序。 HTTP使用一种基于消息的模型：客户端送出一条请求消息，而后由服务器返回一条响应消息。该协议基">
+<meta property="og:locale">
+<meta property="article:published_time" content="2019-03-17T16:00:00.000Z">
+<meta property="article:modified_time" content="2022-07-03T14:04:57.387Z">
+<meta property="article:author" content="HanSi">
+<meta property="article:tag" content="安全">
+<meta property="article:tag" content="Web">
+<meta property="article:tag" content="HTTP">
+<meta name="twitter:card" content="summary">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '',
+    scheme: 'Mist',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":true,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://huhansi.com/posts/4e7d/"/>
+
+
+
+
+
+  <title>HTTP相关 | HanSi's Blog</title>
+  
+
+
+
+
+
+
+
+
+<meta name="generator" content="Hexo 6.2.0"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="cn">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">HanSi's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            About
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            Search
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="Searching..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://huhansi.com/posts/4e7d/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="HanSi's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">HTTP相关</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-03-18T00:00:00+08:00">
+                2019-03-18
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Web%E5%AE%89%E5%85%A8/" itemprop="url" rel="index">
+                    <span itemprop="name">Web安全</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Words count in article&#58;</span>
+                
+                <span title="Words count in article">
+                  5.1k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Reading time &asymp;</span>
+                
+                <span title="Reading time">
+                  18
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="HTTP"><a href="#HTTP" class="headerlink" title="HTTP"></a>HTTP</h1><p>HTTP(HyperText Transfer Protocol, 超文本传输协议)是访问万维网使用的核心通信协议。也是今天所有Web应用程序使用的通信协议。最初，HTTP只是一个为获取基于文本的静态资源而开发的简单协议，后来人们以各种形式扩展和利用它，时期能够支持如今常见的复杂分布式应用程序。</p>
+<p>HTTP使用一种基于消息的模型：客户端送出一条请求消息，而后由服务器返回一条响应消息。该协议基本上不需要连接，虽然HTTP使用有状态的TCP协议作为它的传输机制，但每次请求与响应交换都自动完成，并且可能使用不同的TCP连接。</p>
+<h2 id="HTTP-请求"><a href="#HTTP-请求" class="headerlink" title="HTTP 请求"></a>HTTP 请求</h2><p>所有HTTP消息（请求与响应）中都包含一个或几个单行显示地消息头（header），然后是一个强制空白行，最后是消息主体（可选）。以下是一个典型的HTTP请求：</p>
+<p>GET &#x2F;auth&#x2F;488&#x2F;YourDetails.ashx?uid&#x3D;129 HTTP&#x2F;1.1</p>
+<p>Accept: application&#x2F;x-ms-application, image&#x2F;jpeg, application&#x2F;xaml+xml</p>
+<p>Referer: <a target="_blank" rel="noopener" href="https://xxx/">https://XXX</a></p>
+<p>Accept-Language: en-GB</p>
+<p>User-Agent: XXXX</p>
+<p>Accept-Ecoding: gzip</p>
+<p>Host: mdsec.net</p>
+<p>Connection: Keep-Live</p>
+<p>Cookid: SessionId&#x3D;xxxxx</p>
+<p>每个HTTP请求的第一行都由以3个空格间隔的项目组成。</p>
+<ul>
+<li>一个说明HTTP方法的动词。最常用的方法为GET，它的主要作用是从Web服务器获取一个资源。GET 请求并没有消息主题，因此在消息头后的空白行中没有其他数据。</li>
+<li>所请求的URL。该URL通常由所请求的资源名称，以及一个包含客户端向该资源提交的参数的可选查询字符串组成。在该URL中，查询字符串以？字符标识</li>
+<li>使用的HTTP版本。</li>
+<li>Referer消息头用于表示发出请求的原始URL。</li>
+<li>User-Agent消息头提供与浏览器或其他生成请求的客户端软件有关的信息。</li>
+<li>Host消息头用于指定出现在被访问的完整URL中的主机名称。如果几个Web站点以相同的一台服务器为主机，就需要使用Host消息头。</li>
+<li>Cookie消息头用于提交服务器向客户端发布的其他参数。</li>
+</ul>
+<h2 id="HTTP响应"><a href="#HTTP响应" class="headerlink" title="HTTP响应"></a>HTTP响应</h2><p>以下是一个典型的HTTP响应：</p>
+<p>HTTP&#x2F;1.1 200 OK </p>
+<p>Date: Tue, 19, Apr 2011 09:23:12 GMT</p>
+<p>Server: Microsoft-IIS&#x2F;6.0</p>
+<p>X-Powered-By: ASP.NET</p>
+<p>Set-Cookie: tracking&#x3D;dddd</p>
+<p>X-AspNet-Version: 2.0.44</p>
+<p>Cache-Control: no-cache</p>
+<p>Pragma: no-cache</p>
+<p>Expires: Tue, 01, Jan 1970 00:00:00 GMT</p>
+<p>Content-Type: text&#x2F;html</p>
+<p>Content-Length: 1078</p>
+<!xasdasd><p>dsddasda&lt;&#x2F;&gt;</p>
+<p>每个HTTP响应的第一行由3个以空格间隔的项目组成。</p>
+<ul>
+<li>使用的HTTP版本</li>
+<li>表示请求结果的数字装填。</li>
+<li>一段以文本形式的“原因短语”，进一步说明响应状态</li>
+</ul>
+<h2 id="HTTP方法"><a href="#HTTP方法" class="headerlink" title="HTTP方法"></a>HTTP方法</h2><ul>
+<li>GET方法的作用在于获取资源。它可以用与URL查询字符串的形式向所请求的资源发送参数。这是用户可将一个包含动态资源的URL标注为书签。</li>
+<li>POST方法主要作用是执行操作。使用这个方法可以在URL查询字符串与消息主体中发送请求参数。</li>
+<li>HEAD方法功能与GET方法类似，不同之处在于服务器不会再起响应中返回消息主体。服务器返回的消息头应与对应的GET请求的消息头相同。</li>
+<li>TRACE方法主要用于诊断。服务器应在响应主体中返回其受到的请求消息的具体内容。这种方法可用于检测客户端与服务器之是否存在任何操纵请求的代理服务器。</li>
+<li>OPTIONS方法要求服务器报告对某一特殊资源有效的HTTP方法。服务器通常返回一个包含ALLOW消息头的响应，并在其中列出所有有效的方法。</li>
+<li>PUT方法视图使用包含在请求主体中的内容，向服务器上传指定的资源。</li>
+</ul>
+<h2 id="URL"><a href="#URL" class="headerlink" title="URL"></a>URL</h2><p>URL（Uniform Resource Location，统一资源定位符）是表示Web资源的唯一标识符，通过它即可获取其表示的资源。最常用的URL格式如下：</p>
+<p><strong>protocol:&#x2F;&#x2F;hostname[:port]&#x2F;[path&#x2F;]file[?parameter&#x3D;value]</strong></p>
+<p>这个结构中有几个部分是可选的。如果端口号与相关协议使用的默认值不同，则只包含端口号即可。</p>
+<h2 id="REST"><a href="#REST" class="headerlink" title="REST"></a>REST</h2><p>表述性状态转移（REST）设计分布式系统的一种体系架构，在这类体系架构中，请求和响应包含系统资源当前状态的表示。</p>
+<h2 id="HTTP消息头"><a href="#HTTP消息头" class="headerlink" title="HTTP消息头"></a>HTTP消息头</h2><p>HTTP支持许多不同的消息头，其中一些专用于特殊用途。一些消息头可用在请求与响应中，而其他一些消息头只能专门用在某个特定的消息中。</p>
+<h3 id="常用消息头"><a href="#常用消息头" class="headerlink" title="常用消息头"></a>常用消息头</h3><ul>
+<li>Connection：这个消息头用于高速通信的另一端，在完成HTTP传输后是关闭TCP连接还是保持连接开放以接受其他消息。</li>
+<li>Content-Encoding：这个消息头为消息主体的内容指定编码形式，一些应用程序使用它来压缩响应以加快传输速度。</li>
+<li>Content-Length：这个消息头用于规定消息主体的字节长度。（HEAD语法的响应例外，它在对应的GET请求的响应中指出主体的长度）。</li>
+<li>Content-Type：用于规定消息主体的内容类型。</li>
+<li>Transfer-Encoding：指定为为方便其通过HTTP传输而对消息主体使用的任何编码。如果使用这个消息头，通常用它指定块编码。</li>
+</ul>
+<h3 id="请求消息头"><a href="#请求消息头" class="headerlink" title="请求消息头"></a>请求消息头</h3><ul>
+<li>Accept：用于高速服务器客户端愿意接受哪些内容。</li>
+<li>Accept-Encoding：用于告诉服务器，客户端愿意接受哪些内容编码。</li>
+<li>Authorization：用于为一种内置HTTP身份向服务器提交证书。</li>
+<li>Cookie：用于向服务器提交它以前发布的Cookie</li>
+<li>Host：用于指定出现在所请求的完整URL中的主机名称。</li>
+<li>If-Modified-Since：用于说明浏览器最后一次受到所请求的资源的时间。如果自那以后资源没有发生变化，服务器就会发出一个带状态码的304响应，指示客户端使用资源的缓存副本。</li>
+<li>If-None-Match：用于制定一个实体标签。实体标签是一个说明消息主体内容的标识符。当最后一次受到所请求的资源时，浏览器提交服务器发布的实体标签。服务器可以使用实体标签确定浏览器是否使用资源的缓存副本。</li>
+<li>Origin：用在跨域Ajax请求中，用于指示提出请求的域。</li>
+<li>Referer：用于指示提出当前请求的原始URL</li>
+<li>User-Agent：提供与浏览器或生成请求的其他客户端软件有关的信息。</li>
+</ul>
+<h3 id="响应消息头"><a href="#响应消息头" class="headerlink" title="响应消息头"></a>响应消息头</h3><ul>
+<li>Access-Control-Allow-Origin：用于指示是否可通过跨域Ajax请求获取资源。</li>
+<li>Cache-Control：用于向浏览器传送缓存指令。</li>
+<li>ETag：用于指定一个实体标签。客户端可在将来的请求中提交这个标识符，火哥和If-Non-Match消息头中相同的资源，通知服务器浏览器当前缓存中保存的是那个版本的资源。</li>
+<li>Expires：用于向浏览器说明消息主体内容的有效时间，在这个时间之前，浏览器可以使用这个资源的缓存副本。</li>
+<li>Location：用于在重定向响应中说明重定向的目标。</li>
+<li>Pragma：用于向浏览器传送缓存指令。</li>
+<li>Server：提供所使用的的Web服务器软件的相关信息。</li>
+<li>Set-Cookie：用于向浏览器发布Cookie，浏览器会在随后的请求中将其返回给服务器。</li>
+<li>WWW-Authenticate：用在带401的状态码响应中，提供与服务器所支持的身份验证类型有关的信息。</li>
+<li>X-Frame-Options：指示浏览器框架是否及如何加载当前响应。</li>
+</ul>
+<h2 id="Cookie"><a href="#Cookie" class="headerlink" title="Cookie"></a>Cookie</h2><p>Cookie是大多数Web应用程序所依赖的HTTP协议的一个关键组成部分，攻击者常常通过它来利用Web程序中的漏洞。服务器使用cookie机制向客户端发送数据，客户端保存cookie并将其返回给服务器。</p>
+<p>Cookie一般由一个名&#x2F;值对构成，但也可以包含任何不含空格的字符串。可以在服务器响应中使用几个Set-Cookie消息头发布多个Cookie，并可在同一个Cookie消息头中用逗号分隔不同的Cookie，将它们全部返回给服务器。</p>
+<p>去除Cookie的实际值之外，Set-Cookie消息头还可以包含以下任何可选属性，用它们控制浏览器处理Cookie 的方式。</p>
+<ul>
+<li>expires：用于设定Cookie的有效时间。这样会使浏览器将Cookie保存在永久性的存储器中，在随后的浏览器会话中重复利用，直到到期时间为止。如果没有设定这个属性，那么Cookie仅用在当前浏览器会话中。</li>
+<li>domain：用于指定Cookie的有效域。这个域必须和受到Cookie的域相同，或者是它的父域。</li>
+<li>path：要几个与指定Cookie的有效URL路径。</li>
+<li>secure：如果设置这个属性，则仅在HTTPS请求中提交Cookie。</li>
+<li>HttpOnly：如果设置这个属性，将无法通过客户端JavaScript直接访问Cookie.</li>
+</ul>
+<h2 id="状态码"><a href="#状态码" class="headerlink" title="状态码"></a>状态码</h2><p>每条HTTP响应消息都必须在第一行中包含一个状态码，说明请求的结果。状态码可以分成以下5类：</p>
+<ul>
+<li>1xx-提供信息</li>
+<li>2xx-请求被成功提交</li>
+<li>3xx-客户端被重定向到其他资源</li>
+<li>4xx-请求包含某种错误</li>
+<li>5xx-服务器执行请求时遇到错误。</li>
+</ul>
+<h3 id="常见的状态码"><a href="#常见的状态码" class="headerlink" title="常见的状态码"></a>常见的状态码</h3><ul>
+<li>100 Continue：当客户端提交一个包含主体的请求时，将发送这个响应。该响应表示已经收到请求消息头，客户端应继续发送主体。请求完成后，再由服务器返回另一个响应。</li>
+<li>200 OK。表示已成功提交请求，且响应主体包含请求结果。</li>
+<li>201 Created：PUT请求的响应返回这个状态码，表示请求已成功提交。</li>
+<li>301 Moved Permanently：本状态码将浏览器永久重定向到另外一个在Location消息头中指定的URL。以后客户端应使用新URL替换原始URL。</li>
+<li>302 Found：本状态码将浏览器暂时重定向到另外一个在Location消息头中指定的URL。客户端应在随后的请求中恢复使用原始URL。</li>
+<li>304 Not Modified：本状态码指示浏览器使用缓存中保存的所请求资源的副本。服务器使用If-Modified-Since与If-None-Match消息头确定客户端是否拥有最新版本的资源。</li>
+<li>400 Bad Request：本状态码表示客户端提交了一个无效的HTTP请求。当以某种无效的方式修改请求时，可能会遇到这个错误码。</li>
+<li>401 Unauthorized：服务器在许可请求前要求HTTP进行身份验证。WWW-Authenticate消息头详细说明所支持的身份验证类型。</li>
+<li>403 Forbidden：本状态码之处，不管是否通过身份验证，禁止任何人访问被请求的资源。</li>
+<li>404 Not Found：本状态码表示所请求的资源并不存在。</li>
+<li>405 Method Not Allowed：本状态码表示指定的URL不支持请求中使用方法。</li>
+<li>413 Request Entity Too Large：如果在本地代码中探查缓冲器溢出漏洞并就此提交超长数据串，则本状态码表示请求主体过长，服务器无法处理。</li>
+<li>414 Request URI Too Long：与前一个响应类似，本状态码表示请求中的URL过长，服务器无法处理。</li>
+<li>500 Internal Server Error：本状态码表示服务器在执行请求时遇到错误。当提交无法预料的输入、在应用程序处理过程中造成无法处理的错误时，通常会受到本状态码。</li>
+<li>503 Service Unavailable：通常，本状态码表示尽管Web服务器运转正常，并且能够响应请求，但服务器访问的应用程序还是无法做出响应。</li>
+</ul>
+<h2 id="HTTPS"><a href="#HTTPS" class="headerlink" title="HTTPS"></a>HTTPS</h2><p>HTTP使用普通的非加密TCP作为其传输机制，因此，处在网络适当位置的攻击能够截取这个机制。HTTPS本质上与HTTP一样，都属于应用层协议，但HTTPS通过安全传输机制-安全套接层-传输数据。这种机制可保护通过网络传送的所有数据的隐秘性和完整性，显著降低非入侵式拦截攻击的可能性。不管是否使用SSL进行传输，HTTP请求与响应都以完全相同的方式工作。</p>
+<h2 id="HTTP代理"><a href="#HTTP代理" class="headerlink" title="HTTP代理"></a>HTTP代理</h2><p>HTTP代理服务器是一个协调客户端与目标Web服务器之间访问的服务器。当配置浏览器使用代理服务器时，它会将所有请求提交到代理服务器，代理服务器再将请求转发给相关Web服务器，并将响应返回给浏览器。大多数代理还使用其他服务，如缓存，验证与访问控制。值得注意的是，如果使用代理服务器，HTTP的工作机制会出现两方面的差异。</p>
+<ul>
+<li>当浏览器向代理服务器发布HTTP请求时，它会将完整的URL（包括协议前缀http:&#x2F;&#x2F;与服务器主机名称，在非标准URL中，还包括端口号）插入请求中。代理服务器将提取主机名称和端口，并使用这些信息将请求指向正确的目标的Web服务器。</li>
+<li>当使用HTTPS时，浏览器无法与代理服务器进行SSL握手，因为这样做会破坏安全隧道，使通信易于遭受拦截攻击。因此，浏览器必须将代理作为一个纯粹的TCP级中继，由它传递浏览器与目标Web浏览器之间的所有网络数据，并与浏览器进行正常的SSL握手。浏览器使用CONNECT方法向代理服务器提交一个HTTP请求，并制定URL中的目标主机名称与端口号，从而建立这种中继。如果代理允许该请求，它会返回一个含200状态码的HTTP响应，一直开放TCP连接，从此以后作为目标服务器的纯粹TCP级中继。</li>
+</ul>
+<p>从某种程度上说，攻击Web应用程序时最有用的工具是一个处在浏览器与目标Web站点之间的专用代理服务器，使他可以拦截并修改所有使用HTTPS的请求与响应。</p>
+<h2 id="HTTP身份验证"><a href="#HTTP身份验证" class="headerlink" title="HTTP身份验证"></a>HTTP身份验证</h2><p>HTTP拥有自己的身份验证机制，使用不同的身份验证方案。</p>
+<ul>
+<li>Basic。这是一种非常简单的身份验证机制，它在请求消息头中随每条消息以Base64编码字符串形式发送用户证书。</li>
+<li>NTLM。这是一种质询-响应式机制，他使用某个Windows NTLM协议版本。</li>
+<li>Digest。这是一种质询-响应式机制，它随同用户证书一起使用一个随机值MD5校验和。</li>
+</ul>
+<h2 id="同源策略"><a href="#同源策略" class="headerlink" title="同源策略"></a>同源策略</h2><p>同源策略是浏览器实施的一种关键机制，主要用于防止不同来源的内容相互干扰。基本上，从一个网站受到的内容可以读取并修改从该站点收到的其他内容，但不得访问从其他站点受到的内容。</p>
+<p>如果不使用同源策略，那么当不知情的用户浏览到某个恶意网站时，在该网站上运行的脚本代码能够访问这名用户同时访问的任何其他网站的数据和功能。这样，该恶意站点就可以从用户的网上银行转账、阅读用户的Web邮件，火灾用户网上购物时拦截它的信用卡信息。为此，浏览器实施限制，只允许相同来源的内容进行交互。</p>
+<p>关于同源策略，需要了解的一些主要特点如下：</p>
+<ul>
+<li>位于一个域中的页面可以向另一个域提出任意数量的请求。但该页面本身无法处理上述请求返回的数据。</li>
+<li>位于一个域中的页面可以加载来自其他域中的脚本并在自己的域中执行这个脚本。这是因为脚本被假定为包含代码，而非数据，因此跨域访问并不会泄露任何敏感信息。</li>
+<li>位于一个域中的页面无法读取或修改属于另一个域的Cookie或者其他DOM数据。</li>
+</ul>
+<h1 id="编码方案"><a href="#编码方案" class="headerlink" title="编码方案"></a>编码方案</h1><h2 id="URL编码"><a href="#URL编码" class="headerlink" title="URL编码"></a>URL编码</h2><p>URL只允许使用US-ASCII字符集中的可打印字符（也就是ACSII代码在0x20和0x7e范围内的字符）。而且，由于其在URL方案或HTTP协议内具有特殊含义，这个范围内的一些字符也不能用在URL中。</p>
+<p>URL编码方案主要用于对扩展ASCII字符集中任何有问题的字符进行编码，使其可通过HTTP安全传输。任何URL编码的字符都以%为前缀，其后是这个字符的两位十六进制ASCII代码。</p>
+<p>以下是一些常见的URL编码字符：</p>
+<ul>
+<li>%3d表示&#x3D;</li>
+<li>%25表示%</li>
+<li>%20表示空格</li>
+<li>%0a表示新行</li>
+<li>%00表示空字节</li>
+</ul>
+<p>另一个指的注意的编码字符是加号（+），它代表URL编码的空格（除%20代表空格外）。</p>
+<h2 id="Unicode编码"><a href="#Unicode编码" class="headerlink" title="Unicode编码"></a>Unicode编码</h2><p>Unicode是一种为支持全世界所使用的的各种编写系统二十几的字符编码标准，它采用各种编码方案，其中一些课用于表示Web应用程序中的不常见字符。</p>
+<p>16位Unicode编码的工作原理和URL编码类似。为通过HTTP进行传输，16位的Unicode编码的字符以%u为前缀，其后是这个字符的十六进制unicode码点。</p>
+<p>UTF-8是一种长度可变的编码标准，它使用一个或几个字节表示每个字符。为通过HTTP进行传输，UTF-8编码的多字节字符以%为前缀，其后用十六进制表示每个字节。</p>
+<p>攻击Web应用程序时之所以要用到Unicode编码，主要在于有时可用它来破坏输入确认机制。如果输入过滤组织了某些恶意表达式，但随后处理输入的组件识别Unicode 编码，就可以使用各种标准与畸形Unicode编码避开过滤。	</p>
+<h2 id="HTML编码"><a href="#HTML编码" class="headerlink" title="HTML编码"></a>HTML编码</h2><p>HTML编码是一种用于表示问题字符以将其安全并入HTML文档的方案。有许多字符具有特殊的含义，并被用于定义文档结构而非其内容。为了安全使用这些字符并将其用在文档内容中，就必须对其进行HTML编码。</p>
+<p>此外，任何字符都可以使用它的十进制ACII码进行HTML编码，或者使用十六进制的ASCII码。</p>
+<p>当攻击Web应用程序时，HTML编码主要在探查跨站点脚本漏洞时发挥作用。如果应用程序在响应中返回未被修改的用户数据，那么它可能易于受到攻击；但是，如果它对危险字符进行HTML编码，也许比较安全。</p>
+<h2 id="Base64编码"><a href="#Base64编码" class="headerlink" title="Base64编码"></a>Base64编码</h2><p>Base64编码仅用一个可打印的ASCII字符就可安全转换任何二进制数据，它常用于对电子邮件附件进行编码，使其通过SMTP安全传输。它还可用于在基本HTTP验证机制中对用户整数进行编码。</p>
+<p>Base64编码将输入数据转换成3个字节块。每个块被划分为4端，每段6个数据位。这6个数据位有64种不同的排列，因此每个段可使用一组64个字符标识。Base64、使用以下字符集，其中只包含可打印的ASCII字符：</p>
+<p><strong>ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+&#x2F;</strong></p>
+<p>如果最后的输入数据块不能构成3段数据输出，就用一个或者两个等号（&#x3D;）补足输出。</p>
+<h2 id="十六进制编码"><a href="#十六进制编码" class="headerlink" title="十六进制编码"></a>十六进制编码</h2><p>许多应用程序在传送二进制数据时直接使用十六进制编码，用ASCII字符表示十六进制数据块。</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/%E5%AE%89%E5%85%A8/" rel="tag"># 安全</a>
+          
+            <a href="/tags/Web/" rel="tag"># Web</a>
+          
+            <a href="/tags/HTTP/" rel="tag"># HTTP</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/posts/fed7/" rel="next" title="攻击验证机制">
+                <i class="fa fa-chevron-left"></i> 攻击验证机制
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/posts/bd9/" rel="prev" title="攻击会话管理">
+                攻击会话管理 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name"></p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/%7C%7Carchive">
+              
+                  <span class="site-state-item-count">917</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">27</span>
+                  <span class="site-state-item-name">categories</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">359</span>
+                  <span class="site-state-item-name">tags</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#HTTP"><span class="nav-number">1.</span> <span class="nav-text">HTTP</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#HTTP-%E8%AF%B7%E6%B1%82"><span class="nav-number">1.1.</span> <span class="nav-text">HTTP 请求</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#HTTP%E5%93%8D%E5%BA%94"><span class="nav-number">1.2.</span> <span class="nav-text">HTTP响应</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#HTTP%E6%96%B9%E6%B3%95"><span class="nav-number">1.3.</span> <span class="nav-text">HTTP方法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#URL"><span class="nav-number">1.4.</span> <span class="nav-text">URL</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#REST"><span class="nav-number">1.5.</span> <span class="nav-text">REST</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#HTTP%E6%B6%88%E6%81%AF%E5%A4%B4"><span class="nav-number">1.6.</span> <span class="nav-text">HTTP消息头</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B8%B8%E7%94%A8%E6%B6%88%E6%81%AF%E5%A4%B4"><span class="nav-number">1.6.1.</span> <span class="nav-text">常用消息头</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%AF%B7%E6%B1%82%E6%B6%88%E6%81%AF%E5%A4%B4"><span class="nav-number">1.6.2.</span> <span class="nav-text">请求消息头</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%93%8D%E5%BA%94%E6%B6%88%E6%81%AF%E5%A4%B4"><span class="nav-number">1.6.3.</span> <span class="nav-text">响应消息头</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Cookie"><span class="nav-number">1.7.</span> <span class="nav-text">Cookie</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%8A%B6%E6%80%81%E7%A0%81"><span class="nav-number">1.8.</span> <span class="nav-text">状态码</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B8%B8%E8%A7%81%E7%9A%84%E7%8A%B6%E6%80%81%E7%A0%81"><span class="nav-number">1.8.1.</span> <span class="nav-text">常见的状态码</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#HTTPS"><span class="nav-number">1.9.</span> <span class="nav-text">HTTPS</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#HTTP%E4%BB%A3%E7%90%86"><span class="nav-number">1.10.</span> <span class="nav-text">HTTP代理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#HTTP%E8%BA%AB%E4%BB%BD%E9%AA%8C%E8%AF%81"><span class="nav-number">1.11.</span> <span class="nav-text">HTTP身份验证</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%90%8C%E6%BA%90%E7%AD%96%E7%95%A5"><span class="nav-number">1.12.</span> <span class="nav-text">同源策略</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%BC%96%E7%A0%81%E6%96%B9%E6%A1%88"><span class="nav-number">2.</span> <span class="nav-text">编码方案</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#URL%E7%BC%96%E7%A0%81"><span class="nav-number">2.1.</span> <span class="nav-text">URL编码</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Unicode%E7%BC%96%E7%A0%81"><span class="nav-number">2.2.</span> <span class="nav-text">Unicode编码</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#HTML%E7%BC%96%E7%A0%81"><span class="nav-number">2.3.</span> <span class="nav-text">HTML编码</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Base64%E7%BC%96%E7%A0%81"><span class="nav-number">2.4.</span> <span class="nav-text">Base64编码</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8D%81%E5%85%AD%E8%BF%9B%E5%88%B6%E7%BC%96%E7%A0%81"><span class="nav-number">2.5.</span> <span class="nav-text">十六进制编码</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">HanSi</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">Site words total count&#58;</span>
+    
+    <span title="Site words total count">657.4k</span>
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
