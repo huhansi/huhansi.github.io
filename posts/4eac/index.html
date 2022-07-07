@@ -1,0 +1,1509 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="cn">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="SQL,安全,Web,注入," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="注入SQL数据库中的信息通过SQL（Structured Query Language，结构化查询语言）访问。SQL可用于读取、更新、增加或删除数据库中保存的信息。 SQL是一种解释型语言，Web应用程序经常建立合并用户提交的数据的SQL语句。因此，如果建立语句的方法不安全，那么应用程序可能易于受到SQL注入攻击。 利用一个基本的漏洞下面以一个书籍零售商使用的Web应用程序为例，该应用程序允许用户">
+<meta property="og:type" content="article">
+<meta property="og:title" content="注入sql">
+<meta property="og:url" content="http://huhansi.com/posts/4eac/index.html">
+<meta property="og:site_name" content="HanSi&#39;s Blog">
+<meta property="og:description" content="注入SQL数据库中的信息通过SQL（Structured Query Language，结构化查询语言）访问。SQL可用于读取、更新、增加或删除数据库中保存的信息。 SQL是一种解释型语言，Web应用程序经常建立合并用户提交的数据的SQL语句。因此，如果建立语句的方法不安全，那么应用程序可能易于受到SQL注入攻击。 利用一个基本的漏洞下面以一个书籍零售商使用的Web应用程序为例，该应用程序允许用户">
+<meta property="og:locale">
+<meta property="article:published_time" content="2019-03-22T16:00:00.000Z">
+<meta property="article:modified_time" content="2022-07-03T14:04:57.395Z">
+<meta property="article:author" content="HanSi">
+<meta property="article:tag" content="SQL">
+<meta property="article:tag" content="安全">
+<meta property="article:tag" content="Web">
+<meta property="article:tag" content="注入">
+<meta name="twitter:card" content="summary">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '',
+    scheme: 'Mist',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":true,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://huhansi.com/posts/4eac/"/>
+
+
+
+
+
+  <title>注入sql | HanSi's Blog</title>
+  
+
+
+
+
+
+
+
+
+<meta name="generator" content="Hexo 6.2.0"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="cn">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">HanSi's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            About
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            Search
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="Searching..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://huhansi.com/posts/4eac/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="HanSi's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">注入sql</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-03-23T00:00:00+08:00">
+                2019-03-23
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Web%E5%AE%89%E5%85%A8/" itemprop="url" rel="index">
+                    <span itemprop="name">Web安全</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Words count in article&#58;</span>
+                
+                <span title="Words count in article">
+                  10k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Reading time &asymp;</span>
+                
+                <span title="Reading time">
+                  35
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="注入SQL"><a href="#注入SQL" class="headerlink" title="注入SQL"></a>注入SQL</h1><p>数据库中的信息通过SQL（Structured Query Language，结构化查询语言）访问。SQL可用于读取、更新、增加或删除数据库中保存的信息。</p>
+<p>SQL是一种解释型语言，Web应用程序经常建立合并用户提交的数据的SQL语句。因此，如果建立语句的方法不安全，那么应用程序可能易于受到SQL注入攻击。</p>
+<h2 id="利用一个基本的漏洞"><a href="#利用一个基本的漏洞" class="headerlink" title="利用一个基本的漏洞"></a>利用一个基本的漏洞</h2><p>下面以一个书籍零售商使用的Web应用程序为例，该应用程序允许用户根据作者、书名、出版商等信息搜索产品。完整的书籍目录保存在数据库中，应用程序使用SQL查询、根据用户提交的搜索项获取各种书籍的信息。</p>
+<p>当一名用户搜索由Wiley出版的所有书籍时，应用程序执行以下查询：</p>
+<p><strong>SELECT author, title, year FROM books WHERE publisher &#x3D; ‘Wiley’ and published &#x3D; 1</strong></p>
+<p>该查询要求数据库检查书籍表的每一行，提取每条publisher列为wiley值的记录，并返回所有这些记录。然后应用程序处理这组记录，并通过一个HTML页面将结果显示给用户。</p>
+<p>在这个查询中，等号左边的词由SQL关键字、表和数据库列名称构成。这个部分的全部内容由程序员在创建应用程序时建立。当然，表达式wiley由用户提交，它是一个数据项。SQL查询中的字符串数据必须包含在单引号内，与查询的其他内容隔开来。</p>
+<p>现在思考一下，如果用户搜索所有由O’Reilly出版的书籍，会出现什么情况。应用程序将执行以下查询：</p>
+<p><strong>SELECT author, title, year FROM books WHERE publisher &#x3D; ‘O’Reilly’ and published &#x3D; 1</strong></p>
+<p>在这个示例中，查询解释器以和前一个示例相同的方式到达字符串数据位置。它解析这个包含在单引号中的数据，得到值O。然后遇到表达式Reilly’，这并不是有效的SQL语法，因此，应用程序生成一条错误信息：</p>
+<p><strong>Incorrect syntax near ‘Reilly’.</strong></p>
+<p><strong>Server: Msg 105,Level 15, State 1, Line1</strong></p>
+<p>**Unclosed quotation mark before the  character string ‘ **</p>
+<p>如果应用程序以这种方式运行，那么它非常容易遭到SQL注入。攻击者可提交包含引号的输入终止它控制的字符串，然后编写任意的SQL修改开发者想要的应用程序执行的查询。例如，在这个示例中，攻击者可以对查询进行修改，通过以下输入项，返回零售商目录中的每一本书籍。</p>
+<p><strong>Willey’ OR 1&#x3D;1–</strong></p>
+<p>应用程序将执行以下查询：</p>
+<p><strong>SELECT author, title, year, FROM books WHERE publisher &#x3D; ‘Willey’ OR 1&#x3D;1 –’ AND published &#x3D; 1</strong></p>
+<p>这个查询对开发者查询中的WHERE子句进行修改，增加了另外一个条件。数据库将检查书籍表的每一行，提取publisher列值位Willey<strong>或其中1&#x3D;1</strong>的每一条记录。因为1总是等于1，所以数据库将返回书籍表中的所有记录。</p>
+<p>攻击者的输入中的双连字符在SQL中是一个有意义的表达式，它告诉查询解释器该行的其他部分属于注释，应被忽略。在一些SQL注入攻击中，这种技巧机器重要，因为它允许忽略由应用程序开发者建立的查询的剩余部分。在MySQL中，需要在双连字符后加入一个空格，或者使用<strong>“#”</strong>符号指定注释。</p>
+<p>有些时候，可以不使用注释符号处理字符串末尾部分的引号，而用一个需要引号包含的字符串数据结束注入的输入，依次<strong>“平衡引号”</strong>，例如，输入以下搜索项：</p>
+<p><strong>willey’ or ‘a’ &#x3D; ‘a</strong></p>
+<p>将生成以下查询：</p>
+<p><strong>SELECT author, title,year FROM books where publisher &#x3D; ‘willey’ OR ‘a’ &#x3D; ‘a’ and publisher &#x3D; 1</strong></p>
+<p>这个查询完全有效，可得到和1&#x3D;1攻击相同的效果。 </p>
+<h2 id="注入不同的语句类型"><a href="#注入不同的语句类型" class="headerlink" title="注入不同的语句类型"></a>注入不同的语句类型</h2><p>当然，当与一个远程应用程序交互时，通常情况下不可能提前知道用户输入的一个特殊数据项将由哪种类型的语句处理。但是，可以根据使用的应用程序功能进行合理地猜测。</p>
+<h3 id="SELECT-语句"><a href="#SELECT-语句" class="headerlink" title="SELECT 语句"></a>SELECT 语句</h3><p>SELECT语句被用于从数据库中获取信息。它们常用于应用程序响应用户操作而返回信息的功能中，如浏览一个产品目录、查看一名用户的资料或者进行一项搜索。根据数据库中的数据核对用户提交的信息的登录功能也经常使用这种语句。</p>
+<p>如在前面的示例中说明的，SQL注入攻击的进入点（entry point）通常是查询中的WHERE子句，它将用户提交的数据传送给数据库，以控制查询结果的范围。因为WHERE子句一般在SELECT语句的最后，攻击者就可以使用注释符号将查询阶段到其输入的结束位置，而不会使整个查询的语法失效。</p>
+<p>SQL注入漏洞偶尔也会影响SELECT查询的其他部分，如ORDER BY子句或表和列名称。</p>
+<h3 id="INSERT语句"><a href="#INSERT语句" class="headerlink" title="INSERT语句"></a>INSERT语句</h3><p>INSERT语句用于在表中建立一个新的数据行。应用程序通常使用这种语句添加一条新的审计日志、创建一个新用户账户或生成一个新订单。</p>
+<p>例如，如果一个应用程序允许用户自我注册， 指定它们自己的用户名和密码，就可以使用下面的语句将用户资料插入user表中。</p>
+<p><strong>INSERT INTO users (username, password, ID, privs) VALUES (‘daf’, ‘secret’, 2248, 1)</strong></p>
+<p>如果username或password字段存在SQL注入漏洞，那么攻击者就可以在表中插入任何数据，包括他自己的ID和privs值。然而，要想这样做，攻击者就必须确保VALUES子句的其他部分正常运行。特别是其中数据项的个数和类型必须正确。例如，当注入username字段时，攻击者可以提交以下输入：</p>
+<p><strong>foo’, ‘bar’, 9999, 0)–</strong></p>
+<p>它将建立一个ID为9999，privs为0的账户。加入privs字段用来决定账户权限，那么攻击者可以利用它创建的一个管理用户。</p>
+<p>有时，攻击者完全盲目地注入一个INSERT语句也能够从应用程序中提取出字符串数据。例如，攻击者可以拦截数据库的版本字符串，并将它插入自己用户资料的一个字段中；正常情况下，浏览器将显示数据库的版本信息。</p>
+<p>当设法注入一个INSERT语句时，可能无法提前知道需要提交多少个参数或参数的类型。在前面的示例中，可以通过在VALUES子句中持续增加一个新的字段，知道应用程序创建了确实想要的用户账户，从而解决上述问题。例如，当注入username字段时，可以提交以下输入：</p>
+<p><strong>Foo’)–</strong></p>
+<p><strong>Foo’, 1)–</strong></p>
+<p><strong>Foo’, 1, 1)–</strong></p>
+<p><strong>Foo’, 1, 1, 1)–</strong></p>
+<p>由于大多数数据库都会隐式地讲一个整数转换为字符串，可以在每个位置都是用一个整数。在这个示例中，不管其他字段如何，它将生成一个用户名为Foo、密码为1的账户。</p>
+<p>如果发现使用值1人员遭到拒绝，可以尝试使用值2000，许多数据库也会隐式地将它转换成基于数据的数据类型。</p>
+<p>确定注入点之后的正确字段数后，在MS-SQL中，测试员可以任意添加另外一个查询，并采用后面将介绍的基于推断的技巧。</p>
+<p>在Oracle中，则可以在insert查询内发布subselect查询。使用后面基于推断的技巧，该subselect查询可能导致主查询成功或失败。</p>
+<h3 id="update语句"><a href="#update语句" class="headerlink" title="update语句"></a>update语句</h3><p>UPDATE语句用于修改表中的一行或几行数据。它们经常用在用户修改已有数据值的功能中，例如，更新联系信息、修改密码或更改订单数量。</p>
+<p>典型UPDATE语句的运行机制和INSERT语句类似，只是UPDATE语句中通常包含一个WHERE子句，告诉数据库更新表中哪些行的数据。例如，当用户修改密码时，应用程序可能会执行以下查询：</p>
+<p><strong>UPDATE users SET password&#x3D;’newsecret’ WHERE user &#x3D; ‘marcus’ and password &#x3D; ‘secret’</strong></p>
+<p>实际上，这个查询首先合适用户的现有密码是否争取，如果密码无误，就用新的值更新它。如果这项功能存在SQL注入漏洞，那么攻击者就能避开现有密码检查，通过输入以下用户名更新管理员的密码：</p>
+<p><strong>admin’–</strong></p>
+<p>由于无法提前知道应用程序将根据专门设计的输入执行什么操作，因此，在一个远程应用程序中探查SQL注入漏洞往往非常危险。特别注意，修改UPDATE语句中的WHERE子句可能会使一个重要的数据库表发生彻底的改变。例如，上面的攻击者之前已经提交了以下用户名：</p>
+<p><strong>admin’ or 1 &#x3D; 1</strong></p>
+<p>那么应用程序可能会执行以下查询：</p>
+<p><strong>UPDATE users SET password &#x3D; ‘newsecret’ where user &#x3D; ‘admin’ or 1 &#x3D; 1</strong></p>
+<p>它会重新设置每一名用户的密码。</p>
+<h3 id="DELETE语句"><a href="#DELETE语句" class="headerlink" title="DELETE语句"></a>DELETE语句</h3><p>DELETE语句用于删除表中的一行或几行数据，例如，用户从他们的购物篮中删除意见商品或从个人资料中删除一个交货地址。</p>
+<p>与UPDATE语句一样，DELETE语句通常使用WHERE子句告诉数据库更新表中哪些行的数据，并很可能在这个子句中并入用户提交的数据。破坏正常运行的WHERE子句可能会造成严重的后果。</p>
+<h2 id="查明SQL注入漏洞"><a href="#查明SQL注入漏洞" class="headerlink" title="查明SQL注入漏洞"></a>查明SQL注入漏洞</h2><p>在最明显的情形中，只需向应用程序提交一个意外输入，就可以发现并最终确定一个SQL注入漏洞。在其他情况下，这种缺陷可能非常微妙，很难与其他类型的漏洞或不会造成安全威胁的“良性”异常区分开来。但是，可以按顺序采取各种步骤查明绝大多数的SQL注入漏洞。</p>
+<p>在探查SQL注入漏洞时，一定要确保完全遍历任何可以提交专门设计的输入的多阶段过程。应用程序通常会从几个请求中收集一组数据，一旦收集到全部的数据，就将其保存在数据库中。这时，如果仅在每个请求中提交专门设计的数据并监控应用程序对那个请求的响应，就会遗漏许多SQL注入漏洞。</p>
+<h3 id="注入字符串数据"><a href="#注入字符串数据" class="headerlink" title="注入字符串数据"></a>注入字符串数据</h3><p>如果SQL查询合并用户提交的数据，它会将这些数据包含在单引号中。为利用任何SQL注入漏洞，攻击者需要摆脱这些引号的束缚。</p>
+<p>测试步骤：</p>
+<ol>
+<li>提交一个单引号作为目标查询的数据。观察是否会造成错误，或结果是否与原始结果不同。如果收到详细错误信息，了解该信息的含义。</li>
+<li>如果发现错误或其他异常行为，同时提交两个单引号，看会出现什么情况。数据库使用两个单引号作为转义序列，表示一个原义单引号，因此这个序列被解释称引用字符串中的数据，而不是结束字符串的中支付。如果这个输入导致错误或异常行为消失，则应用程序可能易于受SQL注入攻击。</li>
+<li>为进一步核实漏洞是否存在，可以使用SQL连接符建立一个等同于“良性”输入的字符串。如果应用程序以与处理对应“良性”输入相同的方式处理专门设计的输入，那么它很可能易于受到攻击。每种数据库使用的字符串连接方法各不相同。在易受攻击的应用程序中，可以注入以下示例构建等同于FOO的输入：<ul>
+<li>Oracle： ‘||’FOO</li>
+<li>MS-SQL: ‘+’FOO</li>
+<li>MySQL: ‘ ‘FOO [两个单引号之间有一个空格]</li>
+</ul>
+</li>
+</ol>
+<h3 id="注入数字数据"><a href="#注入数字数据" class="headerlink" title="注入数字数据"></a>注入数字数据</h3><p>如果SQL查询合并用户提交的数字数据，应用程序仍然会将它包含在单引号之中，作为字符串数据进行处理。因此，一定要执行前面描述的针对字符串数据的渗透测试步骤。但是，许多时候，营养程序会将数字数据以数字格式直接传送到数据库中，并不把它放入单引号中。如果前面描述的测试方法无法检测到漏洞，还可以采取以下针对数字数据的特殊测试步骤。</p>
+<p>测试步骤：</p>
+<ol>
+<li><p>尝试输入一个结果等于原始数字值的简单数学表达式。例如，原始值为2，尝试提交<strong>1+1</strong>或<strong>3-1</strong>。如果应用程序作出相同的响应，则表示它易于受到攻击。</p>
+</li>
+<li><p>如果证实被修改的数据会对应用程序的行为造成明显影响，则前面描述的测试方法最为可靠。例如，如果应用程序使用数字化PageID参数指定应返回什么内容，则用<strong>1+1</strong>代替2得到相同的结果明显表示存在SQL注入。但是如果能够在数字化参数中插入任意输入，但应用程序的行为却没有发生改变，那么前面的方法就无法发现漏洞。</p>
+</li>
+<li><p>如果第一个测试方法取得成功，就可以利用更复杂的、使用特殊SQL关键字和语法的表达式进一步获得与漏洞有关的证据。ASCII值位65，在SQL中，以下表达式等于2.</p>
+<p><strong>67-ASCII(‘A’)</strong></p>
+</li>
+<li><p>如果单引号被过滤掉，那么前面的测试方法就没有作用。但是，这时可以利用这样一个事实：即在必要时，数据库会隐含地将数字数据转化为字符串数据。例如，因为字符1的ASCII值位49，在SQL中，以下表达式等于2.</p>
+<p><strong>51-ASCII(1)</strong></p>
+</li>
+</ol>
+<h3 id="注入查询结构"><a href="#注入查询结构" class="headerlink" title="注入查询结构"></a>注入查询结构</h3><p>如果用户提交的数据被插入SQL查询结构。而不是查询的数据项中，这时，实施SQL注入攻击只需要直接应用有效的SQL语法，而不需要任何“转义”。</p>
+<p>SQL查询结构中最常见的注入点是ORDER BY子句。ORDER BY关键字接受某个列名称或编号，并根据该列中的值对结果集进行排序。</p>
+<p>例如，使用以下查询可以检索一个可排序的图书表：</p>
+<p><strong>SELECT author, title, year FROM bookes WHERE publisher &#x3D; ‘Wiley’ ORDER BY title ASC</strong></p>
+<p>如果ORDER BY中的列名称title由用户指定，就没有必要使用单引号，因为用户提交的数据已经直接修改了SQL查询的结构。</p>
+<p>在列名称中查找SQL注入漏洞可能会相当困难。如果提交一个并非有效列名称的值，查询将导致错误。这意味着，无论攻击者提交路径遍历字符串、单引号、双引号或其他任意字符串，应用程序都会返回相同的响应。因此，采用程勇的自动模糊测试和手动测试技巧往往会遗漏某些漏洞。如果提交用于探查各种漏洞的标准测试字符串全部导致相同的响应，这本身并不表示出现任何错误。</p>
+<ol>
+<li><p>记下任何可能控制应用程序返回的结果的顺序或其中的字段类型的参数。</p>
+</li>
+<li><p>提供一系列在参数中提交数值值的请求，从数字1开始，然后逐个请求递增：</p>
+<ol>
+<li><p>如果更改输入中的数字会影响结果的顺序，则说明输入可能被插入到ORDER BY子句中。在SQL中，ORDER BY 1将依据第一列进行排序。然后将这个数字增加到2将更改数据的显示顺序，以依据第二个列进行排序。如果提交的数字大于结果集中的列数，查询将会失败。在这种情况下，可以通过使用以下字符串，检查是否可以颠倒结果的顺序，从而确认是否可以注入其他SQL：</p>
+<p><strong>1 ASC –</strong></p>
+<p><strong>1 DESC –</strong></p>
+</li>
+<li><p>如果提交数字1生成一组结果，其中一个列的每一行都包含一个1，则说明输入可能被插入到查询返回的列的名称中。例如：</p>
+<p><strong>SELECT 1, title, year FROM book WHERE publisher &#x3D; ‘Wiley’</strong></p>
+</li>
+</ol>
+</li>
+</ol>
+<h2 id="“指纹”识别数据库"><a href="#“指纹”识别数据库" class="headerlink" title="“指纹”识别数据库"></a>“指纹”识别数据库</h2><p>即使由于某种原因无法提取到版本信息，还是可以使用其他方法识别数据库。一种最可靠的方法是根据数据库连接字符串的不同方式进行识别。在控制某个字符串数据项的查询中，可以在一个请求中提交一个特殊的值，然后测试各种连接方法，以生成那个字符串。如果得到相同的结果，皆可以确定所使用的数据库类型。下面的实例说明常用的数据库如何构建services字符串。</p>
+<ul>
+<li>Oracle：’serv’ || ‘ices’</li>
+<li>MS-SQL: ‘serv’ + ‘ices’</li>
+<li>MySQL: ‘serv’  ‘ices’ 【中间有空格】</li>
+</ul>
+<p>如果注入数字数据，则可以使用下面的攻击字符串来识别数据库。每个数据项在目标数据库中的求值结果为0，在其他数据库中则会导致错误。</p>
+<ul>
+<li>Oracle：BITAND(1, 1)-BITAND(1, 1)</li>
+<li>MS-SQL: @@PACK_RECEIVED-@@PACK_RECEIVED</li>
+<li>MySQL: CONNECTION_ID()-CONNECTION_ID()</li>
+</ul>
+<p>在识别数据库时，MySQL如何处理某些行内注释也是一个值得关注的问题。吐过一个注释以感叹号开头，接着是数据库版本字符串，那么只要数据库的实际版本等于或高于那个字符串，应用程序就会将注释内容解释为SQL；否则，应用程序就会忽略注释内容，将它作为注释处理。与C中的预处理指令类似，程序员也可以对这一点加以利用，编写出根据所使用数据库版本进行处理的不同代码。攻击者还可以利用它来识别数据库的实际版本。例如，如果使用的MySQL版本高于或等于3.23.02，注入下面的字符串将使SELECT语句的WHERE子句为假：</p>
+<p>**&#x2F;<em>!32302 and 1&#x3D;0 <em>&#x2F;</em></em></p>
+<h2 id="UNION-操作符"><a href="#UNION-操作符" class="headerlink" title="UNION 操作符"></a>UNION 操作符</h2><p>SQL使用UNION操作符将两个或几个SELECT语句的记过组合到一个独立结果中。如果一个Web应用程序的SELECT语句存在SQL注入漏洞，通常可以使用UNION操作符执行另一次完全独立的查询，并将它的结果与第一次查询的结果组合在一起。如果应用程序向浏览器返回查询结果，那么就可以使用这种技巧从应用程序中提取任意的数据。</p>
+<p>UNION操作符可在SQL注入中发挥非常巨大的作用。但是，在利用它发动攻击之前，攻击者有必要了解它的两个重要限制。</p>
+<ol>
+<li>如果使用UNION操作符组合两个查询的结果，这两个结果必须结构相同。也就是说他们的列数必须相同，必须使用按相同顺序出现的相同或兼容的数据类型。</li>
+<li>为注入另一个返回有用结果的查询，攻击者必须知道他所针对的数据库表的名称以及有关列的名称。</li>
+</ol>
+<h2 id="使用UNION提取数据"><a href="#使用UNION提取数据" class="headerlink" title="使用UNION提取数据"></a>使用UNION提取数据</h2><p>下面我们将分析一个攻击，虽然该攻击针对的是MS-SQL数据库，但它采用的攻击方法适用于所有数据库技术。以用户维护联系人列表及查询和更新联系人信息的通讯录应用程序为例。如果用户在通讯录中搜索名为Matthew的联系人，浏览器将提交以下数据：</p>
+<p><strong>Name&#x3D; Matthew</strong></p>
+<table>
+<thead>
+<tr>
+<th>人名</th>
+<th>电子邮件地址</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Matthew Adamson</td>
+<td><a href="mailto:&#104;&#x61;&#x6e;&#x64;&#x74;&#114;&#x69;&#99;&#x6b;&#x40;&#x67;&#x6d;&#97;&#x69;&#x6c;&#x2e;&#x63;&#x6f;&#109;">&#104;&#x61;&#x6e;&#x64;&#x74;&#114;&#x69;&#99;&#x6b;&#x40;&#x67;&#x6d;&#97;&#x69;&#x6c;&#x2e;&#x63;&#x6f;&#109;</a></td>
+</tr>
+</tbody></table>
+<p>首先，我们需要确定请求的猎术。对单一列进行测试导致了以下错误消息：</p>
+<p><strong>Name&#x3D;Matthew’%20union%20select%20null–</strong></p>
+<p>All queries combined using a UNION, INTERSECT or EXCEPT operator must hava an equal number of expressions in their target lists.</p>
+<p>我们添加另一个NULL，并得到同样的错误。于是，我们继续添加NULL， 知道查询被执行，并在结果表中生成另一个数据项，如下所示：</p>
+<p><strong>Name&#x3D;Matthew’%20union%20select%20null,null,null,null,null–</strong></p>
+<table>
+<thead>
+<tr>
+<th>人名</th>
+<th>电子邮件格式</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Matthew Adamson</td>
+<td><a href="mailto:&#x68;&#x61;&#110;&#100;&#x74;&#114;&#105;&#99;&#107;&#x40;&#x67;&#109;&#97;&#105;&#108;&#x2e;&#x63;&#x6f;&#109;">&#x68;&#x61;&#110;&#100;&#x74;&#114;&#105;&#99;&#107;&#x40;&#x67;&#109;&#97;&#105;&#108;&#x2e;&#x63;&#x6f;&#109;</a></td>
+</tr>
+<tr>
+<td>[空]</td>
+<td>[空]</td>
+</tr>
+</tbody></table>
+<p>我们验证查询的第一列是否包含字符串数据：</p>
+<p><strong>Name&#x3D;Matthew’%20union%20select%20’a’,null,null,null,null–</strong></p>
+<table>
+<thead>
+<tr>
+<th>人名</th>
+<th>电子邮件格式</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Matthew Adamson</td>
+<td><a href="mailto:handtrick@gmail.com">handtrick@gmail.com</a></td>
+</tr>
+<tr>
+<td>[a]</td>
+<td>[空]</td>
+</tr>
+</tbody></table>
+<p>接下来，需要查明可能包含有用信息的数据库表和列的名称。为此，我们需要查询元数据表information_schema .columns，其中包含数据库中的所有表和列名称的详细资料。使用以下请求可以检索上述信息：</p>
+<p><strong>Name&#x3D;Matthew’%20union%20select%20table_name,column_name,null,null,null%20from%20information_schema.columns–</strong></p>
+<table>
+<thead>
+<tr>
+<th>人名</th>
+<th>电子邮件地址</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Matthew Adamson</td>
+<td><a href="mailto:&#104;&#97;&#x6e;&#x64;&#x79;&#x74;&#114;&#105;&#x63;&#107;&#x40;&#x67;&#x6d;&#97;&#105;&#108;&#46;&#99;&#111;&#109;">&#104;&#97;&#x6e;&#x64;&#x79;&#x74;&#114;&#105;&#x63;&#107;&#x40;&#x67;&#x6d;&#97;&#105;&#108;&#46;&#99;&#111;&#109;</a></td>
+</tr>
+<tr>
+<td>shop_items</td>
+<td>Price</td>
+</tr>
+<tr>
+<td>shop_items</td>
+<td>Prodid</td>
+</tr>
+<tr>
+<td>shop_items</td>
+<td>Prodname</td>
+</tr>
+<tr>
+<td>addr_book</td>
+<td>Contactemail</td>
+</tr>
+<tr>
+<td>addr_book</td>
+<td>Contactname</td>
+</tr>
+<tr>
+<td>Users</td>
+<td>Username</td>
+</tr>
+<tr>
+<td>Users</td>
+<td>Password</td>
+</tr>
+</tbody></table>
+<p>从以上结果可以确定，很明显，我们可以同用户表开始提取数据。这是使用以下查询：</p>
+<p><strong>Name&#x3D;Matthew’%20UNION%20select%20username,password,null,null,null%20from%20users–</strong></p>
+<table>
+<thead>
+<tr>
+<th>人名</th>
+<th>电子邮件地址</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Matthew Adamson</td>
+<td><a href="mailto:handytrick@gmail.com">handytrick@gmail.com</a></td>
+</tr>
+<tr>
+<td>administrator</td>
+<td>fme69</td>
+</tr>
+<tr>
+<td>dev</td>
+<td>uber</td>
+</tr>
+<tr>
+<td>marcus</td>
+<td>8printo</td>
+</tr>
+<tr>
+<td>smith</td>
+<td>twosisty</td>
+</tr>
+<tr>
+<td>jlo</td>
+<td>6kdown</td>
+</tr>
+</tbody></table>
+<p>MS-SQL、MySQL和许多其他数据库（包括SQLite和Postgresql）均支持information_schema。它主要用于保存数据库元数据，这也使它成为探查数据库的攻击者的主要目标。需要注意的是，Oracle并不支持该方案。对Oracle数据库实施攻击时，攻击方法在其他各方面可能完全相同。但是，需要使用查询SELECT table_name,column_name FROM all_tab_columns来检索有关数据库表和列的信息。（使用user_tab_columns表以针对当前数据库）通常，在分析大型数据库以探查攻击目标时，最好是查找有用的列名称，而不是表。例如：</p>
+<p><strong>SELECT table_name,column_name FROM  infotmation_schema.columns where column_name like ‘%PASS%’</strong></p>
+<p>如果目标表返回了多个列，则可以将这些列串联到一个单独列中，这样肩锁起来会更加方便，因为，这时只需要在原始查询中确定一个varchar字段：</p>
+<ul>
+<li>Oracle：SELECT table_name||’:’||cikumn_name FROM all_tab_columns</li>
+<li>MS-SQL:SELECT table_name+’:’+column_name from information_schema.columns</li>
+<li>MySQL: SELECT CONTACT(table_name,’:’,column_name) FROM information_schema.columns</li>
+</ul>
+<h2 id="避开过滤"><a href="#避开过滤" class="headerlink" title="避开过滤"></a>避开过滤</h2><p>有时，易受SQL注入攻击的应用程序可能会执行各种输入过滤以防止攻击者无限制地利用其中存在的缺陷。例如，应用程序可能会删除或净化某些字符，或阻止常用的SQL关键字。这种过滤通常非常容易避开，这时可尝试使用各种技巧。</p>
+<h3 id="避免使用被阻止的字符"><a href="#避免使用被阻止的字符" class="headerlink" title="避免使用被阻止的字符"></a>避免使用被阻止的字符</h3><p>如果应用程序删除或编码某些在SQL注入攻击中经常用到的字符，不使用这些字符仍然能够实施攻击。</p>
+<ul>
+<li><p>如果要注入数字数据字段或列名称，不一定必须使用单引号。要在攻击有效载荷中插入字符串，不使用引号仍可以做到这一点。这时，可以通过各种字符串函数，使用每个字符的ASCII代码动态构建一个字符串。例如，下面两个查询分别用于Oracle和MS-SQL，它们等同于SELECT ename,sal from emp where ename &#x3D; ‘marcus’:</p>
+<p><strong>SELECT ename, sal FROM emp where ename&#x3D;CHR(109)||CHR(97)||CHR(114)||CHR(99)||CHR(117)||CHR(115)</strong></p>
+</li>
+<li><p>如果注释符号被阻止，通常可以设计注入的数据，使其不会破会周围查询的语法。例如，不用注入</p>
+<p><strong>‘ or 1&#x3D;1–</strong></p>
+<p>可以注入</p>
+<p><strong>‘ or ‘a’&#x3D;’a</strong></p>
+</li>
+<li><p>在MS-SQL数据库中注入批量查询时，不必使用分号分隔符。只要纠正所有批量查询的语法，无论你是否使用分号，查询解析器都会正确解释他们。</p>
+</li>
+</ul>
+<h3 id="避免使用简单确认"><a href="#避免使用简单确认" class="headerlink" title="避免使用简单确认"></a>避免使用简单确认</h3><p>一些输入确认机制使用一个简答的黑名单，阻止或删除任何出现在这个名单中的数据。在这种情况下，应该尝试使用标准的攻击方法，寻找确认和规范化机制中的常见缺陷。例如，如果SELECT关键字被阻止或删除，可以尝试使用以下输入：</p>
+<p><strong>SeleCt</strong></p>
+<p><strong>%00SELECT</strong></p>
+<p><strong>SELSELECTECT</strong></p>
+<p><strong>%52%45%4c%45%43%54</strong></p>
+<p><strong>%2553%2545%254c%2545%2543%2554%</strong></p>
+<h3 id="使用SQL注释"><a href="#使用SQL注释" class="headerlink" title="使用SQL注释"></a>使用SQL注释</h3><p>与C++一样，我们也可以再SQL语句中插入行内注释，注释内容包含在**&#x2F;<em><strong>与</strong></em>&#x2F;之间**。如果应用程序阻止或删除输入中空格，可以使用注释“冒充注入数据中的空白符。例如：</p>
+<p>*<em>SELECT &#x2F;*foo*&#x2F; username,password FR&#x2F;<em>foo*&#x2F;OM users</em></em></p>
+<p>在MySQL语法中，注释甚至可以插入关键字中，这种方法可避开某些输入确认过了，同时保留查询中的语法。例如：</p>
+<p>*<em>SEL&#x2F;*foo*&#x2F;ECT &#x2F;*foo*&#x2F; username,password FR&#x2F;<em>foo*&#x2F;OM users</em></em></p>
+<h3 id="利用有缺陷的过滤"><a href="#利用有缺陷的过滤" class="headerlink" title="利用有缺陷的过滤"></a>利用有缺陷的过滤</h3><p>输入确认机制通常包含逻辑缺陷，可对这些缺陷加以利用，使被阻止的输入避开过滤。多数情况下，这类攻击会利用应用程序在对多个确认步骤进行排序，或未能以递归方式应用净化逻辑方面的缺陷。</p>
+<h2 id="二阶SQL注入"><a href="#二阶SQL注入" class="headerlink" title="二阶SQL注入"></a>二阶SQL注入</h2><p>一种特别有益的避开过滤的方法与二阶有关。当数据首次插入数据库中时，许多应用程序能够安全处理这些数据。但是，一旦数据存储在数据库中，随后应用程序本身或其他后端进程可能会以危险的方式处理这些数据。许多这类应用程序并不想面向因特网的主要应用程序一样安全，但却拥有较高权限的数据库账户。</p>
+<p>在一些应用程序中，用户输入在到达时通过转义单引号来进行确认。在前面搜索书籍的示例中，这种方法明显有效。当用户输入搜索项O’Reilly时，应用程序执行以下查询：</p>
+<p><strong>SELECT author,title,year FROM books WHERE publisher &#x3D; ‘O’’Reilly’</strong></p>
+<p>在这个查询中，用户提交的单引号被转换为两个单引号，因而传送给数据库的搜索项与用户最初的输入的表达式具有相同的字符含义。</p>
+<p>与单引号配对方法有关的问题出现在更复杂的情形中，此时同一个数据项被提交给几个SQL查询，然后写入数据库被几次读取。</p>
+<p>回到前面那个允许用户自我注册并且在一个INSERT语句中存在SQL注入漏洞的应用程序。假设开发者将修复出现在用户数据中的所有单引号配对导致的漏洞。注册用户名**foo’**来建立如下查询，他不会在数据库中造成问题：</p>
+<p><strong>INSERT INTO users (username, password, ID,privs) VALUES(‘foo’’’, ‘secret’, 2248, 1)</strong></p>
+<p>目前为止，一切正常。然而，假设应用程序还执行密码修改功能，那么只有通过验证的用户才能访问这项功能，而且为了加强保护，应用程序要求用户提供原始密码。然后应用程序从数据库中提取用户的当前密码，并对两个字符串进行比较，核对用户提供的密码是否正确。要完成核对任务，它首先要从数据库中提取用户的用户名，然后建立如下查询：</p>
+<p><strong>SELECT password FROM users WHERE username &#x3D; ‘foo’’</strong></p>
+<p>因为保存在数据库中的用户名是字面量字符串foo’，当应用程序提出访问要求时，数据库即返回这个值；只有在字符串被传送给数据库时才使用配对的转义序列。因此，当应用程序重复使用这个字符串并将它嵌入到另一个查询中时，就会造成一个SQL注入漏洞，用户最初的恶意输入就被嵌入到查询中。当用户尝试修改密码时，应用程序返回以下消息，暴露了上述缺陷：</p>
+<p><strong>Unclosed quotation mark before the character string ‘foo</strong></p>
+<p>要利用这种漏洞，攻击者值需注册一个包含专门设计的输入用户名，然后尝试修改密码。例如，如果注册如下用户名：</p>
+<p><strong>‘ or 1 in (select password from users where username &#x3D; ‘admin’)–</strong></p>
+<p>注册步骤将会被应用程序安全处理。如果攻击者尝试修改密码，他注入的查询就会执行，导致生成以下消息，泄露管理员的密码：</p>
+<p><strong>Microsoft OLE DB Provider for ODBC Drivers error ‘80040e07’</strong></p>
+<p><strong>Microsoft ODBC SQL Server Driver SQL Server Systax error converting</strong></p>
+<p>**the varchar value ‘fme69’ to a column of data type int **</p>
+<p>攻击者已经成功避开旨在阻止SQL注入攻击的输入确认，现在他能够在数据库中执行任意查询并获得查询结果。</p>
+<h2 id="高级利用"><a href="#高级利用" class="headerlink" title="高级利用"></a>高级利用</h2><p>应用程序所有者应该意识到，并非所有攻击都旨在盗窃敏感数据。一些攻击可能更具破坏性，例如，仅仅提交12个字符的输入，攻击者就能够给使用关闭命令（shutdown&#96;）关闭一个MS-SQL数据库。</p>
+<p><strong>‘ shutdown–</strong></p>
+<p>攻击者还可以注入恶意命令，如下面这些命令可删除一些数据库表：</p>
+<p><strong>‘ drop table users–</strong></p>
+<p><strong>‘ drop table accounts–</strong></p>
+<p><strong>‘ drop table customers–</strong></p>
+<h3 id="获取数字数据"><a href="#获取数字数据" class="headerlink" title="获取数字数据"></a>获取数字数据</h3><p>如果包含单引号的输入得到正确处理，那么应用程序中的字符串字段就不易受SQL注入攻击。但是，数字数据字段可能仍可能存在漏洞。在这种字段中，用户输入并不包含在单引号中。这时攻击者只有通过应用程序的数值响应，才能获得注入查询的结果。</p>
+<p>在这种情况下，攻击者需要做的是获取数字形式的有用数据，对注入查询的结果进行处理。他们可以使用以下两个关键函数：</p>
+<ul>
+<li>ASCII，它返回输入字符的ASCII代码；</li>
+<li>SUBSTRING（或Oracle中的SUBSTR），它返回输入的子字符串。</li>
+</ul>
+<p>这些函数可结合在一起使用，以数字形式从一个字符串中提取一个单独字符。例如：</p>
+<p><strong>SUBSTRING(‘Admin’, 1, 1)返回A</strong></p>
+<p><strong>ASCII(‘A’)返回65</strong></p>
+<p>因此</p>
+<p><strong>ASCII(SUBSTR(‘Admin’, 1, 1))</strong></p>
+<p>使用者两个函数，可以系统地将一个有用数据的字符串分割成单个的字符，并以数字形式分别返回每一个字符。在自定义攻击中，可以利用这种技巧，以一次一个字节的速度，迅速获得并重建大量基于字符串的数据。</p>
+<h3 id="使用带外通道"><a href="#使用带外通道" class="headerlink" title="使用带外通道"></a>使用带外通道</h3><p>在许多SQL注入攻击中，应用程序并不在用户的浏览器中显示注入查询的结果，也不返回数据库生成的任何错误消息。很明显，在这种情况下，即使一个SQL注入漏洞确实存在，攻击者也无法对其加以利用，提取任意数据或执行任何其他操作。但是，这种想法是错误的，及时出现这种情况，仍然可以使用各种技巧获取数据、确认其他恶意操作是否取得成功。</p>
+<p>许多时候，可以注入一个任意查询，但却无法获得查询结果。回到那个易受攻击的登录表单，它的用户名和密码字段易于遭受SQL注入：</p>
+<p><strong>SELECT * FROM  users WHERE username &#x3D; ‘marcus’ and password &#x3D; ‘secret’</strong></p>
+<p>除了修改查询逻辑以避开登录外，还可以注入一个完全独立的子查询，使用字符串连接符把这个子查询的结果与控制的数据项连接起来。例如：</p>
+<p><strong>foo’ || (SELECT 1 FROM dual WHERE (SELECT username FROM all_users WHERE username&#x3D;’SBSNMP’) &#x3D; ‘DBSNMP’)–</strong></p>
+<p>应用程序将执行以下查询：</p>
+<p><strong>SELECT * FROM users WHERE username &#x3D; ‘foo’ || (SELECT 1 FROM dual WHERE (SELECT username FROM all_users WHERE username &#x3D; ‘DBSNMP’) &#x3D; ‘DBSNMP’)</strong></p>
+<p>数据库将执行注入的任何子查询，并将它的结果附加在foo之后，然后查找所生成用户名的资料。当然，这种登录不会成功，但会执行注入的查询。在应用程序响应中受到的只是标准的登录失败消息。现在需要想办法获得注入查询的结果。</p>
+<p> 如果能对MS-SQL数据库使用批量查询，这时就会出现另一种情形。批量查询特别有用，因为它们允许执行一个完全独立的语句，在这个过程中，渗透测试员拥有全部的控制权，可以使用另外的SQL语句并针对不同的表进行查询。但是，因为批量查询执行查询的方式比较特殊，我们无法直接获得注入查询的执行结果，同样需要想办法获得注入查询的结果。</p>
+<p>在这种情况下，一种获取数据的有效方法是使用带外通道。能够在数据库中执行任意SQL语句后，渗透测试员往往可以利用数据库的一些内置功能在护具库与自己的计算机之间建立网络连接，通过它传送从数据库中收集到的任何数据。</p>
+<p>建立适当网络连接的方法以不同的数据库而定，而且取决于应用程序访问数据库所使用的的用户权限。</p>
+<h2 id="扩大数据库攻击范围"><a href="#扩大数据库攻击范围" class="headerlink" title="扩大数据库攻击范围"></a>扩大数据库攻击范围</h2><p>成功利用一个SQL注入漏洞往往可完全控制应用程序的所有数据。大多数应用程序仅使用一个账户访问数据库，并且依赖应用程序层控制在不同的用户间实施访问隔离。如果能够无限制地使用应用程序的数据库账户，就可以自由访问其中的数据。</p>
+<p>因此，可以假设，拥有应用程序的所有数据时SQL注入攻击的最终目的。然而，许多原因表名，利用数据库中的漏洞，或者控制它的一些内置功能以达到目的，从而进一步实施攻击，可能会取得更大的功效。通过扩大数据库攻击范围可实施的其他攻击如下：</p>
+<ul>
+<li>如果数据库被其他引用程序共享，可以通过提升数据库的使用权限访问其他应用程序的数据。</li>
+<li>可以攻破数据库服务器的操作系统。</li>
+<li>可以访问其他系统。通常，数据库服务器是一个在基层网络边界防御保护下的网络中的主机。如果能够控制数据库服务器，攻击者就处在一个可信的位置上，可以访问其他主机的关键服务，进一步对其加以利用。</li>
+<li>可以在主机基础架构与自己的计算机之间建立网络连接。这样，攻击者就可以完全避开应用程序的防御，轻易传送从数据库收集到的大量敏感数据，并且可穿透许多入侵检测系统。</li>
+<li>可以通过创建用户定义的功能任意扩充数据库的现有功能。有些时候，可以通过这种方式重新执行已被删除或禁用的功能，避开数据库实施的强化保护措施，只要已经获得数据库管理员权限，就有办法在每种主流数据库中执行这种操作。</li>
+</ul>
+<h2 id="防止SQL注入"><a href="#防止SQL注入" class="headerlink" title="防止SQL注入"></a>防止SQL注入</h2><h3 id="部分有效的防御措施"><a href="#部分有效的防御措施" class="headerlink" title="部分有效的防御措施"></a>部分有效的防御措施</h3><p>由于单引号在SQL注入漏洞中占有突出地位，繁育这种攻击的一种常用方法，就是将用户输入的任何单引号配对，对它们进行转义。但是，在下面两种情况下，这种方法无效。</p>
+<ul>
+<li>如果用户提交的数字数据内置在SQL查询中，这种数据通常并不包含在单引号内。因此，攻击者能够破坏数据的使用环境并开始输入任意SQL查询，这时就不必输入单引号。</li>
+<li>在二阶SQL注入攻击中，最初在插入数据库中时已经安全转移的数据随后被从数据库中读取出来，然后又再次写入。当重新使用数据时，最初配对的引号又恢复到单引号形式。</li>
+</ul>
+<p>另一种常用的应对措施是使用存储过程完成全部数据库访问。无疑，定制的存储过程可增强安全性，提高性能；然而，由于两方面的原因，它们并不能保证防止SQL漏洞：</p>
+<ul>
+<li>编写存在缺陷的存储过程可能在自身代码中包含SQL注入漏洞。</li>
+<li>及时使用安全可靠的存储过程，但如果使用用户提交的输入以不安全的方式调用这个存储过程，也仍然可能出现SQL注入漏洞。</li>
+</ul>
+<h3 id="参数化查询"><a href="#参数化查询" class="headerlink" title="参数化查询"></a>参数化查询</h3><p>大多数数据库和应用程序开发平台都提供API，对不可信的输入进行安全处理，以防止SQL注入漏洞。参数化查询分两个步骤建立一个包含用户输入的SQL语句。</p>
+<ol>
+<li>应用程序制定查询结构，为用户输入的每个数据预留字符；</li>
+<li>应用程序制定每个占位符的内容；</li>
+</ol>
+<p>至关重要的是，在第二个步骤中制定的专门设计的数据无法破坏在第一个步骤中制定的查询结构。因为查询结构已经确定，且相关API对所有类型的占位符数据进行安全处理，因此它总被解释为数据，而不是语句结构的一部分。</p>
+<p>使用参数化查询可有效防止SQL注入，但还要注意一下几个重要的限制。</p>
+<ul>
+<li>应在每一个数据库查询中使用参数化查询。</li>
+<li>插入查询中的每一种数据都应适当进行参数化。</li>
+<li>参数占位符不能用于指定查询中的表和列的名称。</li>
+<li>参数占位符不能用于查询的任何其他部分，如Order by子句中的ASC或DESC关键字，或其他任何SQL关键字，因为它们属于查询结构的一部分。</li>
+</ul>
+<h3 id="深层防御"><a href="#深层防御" class="headerlink" title="深层防御"></a>深层防御</h3><p>通常，一种稳定的安全机制应采用深层防御措施提供额外的保护，以防止前端防御由于任何原因失效。当防御针对后端数据库的攻击时，应采用另外三层防御。</p>
+<ul>
+<li>当访问数据库时，应用程序应尽可能使用最低权限的账户。</li>
+<li>许多企业数据库包含大量默认功能，可被能够执行任意SQL语句的攻击者利用。</li>
+<li>应评估、测试并及时安装供应商发布的所有安全补丁，以修复数据库软件本身已知的漏洞。</li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/SQL/" rel="tag"># SQL</a>
+          
+            <a href="/tags/%E5%AE%89%E5%85%A8/" rel="tag"># 安全</a>
+          
+            <a href="/tags/Web/" rel="tag"># Web</a>
+          
+            <a href="/tags/%E6%B3%A8%E5%85%A5/" rel="tag"># 注入</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/posts/a3b9/" rel="next" title="注入解释型语言">
+                <i class="fa fa-chevron-left"></i> 注入解释型语言
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/posts/a882/" rel="prev" title="注入NoSql">
+                注入NoSql <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name"></p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/%7C%7Carchive">
+              
+                  <span class="site-state-item-count">917</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">27</span>
+                  <span class="site-state-item-name">categories</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">359</span>
+                  <span class="site-state-item-name">tags</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%B3%A8%E5%85%A5SQL"><span class="nav-number">1.</span> <span class="nav-text">注入SQL</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%A9%E7%94%A8%E4%B8%80%E4%B8%AA%E5%9F%BA%E6%9C%AC%E7%9A%84%E6%BC%8F%E6%B4%9E"><span class="nav-number">1.1.</span> <span class="nav-text">利用一个基本的漏洞</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B3%A8%E5%85%A5%E4%B8%8D%E5%90%8C%E7%9A%84%E8%AF%AD%E5%8F%A5%E7%B1%BB%E5%9E%8B"><span class="nav-number">1.2.</span> <span class="nav-text">注入不同的语句类型</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#SELECT-%E8%AF%AD%E5%8F%A5"><span class="nav-number">1.2.1.</span> <span class="nav-text">SELECT 语句</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#INSERT%E8%AF%AD%E5%8F%A5"><span class="nav-number">1.2.2.</span> <span class="nav-text">INSERT语句</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#update%E8%AF%AD%E5%8F%A5"><span class="nav-number">1.2.3.</span> <span class="nav-text">update语句</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#DELETE%E8%AF%AD%E5%8F%A5"><span class="nav-number">1.2.4.</span> <span class="nav-text">DELETE语句</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9F%A5%E6%98%8ESQL%E6%B3%A8%E5%85%A5%E6%BC%8F%E6%B4%9E"><span class="nav-number">1.3.</span> <span class="nav-text">查明SQL注入漏洞</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B3%A8%E5%85%A5%E5%AD%97%E7%AC%A6%E4%B8%B2%E6%95%B0%E6%8D%AE"><span class="nav-number">1.3.1.</span> <span class="nav-text">注入字符串数据</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B3%A8%E5%85%A5%E6%95%B0%E5%AD%97%E6%95%B0%E6%8D%AE"><span class="nav-number">1.3.2.</span> <span class="nav-text">注入数字数据</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B3%A8%E5%85%A5%E6%9F%A5%E8%AF%A2%E7%BB%93%E6%9E%84"><span class="nav-number">1.3.3.</span> <span class="nav-text">注入查询结构</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E2%80%9C%E6%8C%87%E7%BA%B9%E2%80%9D%E8%AF%86%E5%88%AB%E6%95%B0%E6%8D%AE%E5%BA%93"><span class="nav-number">1.4.</span> <span class="nav-text">“指纹”识别数据库</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#UNION-%E6%93%8D%E4%BD%9C%E7%AC%A6"><span class="nav-number">1.5.</span> <span class="nav-text">UNION 操作符</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8UNION%E6%8F%90%E5%8F%96%E6%95%B0%E6%8D%AE"><span class="nav-number">1.6.</span> <span class="nav-text">使用UNION提取数据</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%81%BF%E5%BC%80%E8%BF%87%E6%BB%A4"><span class="nav-number">1.7.</span> <span class="nav-text">避开过滤</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%81%BF%E5%85%8D%E4%BD%BF%E7%94%A8%E8%A2%AB%E9%98%BB%E6%AD%A2%E7%9A%84%E5%AD%97%E7%AC%A6"><span class="nav-number">1.7.1.</span> <span class="nav-text">避免使用被阻止的字符</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%81%BF%E5%85%8D%E4%BD%BF%E7%94%A8%E7%AE%80%E5%8D%95%E7%A1%AE%E8%AE%A4"><span class="nav-number">1.7.2.</span> <span class="nav-text">避免使用简单确认</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8SQL%E6%B3%A8%E9%87%8A"><span class="nav-number">1.7.3.</span> <span class="nav-text">使用SQL注释</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%A9%E7%94%A8%E6%9C%89%E7%BC%BA%E9%99%B7%E7%9A%84%E8%BF%87%E6%BB%A4"><span class="nav-number">1.7.4.</span> <span class="nav-text">利用有缺陷的过滤</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%8C%E9%98%B6SQL%E6%B3%A8%E5%85%A5"><span class="nav-number">1.8.</span> <span class="nav-text">二阶SQL注入</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%AB%98%E7%BA%A7%E5%88%A9%E7%94%A8"><span class="nav-number">1.9.</span> <span class="nav-text">高级利用</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%8E%B7%E5%8F%96%E6%95%B0%E5%AD%97%E6%95%B0%E6%8D%AE"><span class="nav-number">1.9.1.</span> <span class="nav-text">获取数字数据</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8%E5%B8%A6%E5%A4%96%E9%80%9A%E9%81%93"><span class="nav-number">1.9.2.</span> <span class="nav-text">使用带外通道</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%89%A9%E5%A4%A7%E6%95%B0%E6%8D%AE%E5%BA%93%E6%94%BB%E5%87%BB%E8%8C%83%E5%9B%B4"><span class="nav-number">1.10.</span> <span class="nav-text">扩大数据库攻击范围</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%98%B2%E6%AD%A2SQL%E6%B3%A8%E5%85%A5"><span class="nav-number">1.11.</span> <span class="nav-text">防止SQL注入</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%83%A8%E5%88%86%E6%9C%89%E6%95%88%E7%9A%84%E9%98%B2%E5%BE%A1%E6%8E%AA%E6%96%BD"><span class="nav-number">1.11.1.</span> <span class="nav-text">部分有效的防御措施</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8F%82%E6%95%B0%E5%8C%96%E6%9F%A5%E8%AF%A2"><span class="nav-number">1.11.2.</span> <span class="nav-text">参数化查询</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B7%B1%E5%B1%82%E9%98%B2%E5%BE%A1"><span class="nav-number">1.11.3.</span> <span class="nav-text">深层防御</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">HanSi</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">Site words total count&#58;</span>
+    
+    <span title="Site words total count">657.4k</span>
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

@@ -1,0 +1,1391 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="cn">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="源码,Guava,Strings," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="Strings源码解析Strings类介绍Strings是Guava提供的一个操作String的方法类集合。功能没有apache-commons的StringUtils类强大。但这边分析的是Guava的源码，所以…… 首先，看下Strings类提供了哪些方法我们可以使用。 1234567891011public static void main(String[] args) &amp;#123;    S">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Guava源码解析-Strings源码解析">
+<meta property="og:url" content="http://huhansi.com/posts/ff19/index.html">
+<meta property="og:site_name" content="HanSi&#39;s Blog">
+<meta property="og:description" content="Strings源码解析Strings类介绍Strings是Guava提供的一个操作String的方法类集合。功能没有apache-commons的StringUtils类强大。但这边分析的是Guava的源码，所以…… 首先，看下Strings类提供了哪些方法我们可以使用。 1234567891011public static void main(String[] args) &amp;#123;    S">
+<meta property="og:locale">
+<meta property="og:image" content="https://huhansi.github.io/images/2020-08-01-code.png">
+<meta property="article:published_time" content="2020-07-31T16:00:00.000Z">
+<meta property="article:modified_time" content="2022-07-03T14:04:57.421Z">
+<meta property="article:author" content="HanSi">
+<meta property="article:tag" content="源码">
+<meta property="article:tag" content="Guava">
+<meta property="article:tag" content="Strings">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://huhansi.github.io/images/2020-08-01-code.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '',
+    scheme: 'Mist',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":true,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://huhansi.com/posts/ff19/"/>
+
+
+
+
+
+  <title>Guava源码解析-Strings源码解析 | HanSi's Blog</title>
+  
+
+
+
+
+
+
+
+
+<meta name="generator" content="Hexo 6.2.0"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="cn">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">HanSi's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            About
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            Search
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="Searching..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://huhansi.com/posts/ff19/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="HanSi's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Guava源码解析-Strings源码解析</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-08-01T00:00:00+08:00">
+                2020-08-01
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%BA%90%E7%A0%81/" itemprop="url" rel="index">
+                    <span itemprop="name">源码</span>
+                  </a>
+                </span>
+
+                
+                
+                  , 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Guava/" itemprop="url" rel="index">
+                    <span itemprop="name">Guava</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Words count in article&#58;</span>
+                
+                <span title="Words count in article">
+                  2.9k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Reading time &asymp;</span>
+                
+                <span title="Reading time">
+                  15
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="Strings源码解析"><a href="#Strings源码解析" class="headerlink" title="Strings源码解析"></a>Strings源码解析</h1><h2 id="Strings类介绍"><a href="#Strings类介绍" class="headerlink" title="Strings类介绍"></a>Strings类介绍</h2><p>Strings是Guava提供的一个操作String的方法类集合。功能没有apache-commons的StringUtils类强大。但这边分析的是Guava的源码，所以……</p>
+<p>首先，看下Strings类提供了哪些方法我们可以使用。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">    System.out.println(Strings.commonPrefix(<span class="string">&quot;aaa&quot;</span>, <span class="string">&quot;ann&quot;</span>));    <span class="comment">// Get a</span></span><br><span class="line">    System.out.println(Strings.commonSuffix(<span class="string">&quot;aaa&quot;</span>, <span class="string">&quot;bbb&quot;</span>));    <span class="comment">// Get &quot;&quot;</span></span><br><span class="line">    System.out.println(Strings.emptyToNull(<span class="string">&quot;&quot;</span>));               <span class="comment">// Get null</span></span><br><span class="line">    System.out.println(Strings.isNullOrEmpty(<span class="string">&quot;&quot;</span>));             <span class="comment">// Get true</span></span><br><span class="line">    System.out.println(Strings.lenientFormat(<span class="string">&quot;[%s]123[%s]&quot;</span>, <span class="string">&quot;abc&quot;</span>, <span class="string">&quot;def&quot;</span>));    <span class="comment">// Get [abc]123[def]</span></span><br><span class="line">    System.out.println(Strings.nullToEmpty(<span class="literal">null</span>));    <span class="comment">// Get &quot;&quot;</span></span><br><span class="line">    System.out.println(Strings.padEnd(<span class="string">&quot;abc&quot;</span>, <span class="number">5</span>, <span class="string">&#x27;*&#x27;</span>));    <span class="comment">// Get abc**</span></span><br><span class="line">    System.out.println(Strings.padStart(<span class="string">&quot;abc&quot;</span>, <span class="number">5</span>, <span class="string">&#x27;*&#x27;</span>));  <span class="comment">// Get **abc</span></span><br><span class="line">    System.out.println(Strings.repeat(<span class="string">&quot;abc&quot;</span>, <span class="number">5</span>));    <span class="comment">// Get abcabcabcabcanc</span></span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="类图"><a href="#类图" class="headerlink" title="类图"></a>类图</h2><p><img src="https://huhansi.github.io/images/2020-08-01-code.png" alt="Strings类图"></p>
+<h2 id="主要属性"><a href="#主要属性" class="headerlink" title="主要属性"></a>主要属性</h2><p>无</p>
+<h2 id="主要方法"><a href="#主要方法" class="headerlink" title="主要方法"></a>主要方法</h2><h3 id="Strings"><a href="#Strings" class="headerlink" title="Strings()"></a>Strings()</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="title function_">Strings</span><span class="params">()</span> &#123;&#125;</span><br></pre></td></tr></table></figure>
+
+<p>私有的构造函数，表明这个类不希望被实例化。</p>
+<p>Strings类也是被final字符修饰的，同样表明这个类不需要被实例化。</p>
+<h3 id="nullToEmpty"><a href="#nullToEmpty" class="headerlink" title="nullToEmpty()"></a>nullToEmpty()</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">   * Returns the given string if it is non-null; the empty string otherwise.</span></span><br><span class="line"><span class="comment">   *</span></span><br><span class="line"><span class="comment">   * <span class="doctag">@param</span> string the string to test and possibly return</span></span><br><span class="line"><span class="comment">   * <span class="doctag">@return</span> &#123;<span class="doctag">@code</span> string&#125; itself if it is non-null; &#123;<span class="doctag">@code</span> &quot;&quot;&#125; if it is null</span></span><br><span class="line"><span class="comment">   */</span></span><br><span class="line">  <span class="keyword">public</span> <span class="keyword">static</span> String <span class="title function_">nullToEmpty</span><span class="params">(<span class="meta">@Nullable</span> String string)</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> Platform.nullToEmpty(string);</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+
+<p>如果传入的字符串是null，则将它转为空字符串<code>&quot;&quot;</code>返回，否则返回原字符串。</p>
+<h4 id="Platform-nullToEmpty"><a href="#Platform-nullToEmpty" class="headerlink" title="Platform.nullToEmpty()"></a>Platform.nullToEmpty()</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">static</span> String <span class="title function_">nullToEmpty</span><span class="params">(<span class="meta">@Nullable</span> String string)</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> (string == <span class="literal">null</span>) ? <span class="string">&quot;&quot;</span> : string;</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+
+<p>静态方法，如果字符串为null，返回空字符串，否则返回原字符串。</p>
+<h3 id="isNullOrEmpty"><a href="#isNullOrEmpty" class="headerlink" title="isNullOrEmpty()"></a>isNullOrEmpty()</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">   * Returns &#123;<span class="doctag">@code</span> true&#125; if the given string is null or is the empty string.</span></span><br><span class="line"><span class="comment">   *</span></span><br><span class="line"><span class="comment">   * &lt;p&gt;Consider normalizing your string references with &#123;<span class="doctag">@link</span> #nullToEmpty&#125;. If you do, you can</span></span><br><span class="line"><span class="comment">   * use &#123;<span class="doctag">@link</span> String#isEmpty()&#125; instead of this method, and you won&#x27;t need special null-safe forms</span></span><br><span class="line"><span class="comment">   * of methods like &#123;<span class="doctag">@link</span> String#toUpperCase&#125; either. Or, if you&#x27;d like to normalize &quot;in the other</span></span><br><span class="line"><span class="comment">   * direction,&quot; converting empty strings to &#123;<span class="doctag">@code</span> null&#125;, you can use &#123;<span class="doctag">@link</span> #emptyToNull&#125;.</span></span><br><span class="line"><span class="comment">   *</span></span><br><span class="line"><span class="comment">   * <span class="doctag">@param</span> string a string reference to check</span></span><br><span class="line"><span class="comment">   * <span class="doctag">@return</span> &#123;<span class="doctag">@code</span> true&#125; if the string is null or is the empty string</span></span><br><span class="line"><span class="comment">   */</span></span><br><span class="line">  <span class="keyword">public</span> <span class="keyword">static</span> <span class="type">boolean</span> <span class="title function_">isNullOrEmpty</span><span class="params">(<span class="meta">@Nullable</span> String string)</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> Platform.stringIsNullOrEmpty(string);</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+
+<p>如果传入的字符串为null或者长度为0，返回true，否则返回false。</p>
+<h4 id="Platform-stringIsNullOrEmpty"><a href="#Platform-stringIsNullOrEmpty" class="headerlink" title="Platform.stringIsNullOrEmpty()"></a>Platform.stringIsNullOrEmpty()</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">static</span> <span class="type">boolean</span> <span class="title function_">stringIsNullOrEmpty</span><span class="params">(<span class="meta">@Nullable</span> String string)</span> &#123;</span><br><span class="line">    <span class="type">return</span> <span class="variable">string</span> <span class="operator">=</span>= <span class="literal">null</span> || string.isEmpty();</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+
+<p>如果传入的字符串为null或者长度为0，返回true，否则返回false。</p>
+<h3 id="padStart"><a href="#padStart" class="headerlink" title="padStart()"></a>padStart()</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">   * Returns a string, of length at least &#123;<span class="doctag">@code</span> minLength&#125;, consisting of &#123;<span class="doctag">@code</span> string&#125; prepended</span></span><br><span class="line"><span class="comment">   * with as many copies of &#123;<span class="doctag">@code</span> padChar&#125; as are necessary to reach that length. For example,</span></span><br><span class="line"><span class="comment">   *</span></span><br><span class="line"><span class="comment">   * &lt;ul&gt;</span></span><br><span class="line"><span class="comment">   *   &lt;li&gt;&#123;<span class="doctag">@code</span> padStart(&quot;7&quot;, 3, &#x27;0&#x27;)&#125; returns &#123;<span class="doctag">@code</span> &quot;007&quot;&#125;</span></span><br><span class="line"><span class="comment">   *   &lt;li&gt;&#123;<span class="doctag">@code</span> padStart(&quot;2010&quot;, 3, &#x27;0&#x27;)&#125; returns &#123;<span class="doctag">@code</span> &quot;2010&quot;&#125;</span></span><br><span class="line"><span class="comment">   * &lt;/ul&gt;</span></span><br><span class="line"><span class="comment">   *</span></span><br><span class="line"><span class="comment">   * &lt;p&gt;See &#123;<span class="doctag">@link</span> java.util.Formatter&#125; for a richer set of formatting capabilities.</span></span><br><span class="line"><span class="comment">   *</span></span><br><span class="line"><span class="comment">   * <span class="doctag">@param</span> string the string which should appear at the end of the result</span></span><br><span class="line"><span class="comment">   * <span class="doctag">@param</span> minLength the minimum length the resulting string must have. Can be zero or negative, in</span></span><br><span class="line"><span class="comment">   *     which case the input string is always returned.</span></span><br><span class="line"><span class="comment">   * <span class="doctag">@param</span> padChar the character to insert at the beginning of the result until the minimum length</span></span><br><span class="line"><span class="comment">   *     is reached</span></span><br><span class="line"><span class="comment">   * <span class="doctag">@return</span> the padded string</span></span><br><span class="line"><span class="comment">   */</span></span><br><span class="line">  <span class="keyword">public</span> <span class="keyword">static</span> String <span class="title function_">padStart</span><span class="params">(String string, <span class="type">int</span> minLength, <span class="type">char</span> padChar)</span> &#123;</span><br><span class="line">    checkNotNull(string); <span class="comment">// eager for GWT</span></span><br><span class="line">      <span class="comment">// 如果当前字符串的长度大于等于minLength，返回当前值富川.</span></span><br><span class="line">    <span class="keyword">if</span> (string.length() &gt;= minLength) &#123;</span><br><span class="line">      <span class="keyword">return</span> string;</span><br><span class="line">    &#125;</span><br><span class="line">      <span class="comment">// 构造string.length - minLength个前缀</span></span><br><span class="line">    <span class="type">StringBuilder</span> <span class="variable">sb</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">StringBuilder</span>(minLength);</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> string.length(); i &lt; minLength; i++) &#123;</span><br><span class="line">      sb.append(padChar);</span><br><span class="line">    &#125;</span><br><span class="line">    sb.append(string);</span><br><span class="line">    <span class="keyword">return</span> sb.toString();</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+
+<p>将一个字符串加上指定的前缀，直到长度满足指定的长度。如果当前字符串的长度已经大于等于指定的长度，则直接返回当前字符串。</p>
+<h3 id="padEnd"><a href="#padEnd" class="headerlink" title="padEnd()"></a>padEnd()</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">   * Returns a string, of length at least &#123;<span class="doctag">@code</span> minLength&#125;, consisting of &#123;<span class="doctag">@code</span> string&#125; appended</span></span><br><span class="line"><span class="comment">   * with as many copies of &#123;<span class="doctag">@code</span> padChar&#125; as are necessary to reach that length. For example,</span></span><br><span class="line"><span class="comment">   *</span></span><br><span class="line"><span class="comment">   * &lt;ul&gt;</span></span><br><span class="line"><span class="comment">   *   &lt;li&gt;&#123;<span class="doctag">@code</span> padEnd(&quot;4.&quot;, 5, &#x27;0&#x27;)&#125; returns &#123;<span class="doctag">@code</span> &quot;4.000&quot;&#125;</span></span><br><span class="line"><span class="comment">   *   &lt;li&gt;&#123;<span class="doctag">@code</span> padEnd(&quot;2010&quot;, 3, &#x27;!&#x27;)&#125; returns &#123;<span class="doctag">@code</span> &quot;2010&quot;&#125;</span></span><br><span class="line"><span class="comment">   * &lt;/ul&gt;</span></span><br><span class="line"><span class="comment">   *</span></span><br><span class="line"><span class="comment">   * &lt;p&gt;See &#123;<span class="doctag">@link</span> java.util.Formatter&#125; for a richer set of formatting capabilities.</span></span><br><span class="line"><span class="comment">   *</span></span><br><span class="line"><span class="comment">   * <span class="doctag">@param</span> string the string which should appear at the beginning of the result</span></span><br><span class="line"><span class="comment">   * <span class="doctag">@param</span> minLength the minimum length the resulting string must have. Can be zero or negative, in</span></span><br><span class="line"><span class="comment">   *     which case the input string is always returned.</span></span><br><span class="line"><span class="comment">   * <span class="doctag">@param</span> padChar the character to append to the end of the result until the minimum length is</span></span><br><span class="line"><span class="comment">   *     reached</span></span><br><span class="line"><span class="comment">   * <span class="doctag">@return</span> the padded string</span></span><br><span class="line"><span class="comment">   */</span></span><br><span class="line">  <span class="keyword">public</span> <span class="keyword">static</span> String <span class="title function_">padEnd</span><span class="params">(String string, <span class="type">int</span> minLength, <span class="type">char</span> padChar)</span> &#123;</span><br><span class="line">    checkNotNull(string); <span class="comment">// eager for GWT.</span></span><br><span class="line">    <span class="keyword">if</span> (string.length() &gt;= minLength) &#123;</span><br><span class="line">      <span class="keyword">return</span> string;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="type">StringBuilder</span> <span class="variable">sb</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">StringBuilder</span>(minLength);</span><br><span class="line">    sb.append(string);</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> string.length(); i &lt; minLength; i++) &#123;</span><br><span class="line">      sb.append(padChar);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> sb.toString();</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+
+<p>将一个字符串加上指定的后缀，直到长度满足指定的长度。如果当前字符串的长度已经大于等于指定的长度，则直接返回当前字符串。</p>
+<h3 id="repeat"><a href="#repeat" class="headerlink" title="repeat"></a>repeat</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">   * Returns a string consisting of a specific number of concatenated copies of an input string. For</span></span><br><span class="line"><span class="comment">   * example, &#123;<span class="doctag">@code</span> repeat(&quot;hey&quot;, 3)&#125; returns the string &#123;<span class="doctag">@code</span> &quot;heyheyhey&quot;&#125;.</span></span><br><span class="line"><span class="comment">   *</span></span><br><span class="line"><span class="comment">   * <span class="doctag">@param</span> string any non-null string</span></span><br><span class="line"><span class="comment">   * <span class="doctag">@param</span> count the number of times to repeat it; a nonnegative integer</span></span><br><span class="line"><span class="comment">   * <span class="doctag">@return</span> a string containing &#123;<span class="doctag">@code</span> string&#125; repeated &#123;<span class="doctag">@code</span> count&#125; times (the empty string if</span></span><br><span class="line"><span class="comment">   *     &#123;<span class="doctag">@code</span> count&#125; is zero)</span></span><br><span class="line"><span class="comment">   * <span class="doctag">@throws</span> IllegalArgumentException if &#123;<span class="doctag">@code</span> count&#125; is negative</span></span><br><span class="line"><span class="comment">   */</span></span><br><span class="line">  <span class="keyword">public</span> <span class="keyword">static</span> String <span class="title function_">repeat</span><span class="params">(String string, <span class="type">int</span> count)</span> &#123;</span><br><span class="line">    checkNotNull(string); <span class="comment">// eager for GWT.</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (count &lt;= <span class="number">1</span>) &#123;</span><br><span class="line">      checkArgument(count &gt;= <span class="number">0</span>, <span class="string">&quot;invalid count: %s&quot;</span>, count);</span><br><span class="line">      <span class="keyword">return</span> (count == <span class="number">0</span>) ? <span class="string">&quot;&quot;</span> : string;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// IF YOU MODIFY THE CODE HERE, you must update StringsRepeatBenchmark</span></span><br><span class="line">    <span class="keyword">final</span> <span class="type">int</span> <span class="variable">len</span> <span class="operator">=</span> string.length();</span><br><span class="line">    <span class="keyword">final</span> <span class="type">long</span> <span class="variable">longSize</span> <span class="operator">=</span> (<span class="type">long</span>) len * (<span class="type">long</span>) count;</span><br><span class="line">    <span class="keyword">final</span> <span class="type">int</span> <span class="variable">size</span> <span class="operator">=</span> (<span class="type">int</span>) longSize;</span><br><span class="line">    <span class="keyword">if</span> (size != longSize) &#123;</span><br><span class="line">      <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">ArrayIndexOutOfBoundsException</span>(<span class="string">&quot;Required array size too large: &quot;</span> + longSize);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">final</span> <span class="type">char</span>[] array = <span class="keyword">new</span> <span class="title class_">char</span>[size];</span><br><span class="line">    string.getChars(<span class="number">0</span>, len, array, <span class="number">0</span>);</span><br><span class="line">    <span class="type">int</span> n;</span><br><span class="line">    <span class="keyword">for</span> (n = len; n &lt; size - n; n &lt;&lt;= <span class="number">1</span>) &#123;</span><br><span class="line">      System.arraycopy(array, <span class="number">0</span>, array, n, n);</span><br><span class="line">    &#125;</span><br><span class="line">    System.arraycopy(array, <span class="number">0</span>, array, n, size - n);</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">String</span>(array);</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+
+<p>将一个字符串重复指定的次数返回。</p>
+<p>以字符串<code>abc</code>为例，假设我们需要重复它5次。</p>
+<p>初始化时：len &#x3D; 3；longSize &#x3D; 3 * 5 &#x3D; 15;array &#x3D; new char[15];</p>
+<table>
+<thead>
+<tr>
+<th>0</th>
+<th>1</th>
+<th>2</th>
+<th>3</th>
+<th>4</th>
+<th>5</th>
+<th>6</th>
+<th>7</th>
+<th>8</th>
+<th>9</th>
+<th>10</th>
+<th>11</th>
+<th>12</th>
+<th>13</th>
+<th>14</th>
+</tr>
+</thead>
+<tbody><tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+<p>执行到代码28行。string.getChars(0,len,array,n,n);方法将字符串<code>abc</code>拷贝到数组的起始位置，此时数组为：</p>
+<table>
+<thead>
+<tr>
+<th>0</th>
+<th>1</th>
+<th>2</th>
+<th>3</th>
+<th>4</th>
+<th>5</th>
+<th>6</th>
+<th>7</th>
+<th>8</th>
+<th>9</th>
+<th>10</th>
+<th>11</th>
+<th>12</th>
+<th>13</th>
+<th>14</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>a</td>
+<td>b</td>
+<td>c</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+<p>进入30行的循环时，n &#x3D; 3, size - n &#x3D; 12，执行数组拷贝，此时数组为</p>
+<table>
+<thead>
+<tr>
+<th>0</th>
+<th>1</th>
+<th>2</th>
+<th>3</th>
+<th>4</th>
+<th>5</th>
+<th>6</th>
+<th>7</th>
+<th>8</th>
+<th>9</th>
+<th>10</th>
+<th>11</th>
+<th>12</th>
+<th>13</th>
+<th>14</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>a</td>
+<td>b</td>
+<td>c</td>
+<td>a</td>
+<td>b</td>
+<td>c</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+<p>因为n &#x3D; 6 &lt; (size - n &#x3D; 9)，所以会在执行一次数组拷贝，此时要在位置6处，从数组array的头部，拷贝6个元素（n &lt;&lt;&#x3D; 1的结果为3 × 2，左移）。此时数组为：</p>
+<table>
+<thead>
+<tr>
+<th>0</th>
+<th>1</th>
+<th>2</th>
+<th>3</th>
+<th>4</th>
+<th>5</th>
+<th>6</th>
+<th>7</th>
+<th>8</th>
+<th>9</th>
+<th>10</th>
+<th>11</th>
+<th>12</th>
+<th>13</th>
+<th>14</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>a</td>
+<td>b</td>
+<td>c</td>
+<td>a</td>
+<td>b</td>
+<td>c</td>
+<td>a</td>
+<td>b</td>
+<td>c</td>
+<td>a</td>
+<td>b</td>
+<td>c</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+<p>此时n &#x3D; 12 &gt; (size - 12 &#x3D; 3)，跳出循环。</p>
+<p>最后在33行，执行拷贝，将位置12-14填充。得到：</p>
+<table>
+<thead>
+<tr>
+<th>0</th>
+<th>1</th>
+<th>2</th>
+<th>3</th>
+<th>4</th>
+<th>5</th>
+<th>6</th>
+<th>7</th>
+<th>8</th>
+<th>9</th>
+<th>10</th>
+<th>11</th>
+<th>12</th>
+<th>13</th>
+<th>14</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>a</td>
+<td>b</td>
+<td>c</td>
+<td>a</td>
+<td>b</td>
+<td>c</td>
+<td>a</td>
+<td>b</td>
+<td>c</td>
+<td>a</td>
+<td>b</td>
+<td>c</td>
+<td>a</td>
+<td>b</td>
+<td>c</td>
+</tr>
+</tbody></table>
+<h3 id="commonPrefix"><a href="#commonPrefix" class="headerlink" title="commonPrefix()"></a>commonPrefix()</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">   * Returns the longest string &#123;<span class="doctag">@code</span> prefix&#125; such that &#123;<span class="doctag">@code</span> a.toString().startsWith(prefix) &amp;&amp;</span></span><br><span class="line"><span class="comment">   * b.toString().startsWith(prefix)&#125;, taking care not to split surrogate pairs. If &#123;<span class="doctag">@code</span> a&#125; and</span></span><br><span class="line"><span class="comment">   * &#123;<span class="doctag">@code</span> b&#125; have no common prefix, returns the empty string.</span></span><br><span class="line"><span class="comment">   *</span></span><br><span class="line"><span class="comment">   * <span class="doctag">@since</span> 11.0</span></span><br><span class="line"><span class="comment">   */</span></span><br><span class="line">  <span class="keyword">public</span> <span class="keyword">static</span> String <span class="title function_">commonPrefix</span><span class="params">(CharSequence a, CharSequence b)</span> &#123;</span><br><span class="line">    checkNotNull(a);</span><br><span class="line">    checkNotNull(b);</span><br><span class="line"></span><br><span class="line">    <span class="type">int</span> <span class="variable">maxPrefixLength</span> <span class="operator">=</span> Math.min(a.length(), b.length());</span><br><span class="line">    <span class="type">int</span> <span class="variable">p</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">while</span> (p &lt; maxPrefixLength &amp;&amp; a.charAt(p) == b.charAt(p)) &#123;</span><br><span class="line">      p++;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (validSurrogatePairAt(a, p - <span class="number">1</span>) || validSurrogatePairAt(b, p - <span class="number">1</span>)) &#123;</span><br><span class="line">      p--;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> a.subSequence(<span class="number">0</span>, p).toString();</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+
+<p>寻找两个字符串的公共前缀。</p>
+<h4 id="validSurrogatePairAt"><a href="#validSurrogatePairAt" class="headerlink" title="validSurrogatePairAt()"></a>validSurrogatePairAt()</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">   * True when a valid surrogate pair starts at the given &#123;<span class="doctag">@code</span> index&#125; in the given &#123;<span class="doctag">@code</span> string&#125;.</span></span><br><span class="line"><span class="comment">   * Out-of-range indexes return false.</span></span><br><span class="line"><span class="comment">   */</span></span><br><span class="line">  <span class="meta">@VisibleForTesting</span></span><br><span class="line">  <span class="keyword">static</span> <span class="type">boolean</span> <span class="title function_">validSurrogatePairAt</span><span class="params">(CharSequence string, <span class="type">int</span> index)</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> index &gt;= <span class="number">0</span></span><br><span class="line">        &amp;&amp; index &lt;= (string.length() - <span class="number">2</span>)</span><br><span class="line">        &amp;&amp; Character.isHighSurrogate(string.charAt(index))</span><br><span class="line">        &amp;&amp; Character.isLowSurrogate(string.charAt(index + <span class="number">1</span>));</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+
+<p>众所周知java采用UTF-16编码unicode字符集。UTF-16使用使用一个16位单元（两字节）或者两个16为单元表示一个unicode字符。使用两个单元的，前面那个单元叫highsurrogate 后面那个叫lowsurrogate。而char只占一个16位单元（两字节），在判断的时候使用的char来进行的比较。所以最后一个字符是占4字节的字符的时候会出现highsurrogate 相同，lowsurrogate不同，非同一个单元对，这就表明不是一个相同的字符。所以公共前缀的长度需要减一。</p>
+<h3 id="commonSuffix"><a href="#commonSuffix" class="headerlink" title="commonSuffix()"></a>commonSuffix()</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">   * Returns the longest string &#123;<span class="doctag">@code</span> suffix&#125; such that &#123;<span class="doctag">@code</span> a.toString().endsWith(suffix) &amp;&amp;</span></span><br><span class="line"><span class="comment">   * b.toString().endsWith(suffix)&#125;, taking care not to split surrogate pairs. If &#123;<span class="doctag">@code</span> a&#125; and</span></span><br><span class="line"><span class="comment">   * &#123;<span class="doctag">@code</span> b&#125; have no common suffix, returns the empty string.</span></span><br><span class="line"><span class="comment">   *</span></span><br><span class="line"><span class="comment">   * <span class="doctag">@since</span> 11.0</span></span><br><span class="line"><span class="comment">   */</span></span><br><span class="line">  <span class="keyword">public</span> <span class="keyword">static</span> String <span class="title function_">commonSuffix</span><span class="params">(CharSequence a, CharSequence b)</span> &#123;</span><br><span class="line">    checkNotNull(a);</span><br><span class="line">    checkNotNull(b);</span><br><span class="line"></span><br><span class="line">    <span class="type">int</span> <span class="variable">maxSuffixLength</span> <span class="operator">=</span> Math.min(a.length(), b.length());</span><br><span class="line">    <span class="type">int</span> <span class="variable">s</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">while</span> (s &lt; maxSuffixLength &amp;&amp; a.charAt(a.length() - s - <span class="number">1</span>) == b.charAt(b.length() - s - <span class="number">1</span>)) &#123;</span><br><span class="line">      s++;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (validSurrogatePairAt(a, a.length() - s - <span class="number">1</span>)</span><br><span class="line">        || validSurrogatePairAt(b, b.length() - s - <span class="number">1</span>)) &#123;</span><br><span class="line">      s--;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> a.subSequence(a.length() - s, a.length()).toString();</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+
+<p>寻找两个字符串的公共后缀。</p>
+<h3 id=""><a href="#" class="headerlink" title=""></a></h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">   * Returns the given &#123;<span class="doctag">@code</span> template&#125; string with each occurrence of &#123;<span class="doctag">@code</span> &quot;%s&quot;&#125; replaced with</span></span><br><span class="line"><span class="comment">   * the corresponding argument value from &#123;<span class="doctag">@code</span> args&#125;; or, if the placeholder and argument counts</span></span><br><span class="line"><span class="comment">   * do not match, returns a best-effort form of that string. Will not throw an exception under</span></span><br><span class="line"><span class="comment">   * normal conditions.</span></span><br><span class="line"><span class="comment">   *</span></span><br><span class="line"><span class="comment">   * &lt;p&gt;&lt;b&gt;Note:&lt;/b&gt; For most string-formatting needs, use &#123;<span class="doctag">@link</span> String#format String.format&#125;,</span></span><br><span class="line"><span class="comment">   * &#123;<span class="doctag">@link</span> java.io.PrintWriter#format PrintWriter.format&#125;, and related methods. These support the</span></span><br><span class="line"><span class="comment">   * full range of &lt;a</span></span><br><span class="line"><span class="comment">   * href=&quot;https://docs.oracle.com/javase/9/docs/api/java/util/Formatter.html#syntax&quot;&gt;format</span></span><br><span class="line"><span class="comment">   * specifiers&lt;/a&gt;, and alert you to usage errors by throwing &#123;<span class="doctag">@link</span></span></span><br><span class="line"><span class="comment">   * java.util.IllegalFormatException&#125;.</span></span><br><span class="line"><span class="comment">   *</span></span><br><span class="line"><span class="comment">   * &lt;p&gt;In certain cases, such as outputting debugging information or constructing a message to be</span></span><br><span class="line"><span class="comment">   * used for another unchecked exception, an exception during string formatting would serve little</span></span><br><span class="line"><span class="comment">   * purpose except to supplant the real information you were trying to provide. These are the cases</span></span><br><span class="line"><span class="comment">   * this method is made for; it instead generates a best-effort string with all supplied argument</span></span><br><span class="line"><span class="comment">   * values present. This method is also useful in environments such as GWT where &#123;<span class="doctag">@code</span></span></span><br><span class="line"><span class="comment">   * String.format&#125; is not available. As an example, method implementations of the &#123;<span class="doctag">@link</span></span></span><br><span class="line"><span class="comment">   * Preconditions&#125; class use this formatter, for both of the reasons just discussed.</span></span><br><span class="line"><span class="comment">   *</span></span><br><span class="line"><span class="comment">   * &lt;p&gt;&lt;b&gt;Warning:&lt;/b&gt; Only the exact two-character placeholder sequence &#123;<span class="doctag">@code</span> &quot;%s&quot;&#125; is</span></span><br><span class="line"><span class="comment">   * recognized.</span></span><br><span class="line"><span class="comment">   *</span></span><br><span class="line"><span class="comment">   * <span class="doctag">@param</span> template a string containing zero or more &#123;<span class="doctag">@code</span> &quot;%s&quot;&#125; placeholder sequences. &#123;<span class="doctag">@code</span></span></span><br><span class="line"><span class="comment">   *     null&#125; is treated as the four-character string &#123;<span class="doctag">@code</span> &quot;null&quot;&#125;.</span></span><br><span class="line"><span class="comment">   * <span class="doctag">@param</span> args the arguments to be substituted into the message template. The first argument</span></span><br><span class="line"><span class="comment">   *     specified is substituted for the first occurrence of &#123;<span class="doctag">@code</span> &quot;%s&quot;&#125; in the template, and so</span></span><br><span class="line"><span class="comment">   *     forth. A &#123;<span class="doctag">@code</span> null&#125; argument is converted to the four-character string &#123;<span class="doctag">@code</span> &quot;null&quot;&#125;;</span></span><br><span class="line"><span class="comment">   *     non-null values are converted to strings using &#123;<span class="doctag">@link</span> Object#toString()&#125;.</span></span><br><span class="line"><span class="comment">   * <span class="doctag">@since</span> 25.1</span></span><br><span class="line"><span class="comment">   */</span></span><br><span class="line">  <span class="comment">// TODO(diamondm) consider using Arrays.toString() for array parameters</span></span><br><span class="line">  <span class="keyword">public</span> <span class="keyword">static</span> String <span class="title function_">lenientFormat</span><span class="params">(</span></span><br><span class="line"><span class="params">      <span class="meta">@Nullable</span> String template, <span class="meta">@Nullable</span> Object <span class="meta">@Nullable</span> ... args)</span> &#123;</span><br><span class="line">    template = String.valueOf(template); <span class="comment">// null -&gt; &quot;null&quot;</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (args == <span class="literal">null</span>) &#123;</span><br><span class="line">      args = <span class="keyword">new</span> <span class="title class_">Object</span>[] &#123;<span class="string">&quot;(Object[])null&quot;</span>&#125;;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; args.length; i++) &#123;</span><br><span class="line">        args[i] = lenientToString(args[i]);</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// start substituting the arguments into the &#x27;%s&#x27; placeholders</span></span><br><span class="line">    <span class="type">StringBuilder</span> <span class="variable">builder</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">StringBuilder</span>(template.length() + <span class="number">16</span> * args.length);</span><br><span class="line">    <span class="type">int</span> <span class="variable">templateStart</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line">    <span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">while</span> (i &lt; args.length) &#123;</span><br><span class="line">      <span class="type">int</span> <span class="variable">placeholderStart</span> <span class="operator">=</span> template.indexOf(<span class="string">&quot;%s&quot;</span>, templateStart);</span><br><span class="line">      <span class="keyword">if</span> (placeholderStart == -<span class="number">1</span>) &#123;</span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line">      &#125;</span><br><span class="line">      builder.append(template, templateStart, placeholderStart);</span><br><span class="line">      builder.append(args[i++]);</span><br><span class="line">      templateStart = placeholderStart + <span class="number">2</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    builder.append(template, templateStart, template.length());</span><br><span class="line"></span><br><span class="line">    <span class="comment">// if we run out of placeholders, append the extra args in square braces</span></span><br><span class="line">    <span class="keyword">if</span> (i &lt; args.length) &#123;</span><br><span class="line">      builder.append(<span class="string">&quot; [&quot;</span>);</span><br><span class="line">      builder.append(args[i++]);</span><br><span class="line">      <span class="keyword">while</span> (i &lt; args.length) &#123;</span><br><span class="line">        builder.append(<span class="string">&quot;, &quot;</span>);</span><br><span class="line">        builder.append(args[i++]);</span><br><span class="line">      &#125;</span><br><span class="line">      builder.append(<span class="string">&#x27;]&#x27;</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> builder.toString();</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+
+<p>向模式串中的%s处按序插入目标对象。如果%s不够的话，该方法会尽最大可能的返回合理的结果，而不是和JDK提供的方法一样抛出异常。</p>
+<h3 id="lenientToString"><a href="#lenientToString" class="headerlink" title="lenientToString()"></a>lenientToString()</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> String <span class="title function_">lenientToString</span><span class="params">(<span class="meta">@Nullable</span> Object o)</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (o == <span class="literal">null</span>) &#123;</span><br><span class="line">      <span class="keyword">return</span> <span class="string">&quot;null&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">      <span class="keyword">return</span> o.toString();</span><br><span class="line">    &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">      <span class="comment">// Default toString() behavior - see Object.toString()</span></span><br><span class="line">      <span class="type">String</span> <span class="variable">objectToString</span> <span class="operator">=</span></span><br><span class="line">          o.getClass().getName() + <span class="string">&#x27;@&#x27;</span> + Integer.toHexString(System.identityHashCode(o));</span><br><span class="line">      <span class="comment">// Logger is created inline with fixed name to avoid forcing Proguard to create another class.</span></span><br><span class="line">      Logger.getLogger(<span class="string">&quot;com.google.common.base.Strings&quot;</span>)</span><br><span class="line">          .log(WARNING, <span class="string">&quot;Exception during lenientFormat for &quot;</span> + objectToString, e);</span><br><span class="line">      <span class="keyword">return</span> <span class="string">&quot;&lt;&quot;</span> + objectToString + <span class="string">&quot; threw &quot;</span> + e.getClass().getName() + <span class="string">&quot;&gt;&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+
+<p>讲一个对象转为String返回。</p>
+<p>如果该对象为null，返回字符串形式的null。否则调用该对象的toString方法。如果调用出异常的话，就返回该对象的HashCode。类名+‘@’+此对象的哈希码。</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/%E6%BA%90%E7%A0%81/" rel="tag"># 源码</a>
+          
+            <a href="/tags/Guava/" rel="tag"># Guava</a>
+          
+            <a href="/tags/Strings/" rel="tag"># Strings</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/posts/8d63/" rel="next" title="Guava源码解析-Guava中的注解">
+                <i class="fa fa-chevron-left"></i> Guava源码解析-Guava中的注解
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/posts/20aa/" rel="prev" title="Guava源码解析-Spliter源码解析">
+                Guava源码解析-Spliter源码解析 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name"></p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/%7C%7Carchive">
+              
+                  <span class="site-state-item-count">917</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">27</span>
+                  <span class="site-state-item-name">categories</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">359</span>
+                  <span class="site-state-item-name">tags</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Strings%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90"><span class="nav-number">1.</span> <span class="nav-text">Strings源码解析</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Strings%E7%B1%BB%E4%BB%8B%E7%BB%8D"><span class="nav-number">1.1.</span> <span class="nav-text">Strings类介绍</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%B1%BB%E5%9B%BE"><span class="nav-number">1.2.</span> <span class="nav-text">类图</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%BB%E8%A6%81%E5%B1%9E%E6%80%A7"><span class="nav-number">1.3.</span> <span class="nav-text">主要属性</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%BB%E8%A6%81%E6%96%B9%E6%B3%95"><span class="nav-number">1.4.</span> <span class="nav-text">主要方法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Strings"><span class="nav-number">1.4.1.</span> <span class="nav-text">Strings()</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#nullToEmpty"><span class="nav-number">1.4.2.</span> <span class="nav-text">nullToEmpty()</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Platform-nullToEmpty"><span class="nav-number">1.4.2.1.</span> <span class="nav-text">Platform.nullToEmpty()</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#isNullOrEmpty"><span class="nav-number">1.4.3.</span> <span class="nav-text">isNullOrEmpty()</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Platform-stringIsNullOrEmpty"><span class="nav-number">1.4.3.1.</span> <span class="nav-text">Platform.stringIsNullOrEmpty()</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#padStart"><span class="nav-number">1.4.4.</span> <span class="nav-text">padStart()</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#padEnd"><span class="nav-number">1.4.5.</span> <span class="nav-text">padEnd()</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#repeat"><span class="nav-number">1.4.6.</span> <span class="nav-text">repeat</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#commonPrefix"><span class="nav-number">1.4.7.</span> <span class="nav-text">commonPrefix()</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#validSurrogatePairAt"><span class="nav-number">1.4.7.1.</span> <span class="nav-text">validSurrogatePairAt()</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#commonSuffix"><span class="nav-number">1.4.8.</span> <span class="nav-text">commonSuffix()</span></a></li><li class="nav-item nav-level-3"><a class="nav-link"><span class="nav-number">1.4.9.</span> <span class="nav-text"></span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#lenientToString"><span class="nav-number">1.4.10.</span> <span class="nav-text">lenientToString()</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">HanSi</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">Site words total count&#58;</span>
+    
+    <span title="Site words total count">657.4k</span>
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

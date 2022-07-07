@@ -1,0 +1,1340 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="cn">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="分布式事务,CAP,BASE,DTS,两阶段提交,三阶段提交,TCC,本地消息表,MQ事务,Saga事务," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="分布式事务入门什么是分布式事务要理解分布式事务，先看看什么是事务？ 事务是指是程序中一系列严密的逻辑操作，而且所有操作必须全部成功完成，否则在每个操作中所作的所有更改都会被撤消。可以通俗理解为 （ALL OR NOTHING）：就是把多件事情当做一件事情来处理，好比大家同在一条船上，要活一起活，要完一起完 。 而随着微服务、SOA等服务架构大规模普及，一个单体应用往往被拆分成N个不同的微服务。这时">
+<meta property="og:type" content="article">
+<meta property="og:title" content="分布式事务入门">
+<meta property="og:url" content="http://huhansi.com/posts/7680/index.html">
+<meta property="og:site_name" content="HanSi&#39;s Blog">
+<meta property="og:description" content="分布式事务入门什么是分布式事务要理解分布式事务，先看看什么是事务？ 事务是指是程序中一系列严密的逻辑操作，而且所有操作必须全部成功完成，否则在每个操作中所作的所有更改都会被撤消。可以通俗理解为 （ALL OR NOTHING）：就是把多件事情当做一件事情来处理，好比大家同在一条船上，要活一起活，要完一起完 。 而随着微服务、SOA等服务架构大规模普及，一个单体应用往往被拆分成N个不同的微服务。这时">
+<meta property="og:locale">
+<meta property="og:image" content="https://huhansi.github.io/images/2020-04-11-multi-service.png">
+<meta property="og:image" content="https://huhansi.github.io/images/2020-04-11-multi-resource.png">
+<meta property="og:image" content="https://huhansi.github.io/images/2020-04-11-cap.png">
+<meta property="og:image" content="https://huhansi.github.io/images/2020-04-11-2pc1.png">
+<meta property="og:image" content="https://huhansi.github.io/images/2020-04-11-2pc3.png">
+<meta property="og:image" content="https://huhansi.github.io/images/2020-04-11-2pc2.png">
+<meta property="og:image" content="https://huhansi.github.io/images/2020-04-11-3pc1.png">
+<meta property="og:image" content="https://huhansi.github.io/images/2020-04-11-3pc2.png">
+<meta property="og:image" content="https://huhansi.github.io/images/2020-04-11-3pc3.png">
+<meta property="og:image" content="https://huhansi.github.io/images/2020-04-11-3pc4.png">
+<meta property="og:image" content="https://huhansi.github.io/images/2020-04-11-3pc5.png">
+<meta property="og:image" content="https://huhansi.github.io/images/2020-04-11-local-message.png">
+<meta property="og:image" content="https://huhansi.github.io/images/2020-04-11-local-message.png">
+<meta property="og:image" content="https://huhansi.github.io/images/2020-04-12-mq-transaction.png">
+<meta property="og:image" content="https://huhansi.github.io/images/2020-04-12-mq-transaction1.png">
+<meta property="og:image" content="https://huhansi.github.io/images/2020-04-12-saga.png">
+<meta property="og:image" content="https://huhansi.github.io/images/2020-04-12-saga1.png">
+<meta property="og:image" content="https://huhansi.github.io/images/2020-04-12-saga2.png">
+<meta property="og:image" content="https://huhansi.github.io/images/2020-04-12-saga3.png">
+<meta property="og:image" content="https://huhansi.github.io/images/2020-04-12-saga4.png">
+<meta property="article:published_time" content="2020-04-11T16:00:00.000Z">
+<meta property="article:modified_time" content="2022-07-03T14:04:55.872Z">
+<meta property="article:author" content="HanSi">
+<meta property="article:tag" content="分布式事务">
+<meta property="article:tag" content="CAP">
+<meta property="article:tag" content="BASE">
+<meta property="article:tag" content="DTS">
+<meta property="article:tag" content="两阶段提交">
+<meta property="article:tag" content="三阶段提交">
+<meta property="article:tag" content="TCC">
+<meta property="article:tag" content="本地消息表">
+<meta property="article:tag" content="MQ事务">
+<meta property="article:tag" content="Saga事务">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://huhansi.github.io/images/2020-04-11-multi-service.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '',
+    scheme: 'Mist',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":true,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://huhansi.com/posts/7680/"/>
+
+
+
+
+
+  <title>分布式事务入门 | HanSi's Blog</title>
+  
+
+
+
+
+
+
+
+
+<meta name="generator" content="Hexo 6.2.0"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="cn">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">HanSi's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            About
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            Search
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="Searching..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://huhansi.com/posts/7680/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="HanSi's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">分布式事务入门</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-04-12T00:00:00+08:00">
+                2020-04-12
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%88%86%E5%B8%83%E5%BC%8F/" itemprop="url" rel="index">
+                    <span itemprop="name">分布式</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Words count in article&#58;</span>
+                
+                <span title="Words count in article">
+                  6.2k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Reading time &asymp;</span>
+                
+                <span title="Reading time">
+                  20
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="分布式事务入门"><a href="#分布式事务入门" class="headerlink" title="分布式事务入门"></a>分布式事务入门</h1><h2 id="什么是分布式事务"><a href="#什么是分布式事务" class="headerlink" title="什么是分布式事务"></a>什么是分布式事务</h2><p>要理解分布式事务，先看看什么是事务？</p>
+<p>事务是指是程序中一系列严密的逻辑操作，而且所有操作必须全部成功完成，否则在每个操作中所作的所有更改都会被撤消。可以通俗理解为 （ALL OR NOTHING）：就是把多件事情当做一件事情来处理，好比大家同在一条船上，要活一起活，要完一起完 。</p>
+<p>而随着微服务、SOA等服务架构大规模普及，一个单体应用往往被拆分成N个不同的微服务。这时候本来是本地数据库的一致性就演变成为了不同服务之间不同数据库之间的一致性。又或者是相同服务之前的不同数据库（分库）之间的一致性。</p>
+<p><img src="https://huhansi.github.io/images/2020-04-11-multi-service.png" alt="不同服务之间不同数据库产生的分布式事务"></p>
+<p>必须要保证积分、优惠券、余额同时扣减成功。</p>
+<p><img src="https://huhansi.github.io/images/2020-04-11-multi-resource.png" alt="相同服务之间不同数据库产生的分布式事务"></p>
+<p>扣款和增款必须同时成功</p>
+<p>分布式事务就是要保证上述两种不同数据库之间的一致性而产生的。分布式事务是指事务的参与者、支持事务的服务器、资源服务器以及事务管理器分别位于不同的分布式系统的不同节点之上。</p>
+<h2 id="分布式系统的一致性问题"><a href="#分布式系统的一致性问题" class="headerlink" title="分布式系统的一致性问题"></a>分布式系统的一致性问题</h2><p>下面举几个例子说一下常见的系统存在的哪些不一致的问题。</p>
+<h3 id="下订单和扣库存"><a href="#下订单和扣库存" class="headerlink" title="下订单和扣库存"></a>下订单和扣库存</h3><p>电商系统中有一个经典的案例，即下订单和扣库存如何保持一致。如果先下订单，，扣库存失败，那么就会导致超卖；如果下订单不成功，扣库存成功，就会导致少卖。</p>
+<h3 id="同步调用超时"><a href="#同步调用超时" class="headerlink" title="同步调用超时"></a>同步调用超时</h3><p>服务化的系统间调用常常因为网络问题导致系统间调用超时，即使是网络状况很好的机房在亿次流量的基数下，同步调用超时也是家常便饭。系统A同步调用系统B超时，系统A可以明确导致超市反馈，但是无法确定系统B是否已经完成了预设的功能。于是，系统A不知道应该继续做什么，如何反馈给使用方。</p>
+<h3 id="异步回调超时"><a href="#异步回调超时" class="headerlink" title="异步回调超时"></a>异步回调超时</h3><p>此案例和上一个同步超时的案例类似，不过这是一个受理模式的场景，使用了异步回调返回处理结果，系统A同步调用系统B发起指令，系统B采用受理模式，受理后则返回成功信息，然后系统B处理后异步通知系统A处理结果。在这个过程中，如果系统A由于某种原因迟迟没有收到回调结果，那么这两个系统间的状态就不一致，互相认知的状态不同会导致系统间发生错误，在严重情况下会影响核心链路上的交易的状态准确性，甚至会导致资金损失。</p>
+<h3 id="掉单"><a href="#掉单" class="headerlink" title="掉单"></a>掉单</h3><p>在分布式系统中，两个系统写作处理一个流程，分别为对方的上下游，如果一个系统中存在一个请求（通常指订单），另一个系统不存在，则会导致掉单，掉单的后果很严重，有时也会导致资金损失。</p>
+<h3 id="系统间状态不一致"><a href="#系统间状态不一致" class="headerlink" title="系统间状态不一致"></a>系统间状态不一致</h3><p>此案例与上面掉单的案例类似，不同的是两个系统间都存在请求，但请求的状态不一致。</p>
+<h3 id="缓存和数据库不一致"><a href="#缓存和数据库不一致" class="headerlink" title="缓存和数据库不一致"></a>缓存和数据库不一致</h3><p>缓存和数据库之间的数据如何保持一致性？是要保持强一致性还是弱一致性。</p>
+<h3 id="本地缓存节点间不一致"><a href="#本地缓存节点间不一致" class="headerlink" title="本地缓存节点间不一致"></a>本地缓存节点间不一致</h3><p>一个服务池上的多个节点为了满足较高的性能需求，需要使用本地缓存，这样每个节点都会有一份缓存数据的复制，如果这些数据是静态的，不变的，就永远不会有问题，但是如果这些数据时半静态的或者经常被更新的，则被更新时各个节点的更新是有先后顺序的，在更新的瞬间，在某个时间窗内各个节点的数据时不一致的，如果这些数据视为某个开关服务的，则想象一下重复的请求进入了不同的节点，一个请求进入了开关打开的逻辑，同时另一个进入了开关关闭的逻辑，会导致请求被处理两次，最坏的情况是导致资金损失。</p>
+<h3 id="缓存数据结构不一致"><a href="#缓存数据结构不一致" class="headerlink" title="缓存数据结构不一致"></a>缓存数据结构不一致</h3><p>某系统需要在缓存中暂存某种类型的数据，该数据由多个数据元素组成，其中，某个数据元素需要从数据库或者服务中获取，如果一部分数据元素获取失败，则由于程序处理不正确，仍然将不完成的数据存入缓存中，在缓存使用者使用时很有可能因为数据的不完全而抛出异常，例如NullPointerException等，然后可能因为没有合理处理异常而导致程序出错。</p>
+<h2 id="分布式事务的理论基础"><a href="#分布式事务的理论基础" class="headerlink" title="分布式事务的理论基础"></a>分布式事务的理论基础</h2><h3 id="CAP"><a href="#CAP" class="headerlink" title="CAP"></a>CAP</h3><p><img src="https://huhansi.github.io/images/2020-04-11-cap.png" alt="CAP定理"></p>
+<p>CAP定理，又被称为布鲁尔定理，是分布式计算领域公认的一个定理。</p>
+<ul>
+<li>C：Consistency，一致性。在分布式系统中的所有数据备份，在同一时刻，具有同样的值，所有节点在同一时刻读取的数据都是最新的数据副本。</li>
+<li>A：Availability，可用性，好的响应性能。完全的可用性指的是在任何故障模型下，服务都会在有限的时间内处理完成并进行响应</li>
+<li>P：Partition tolerance，分区容忍性。尽管网络上有部分消息丢失，但系统仍然可以继续工作。</li>
+</ul>
+<p>CAP原理证明，任何分布式系统只可同时满足以上两点，另外一个必须被牺牲。分布式的服务化系统都需要满足分区容忍性，那么只能选择CP（一致性+分区容忍性）或者AP（可用性+分区容忍性）这两个，而不能选择AC（可用性+一致性）。</p>
+<p>如果在网络上有消息丢失，就出现了网络分区，复制操作可能会被延后，这时候，如果我们选择等待复制完成再返回，则可能导致有限的时间内无法响应，失去了可用性；二如果选择不等待复制完成，在主分片写完后立即返回，则具备了可用性，但失去了一致性。</p>
+<h3 id="BASE"><a href="#BASE" class="headerlink" title="BASE"></a>BASE</h3><p>BASE思想解决了CAP提出的分布式系统的一致性和可用性不可兼得的问题。BASE思想和ACID原理截然不同，它满足CAP原理，通过牺牲强一致性获得可用性，一般应用于服务化系统的应用层或者大数据处理系统中，通过达到最终一致性来尽量满足业务的绝大多数需求。</p>
+<p>BASE模型包含如下三个元素：</p>
+<ul>
+<li>BA：Basically Available，基本可用</li>
+<li>S：Soft State，软状态，状态可以在一段时间内不同步</li>
+<li>E：Eventually Consistent，最终一致，在一定的时间窗口内，最终数据达成一致即可。</li>
+</ul>
+<h2 id="分布式一致性协议"><a href="#分布式一致性协议" class="headerlink" title="分布式一致性协议"></a>分布式一致性协议</h2><p>国际开放标准组织Open Group定义了DTS（分布式事务处理模型），模型中包含4种角色：应用程序、事务管理器、资源管理器和通信资源管理器。事务管理器是统管全局的管理者，资源管理器和通信资源管理器是事务的参与者。</p>
+<p>下面的两阶段提交协议、三阶段提交协议以及TCC协议，都是根据DTS这一思想演变而来的。</p>
+<h3 id="两阶段提交协议（强一致性）"><a href="#两阶段提交协议（强一致性）" class="headerlink" title="两阶段提交协议（强一致性）"></a>两阶段提交协议（强一致性）</h3><p>JEE的XA协议就是根据两阶段提交来保证事务的完整性，并实现分布式服务化的强一致性。</p>
+<p>两阶段提交协议把分布式事务分为两个阶段，一个是准备阶段，另一个是提交阶段。准备阶段和提交阶段都是由事务管理器发起的。</p>
+<p>两阶段提交协议的流程如下所述：</p>
+<ul>
+<li>准备阶段：事务管理器向资源管理器发起指令，资源管理器评估自己的状态，如果资源管理器评估指令可以完成，则会写redo 或者 undo日志，然后锁定资源，执行操作，但是并不提交</li>
+<li>提交阶段：如果每个资源管理器明确返回准备成功，也就是预留资源和执行操作成功，则事务管理器向资源管理器发起提交指令，资源管理器提交资源变更的事务，释放锁定的资源；如果任何一个资源管理器明确返回准备失败，也就是预留资源或者执行操作失败，则事务管理器向资源管理器发起终止之灵，资源管理器取消已经变更的事务，执行undo日志，释放锁定的资源。</li>
+</ul>
+<p><img src="https://huhansi.github.io/images/2020-04-11-2pc1.png" alt="两阶段事务提交成功"></p>
+<p><img src="https://huhansi.github.io/images/2020-04-11-2pc3.png" alt="两阶段事务提交成功"></p>
+<p><img src="https://huhansi.github.io/images/2020-04-11-2pc2.png" alt="两阶段事务提交失败，回滚"></p>
+<p>两阶段提交协议在准备阶段锁定资源，这时一个重量级的操作，能保证强一致性，但是实现起来复杂、成本较高、不够灵活，更重要的是它还有以下的致命问题：</p>
+<ul>
+<li>阻塞：任何一次指令都必须受到明确的响应，才会继续下一步，否则处于阻塞状态，占用的资源会被一直锁定，不会被释放。</li>
+<li>单点故障：如果事务管理器宕机，资源管理器没有事务管理器指挥，就会一直阻塞，尽管可以通过选择新的事务管理器替代原有的事务管理器，但是如果事务管理器在发送一个提交指令后宕机，并且提交指令仅仅被一个资源管理器接受，并且资源管理器接受后也宕机，那么新上任的资源管理器无法处理这种情况</li>
+<li>脑裂：事务管理器发送提交指令，有的资源管理器受到并执行了事务，有的没有收到就没有执行事务，多个参与者之间状态就不一致</li>
+</ul>
+<h3 id="三阶段提交协议"><a href="#三阶段提交协议" class="headerlink" title="三阶段提交协议"></a>三阶段提交协议</h3><p>三阶段提交协议是两阶段提交协议的改进版本。它通过超时机制解决了阻塞的问题，并把两阶段增加为以下三个阶段：</p>
+<ul>
+<li>询问阶段：事务管理器询问资源管理器是否可以完成指令，资源管理器只需要回答是或者不是，而不需要做真正的操作，这个阶段超时会导致终止。</li>
+<li>准备阶段：如果在询问阶段所有资源管理器都返回可以执行操作，则事务管理器向资源管理器发送预执行请求，然后资源管理器写redo和undo日志，执行操作但是不提交操作；如果在询问阶段任意资源管理器返回不能执行操作的结果，则事务管理器向资源管理器发送终止请求，这里的逻辑与两阶段提交协议的准备阶段是类似的</li>
+<li>提交阶段：如果每个资源管理器在准备阶段都返回准备成功，也就是说预留资源和执行操作成功，则事务管理器向资源管理器发起提交指令，资源管理器提交资源变更的事务，释放锁定的资源；如果任何参与者返回准备失败，也就是说预留资源或者执行操作失败，则事务管理器向资源管理器发起终止指令，资源管理器取消已经变更的事务，执行undo日志，释放锁定的资源，这里的逻辑与两阶段提交协议的提交阶段是一致的。</li>
+</ul>
+<p><img src="https://huhansi.github.io/images/2020-04-11-3pc1.png" alt="三阶段提交-询问阶段成功"></p>
+<p><img src="https://huhansi.github.io/images/2020-04-11-3pc2.png" alt="三阶段提交-询问阶段失败"></p>
+<p><img src="https://huhansi.github.io/images/2020-04-11-3pc3.png" alt="三阶段提交-准备阶段成功"></p>
+<p><img src="https://huhansi.github.io/images/2020-04-11-3pc4.png" alt="三阶段提交-准备阶段失败"></p>
+<p><img src="https://huhansi.github.io/images/2020-04-11-3pc5.png" alt="三阶段提交-提交成功时序图"></p>
+<p>三阶段提交协议与两阶段提交协议主要有以下两个不同点：</p>
+<ul>
+<li>增加了一个询问阶段，询问阶段可以确保尽可能早地发现无法执行操作而需要终止的行为，但是它并不能发现所有这种行为，只会减少这种情况发生</li>
+<li>在准备阶段以后，事务管理器和资源管理器执行的任务都增加了超时，一旦超时，则事务管理器和资源管理器都会继续提交事务，默认为成功，这也是根据概率统计超市后默认为成功的正确性最大。</li>
+</ul>
+<h3 id="TCC（最终一致性）"><a href="#TCC（最终一致性）" class="headerlink" title="TCC（最终一致性）"></a>TCC（最终一致性）</h3><p>TCC协议将一个任务拆分成Try、Confirm、Cancel三个步骤。正常流程会先执行Try，如果执行没有问题，则再执行Confirm，如果执行过程中出了问题，则执行操作的逆操作Cancel。</p>
+<ul>
+<li>Try：尝试执行,完成所有业务检查（一致性）,预留必须业务资源（准隔离性）</li>
+<li>Confirm：确认执行真正执行业务，不作任何业务检查，只使用Try阶段预留的业务资源，Confirm操作满足幂等性。要求具备幂等设计，Confirm失败后需要进行重试。</li>
+<li>Cancel：取消执行，释放Try阶段预留的业务资源。 Cancel操作满足幂等性，Cancel阶段的异常和Confirm阶段异常处理方案基本上一致。</li>
+</ul>
+<p>从正常流程上讲，这仍然是一个两阶段提交协议，但是在执行出现问题时有一定的自我修复能力，如果任何参与者出现了问题，则事务管理器通过执行操作的逆操作Cancel之前的操作，达到最终一致的状态。</p>
+<h3 id="本地消息表（最终一致性）"><a href="#本地消息表（最终一致性）" class="headerlink" title="本地消息表（最终一致性）"></a>本地消息表（最终一致性）</h3><p><a href="%5Bhttps://queue.acm.org/detail.cfm?id=1394128%E3%80%82%5D(https://queue.acm.org/detail.cfm?id=1394128%E3%80%82)">本地消息表</a>的方案最初是由ebay提出的。核心思路是将分布式事务拆分成本地事务进行处理。方案通过在事务主动发起方额外新建事务消息表，事务发起方处理业务和记录事务消息在本地事务中完成，轮询事务消息表的数据发送事务消息，事务被动方基于消息中间件消费事务消息表中的事务。</p>
+<p>这样设计可以避免“<strong>业务处理成功+事务消息发送失败</strong>”或“<strong>业务处理失败+事务消息发送成功</strong>”的棘手情况出现，保证2个系统事务的数据一致性。</p>
+<p><img src="https://huhansi.github.io/images/2020-04-11-local-message.png" alt="本地消息表"></p>
+<p>以上文案例1为例，扣库存和下订单服务分布在不同的服务器节点上，其中库存服务是事务主动方，订单服务是事务被动方。</p>
+<p>事务的主动方需要往外新建事务消息表，用于记录分布式事务的消息的发生、处理状态。</p>
+<p>整个业务处理流程如下：</p>
+<p><img src="https://huhansi.github.io/images/2020-04-11-local-message.png" alt="本地消息表业务流程"></p>
+<ol>
+<li>事务主动方处理本地事务</li>
+<li>事务主动方通过消息中间件，通知事务被动方处理事务</li>
+<li>事务被动方通过消息中间件，通知事务主动方已处理的消息</li>
+</ol>
+<p>为了数据一致性，当处理错误需要重试，事务发送方和事务接收方相关业务处理需要支持幂等。具体保存一致性的容错处理如下：</p>
+<ol>
+<li>当步骤1处理出错，事务回滚，等同于什么都没有发生</li>
+<li>当步骤2、步骤3处理出错，由于未处理的事务消息还是保存在事务发送方，事务发送方可以定时轮询为超时消息数据，再次发送的消息中间件进行处理。事务被动方消费事务消息重试处理。</li>
+<li>如果是业务上的失败，事务被动方可以发消息给事务主动方进行回滚。</li>
+<li>如果多个事务被动方已经消费消息，事务主动方需要回滚事务时需要通知事务被动方回滚。</li>
+</ol>
+<h3 id="MQ事务（最终一致性）"><a href="#MQ事务（最终一致性）" class="headerlink" title="MQ事务（最终一致性）"></a>MQ事务（最终一致性）</h3><p>基于MQ的分布式事务方案其实是对本地消息表的封装，将本地消息表基于MQ 内部，其他方面的协议基本与本地消息表一致。</p>
+<p>在本地消息表方案中，保证事务主动方发写业务表数据和写消息表数据的一致性是基于数据库事务，RocketMQ的事务消息相对于普通MQ，相对于提供了2PC的提交接口，方案如下：</p>
+<p><strong>正常情况——事务主动方发消息</strong> 这种情况下，事务主动方服务正常，没有发生故障，发消息流程如下：</p>
+<p><img src="https://huhansi.github.io/images/2020-04-12-mq-transaction.png" alt="MQ事务成功"></p>
+<ol>
+<li>发送方向 MQ服务端(MQ Server)发送half消息</li>
+<li>MQ Server 将消息持久化成功之后，向发送方 ACK 确认消息已经发送成功</li>
+<li>发送方开始执行本地事务逻辑</li>
+<li>发送方根据本地事务执行结果向 MQ Server 提交二次确认（commit 或是 rollback）</li>
+<li>MQ Server 收到 commit 状态则将半消息标记为可投递，订阅方最终将收到该消息；MQ Server 收到 rollback 状态则删除half消息，订阅方将不会接受该消息。</li>
+</ol>
+<p><img src="https://huhansi.github.io/images/2020-04-12-mq-transaction1.png" alt="MQ事务异常"></p>
+<ol>
+<li>MQ Server 对该消息发起消息回查。</li>
+<li>发送方收到消息回查后，需要检查对应消息的本地事务执行的最终结果。</li>
+<li>发送方根据检查得到的本地事务的最终状态再次提交二次确认</li>
+<li>MQ Server基于commit &#x2F; rollback 对消息进行投递或者删除</li>
+</ol>
+<h3 id="Saga事务（最终一致性）"><a href="#Saga事务（最终一致性）" class="headerlink" title="Saga事务（最终一致性）"></a>Saga事务（最终一致性）</h3><p>其核心思想是将长事务拆分为多个本地短事务，由Saga事务协调器协调，如果正常结束那就正常完成，如果某个步骤失败，则根据相反顺序一次调用补偿操作。</p>
+<p>每个Saga事务都是由一些<strong>本地</strong>子事务T1、T2、……、Tn组成，对应的每个事务Ti，都会有一Ti，撤销操作Ci。</p>
+<p>Saga事务只有两种执行路径：</p>
+<ol>
+<li>事务正常执行完成：T1、T2、……、Tn</li>
+<li>事务Ti执行失败：T1、T2、……、Ti、Ci、Ci-1、……、C1</li>
+</ol>
+<p><img src="https://huhansi.github.io/images/2020-04-12-saga.png" alt="Saga事务执行情况"></p>
+<h4 id="Saga恢复策略"><a href="#Saga恢复策略" class="headerlink" title="Saga恢复策略"></a>Saga恢复策略</h4><h5 id="向前恢复"><a href="#向前恢复" class="headerlink" title="向前恢复"></a>向前恢复</h5><p><img src="https://huhansi.github.io/images/2020-04-12-saga1.png" alt="向前恢复"></p>
+<p>本地事务Ti执行失败，就一直执行Ti，直到成功为止，在这种情况下，没有对应的撤销Ci操作。</p>
+<h5 id="向后恢复"><a href="#向后恢复" class="headerlink" title="向后恢复"></a>向后恢复</h5><p><img src="https://huhansi.github.io/images/2020-04-12-saga2.png" alt="向后恢复"></p>
+<p>本地事务Ti执行失败，就执行对应的撤销操作Ci，直到执行完C0为止。</p>
+<h4 id="实现方式"><a href="#实现方式" class="headerlink" title="实现方式"></a>实现方式</h4><h5 id="命令协调"><a href="#命令协调" class="headerlink" title="命令协调"></a>命令协调</h5><p>中央协调器负责集中处理事件的决策和业务逻辑排序。</p>
+<p>中央协调器（Orchestrator，简称OSO）以命令&#x2F;回复的方式与每项服务进行通信，全权负责告诉每个参与者该做什么以及什么时候该做什么。</p>
+<p><img src="https://huhansi.github.io/images/2020-04-12-saga3.png" alt="Saga命令协调模式"></p>
+<h5 id="事件编排"><a href="#事件编排" class="headerlink" title="事件编排"></a>事件编排</h5><p>没有中央协调器（没有单点风险）时，每个服务产生并观察其他服务的事件，并决定是否应采取行动。</p>
+<p>在事件编排方法中，第一个服务执行一个事务，然后发布一个事件。该事件被一个或多个服务进行监听，这些服务再执行本地事务并发布（或不发布）新的事件。</p>
+<p>当最后一个服务执行本地事务并且不发布任何事件时，意味着分布式事务结束，或者它发布的事件没有被任何Saga参与者听到都意味着事务结束。</p>
+<p><img src="https://huhansi.github.io/images/2020-04-12-saga4.png" alt="Saga事件编排"></p>
+<h2 id="保证最终一致性的模式"><a href="#保证最终一致性的模式" class="headerlink" title="保证最终一致性的模式"></a>保证最终一致性的模式</h2><p>在大规模、高并发服务化系统中，一个功能被拆分成多个具有单一功能的子功能，一个流程会有多个系统的多个单一功能的服务组合实现，如果实现两阶段提交协议和三阶段提交协议，则缺失能解决系统间的一致性问题。除了这两个协议的自身问题，其实现也比较复杂、成本比较高，最重要的是性能不好，相比来看，TCC协议更简单且更容易实现，但是TCC协议由于每个事务都需要执行Try，再执行Confirm，略显臃肿，因此，现实系统的底线是仅仅需要达到最终一致性，而不需要实现专业的、复杂的一致性协议。实现最终一致性有一些非常有效、简单的模式。</p>
+<h3 id="查询模式"><a href="#查询模式" class="headerlink" title="查询模式"></a>查询模式</h3><p>任何服务操作都需要提供一个查询接口，用来向外部输出操作执行的状态。服务操作的使用方可以通过查询接口的值服务操作的执行状态，然后根据不同的状态来做不同的处理操作。</p>
+<p>上文的案例2-5，可以使用查询模式来了解被调用服务的处理情况，决定下一步做什么，例如是补偿未完成的操作还是混滚已经完成的操作。</p>
+<h3 id="补偿模式"><a href="#补偿模式" class="headerlink" title="补偿模式"></a>补偿模式</h3><p>为了让系统最终达到一状态而做的牡蛎都叫做补偿操作。</p>
+<p>补偿操作根据发起形式分为以下几种：</p>
+<ul>
+<li>自动恢复：程序根据发生不一致的环境，通过继续进行未完成的操作，或者回滚已经完成的操作，来自动达到一致状态</li>
+<li>通知运营：如果程序无法自动恢复，并且设计时考虑到了不一致的场景，则可以提供运营功能，通过运营手动进行补偿</li>
+<li>如果很不巧，系统无法自动恢复，有没有运营功能，那么必须通过技术手段来解决，技术手段包括进行数据库变更或者代码变更</li>
+</ul>
+<h3 id="异步确保模式"><a href="#异步确保模式" class="headerlink" title="异步确保模式"></a>异步确保模式</h3><p>异步确保模式是补偿模式的一个典型案例，经常应用到使用方对响应时间要求不太高的场景中，通常把这类操作从主流程中摘除，通过异步的方式进行处理，处理后把结果通过通知系统通知给使用方。</p>
+<p>案例3中，若对某个操作没有收到响应，则通过查询模式、补偿模式和异步确保模式来继续未完成的操作。</p>
+<h3 id="定期校对模式"><a href="#定期校对模式" class="headerlink" title="定期校对模式"></a>定期校对模式</h3><p>在操作主流程中的系统间执行校对操作，可以在时候异步的批量校对操作的状态，如果发现不一致的操作，则进行补偿。</p>
+<p>对于案例4和4，通常通过定期校对模式发现问题，并通过补偿模式来修复，最后达到系统间的最终一致性。</p>
+<h3 id="可靠消息模式"><a href="#可靠消息模式" class="headerlink" title="可靠消息模式"></a>可靠消息模式</h3><p>通过消息队列实现异步化。</p>
+<h4 id="消息的可靠发送"><a href="#消息的可靠发送" class="headerlink" title="消息的可靠发送"></a>消息的可靠发送</h4><p>消息的可靠发送可以认为是仅最大努力发送消息通知，有以下两种实现方法。</p>
+<p>第一种是在发送消息之前将消息持久到数据库，状态标记为待发送，然后发送消息，如果发送成功，则将消息改为发送成功。定时任务定时从数据库老区在一定时间内未发送的消息并发送。</p>
+<p>第二种是持久消息的数据库时独立的。</p>
+<h4 id="消息处理器的幂等性"><a href="#消息处理器的幂等性" class="headerlink" title="消息处理器的幂等性"></a>消息处理器的幂等性</h4><ul>
+<li>使用数据库表的唯一键进行滤重</li>
+<li>使用分布式表对请求进行滤重</li>
+<li>使用状态流转的方向性来滤重，通常使用数据库的行级锁进行实现</li>
+<li>根据业务的特点，操作本身就是幂等的，例如：删除一个资源等</li>
+</ul>
+<h3 id="缓存一致性模式"><a href="#缓存一致性模式" class="headerlink" title="缓存一致性模式"></a>缓存一致性模式</h3><ul>
+<li>如果性能要求不是非常高，则尽量使用分布式缓存，而不要使用本地缓存</li>
+<li>写缓存时数据一定要完成，如果缓存数据的一部分有效，另一部分无效，则宁可在需要时回源数据库，也不要把部分数据放入缓存中</li>
+<li>使用缓存牺牲了一致性，为了提高性能，数据库与缓存只需要保持弱一致性，而不需要保持强一致性，否则就违背了使用缓存的初衷</li>
+<li>读的顺序是先读缓存，后读数据库，写的顺序是先写数据库，后写缓存。</li>
+</ul>
+<h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><p><a href="">百度百科-分布式事务</a></p>
+<p><a target="_blank" rel="noopener" href="https://juejin.im/post/5b5a0bf9f265da0f6523913b">再有人问你分布式事务，把这篇扔给他</a></p>
+<p><a target="_blank" rel="noopener" href="https://juejin.im/post/5c0e5bf8e51d45063322fe50">理解分布式事务</a></p>
+<p><a href="">分布式服务架构原理、设计与实战</a></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/%E5%88%86%E5%B8%83%E5%BC%8F%E4%BA%8B%E5%8A%A1/" rel="tag"># 分布式事务</a>
+          
+            <a href="/tags/CAP/" rel="tag"># CAP</a>
+          
+            <a href="/tags/BASE/" rel="tag"># BASE</a>
+          
+            <a href="/tags/DTS/" rel="tag"># DTS</a>
+          
+            <a href="/tags/%E4%B8%A4%E9%98%B6%E6%AE%B5%E6%8F%90%E4%BA%A4/" rel="tag"># 两阶段提交</a>
+          
+            <a href="/tags/%E4%B8%89%E9%98%B6%E6%AE%B5%E6%8F%90%E4%BA%A4/" rel="tag"># 三阶段提交</a>
+          
+            <a href="/tags/TCC/" rel="tag"># TCC</a>
+          
+            <a href="/tags/%E6%9C%AC%E5%9C%B0%E6%B6%88%E6%81%AF%E8%A1%A8/" rel="tag"># 本地消息表</a>
+          
+            <a href="/tags/MQ%E4%BA%8B%E5%8A%A1/" rel="tag"># MQ事务</a>
+          
+            <a href="/tags/Saga%E4%BA%8B%E5%8A%A1/" rel="tag"># Saga事务</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/posts/5858/" rel="next" title="分布式锁的几种实现方式">
+                <i class="fa fa-chevron-left"></i> 分布式锁的几种实现方式
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/posts/4efa/" rel="prev" title="分布式ID生成-SnowFlake实现">
+                分布式ID生成-SnowFlake实现 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name"></p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/%7C%7Carchive">
+              
+                  <span class="site-state-item-count">917</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">27</span>
+                  <span class="site-state-item-name">categories</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">359</span>
+                  <span class="site-state-item-name">tags</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%88%86%E5%B8%83%E5%BC%8F%E4%BA%8B%E5%8A%A1%E5%85%A5%E9%97%A8"><span class="nav-number">1.</span> <span class="nav-text">分布式事务入门</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF%E5%88%86%E5%B8%83%E5%BC%8F%E4%BA%8B%E5%8A%A1"><span class="nav-number">1.1.</span> <span class="nav-text">什么是分布式事务</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%86%E5%B8%83%E5%BC%8F%E7%B3%BB%E7%BB%9F%E7%9A%84%E4%B8%80%E8%87%B4%E6%80%A7%E9%97%AE%E9%A2%98"><span class="nav-number">1.2.</span> <span class="nav-text">分布式系统的一致性问题</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%8B%E8%AE%A2%E5%8D%95%E5%92%8C%E6%89%A3%E5%BA%93%E5%AD%98"><span class="nav-number">1.2.1.</span> <span class="nav-text">下订单和扣库存</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%90%8C%E6%AD%A5%E8%B0%83%E7%94%A8%E8%B6%85%E6%97%B6"><span class="nav-number">1.2.2.</span> <span class="nav-text">同步调用超时</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BC%82%E6%AD%A5%E5%9B%9E%E8%B0%83%E8%B6%85%E6%97%B6"><span class="nav-number">1.2.3.</span> <span class="nav-text">异步回调超时</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8E%89%E5%8D%95"><span class="nav-number">1.2.4.</span> <span class="nav-text">掉单</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%B3%BB%E7%BB%9F%E9%97%B4%E7%8A%B6%E6%80%81%E4%B8%8D%E4%B8%80%E8%87%B4"><span class="nav-number">1.2.5.</span> <span class="nav-text">系统间状态不一致</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BC%93%E5%AD%98%E5%92%8C%E6%95%B0%E6%8D%AE%E5%BA%93%E4%B8%8D%E4%B8%80%E8%87%B4"><span class="nav-number">1.2.6.</span> <span class="nav-text">缓存和数据库不一致</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9C%AC%E5%9C%B0%E7%BC%93%E5%AD%98%E8%8A%82%E7%82%B9%E9%97%B4%E4%B8%8D%E4%B8%80%E8%87%B4"><span class="nav-number">1.2.7.</span> <span class="nav-text">本地缓存节点间不一致</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BC%93%E5%AD%98%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8D%E4%B8%80%E8%87%B4"><span class="nav-number">1.2.8.</span> <span class="nav-text">缓存数据结构不一致</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%86%E5%B8%83%E5%BC%8F%E4%BA%8B%E5%8A%A1%E7%9A%84%E7%90%86%E8%AE%BA%E5%9F%BA%E7%A1%80"><span class="nav-number">1.3.</span> <span class="nav-text">分布式事务的理论基础</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#CAP"><span class="nav-number">1.3.1.</span> <span class="nav-text">CAP</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#BASE"><span class="nav-number">1.3.2.</span> <span class="nav-text">BASE</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%86%E5%B8%83%E5%BC%8F%E4%B8%80%E8%87%B4%E6%80%A7%E5%8D%8F%E8%AE%AE"><span class="nav-number">1.4.</span> <span class="nav-text">分布式一致性协议</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%A4%E9%98%B6%E6%AE%B5%E6%8F%90%E4%BA%A4%E5%8D%8F%E8%AE%AE%EF%BC%88%E5%BC%BA%E4%B8%80%E8%87%B4%E6%80%A7%EF%BC%89"><span class="nav-number">1.4.1.</span> <span class="nav-text">两阶段提交协议（强一致性）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%89%E9%98%B6%E6%AE%B5%E6%8F%90%E4%BA%A4%E5%8D%8F%E8%AE%AE"><span class="nav-number">1.4.2.</span> <span class="nav-text">三阶段提交协议</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#TCC%EF%BC%88%E6%9C%80%E7%BB%88%E4%B8%80%E8%87%B4%E6%80%A7%EF%BC%89"><span class="nav-number">1.4.3.</span> <span class="nav-text">TCC（最终一致性）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9C%AC%E5%9C%B0%E6%B6%88%E6%81%AF%E8%A1%A8%EF%BC%88%E6%9C%80%E7%BB%88%E4%B8%80%E8%87%B4%E6%80%A7%EF%BC%89"><span class="nav-number">1.4.4.</span> <span class="nav-text">本地消息表（最终一致性）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#MQ%E4%BA%8B%E5%8A%A1%EF%BC%88%E6%9C%80%E7%BB%88%E4%B8%80%E8%87%B4%E6%80%A7%EF%BC%89"><span class="nav-number">1.4.5.</span> <span class="nav-text">MQ事务（最终一致性）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Saga%E4%BA%8B%E5%8A%A1%EF%BC%88%E6%9C%80%E7%BB%88%E4%B8%80%E8%87%B4%E6%80%A7%EF%BC%89"><span class="nav-number">1.4.6.</span> <span class="nav-text">Saga事务（最终一致性）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Saga%E6%81%A2%E5%A4%8D%E7%AD%96%E7%95%A5"><span class="nav-number">1.4.6.1.</span> <span class="nav-text">Saga恢复策略</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%90%91%E5%89%8D%E6%81%A2%E5%A4%8D"><span class="nav-number">1.4.6.1.1.</span> <span class="nav-text">向前恢复</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%90%91%E5%90%8E%E6%81%A2%E5%A4%8D"><span class="nav-number">1.4.6.1.2.</span> <span class="nav-text">向后恢复</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AE%9E%E7%8E%B0%E6%96%B9%E5%BC%8F"><span class="nav-number">1.4.6.2.</span> <span class="nav-text">实现方式</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%91%BD%E4%BB%A4%E5%8D%8F%E8%B0%83"><span class="nav-number">1.4.6.2.1.</span> <span class="nav-text">命令协调</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E4%BA%8B%E4%BB%B6%E7%BC%96%E6%8E%92"><span class="nav-number">1.4.6.2.2.</span> <span class="nav-text">事件编排</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BF%9D%E8%AF%81%E6%9C%80%E7%BB%88%E4%B8%80%E8%87%B4%E6%80%A7%E7%9A%84%E6%A8%A1%E5%BC%8F"><span class="nav-number">1.5.</span> <span class="nav-text">保证最终一致性的模式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9F%A5%E8%AF%A2%E6%A8%A1%E5%BC%8F"><span class="nav-number">1.5.1.</span> <span class="nav-text">查询模式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%A1%A5%E5%81%BF%E6%A8%A1%E5%BC%8F"><span class="nav-number">1.5.2.</span> <span class="nav-text">补偿模式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BC%82%E6%AD%A5%E7%A1%AE%E4%BF%9D%E6%A8%A1%E5%BC%8F"><span class="nav-number">1.5.3.</span> <span class="nav-text">异步确保模式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%9A%E6%9C%9F%E6%A0%A1%E5%AF%B9%E6%A8%A1%E5%BC%8F"><span class="nav-number">1.5.4.</span> <span class="nav-text">定期校对模式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8F%AF%E9%9D%A0%E6%B6%88%E6%81%AF%E6%A8%A1%E5%BC%8F"><span class="nav-number">1.5.5.</span> <span class="nav-text">可靠消息模式</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%B6%88%E6%81%AF%E7%9A%84%E5%8F%AF%E9%9D%A0%E5%8F%91%E9%80%81"><span class="nav-number">1.5.5.1.</span> <span class="nav-text">消息的可靠发送</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%B6%88%E6%81%AF%E5%A4%84%E7%90%86%E5%99%A8%E7%9A%84%E5%B9%82%E7%AD%89%E6%80%A7"><span class="nav-number">1.5.5.2.</span> <span class="nav-text">消息处理器的幂等性</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BC%93%E5%AD%98%E4%B8%80%E8%87%B4%E6%80%A7%E6%A8%A1%E5%BC%8F"><span class="nav-number">1.5.6.</span> <span class="nav-text">缓存一致性模式</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%82%E8%80%83%E8%B5%84%E6%96%99"><span class="nav-number">1.6.</span> <span class="nav-text">参考资料</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">HanSi</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">Site words total count&#58;</span>
+    
+    <span title="Site words total count">657.4k</span>
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
